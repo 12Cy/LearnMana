@@ -34,6 +34,24 @@ namespace LearnMonoGame.Manager
 
             AnimationDictionary.Add(AnimationName.player, playerDic);
 
+            //LoadDummy
+
+            Dictionary<AnimationKey, Animation> dummyDic = new Dictionary<AnimationKey, Animation>();
+
+            Animation animation1 = new Animation(3, 32, 32, 0, 0);
+            dummyDic.Add(AnimationKey.WalkDown, animation1);
+
+            animation1 = new Animation(3, 32, 32, 0, 32);
+            dummyDic.Add(AnimationKey.WalkLeft, animation1);
+
+            animation1 = new Animation(3, 32, 32, 0, 64);
+            dummyDic.Add(AnimationKey.WalkRight, animation1);
+
+            animation1 = new Animation(3, 32, 32, 0, 96);
+            dummyDic.Add(AnimationKey.WalkUp, animation1);
+
+            AnimationDictionary.Add(AnimationName.dummy, dummyDic);
+
         }
         public static Dictionary <AnimationKey, Animation> GetAnimation (AnimationName animationName)
         {
@@ -56,6 +74,7 @@ namespace LearnMonoGame.Manager
         public enum AnimationName
         {
             player,
+            dummy,
 
         }
     }

@@ -1,6 +1,7 @@
 ﻿using LearnMonoGame.Components;
 using LearnMonoGame.Manager;
 using LearnMonoGame.PlayerComponents;
+using LearnMonoGame.Summoneds;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -70,6 +71,25 @@ namespace LearnMonoGame.Tools
                     player.SetSelected(true);
                     mSelectionBox = new Rectangle(-1, -1, 0, 0); //defaultWert
                     Console.WriteLine("Player Select");
+                    return true;
+                }
+
+                mSelectionBox = new Rectangle(-1, -1, 0, 0); //wenn der Spieler nicht im Bereich war Reset!
+            }
+            return false;
+        }
+
+        public bool CheckSelected(Summoned obj)
+        {
+            Rectangle objRectangle = new Rectangle((int)obj.Pos.X, (int)obj.Pos.Y, 32, 32);
+
+            if (xIn.CheckMouseReleased(MouseButtons.Left))
+            {
+                if (mSelectionBox.Intersects(objRectangle))//player.Pos.X > mSelectionBox.X && player.Pos.X < mSelectionBox.X + mSelectionBox.Width && player.Pos.Y > mSelectionBox.Y && player.Pos.Y < mSelectionBox.Y + mSelectionBox.Height)
+                {
+                    obj.IsSelect = true;
+                    mSelectionBox = new Rectangle(-1, -1, 0, 0); //defaultWert
+                    Console.WriteLine("Creatur Select");
                     return true;
                 }
 

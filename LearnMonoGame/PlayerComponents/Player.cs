@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using LearnMonoGame.Summoneds;
 
 namespace LearnMonoGame.PlayerComponents
 {
@@ -35,6 +36,7 @@ namespace LearnMonoGame.PlayerComponents
 
         //Select
         Texture2D selectedTexture;
+        Texture2D damageselectedTexture;
         bool selected;
 
         //Movement
@@ -54,6 +56,7 @@ namespace LearnMonoGame.PlayerComponents
 
         //Weapon
         List<Fireball> fireballList = new List<Fireball>();
+        int fireBallCost = 15;
         Vector2 rangeDestination;
         bool attackMode = false;
 
@@ -98,7 +101,7 @@ namespace LearnMonoGame.PlayerComponents
         {
             moveDestination = pos;
             //Select
-            selectedTexture = _CM.GetTexture(_CM.TextureName.selected);
+            
             selected = false;
 
             attackMode = false;
@@ -119,6 +122,11 @@ namespace LearnMonoGame.PlayerComponents
             //life
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             manaTexture = _CM.GetTexture(_CM.TextureName.backLife);
+
+            //Select
+            selectedTexture = _CM.GetTexture(_CM.TextureName.selected);
+            damageselectedTexture = _CM.GetTexture(_CM.TextureName.damageselect);
+
         }
 
         public void UnloadContent()
@@ -155,11 +163,17 @@ namespace LearnMonoGame.PlayerComponents
 
             }
             //ToDo Hier alle Zauber rein
-            if (xIn.CheckMouseReleased(MouseButtons.Right) && attackMode)
+            if (xIn.CheckMouseReleased(MouseButtons.Right) && attackMode && currentMana >= fireBallCost)
             {
-               //Spell: Fireball
+                //Spell: Fireball
+                CalculateMana(-fireBallCost);
                 rangeDestination = new Vector2(xIn.MouseState.X, xIn.MouseState.Y) -  new Vector2( pos.X + size/2, pos.Y + size/2);
                 ShootFireball();
+                //Spell: Summon Dummy
+                Dummy a = new Dummy(new Vector2(xIn.MouseState.X, xIn.MouseState.Y));
+                a.Initialize();
+                PlayerManager.Instance.mySummoned.Add(a);
+
 
             }
             DebugShit();
@@ -272,7 +286,7 @@ namespace LearnMonoGame.PlayerComponents
                     animatedSprite.IsAnimating = false;
                 }
 
-                //PATHFINDER
+                //ToDo: PATHFINDER
                  
             }
             else
@@ -310,7 +324,10 @@ namespace LearnMonoGame.PlayerComponents
                 spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - size/2 -5, size, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
                 spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - size/2 -5 ,(int)(size * ((float)currentMana / maxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
                 spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - size/2 -5, size, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
-                spritebatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, size, size), Color.White);
+                if(playerhit)
+                    spritebatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, size, size), Color.White);
+                else
+                    spritebatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, size, size), Color.White);
             }
 
         }

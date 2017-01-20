@@ -45,6 +45,8 @@ namespace LearnMonoGame.Manager
             textureDictionary.Add(TextureName.select, Content.Load<Texture2D>("Select//DottedLine3"));
             textureDictionary.Add(TextureName.selectCircle, Content.Load<Texture2D>("Select//Circle"));
             textureDictionary.Add(TextureName.selected, Content.Load<Texture2D>("Select//selected"));
+            textureDictionary.Add(TextureName.damageselect, Content.Load<Texture2D>("Select//Damageselected"));
+
             //Weapons
             textureDictionary.Add(TextureName.fireball, Content.Load<Texture2D>("Player//Weapons//Fireball"));
             //HealthBar
@@ -58,7 +60,8 @@ namespace LearnMonoGame.Manager
             textureDictionary.Add(TextureName.stoneTile, Content.Load<Texture2D>("Map//Tiles//Stone"));
             textureDictionary.Add(TextureName.waterTile, Content.Load<Texture2D>("Map//Tiles//Water"));
 
-
+            //Monster
+            textureDictionary.Add(TextureName.dummy, Content.Load<Texture2D>("Monster//Dummy"));
 
         }
         static void LoadFont()
@@ -76,10 +79,12 @@ namespace LearnMonoGame.Manager
             waterTile,
             select,
             selected,
+            damageselect,
             selectCircle,
             backLife,
             frontLife,
             fireball,
+            dummy,
                 
         }
         public enum FontName

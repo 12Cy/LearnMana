@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using LearnMonoGame.Tools;
 using LearnMonoGame.PlayerComponents;
+using LearnMonoGame.Summoneds;
 using LearnMonoGame.Map;
 using LearnMonoGame.Manager;
 using Microsoft.Xna.Framework.Input;
@@ -18,7 +19,7 @@ namespace LearnMonoGame.GameStates
     class PlayState : IGameState
     {
 #region Field Region
-
+        
         Player player;
         Game1 gameref;
         SelectBar selectBar; //Selektiert die Player/Monsters
@@ -54,6 +55,7 @@ namespace LearnMonoGame.GameStates
             selectBar = new SelectBar();
             player = new Player(gameref, new Vector2(200, 200),_CM.GetTexture(_CM.TextureName.player));
             player.Initialize();
+
         }
 
         public void LoadContent(ContentManager content)
@@ -66,6 +68,12 @@ namespace LearnMonoGame.GameStates
             MapStuff.Instance.map.Update(gTime);
             player.Update(gTime);
             selectBar.Update(player);
+
+            foreach (Summoned a in PlayerManager.Instance.mySummoned)
+            {
+                a.Update(gTime);
+                selectBar.CheckSelected(a);
+            }
             selectBar.CheckSelected(player);
 
 
@@ -85,6 +93,11 @@ namespace LearnMonoGame.GameStates
             MapStuff.Instance.map.Draw(spriteBatch);
 
             player.Draw(spriteBatch);
+            foreach (Summoned a in PlayerManager.Instance.mySummoned)
+            {
+                a.Draw(spriteBatch);
+            }
+
             selectBar.Draw(spriteBatch);
 
 
