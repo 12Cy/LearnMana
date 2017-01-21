@@ -54,27 +54,23 @@ namespace LearnMonoGame.GameStates
             MapStuff.Instance.map = new Tilemap(new Texture2D[] { _CM.GetTexture(_CM.TextureName.grassTile), _CM.GetTexture(_CM.TextureName.stoneTile), _CM.GetTexture(_CM.TextureName.waterTile) }, _CM.GetTexture(_CM.TextureName.map), new Point(32,9));
             MapStuff.Instance.camera = new Camera();
             MapStuff.Instance.camera.Zoom = 1f;
+
             selectBar = new SelectBar();
             player = new Player(gameref, new Vector2(200, 200),_CM.GetTexture(_CM.TextureName.player));
-            player.Initialize();
 
         }
 
-        public void LoadContent(ContentManager content)
-        {
-            player.LoadContent(content);
-        }
 
         public EGameState Update(GameTime gTime)
         {
             MapStuff.Instance.map.Update(gTime);
             player.Update(gTime);
-            selectBar.Update(player);
-
             foreach (Summoned a in PlayerManager.Instance.mySummoned)
             {
                 a.Update(gTime);
             }
+
+            selectBar.Update(player);
             selectBar.CheckSelected(player);
 
 
@@ -103,7 +99,9 @@ namespace LearnMonoGame.GameStates
             selectBar.Draw(spriteBatch);
 
             spriteBatch.End();
+
             spriteBatch.Begin();
+
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "HALLO KLEINER FREUND", new Vector2(100, 100), Color.Orange);
             spriteBatch.End();
         }
@@ -113,7 +111,6 @@ namespace LearnMonoGame.GameStates
           
         }
 #endregion
-
 
     }
 }

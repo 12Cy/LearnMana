@@ -19,14 +19,15 @@ namespace LearnMonoGame.Tools
         Rectangle playerBounds;
         int offsetHorizonzal = 8;
         int offsetVertical = 8;
-        //Offset der Texture
+
+        //Offset der Texture(Größe)
         int offsetWidth = 5;
         int offsetHeight = 1;
         Texture2D dottedLine;
-        MouseState mPreviousMouseState;
-        int size = MapStuff.Instance.size;
-        
 
+        int size = MapStuff.Instance.size;
+
+        MouseState mPreviousMouseState;
 
         public SelectBar()
         {
@@ -44,24 +45,20 @@ namespace LearnMonoGame.Tools
             if (aMouse.LeftButton == ButtonState.Pressed && mPreviousMouseState.LeftButton == ButtonState.Released)
                 mSelectionBox = new Rectangle((int)xIn.MousePosition.X,(int)xIn.MousePosition.Y, 0, 0);
 
-            //Console.WriteLine("PlayerPos: " + player.Pos.X +" & " + player.Pos.Y + " MousePos: "+ aMouse.X + " und " + aMouse.Y);
 
             //still pressed- re-size where the mouse has currently been moved to.
             if (aMouse.LeftButton == ButtonState.Pressed)
             {
                 player.SetSelected(false);
                 player.AttackMode = false;
-                Console.WriteLine("NOT Select");
                 foreach (Summoned a in PlayerManager.Instance.mySummoned)
                         a.IsSelect = false;
 
-
                 mSelectionBox = new Rectangle(mSelectionBox.X, mSelectionBox.Y, (int)xIn.MousePosition.X - mSelectionBox.X, (int)xIn.MousePosition.Y - mSelectionBox.Y);
             }
-                
             //Store the previous mouse state
             mPreviousMouseState = aMouse;
-
+          
         }
 
         /// <CheckSelected>
@@ -69,8 +66,17 @@ namespace LearnMonoGame.Tools
         /// </CheckSelected>
         public void CheckSelected(Player player)
         {
+            //Maus loslassen!
             if (xIn.CheckMouseReleased(MouseButtons.Left))    
             {
+                if(mSelectionBox.Height < 0 && mSelectionBox.Width < 0)
+                    mSelectionBox = new Rectangle(mSelectionBox.X + mSelectionBox.Width, mSelectionBox.Y + mSelectionBox.Height, Math.Abs(mSelectionBox.Width), Math.Abs(mSelectionBox.Height));
+                if(mSelectionBox.Height < 0 && mSelectionBox.Width > 0)
+                    mSelectionBox = new Rectangle(mSelectionBox.X, mSelectionBox.Y + mSelectionBox.Height, Math.Abs(mSelectionBox.Width), Math.Abs(mSelectionBox.Height));
+                if(mSelectionBox.Height > 0 && mSelectionBox.Width < 0)
+                    mSelectionBox = new Rectangle(mSelectionBox.X + mSelectionBox.Width, mSelectionBox.Y, Math.Abs(mSelectionBox.Width), Math.Abs(mSelectionBox.Height));
+
+
                 if (mSelectionBox.Intersects(playerBounds))//player.Pos.X > mSelectionBox.X && player.Pos.X < mSelectionBox.X + mSelectionBox.Width && player.Pos.Y > mSelectionBox.Y && player.Pos.Y < mSelectionBox.Y + mSelectionBox.Height)
                 {
                     player.SetSelected(true);
@@ -80,7 +86,7 @@ namespace LearnMonoGame.Tools
                 }
                 foreach (Summoned a in PlayerManager.Instance.mySummoned)
                 {
-                    Rectangle summonRectangle = new Rectangle((int)a.Pos.X, (int)a.Pos.Y, 32, 32);
+                    Rectangle summonRectangle = new Rectangle((int)a.Pos.X, (int)a.Pos.Y, a.Width, a.Height);
                     if (mSelectionBox.Intersects(summonRectangle))
                         a.IsSelect = true;
 
