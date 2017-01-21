@@ -12,9 +12,21 @@ namespace LearnMonoGame.Components
     class Camera
     {
         public Vector2 position;
+        float zoom;
+
+        public float Zoom
+        {
+            get { return zoom; }
+            set { zoom = value; if (zoom < 0.1f) zoom = 0.1f; }
+        }
+
+        public Vector2 Position
+        {
+            get { return position ; }
+        }
         public Camera()
         {
-            position =  MapStuff.Instance.startPosition - new Vector2(64, MapStuff.Instance.y);
+            position = Vector2.Zero;
         }
         public void Reset()
         {
@@ -33,9 +45,16 @@ namespace LearnMonoGame.Components
                 position.Y += 5;
 
             return
-                Matrix.CreateTranslation(new Vector3(-(int)position.X, -(int)position.Y, 1))
-                * Matrix.CreateScale(new Vector3(new Vector2(1,1), 1));
+                Matrix.CreateTranslation(new Vector3(-(int)position.X, -(int)position.Y, 1)) * Matrix.CreateScale(new Vector3(Zoom, Zoom, 1)) *  Matrix.CreateScale(new Vector3(new Vector2(1,1), 1));
+
+            //Matrix.CreateTranslation(new Vector3(-_pos.X, -_pos.Y, 0)) *
+            //                             Matrix.CreateRotationZ(Rotation) *
+            //                             Matrix.CreateScale(new Vector3(Zoom, Zoom, 1)) *
+            //                             Matrix.CreateTranslation(new Vector3(ViewportWidth * 0.5f, ViewportHeight * 0.5f, 0));
+           
         }
 
     }
+
 }
+

@@ -42,8 +42,9 @@ namespace LearnMonoGame.Tools
             playerBounds = new Rectangle((int)player.Pos.X, (int)player.Pos.Y, size, size);
             //StartLocation !
             if (aMouse.LeftButton == ButtonState.Pressed && mPreviousMouseState.LeftButton == ButtonState.Released)
-                mSelectionBox = new Rectangle(aMouse.X, aMouse.Y, 0, 0);
+                mSelectionBox = new Rectangle((int)xIn.MousePosition.X,(int)xIn.MousePosition.Y, 0, 0);
 
+            //Console.WriteLine("PlayerPos: " + player.Pos.X +" & " + player.Pos.Y + " MousePos: "+ aMouse.X + " und " + aMouse.Y);
 
             //still pressed- re-size where the mouse has currently been moved to.
             if (aMouse.LeftButton == ButtonState.Pressed)
@@ -55,7 +56,7 @@ namespace LearnMonoGame.Tools
                         a.IsSelect = false;
 
 
-                mSelectionBox = new Rectangle(mSelectionBox.X, mSelectionBox.Y, aMouse.X - mSelectionBox.X, aMouse.Y - mSelectionBox.Y);
+                mSelectionBox = new Rectangle(mSelectionBox.X, mSelectionBox.Y, (int)xIn.MousePosition.X - mSelectionBox.X, (int)xIn.MousePosition.Y - mSelectionBox.Y);
             }
                 
             //Store the previous mouse state

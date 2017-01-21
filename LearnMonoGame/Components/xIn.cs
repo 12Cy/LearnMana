@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using LearnMonoGame.Manager;
 
 namespace LearnMonoGame.Components
 {
@@ -21,6 +22,7 @@ namespace LearnMonoGame.Components
         private static KeyboardState previousKeyboardState = Keyboard.GetState();
         private static MouseState currentMouseState = Mouse.GetState();
         private static MouseState previousMouseState = Mouse.GetState();
+        private static Vector2 mouseposition = Vector2.Zero;
 
         public static MouseState MouseState
         {
@@ -38,6 +40,11 @@ namespace LearnMonoGame.Components
         {
             get { return previousMouseState; }
         }
+        public static Vector2 MousePosition
+        {
+            get { return mouseposition; }
+        }
+        
         public xIn(Game game)
         : base(game)
         {
@@ -49,8 +56,17 @@ namespace LearnMonoGame.Components
             xIn.currentKeyboardState = Keyboard.GetState();
             xIn.previousMouseState = xIn.currentMouseState;
             xIn.currentMouseState = Mouse.GetState();
+
+            if (MapStuff.Instance.camera != null)
+                mouseposition = currentMouseState.Position.ToVector2() * 1f/MapStuff.Instance.camera.Zoom + MapStuff.Instance.camera.Position;
+            else
+                mouseposition = currentMouseState.Position.ToVector2();
+
+            Console.WriteLine(mouseposition);
+
             base.Update(gameTime);
         }
+        
 
         public static void FlushInput()
         {

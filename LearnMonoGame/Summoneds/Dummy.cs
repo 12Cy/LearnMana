@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using LearnMonoGame.Manager;
 using LearnMonoGame.Tools;
 using Microsoft.Xna.Framework.Input;
+using LearnMonoGame.Components;
 
 namespace LearnMonoGame.Summoneds
 {
@@ -83,7 +84,7 @@ namespace LearnMonoGame.Summoneds
 
             if (isSelected && aMouse.RightButton == ButtonState.Pressed)
             {
-                moveDestination = new Vector2(aMouse.Position.X, aMouse.Position.Y);
+                moveDestination = new Vector2((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y);
             }
 
             Vector2 dif = moveDestination - pos; //VerbindungsVektor

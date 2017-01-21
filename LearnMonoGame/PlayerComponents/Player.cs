@@ -169,7 +169,7 @@ namespace LearnMonoGame.PlayerComponents
                 if(currentMana >= fireBallCost)
                 {
                     CalculateMana(-fireBallCost);
-                    rangeDestination = new Vector2(xIn.MouseState.X, xIn.MouseState.Y) - new Vector2(pos.X + size / 2, pos.Y + size / 2);
+                    rangeDestination = new Vector2(xIn.MousePosition.X, xIn.MousePosition.Y) - new Vector2(pos.X + size / 2, pos.Y + size / 2);
                     ShootFireball();
                 }
 
@@ -180,7 +180,7 @@ namespace LearnMonoGame.PlayerComponents
             if (xIn.CheckKeyReleased(Keys.D2) && attackMode)
             {
                 //Spell: Summon Dummy
-                Dummy a = new Dummy(new Vector2(xIn.MouseState.X, xIn.MouseState.Y));
+                Dummy a = new Dummy(new Vector2((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y));
                 a.Initialize();
                 PlayerManager.Instance.mySummoned.Add(a);
             }
@@ -234,7 +234,7 @@ namespace LearnMonoGame.PlayerComponents
             if (selected && aMouse.RightButton == ButtonState.Pressed && !(attackMode))
             {//Nicht im Angriffsmodus sondern im Movemodus
 
-                moveDestination = new Vector2(aMouse.Position.X, aMouse.Position.Y);
+                moveDestination = new Vector2((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y);
             }
 
             Vector2 dif = moveDestination - pos; //VerbindungsVektor

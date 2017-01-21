@@ -53,6 +53,7 @@ namespace LearnMonoGame.GameStates
             //Erstellt im Singleton die Instanz der Map
             MapStuff.Instance.map = new Tilemap(new Texture2D[] { _CM.GetTexture(_CM.TextureName.grassTile), _CM.GetTexture(_CM.TextureName.stoneTile), _CM.GetTexture(_CM.TextureName.waterTile) }, _CM.GetTexture(_CM.TextureName.map), 16);
             MapStuff.Instance.camera = new Camera();
+            MapStuff.Instance.camera.Zoom = 2f;
             selectBar = new SelectBar();
             player = new Player(gameref, new Vector2(200, 200),_CM.GetTexture(_CM.TextureName.player));
             player.Initialize();
@@ -89,6 +90,7 @@ namespace LearnMonoGame.GameStates
 
         public void Draw(SpriteBatch spriteBatch)
         {
+
             spriteBatch.Begin(transformMatrix: MapStuff.Instance.camera.GetViewMatrix());
             MapStuff.Instance.map.Draw(spriteBatch);
 
@@ -100,6 +102,9 @@ namespace LearnMonoGame.GameStates
 
             selectBar.Draw(spriteBatch);
 
+            spriteBatch.End();
+            spriteBatch.Begin();
+            spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "HALLO KLEINER FREUND", new Vector2(100, 100), Color.Orange);
             spriteBatch.End();
         }
 
