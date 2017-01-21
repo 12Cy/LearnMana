@@ -39,14 +39,13 @@ namespace LearnMonoGame.Summoneds
         protected float attackSpeed;
         protected int textureSize;
 
-        public Summoned(Attributes info)
+        public Summoned(Attributes info) 
         {
             //Attributes
             speed = info.Speed;
             textureSize = info.TextureSize;
             maxHealth = info.MaxHealth;
 
-            Initialize();
         }
 
         public Vector2 Pos { get { return pos; } }

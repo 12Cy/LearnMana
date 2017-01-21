@@ -62,8 +62,6 @@ namespace LearnMonoGame.Components
             else
                 mouseposition = currentMouseState.Position.ToVector2();
 
-            Console.WriteLine(mouseposition);
-
             base.Update(gameTime);
         }
         

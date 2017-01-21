@@ -26,16 +26,17 @@ namespace LearnMonoGame.Summoneds
         {
 
             pos = _position;
+
             creatureTexture = _CM.GetTexture(_CM.TextureName.dummy);
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             selectedTexture = _CM.GetTexture(_CM.TextureName.selected);
             Console.WriteLine("created Dummy");
-
+            Initialize();
         }
         protected override void Initialize()
         {
 
-
+            Console.WriteLine("BIN DA");
             moveDestination = pos;
 
 
@@ -49,6 +50,7 @@ namespace LearnMonoGame.Summoneds
             isAlive = true;
             isSelected = false;
             hitTimer = TimeSpan.Zero;
+ 
 
         }
 
