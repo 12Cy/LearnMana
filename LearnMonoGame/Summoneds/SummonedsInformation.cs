@@ -16,7 +16,6 @@ namespace LearnMonoGame.Summoneds
         #region properties
         public DummyInformation()
         {
-
         }
 
         #endregion

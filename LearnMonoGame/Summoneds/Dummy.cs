@@ -22,7 +22,7 @@ namespace LearnMonoGame.Summoneds
 
 
 
-        public Dummy(Vector2 _position)
+        public Dummy(Vector2 _position) : base(SummonedsInformation.Instance.dummyInformation)
         {
 
             pos = _position;
@@ -32,12 +32,8 @@ namespace LearnMonoGame.Summoneds
             Console.WriteLine("created Dummy");
 
         }
-        public override void Initialize()
+        protected override void Initialize()
         {
-            //Attributes
-            speed = SummonedsInformation.Instance.dummyInformation.Speed;
-            textureSize = SummonedsInformation.Instance.dummyInformation.TextureSize;
-            maxHealth = SummonedsInformation.Instance.dummyInformation.MaxHealth;
 
 
             moveDestination = pos;

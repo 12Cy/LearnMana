@@ -181,7 +181,6 @@ namespace LearnMonoGame.PlayerComponents
             {
                 //Spell: Summon Dummy
                 Dummy a = new Dummy(new Vector2((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y));
-                a.Initialize();
                 PlayerManager.Instance.mySummoned.Add(a);
             }
             DebugShit();
