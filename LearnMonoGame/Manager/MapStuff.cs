@@ -1,4 +1,6 @@
-﻿using LearnMonoGame.Map;
+﻿using LearnMonoGame.Components;
+using LearnMonoGame.Map;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,12 @@ namespace LearnMonoGame.Manager
 
         public Tilemap map;
         public int size = 32;
+
+        public int x = 1280;
+        public int y = 720;
+        public Camera camera;
+
+        public Vector2 startPosition = new Vector2(0, 0);
 
 
         private MapStuff()

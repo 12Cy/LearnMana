@@ -71,10 +71,10 @@ namespace LearnMonoGame.GameStates
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            spriteBatch.Begin();
             Color color = new Color(142f, 39f, 39f) * (float)Math.Abs(Math.Sin(elapsed.TotalSeconds * 2));
             spriteBatch.DrawString(font, message, position, color);
-
+            spriteBatch.End();
 
         }
 

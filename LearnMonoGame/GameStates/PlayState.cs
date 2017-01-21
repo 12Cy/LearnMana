@@ -52,6 +52,7 @@ namespace LearnMonoGame.GameStates
         {
             //Erstellt im Singleton die Instanz der Map
             MapStuff.Instance.map = new Tilemap(new Texture2D[] { _CM.GetTexture(_CM.TextureName.grassTile), _CM.GetTexture(_CM.TextureName.stoneTile), _CM.GetTexture(_CM.TextureName.waterTile) }, _CM.GetTexture(_CM.TextureName.map), 16);
+            MapStuff.Instance.camera = new Camera();
             selectBar = new SelectBar();
             player = new Player(gameref, new Vector2(200, 200),_CM.GetTexture(_CM.TextureName.player));
             player.Initialize();
@@ -72,7 +73,6 @@ namespace LearnMonoGame.GameStates
             foreach (Summoned a in PlayerManager.Instance.mySummoned)
             {
                 a.Update(gTime);
-                selectBar.CheckSelected(a);
             }
             selectBar.CheckSelected(player);
 
@@ -89,7 +89,7 @@ namespace LearnMonoGame.GameStates
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            spriteBatch.Begin(transformMatrix: MapStuff.Instance.camera.GetViewMatrix());
             MapStuff.Instance.map.Draw(spriteBatch);
 
             player.Draw(spriteBatch);
@@ -100,7 +100,7 @@ namespace LearnMonoGame.GameStates
 
             selectBar.Draw(spriteBatch);
 
-
+            spriteBatch.End();
         }
 
         public void UnloadContent()

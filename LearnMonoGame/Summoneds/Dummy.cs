@@ -16,25 +16,30 @@ namespace LearnMonoGame.Summoneds
     {
         //Movement
         float offset = 0.5f;
-        float speed = 180f;
-        int size = 32;
         int offsetHeight = 10;
+
 
 
 
         public Dummy(Vector2 _position)
         {
+
             pos = _position;
             creatureTexture = _CM.GetTexture(_CM.TextureName.dummy);
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             selectedTexture = _CM.GetTexture(_CM.TextureName.selected);
-            Console.WriteLine("TADA");
+            Console.WriteLine("created Dummy");
 
         }
         public override void Initialize()
         {
-            moveDestination = pos;
+            //Attributes
+            speed = SummonedsInformation.Instance.dummyInformation.Speed;
+            textureSize = SummonedsInformation.Instance.dummyInformation.TextureSize;
+            maxHealth = SummonedsInformation.Instance.dummyInformation.MaxHealth;
 
+
+            moveDestination = pos;
 
 
             //Animation
@@ -48,14 +53,9 @@ namespace LearnMonoGame.Summoneds
             isSelected = false;
             hitTimer = TimeSpan.Zero;
 
-
-
         }
 
-        public override void LoadContent(ContentManager content)
-        {
-
-        }
+        public override void LoadContent(ContentManager content){}
 
         public override void UnloadContent() { }
 
@@ -125,9 +125,9 @@ namespace LearnMonoGame.Summoneds
                 Vector2 newPosition = animatedSprite.Position + motion; // the position we are moving to is valid?
 
                 if (MapStuff.Instance.map.Walkable(newPosition)
-                  && MapStuff.Instance.map.Walkable(newPosition + new Vector2(size, 0))
-                  && MapStuff.Instance.map.Walkable(newPosition + new Vector2(0, size))
-                  && MapStuff.Instance.map.Walkable(newPosition + new Vector2(size, size)))
+                  && MapStuff.Instance.map.Walkable(newPosition + new Vector2(textureSize, 0))
+                  && MapStuff.Instance.map.Walkable(newPosition + new Vector2(0, textureSize))
+                  && MapStuff.Instance.map.Walkable(newPosition + new Vector2(textureSize, textureSize)))
                 {//Ist dort keine Collision?
 
                     animatedSprite.Position = newPosition;
@@ -167,9 +167,11 @@ namespace LearnMonoGame.Summoneds
                 /// (SourceRectangle) :  Geht vom äußeren Rectangle aus(DesitinationRectangle)
                 ///  (2.Schicht) :  nehme die diff und verkleinere so die größe der Schicht.
                 /// </Lebensbalken>
-                spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - size / 4 - 5, size, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - size / 4 - 5, (int)(size * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
-                spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - size / 4 - 5, size, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+                spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - textureSize / 4 - 5, textureSize, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - textureSize / 4 - 5, (int)(textureSize * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
+                spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - textureSize / 4 - 5, textureSize, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+                if(isSelected)
+                    spriteBatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, textureSize, textureSize), Color.White);
             }
         }
     }

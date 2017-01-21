@@ -163,18 +163,26 @@ namespace LearnMonoGame.PlayerComponents
 
             }
             //ToDo Hier alle Zauber rein
-            if (xIn.CheckMouseReleased(MouseButtons.Right) && attackMode && currentMana >= fireBallCost)
+            if (xIn.CheckMouseReleased(MouseButtons.Right) && attackMode)
             {
                 //Spell: Fireball
-                CalculateMana(-fireBallCost);
-                rangeDestination = new Vector2(xIn.MouseState.X, xIn.MouseState.Y) -  new Vector2( pos.X + size/2, pos.Y + size/2);
-                ShootFireball();
+                if(currentMana >= fireBallCost)
+                {
+                    CalculateMana(-fireBallCost);
+                    rangeDestination = new Vector2(xIn.MouseState.X, xIn.MouseState.Y) - new Vector2(pos.X + size / 2, pos.Y + size / 2);
+                    ShootFireball();
+                }
+
+
+                
+
+            }
+            if (xIn.CheckKeyReleased(Keys.D2) && attackMode)
+            {
                 //Spell: Summon Dummy
                 Dummy a = new Dummy(new Vector2(xIn.MouseState.X, xIn.MouseState.Y));
                 a.Initialize();
                 PlayerManager.Instance.mySummoned.Add(a);
-
-
             }
             DebugShit();
 
@@ -317,13 +325,13 @@ namespace LearnMonoGame.PlayerComponents
                 /// (SourceRectangle) :  Geht vom äußeren Rectangle aus(DesitinationRectangle)
                 ///  (2.Schicht) :  nehme die diff und verkleinere so die größe der Schicht.
                 /// </Lebensbalken>
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - size /4 - 5, size, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - size /4 - 5, (int)(size * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - size /4 - 5, size, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - size /4 - 5, size, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - size /4 - 5, (int)(size * ((float)currentMana / maxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - size /4 - 5, size, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
                                                                     
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - size/2 -5, size, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - size/2 -5 ,(int)(size * ((float)currentMana / maxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - size/2 -5, size, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - size/2 -5, size, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - size/2 -5 ,(int)(size * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
+                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - size/2 -5, size, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
                 if(playerhit)
                     spritebatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, size, size), Color.White);
                 else

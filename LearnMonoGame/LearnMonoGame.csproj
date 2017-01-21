@@ -41,6 +41,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\Camera.cs" />
     <Compile Include="Components\xIn.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameStates\IGameStates.cs" />
@@ -54,8 +55,10 @@
     <Compile Include="Map\Tilemap.cs" />
     <Compile Include="PlayerComponents\Player.cs" />
     <Compile Include="PlayerComponents\PlayerManager.cs" />
+    <Compile Include="PlayerComponents\Spellbook.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Summoneds\Attributes.cs" />
     <Compile Include="Summoneds\Dummy.cs" />
     <Compile Include="Summoneds\Summoned.cs" />
     <Compile Include="Summoneds\SummonedsInformation.cs" />

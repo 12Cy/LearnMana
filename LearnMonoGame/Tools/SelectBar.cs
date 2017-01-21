@@ -51,6 +51,10 @@ namespace LearnMonoGame.Tools
                 player.SetSelected(false);
                 player.AttackMode = false;
                 Console.WriteLine("NOT Select");
+                foreach (Summoned a in PlayerManager.Instance.mySummoned)
+                        a.IsSelect = false;
+
+
                 mSelectionBox = new Rectangle(mSelectionBox.X, mSelectionBox.Y, aMouse.X - mSelectionBox.X, aMouse.Y - mSelectionBox.Y);
             }
                 
@@ -62,41 +66,30 @@ namespace LearnMonoGame.Tools
         /// <CheckSelected>
         /// Überüft ob der Spieler anvisierit wurde
         /// </CheckSelected>
-        public bool CheckSelected(Player player)
+        public void CheckSelected(Player player)
         {
             if (xIn.CheckMouseReleased(MouseButtons.Left))    
             {
                 if (mSelectionBox.Intersects(playerBounds))//player.Pos.X > mSelectionBox.X && player.Pos.X < mSelectionBox.X + mSelectionBox.Width && player.Pos.Y > mSelectionBox.Y && player.Pos.Y < mSelectionBox.Y + mSelectionBox.Height)
                 {
                     player.SetSelected(true);
-                    mSelectionBox = new Rectangle(-1, -1, 0, 0); //defaultWert
-                    Console.WriteLine("Player Select");
-                    return true;
+                   //mSelectionBox = new Rectangle(-1, -1, 0, 0); //defaultWert
+                   //Console.WriteLine("Player Select");
+
                 }
-
-                mSelectionBox = new Rectangle(-1, -1, 0, 0); //wenn der Spieler nicht im Bereich war Reset!
-            }
-            return false;
-        }
-
-        public bool CheckSelected(Summoned obj)
-        {
-            Rectangle objRectangle = new Rectangle((int)obj.Pos.X, (int)obj.Pos.Y, 32, 32);
-
-            if (xIn.CheckMouseReleased(MouseButtons.Left))
-            {
-                if (mSelectionBox.Intersects(objRectangle))//player.Pos.X > mSelectionBox.X && player.Pos.X < mSelectionBox.X + mSelectionBox.Width && player.Pos.Y > mSelectionBox.Y && player.Pos.Y < mSelectionBox.Y + mSelectionBox.Height)
+                foreach (Summoned a in PlayerManager.Instance.mySummoned)
                 {
-                    obj.IsSelect = true;
-                    mSelectionBox = new Rectangle(-1, -1, 0, 0); //defaultWert
-                    Console.WriteLine("Creatur Select");
-                    return true;
+                    Rectangle summonRectangle = new Rectangle((int)a.Pos.X, (int)a.Pos.Y, 32, 32);
+                    if (mSelectionBox.Intersects(summonRectangle))
+                        a.IsSelect = true;
+
                 }
 
                 mSelectionBox = new Rectangle(-1, -1, 0, 0); //wenn der Spieler nicht im Bereich war Reset!
             }
-            return false;
+
         }
+
 
 
         public void Draw(SpriteBatch spriteBatch)

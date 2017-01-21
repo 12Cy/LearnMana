@@ -23,8 +23,7 @@ namespace LearnMonoGame
 
 
 
-        public static int x = 1280;
-        public static int y = 800;
+
 
         static Rectangle screenRectangle; // bounds of the game screen
 
@@ -41,10 +40,10 @@ namespace LearnMonoGame
 
             this.IsMouseVisible = true;
 
-            screenRectangle = new Rectangle(0, 0, x, y);
+            screenRectangle = new Rectangle(0, 0, MapStuff.Instance.x, MapStuff.Instance.y);
 
-            graphics.PreferredBackBufferWidth = x;
-            graphics.PreferredBackBufferHeight = y;
+            graphics.PreferredBackBufferWidth = MapStuff.Instance.x;
+            graphics.PreferredBackBufferHeight = MapStuff.Instance.y;
 
             
 
@@ -124,15 +123,15 @@ namespace LearnMonoGame
             GraphicsDevice.Clear(Color.Black);
 
              
-            spriteBatch.Begin();
-            state.Draw(spriteBatch);
+
+            
 
             // TODO: Add your drawing code here
 
 
-            spriteBatch.End();
-
+            state.Draw(spriteBatch);
             base.Draw(gameTime);
+            
         }
 
         void HandleGameStates()
