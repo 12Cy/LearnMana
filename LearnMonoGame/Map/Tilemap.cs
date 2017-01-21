@@ -11,12 +11,12 @@ namespace LearnMonoGame.Map
     public class Tilemap
     {
         Tile[,] _tileMap;
-        int _tileSize;
+        Point _tileSize;
         int width;
         int height;
 
 
-        public Tilemap(Texture2D[] textures, Texture2D bitMap, int _tileSize)
+        public Tilemap(Texture2D[] textures, Texture2D bitMap, Point _tileSize)
         {
             this._tileSize = _tileSize;
             this.width = bitMap.Width;
@@ -43,16 +43,16 @@ namespace LearnMonoGame.Map
                 {
                     if (colores[y * _tileMap.GetLength(0) + x] == Color.White) //Weiß = Gras auf der TileMap
                     {
-                        _tileMap[x, y] = new Tile(textures[0], new Vector2(x * _tileSize, y * _tileSize), ETile.Terrain);
+                        _tileMap[x, y] = new Tile(textures[0], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)),y * _tileSize.Y), ETile.Terrain);
                     }
                     else if (colores[y * _tileMap.GetLength(0) + x] == new Color(0, 162, 232, 255))
                     {
-                        _tileMap[x, y] = new Tile(textures[2], new Vector2(x * _tileSize, y * _tileSize), ETile.Terrain);
+                        _tileMap[x, y] = new Tile(textures[2], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
                     }
 
                     else //sonst Stein
                     {
-                        _tileMap[x, y] = new Tile(textures[1], new Vector2(x * _tileSize, y * _tileSize), ETile.stone);
+                        _tileMap[x, y] = new Tile(textures[1], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.stone);
                     }
                 }
             }
@@ -60,7 +60,7 @@ namespace LearnMonoGame.Map
 
         public bool Walkable(Vector2 currentPosition)
         {
-            return _tileMap[(int)currentPosition.X / _tileSize, (int)currentPosition.Y / _tileSize].Walkable();
+            return true;
         }
 
         public void Update(GameTime gameTime)
@@ -85,11 +85,11 @@ namespace LearnMonoGame.Map
         }
         public int WidthInPixels
         {
-            get { return width * _tileSize; }
+            get { return width * _tileSize.X; }
         }
         public int HeightInPixels
         {
-            get { return height * _tileSize; }
+            get { return height * _tileSize.Y; }
         }
 
     }
