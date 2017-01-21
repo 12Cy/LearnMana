@@ -54,6 +54,7 @@ namespace LearnMonoGame.GameStates
             MapStuff.Instance.map = new Tilemap(new Texture2D[] { _CM.GetTexture(_CM.TextureName.grassTile), _CM.GetTexture(_CM.TextureName.stoneTile), _CM.GetTexture(_CM.TextureName.waterTile) }, _CM.GetTexture(_CM.TextureName.map), new Point(64,74/4));
             MapStuff.Instance.camera = new Camera();
             MapStuff.Instance.camera.Zoom = 1f;
+ 
 
             selectBar = new SelectBar();
             player = new Player(gameref, new Vector2(200, 200),_CM.GetTexture(_CM.TextureName.player));
@@ -69,6 +70,10 @@ namespace LearnMonoGame.GameStates
             {
                 a.Update(gTime);
             }
+            if (xIn.CheckKeyReleased(Keys.NumPad1))
+                MapStuff.Instance.camera.Zoom += 0.1f;
+            if(xIn.CheckKeyReleased(Keys.NumPad3))
+                MapStuff.Instance.camera.Zoom -= 0.1f;
 
             selectBar.Update(player);
             selectBar.CheckSelected(player);
@@ -101,8 +106,7 @@ namespace LearnMonoGame.GameStates
             spriteBatch.End();
 
             spriteBatch.Begin();
-
-            spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "HALLO KLEINER FREUND", new Vector2(100, 100), Color.Orange);
+            spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \n Zoom: "+ MapStuff.Instance.camera.Zoom , new Vector2(10, 10), Color.Orange);
             spriteBatch.End();
         }
 

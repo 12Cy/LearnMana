@@ -11,7 +11,6 @@ namespace LearnMonoGame.Manager
 {
     class MapStuff
     {
-
         public Tilemap map;
         public int size = 32;
 
