@@ -51,7 +51,7 @@ namespace LearnMonoGame.GameStates
         public void Initialize()
         {
             //Erstellt im Singleton die Instanz der Map
-            MapStuff.Instance.map = new Tilemap(new Texture2D[] { _CM.GetTexture(_CM.TextureName.grassTile), _CM.GetTexture(_CM.TextureName.stoneTile), _CM.GetTexture(_CM.TextureName.waterTile) }, _CM.GetTexture(_CM.TextureName.map), new Point(32,9));
+            MapStuff.Instance.map = new Tilemap(new Texture2D[] { _CM.GetTexture(_CM.TextureName.grassTile), _CM.GetTexture(_CM.TextureName.stoneTile), _CM.GetTexture(_CM.TextureName.waterTile) }, _CM.GetTexture(_CM.TextureName.map), new Point(64,74/4));
             MapStuff.Instance.camera = new Camera();
             MapStuff.Instance.camera.Zoom = 1f;
 

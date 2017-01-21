@@ -56,7 +56,7 @@ namespace LearnMonoGame.Manager
             textureDictionary.Add(TextureName.map, Content.Load<Texture2D>("Map//Map1"));
 
             //Tiles
-            textureDictionary.Add(TextureName.grassTile, Content.Load<Texture2D>("Map//Tiles//GrassIso01"));
+            textureDictionary.Add(TextureName.grassTile, Content.Load<Texture2D>("Map//Tiles//GrassIso"));
             textureDictionary.Add(TextureName.stoneTile, Content.Load<Texture2D>("Map//Tiles//StoneIso"));
             textureDictionary.Add(TextureName.waterTile, Content.Load<Texture2D>("Map//Tiles//WaterIso"));
 
