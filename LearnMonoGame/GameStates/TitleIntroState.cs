@@ -54,10 +54,7 @@ namespace LearnMonoGame.GameStates
             return EGameState.TitleIntroState;
         }
 
-        public void LoadContent(ContentManager content)
-        {
 
-        }
 
         public void UnloadContent()
         {

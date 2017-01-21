@@ -27,10 +27,7 @@ namespace LearnMonoGame.GameStates
 
         }
 
-        public void LoadContent(ContentManager content)
-        {
-          
-        }
+
 
         public void UnloadContent()
         {

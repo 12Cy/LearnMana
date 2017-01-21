@@ -1,4 +1,5 @@
 ﻿using LearnMonoGame.Manager;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,13 @@ namespace LearnMonoGame.Summoneds
         protected float speed = 180;
         protected float maxHealth = 100;
         protected float attackSpeed = 0.3f;
-        protected int textureSize = MapStuff.Instance.size;
+
+        protected int width = MapStuff.Instance.size;
+        protected int height = MapStuff.Instance.size;
 
         public float Speed { get { return speed; } }
-        public int TextureSize { get { return textureSize; } }
+        public int Width { get { return width; } }
+        public int Height { get { return height; } }
         public float MaxHealth { get { return maxHealth; } }
     }
 }

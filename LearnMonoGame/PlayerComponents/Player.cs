@@ -90,7 +90,7 @@ namespace LearnMonoGame.PlayerComponents
             this.gameRef = _game;
             this.pos = _position;
             this.playerTexture = _playerTexture;
-
+            Initialize();
         }
 
 #endregion
@@ -115,10 +115,6 @@ namespace LearnMonoGame.PlayerComponents
             currentHealth = maxHealth;
             currentMana = maxMana;
 
-        }
-
-        public void LoadContent(ContentManager content)
-        {
             //life
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             manaTexture = _CM.GetTexture(_CM.TextureName.backLife);
@@ -126,6 +122,12 @@ namespace LearnMonoGame.PlayerComponents
             //Select
             selectedTexture = _CM.GetTexture(_CM.TextureName.selected);
             damageselectedTexture = _CM.GetTexture(_CM.TextureName.damageselect);
+
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+
 
         }
 

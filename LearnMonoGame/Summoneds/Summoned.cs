@@ -37,19 +37,23 @@ namespace LearnMonoGame.Summoneds
         protected float maxHealth;
         protected float speed;
         protected float attackSpeed;
-        protected int textureSize;
+        protected int width;
+        protected int height;
 
         public Summoned(Attributes info) 
         {
             //Attributes
             speed = info.Speed;
-            textureSize = info.TextureSize;
+            width = info.Width;
+            height = info.Height;
             maxHealth = info.MaxHealth;
 
         }
 
         public Vector2 Pos { get { return pos; } }
         public bool IsSelect { get { return IsSelect; } set { isSelected = value; } }
+        public int Width { get { return width; } }
+        public int Height { get { return height; } }
 
         public Summoned() { }
         protected abstract void Initialize();

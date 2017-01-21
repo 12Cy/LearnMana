@@ -21,7 +21,7 @@ namespace LearnMonoGame.GameStates
     {
 
         void Initialize();
-        void LoadContent(ContentManager content);
+ 
         
 
         EGameState Update(GameTime gTime);

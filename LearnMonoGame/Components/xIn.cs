@@ -40,6 +40,9 @@ namespace LearnMonoGame.Components
         {
             get { return previousMouseState; }
         }
+        /// <MousePosition>
+        /// MousePosition wird aktualisiert in der Update(Map mit eingerechnet)
+        /// </MousePosition>
         public static Vector2 MousePosition
         {
             get { return mouseposition; }
@@ -71,13 +74,12 @@ namespace LearnMonoGame.Components
             currentMouseState = previousMouseState;
             currentKeyboardState = previousKeyboardState;
         }
-        /// <summary>
+        /// <CheckKeyReleased>
         /// checks to see if a key that was down last frame is now up.
-        /// </summary>
+        /// </CheckKeyReleased>
         public static bool CheckKeyReleased(Keys key)
         {
-            return currentKeyboardState.IsKeyUp(key) &&
-            previousKeyboardState.IsKeyDown(key);
+            return currentKeyboardState.IsKeyUp(key) && previousKeyboardState.IsKeyDown(key);
         }
         
 

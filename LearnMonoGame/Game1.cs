@@ -153,7 +153,6 @@ namespace LearnMonoGame
                 }
 
                 state.Initialize();
-                state.LoadContent(Content);
             }
 
             prevState = currState;
