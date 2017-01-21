@@ -74,6 +74,8 @@ namespace LearnMonoGame.GameStates
                 MapStuff.Instance.camera.Zoom += 0.1f;
             if(xIn.CheckKeyReleased(Keys.NumPad3))
                 MapStuff.Instance.camera.Zoom -= 0.1f;
+            if (xIn.CheckKeyReleased(Keys.NumPad2))
+                MapStuff.Instance.camera.ResetZoom();
 
             selectBar.Update(player);
             selectBar.CheckSelected(player);
@@ -85,7 +87,17 @@ namespace LearnMonoGame.GameStates
 
         public void DrawGUI(SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin();
 
+            Texture2D rectangle = new Texture2D(MapStuff.Instance.graphics, 200, 70);
+            Color[] data = new Color[200 * 80];
+            for (int i = 0; i < data.Length; i++) data[i] = Color.Chocolate;
+            rectangle.SetData(data);
+
+            spriteBatch.Draw(rectangle, new Vector2(5, 5), Color.White);
+
+            spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nZoom: " + MapStuff.Instance.camera.Zoom + " Num1 & Num3\nReset Zoom: Num2", new Vector2(10, 10), Color.Bisque);
+            spriteBatch.End();
         }
 
 
@@ -105,9 +117,7 @@ namespace LearnMonoGame.GameStates
 
             spriteBatch.End();
 
-            spriteBatch.Begin();
-            spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \n Zoom: "+ MapStuff.Instance.camera.Zoom , new Vector2(10, 10), Color.Orange);
-            spriteBatch.End();
+
         }
 
         public void UnloadContent()

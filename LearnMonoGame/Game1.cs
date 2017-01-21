@@ -37,6 +37,7 @@ namespace LearnMonoGame
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            
 
             this.IsMouseVisible = true;
 
@@ -60,7 +61,7 @@ namespace LearnMonoGame
         /// </summary>
         protected override void Initialize()
         {
-
+            MapStuff.Instance.graphics = graphics.GraphicsDevice;
             currState = EGameState.TitleIntroState;
             prevState = EGameState.None;
             state = new TitleIntroState();
@@ -130,6 +131,7 @@ namespace LearnMonoGame
 
 
             state.Draw(spriteBatch);
+            state.DrawGUI(spriteBatch);
             base.Draw(gameTime);
             
         }

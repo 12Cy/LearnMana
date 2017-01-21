@@ -32,6 +32,10 @@ namespace LearnMonoGame.Components
         {
             position = Vector2.Zero;
         }
+        public void ResetZoom()
+        {
+            zoom = 1;
+        }
 
         public Matrix GetViewMatrix()
         {

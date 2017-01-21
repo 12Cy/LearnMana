@@ -1,6 +1,7 @@
 ﻿using LearnMonoGame.Components;
 using LearnMonoGame.Map;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace LearnMonoGame.Manager
 {
     class MapStuff
     {
+        public GraphicsDevice graphics;
         public Tilemap map;
         public int size = 32;
 
