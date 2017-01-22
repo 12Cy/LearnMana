@@ -62,7 +62,7 @@ namespace LearnMonoGame.GameStates
  
 
             selectBar = new SelectBar();
-            PlayerManager.Instance.Player = new Player(gameref, new Vector2(750, 250),_CM.GetTexture(_CM.TextureName.player));
+            PlayerManager.Instance.MyPlayer = new Player(gameref, new Vector2(750, 250),_CM.GetTexture(_CM.TextureName.player));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(200, 200)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(600, 400)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(350, 260)));
@@ -74,7 +74,7 @@ namespace LearnMonoGame.GameStates
         public EGameState Update(GameTime gTime)
         {
             MapStuff.Instance.map.Update(gTime);
-            player.Update(gTime);
+            PlayerManager.Instance.MyPlayer.Update(gTime);
             foreach (Summoned a in MonsterManager.Instance.mySummoned)
             {
                 a.Update(gTime);
@@ -97,8 +97,8 @@ namespace LearnMonoGame.GameStates
             if (xIn.CheckKeyReleased(Keys.NumPad2))
                 MapStuff.Instance.camera.ResetZoom();
 
-            selectBar.Update(player);
-            selectBar.CheckSelected(player);
+            selectBar.Update();
+            selectBar.CheckSelected();
 
 
             return EGameState.PlayState;
@@ -155,7 +155,7 @@ namespace LearnMonoGame.GameStates
             spriteBatch.Begin(transformMatrix: MapStuff.Instance.camera.GetViewMatrix());
             MapStuff.Instance.map.Draw(spriteBatch);
 
-            player.Draw(spriteBatch);
+            PlayerManager.Instance.MyPlayer.Draw(spriteBatch);
             foreach (Summoned a in MonsterManager.Instance.mySummoned)
             {
                 a.Draw(spriteBatch);

@@ -28,8 +28,8 @@ namespace LearnMonoGame.PlayerComponents
         PlayerInformation playerInformation = new PlayerInformation();
         Player player;
         
-        public PlayerInformation PlayerInformation { get { return PlayerInformation; } }
-        public Player Player{get{return Player;} set { player = value; } }
+        public PlayerInformation MyPlayerInformation { get { return playerInformation; } }
+        public Player MyPlayer{get{return player; } set { player = value; } }
 
 
 

@@ -105,6 +105,7 @@ namespace LearnMonoGame.PlayerComponents
 #region properties
 
         public Vector2 Pos { get { return pos; } }
+        public int Size { get { return size; } }
         public bool AttackMode { get { return attackMode; } set { attackMode = value; } }
         public void SetSelected(bool value)
         {
@@ -137,9 +138,9 @@ namespace LearnMonoGame.PlayerComponents
             //Select
 
             //Attributes
-            speed = PlayerManager.Instance.PlayerInformation.Speed;
-            maxHealth = PlayerManager.Instance.PlayerInformation.MaxHealth;
-            maxMana = PlayerManager.Instance.PlayerInformation.maxMana;
+            speed = PlayerManager.Instance.MyPlayerInformation.Speed;
+            maxHealth = PlayerManager.Instance.MyPlayerInformation.MaxHealth;
+            maxMana = PlayerManager.Instance.MyPlayerInformation.maxMana;
 
 
 
