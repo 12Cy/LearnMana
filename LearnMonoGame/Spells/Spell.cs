@@ -14,7 +14,9 @@ namespace LearnMonoGame.Spells
         #region Constructor
         public Spell(SpellInformation spellInfo)
         {
-
+            maxTimer = spellInfo.time;
+            manaCost = spellInfo.mana;
+            timer = 0;
         }
         #endregion
 
@@ -26,10 +28,20 @@ namespace LearnMonoGame.Spells
         #endregion
 
         #region Methods
-        public abstract PlayerModifikator Cast(Rectangle bounds, Vector2 _direction);
-        public bool CastAble(Player player)
+        public abstract PlayerModifikator Cast(Vector2 bounds, Vector2 _direction);
+        public bool CastAble()
         {
-            return true;
+            if (timer > maxTimer)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void Update(GameTime gTime)
+        {
+            timer += (float)gTime.ElapsedGameTime.TotalSeconds;
         }
 
         #endregion

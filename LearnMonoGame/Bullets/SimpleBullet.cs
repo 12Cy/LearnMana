@@ -11,11 +11,11 @@ using LearnMonoGame.Spells;
 
 namespace LearnMonoGame.Bullets
 {
-    class Fireball : Bullet
+    class SimpleBullet : Bullet
     {
-        public Fireball(Rectangle _startPosition, Vector2 _direction) : base(_startPosition, _direction) //Rectangel damit wir gleich die texture skaliert haben
+        public SimpleBullet(Rectangle _startPosition, Vector2 _direction, Texture2D texture, EBullet type) : base(SpellManager.Instance.bulletInformation[(int)type],
+            _startPosition, _direction, texture) //Rectangel damit wir gleich die texture skaliert haben
         {
-            fireballTexture = _CM.GetTexture(_CM.TextureName.fireball);
         }
 
         public override void Update(GameTime gTime)
@@ -27,6 +27,5 @@ namespace LearnMonoGame.Bullets
         {
             base.Draw(spriteBatch);
         }
-
     }
 }

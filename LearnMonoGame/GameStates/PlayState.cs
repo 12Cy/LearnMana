@@ -86,7 +86,10 @@ namespace LearnMonoGame.GameStates
             }
             for (int i = 0; i < BulletManager.Instance.bullets.Count; ++i)
             {
-                BulletManager.Instance.bullets[i].Update(gTime);
+                if (BulletManager.Instance.bullets[i].alive)
+                    BulletManager.Instance.bullets[i].Update(gTime);
+                else
+                    BulletManager.Instance.bullets.RemoveAt(i--);
             }
             CollisionTestDebugZweckeWirdNochGeaendertKeineAngst();
 
@@ -107,12 +110,12 @@ namespace LearnMonoGame.GameStates
         {
             foreach (Enemy enemy in MonsterManager.Instance.enemyList)
             {
-                foreach (Fireball aFireball in BulletManager.Instance.bullets)
+                foreach (Bullet aFireball in BulletManager.Instance.bullets)
                 {
                     if (aFireball.Bounds.Intersects(enemy.Bounds) && aFireball.Visible)
                     {
                         enemy.CalculateHealth(-20);
-                        aFireball.Visible = false;
+                        aFireball.alive = false;
                     }
                 }
 

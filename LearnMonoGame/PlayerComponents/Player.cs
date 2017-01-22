@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using LearnMonoGame.Summoneds;
+using LearnMonoGame.Spells;
+using LearnMonoGame.Spells.Fire;
 
 namespace LearnMonoGame.PlayerComponents
 {
@@ -101,6 +103,12 @@ namespace LearnMonoGame.PlayerComponents
         float maxMana = 100;
 
 
+        //Spellbook
+        Spellbook spellBook;
+
+        int currentSpell;
+
+
 
 #endregion
 #region properties
@@ -125,6 +133,10 @@ namespace LearnMonoGame.PlayerComponents
             this.gameRef = _game;
             this.pos = _position;
             this.playerTexture = _playerTexture;
+            spellBook = new Spellbook();
+            spellBook.AddSpell(new SFireball());
+            spellBook.AddSpell(new SFireWall());
+            currentSpell = 0;
             Initialize();
         }
 
@@ -175,6 +187,14 @@ namespace LearnMonoGame.PlayerComponents
 
         public void Update(GameTime gameTime)
         {
+            if (xIn.CheckKeyReleased(Keys.NumPad4))
+                currentSpell = 0;
+            if (xIn.CheckKeyReleased(Keys.NumPad5))
+                currentSpell = 1;
+
+            spellBook.Update(gameTime);
+
+
             PlayerMove(gameTime);
 
             if (playerhit)
@@ -200,9 +220,7 @@ namespace LearnMonoGame.PlayerComponents
             //Vielleicht dann doch nicht ALLE. :D
             if (xIn.CheckMouseReleased(MouseButtons.Right) && attackMode)
             {
-
-
-                
+                CastSpell(0);
 
             }
             if (xIn.CheckKeyReleased(Keys.D2) && attackMode)
@@ -249,6 +267,8 @@ namespace LearnMonoGame.PlayerComponents
                 else
                     animatedSprite.CurrentAnimation = AnimationKey.WalkUp;
             }
+
+            spellBook.Cast(pos, xIn.MousePosition - pos, currentSpell);
         }
 
         private void PlayerMove(GameTime gameTime)
@@ -338,6 +358,7 @@ namespace LearnMonoGame.PlayerComponents
             if (selected || playerhit)
             {
                 MouseState amouse = Mouse.GetState();
+                spritebatch.DrawString(_CM.GetFont(_CM.FontName.Arial), spellBook.ToString(currentSpell), xIn.MousePosition, Color.Red);
                 /// <Lebensbalken>
                 /// Wir zeichnen zuerst  eine Background Farbe(1.Schicht), die Füllfarbe(2.Schicht), texture mit der Umrandung(3.Schicht).
                 /// Die Texture soll über dem Spieler gezeichnet werden
