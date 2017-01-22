@@ -32,16 +32,18 @@ namespace LearnMonoGame.Summoneds.Enemies
         protected bool isAlive;
         protected bool hit;
         protected TimeSpan hitTimer;
-        protected float currentHealth;
+        protected int currentHealth;
 
         // --- Attributes ---
-        protected float maxHealth;
+        protected int maxHealth;
         protected float speed;
-        protected float damage;
-        protected float defense;
+        protected int damage;
+        protected int defense;
         protected float attackSpeed;
         protected int width;
         protected int height;
+
+        protected int costToBuy;
 
         // --- Offset ---
         protected float offset = 0.5f;
@@ -55,9 +57,11 @@ namespace LearnMonoGame.Summoneds.Enemies
         protected int level;
         protected float experience;
 
+        EElement element;
         // --- Enum ---
         protected List<IMove> effects;
         protected Dictionary<string, IMove> knownMoves;
+        TimeSpan ticks;
 
 #endregion
 
@@ -67,7 +71,7 @@ namespace LearnMonoGame.Summoneds.Enemies
         public int Width { get { return width; } }
         public int Height { get { return height; } }
         public bool IsAlive { get { return isAlive; } set { isAlive = value; } }
-        #endregion
+
 
         public List<IMove> Effects
         {
@@ -80,13 +84,13 @@ namespace LearnMonoGame.Summoneds.Enemies
         }
         public Rectangle Bounds { get { return bounds; } }
 
-
+        #endregion
         #region Constructor
 
         public Enemy(Attributes info)
         {
             // --- Attributes --- (Hole mir alle Informationen von SummonedsInformation für das jeweilige Monster)
-
+            ticks = TimeSpan.Zero;
             speed = info.Speed;
             width = info.Width;
             height = info.Height;
@@ -108,6 +112,7 @@ namespace LearnMonoGame.Summoneds.Enemies
             hit = false;
             hitTimer = TimeSpan.Zero;
             isAlive = true;
+            MoveManager.FillMoves();
         }
 
         #endregion
@@ -118,16 +123,28 @@ namespace LearnMonoGame.Summoneds.Enemies
         public virtual void Update(GameTime gameTime)
         {
             bounds = new Rectangle((int)pos.X, (int)pos.Y, width, height);
+            ticks += gameTime.ElapsedGameTime;
 
-            for (int i = 0; i < effects.Count; i++)
-            {
-                effects[i].Duration--;
-                if (effects[i].Duration < 1)
+            if (ticks > TimeSpan.FromSeconds(2))
+            {//1 Sekunde ist um, LB verschwindet
+                ticks = TimeSpan.Zero;
+                for (int i = 0; i < effects.Count; i++)
                 {
-                    effects.RemoveAt(i);
-                    i--;
+                    effects[i].Duration--;
+                    MoveManager.debugshitDuration = effects[i].Duration;
+                    if (effects[i].Name == "Hot")
+                        CalculateHealth(effects[i].Health);
+
+
+                    if (effects[i].Duration < 1)
+                    {
+                        effects.RemoveAt(i);
+                        i--;
+                    }
                 }
+                
             }
+
 
             if (hit)
             {//Wenn der Spieler getroffen wurde, wird der LB angezeigt (für 1 Sekunde)
@@ -141,7 +158,131 @@ namespace LearnMonoGame.Summoneds.Enemies
                 }
             }
         }
-        public virtual void CalculateHealth(float value)
+        public void ResolveMove(IMove move)//, Summoned target)
+        {
+            bool found = false;
+            switch (move.Target)
+            {
+                case ETarget.Self:
+                    if (move.MoveType == EMoveType.Buff)
+                    {
+                        found = false;
+                        for (int i = 0; i < effects.Count; i++)
+                        {
+                            if (effects[i].Name == move.Name)
+                            {
+                                effects[i].Duration += move.Duration;
+                                found = true;
+                            }
+                        }
+
+                        if (!found)
+                            effects.Add((IMove)move.Clone());
+                    }
+                    else if (move.MoveType == EMoveType.Heal)
+                    {
+                        CalculateHealth(move.Health);
+
+                    }
+                    else if (move.MoveType == EMoveType.Status)
+                    {
+                    }
+
+                    break;
+                //case ETarget.Enemy:
+                //    if (move.MoveType == EMoveType.Debuff)
+                //    {
+                //        found = false;
+                //        for (int i = 0; i < target.Effects.Count; i++)
+                //        {
+                //            if (target.Effects[i].Name == move.Name)
+                //            {
+                //                target.Effects[i].Duration += move.Duration;
+                //                found = true;
+                //            }
+                //        }
+                //
+                //        if (!found)
+                //            target.Effects.Add((IMove)move.Clone());
+                //    }
+                //    else if (move.MoveType == EMoveType.Attack)
+                //    {
+                //        //ToDo: modifiert berechnen (Schatten Licht etc)
+                //
+                //        float tDamage = CalculateDamage() + move.Health *  - target.CalculateDefensiv();
+                //
+                //        if (tDamage < 1f)
+                //            tDamage = 1f;
+                //
+                //        target.CalculateHealth(-(int)tDamage);
+                //    }
+                //
+                //  break;
+            }
+        }
+
+        public int CalculateDamage()
+        {
+            int attackMod = 0;
+
+            foreach (IMove move in effects)
+            {
+                if (move.MoveType == EMoveType.Buff)
+                    attackMod += move.Attack;
+
+                if (move.MoveType == EMoveType.Debuff)
+                    attackMod -= move.Attack;
+            }
+
+            return damage + attackMod;
+        }
+
+        public int CalculateDefensiv()
+        {
+            int defenseMod = 0;
+
+            foreach (IMove move in effects)
+            {
+                if (move.MoveType == EMoveType.Buff)
+                    defenseMod += move.Defense;
+
+                if (move.MoveType == EMoveType.Debuff)
+                    defenseMod -= move.Defense;
+            }
+
+            return defense + defenseMod;
+        }
+        public float CalculateSpeed()
+        {
+            int speedMod = 0;
+
+            foreach (IMove move in effects)
+            {
+                if (move.MoveType == EMoveType.Buff)
+                    speedMod += move.Speed;
+                if (move.MoveType == EMoveType.Debuff)
+                    speedMod -= move.Speed;
+            }
+
+            return speed + speedMod;
+        }
+
+        public int CalculateHealth()
+        {
+            int healthMod = 0;
+
+            foreach (IMove move in effects)
+            {
+                if (move.MoveType == EMoveType.Buff)
+                    healthMod += move.Health;
+                if (move.MoveType == EMoveType.Debuff)
+                    healthMod += move.Health;
+            }
+
+            return currentHealth + healthMod;
+        }
+
+        public virtual void CalculateHealth(int value)
         {
             hit = true;
             currentHealth += value;

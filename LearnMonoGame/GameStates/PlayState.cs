@@ -133,17 +133,19 @@ namespace LearnMonoGame.GameStates
         {
             spriteBatch.Begin();
 
-            Texture2D rectangle = new Texture2D(MapStuff.Instance.graphics, 200, 70);
-            Color[] data = new Color[200 * 80];
+            Texture2D rectangle = new Texture2D(MapStuff.Instance.graphics, 200, 90);
+            Color[] data = new Color[200 * 90];
             for (int i = 0; i < data.Length; i++) data[i] = Color.Chocolate;
             rectangle.SetData(data);
 
             spriteBatch.Draw(rectangle, new Vector2(5, 5), Color.White);
             spriteBatch.Draw(rectangle, new Vector2(210, 5), Color.White);
-            
+            spriteBatch.Draw(rectangle, new Vector2(415, 5), Color.White);
+
 
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nZoom: " + MapStuff.Instance.camera.Zoom + " Num1 & Num3\nReset Zoom: Num2", new Vector2(10, 10), Color.Bisque);
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nHealth +/- => L, K \nMana  +/- => O, I ", new Vector2(215, 10), Color.Bisque);
+            spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Bot Controll      \nHealth     => M    \nHot          => N \nDuration: "+ MoveManager.debugshitDuration , new Vector2(420, 10), Color.Bisque);
 
             spriteBatch.End();
         }
