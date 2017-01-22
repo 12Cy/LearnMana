@@ -67,7 +67,7 @@ namespace LearnMonoGame.Map
 
         public bool Walkable(Vector2 currentPosition)
         {
-            return true;
+            return _tileMap[(int)currentPosition.X / _tileSize.X, (int)currentPosition.Y / _tileSize.Y, 0].Walkable();
         }
 
         public void Update(GameTime gameTime)

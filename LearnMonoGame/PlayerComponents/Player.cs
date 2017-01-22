@@ -16,6 +16,29 @@ using LearnMonoGame.Summoneds;
 
 namespace LearnMonoGame.PlayerComponents
 {
+    //Um dem Player verschiedene Modifikation (+3 Rüstung, +1 ManaRegeneration) fasse ich solche Eigenschaften
+    //in einem Struct zusammen, die der Player eigenständig verarbeiten kann
+    //Wenn health = 0 -> Der Spieler bekommt 0 Heilung
+    //Wenn maxHealth = 5 -> Der Spieler kommt auf seine maxHealth + 5 aufaddiert
+    //Wenn alle Attribute auf 0 -> Es passiert garnichts (z.B. ich trage ein Stoffhemd - vielleicht noch Rüstung +1 :P)
+
+    public struct PlayerModifikator
+    {
+        float speed;
+
+        //health = spontante Heilung, healthMax = maximale Gesundheit, healthReg = Gesundheits-Regeneration
+        float health, healthMax, healthReg;
+
+        public PlayerModifikator(float _health, float _healthMax, float _healthReg) : this()
+        {
+            health = _health;
+            healthMax = _healthMax;
+            healthReg = _healthReg;
+        }
+        
+    }
+
+
     public interface IBaseFunction
     {
         void Initialize();

@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LearnMonoGame.PlayerComponents
+namespace LearnMonoGame.Spells
 {
-    enum ESpellType
+    class SpellbookInformation
     {
-        sp_fireball,
-        su_dummy,
     }
-    class Spellbook
+
+    class SpellInformation
     {
 
     }
