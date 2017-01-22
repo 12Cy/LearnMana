@@ -41,6 +41,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Manager\BulletManager.cs" />
     <Compile Include="Components\Camera.cs" />
     <Compile Include="Components\xIn.cs" />
     <Compile Include="Game1.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="PlayerComponents\Player.cs" />
     <Compile Include="PlayerComponents\PlayerManager.cs" />
     <Compile Include="Spells\Bullet.cs" />
+    <Compile Include="Spells\Fire\SFireball.cs" />
     <Compile Include="Spells\Spell.cs" />
     <Compile Include="Spells\Spellbook.cs" />
     <Compile Include="Program.cs" />
@@ -72,7 +74,7 @@
     <Compile Include="Tools\AnimatedSprite.cs" />
     <Compile Include="Tools\Animation.cs" />
     <Compile Include="Tools\SelectBar.cs" />
-    <Compile Include="Weapon\Fireball.cs" />
+    <Compile Include="Bullets\Fireball.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

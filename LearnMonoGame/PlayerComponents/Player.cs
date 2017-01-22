@@ -1,7 +1,6 @@
 ﻿using LearnMonoGame.Components;
 using LearnMonoGame.Tools;
 using LearnMonoGame.Manager;
-using LearnMonoGame.Weapon;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -28,9 +27,20 @@ namespace LearnMonoGame.PlayerComponents
 
         //health = spontante Heilung, healthMax = maximale Gesundheit, healthReg = Gesundheits-Regeneration
         float health, healthMax, healthReg;
+        float mana, manaMax, manaReg;
 
-        public PlayerModifikator(float _health, float _healthMax, float _healthReg) : this()
+        public PlayerModifikator(float _healthMax = 0, float _healthReg = 0, float _health = 0
+            , float _mana = 0, float _manaMax = 0, float _manaReg = 0
+            , float _speed = 0)
         {
+            speed = _speed;
+
+
+            mana = _mana;
+            manaMax = _manaMax;
+            manaReg = _manaReg;
+
+
             health = _health;
             healthMax = _healthMax;
             healthReg = _healthReg;
@@ -167,11 +177,6 @@ namespace LearnMonoGame.PlayerComponents
         {
             PlayerMove(gameTime);
 
-            foreach (Fireball aFireball in PlayerManager.Instance.fireballList)
-            {
-                aFireball.Update(gameTime);
-            }
-
             if (playerhit)
             {//Wenn der Spieler getroffen wurde, wird der LB angezeigt (für 1 Sekunde)
                 playerHitTimer += gameTime.ElapsedGameTime;
@@ -192,15 +197,9 @@ namespace LearnMonoGame.PlayerComponents
 
             }
             //ToDo Hier alle Zauber rein
+            //Vielleicht dann doch nicht ALLE. :D
             if (xIn.CheckMouseReleased(MouseButtons.Right) && attackMode)
             {
-                //Spell: Fireball
-                if(currentMana >= fireBallCost)
-                {
-                    CalculateMana(-fireBallCost);
-                    rangeDestination = new Vector2(xIn.MousePosition.X, xIn.MousePosition.Y) - new Vector2(pos.X + size / 2, pos.Y + size / 2);
-                    ShootFireball();
-                }
 
 
                 
@@ -234,7 +233,7 @@ namespace LearnMonoGame.PlayerComponents
                 playerhit = true;
         }
 
-        private void ShootFireball()
+        private void CastSpell(int index)
         {
             rangeDestination.Normalize();
 
@@ -250,9 +249,6 @@ namespace LearnMonoGame.PlayerComponents
                 else
                     animatedSprite.CurrentAnimation = AnimationKey.WalkUp;
             }
-
-            Fireball aFireball = new Fireball(new Rectangle((int)pos.X + size / 2, (int)pos.Y + size / 2, 20, 17), rangeDestination);
-            PlayerManager.Instance.fireballList.Add(aFireball);
         }
 
         private void PlayerMove(GameTime gameTime)
@@ -337,11 +333,6 @@ namespace LearnMonoGame.PlayerComponents
         public void Draw(SpriteBatch spritebatch)
         {
             animatedSprite.Draw( spritebatch);
-            foreach (Fireball aFireball in PlayerManager.Instance.fireballList)
-            {
-                aFireball.Draw(spritebatch);
-
-            }
 
             //LB
             if (selected || playerhit)

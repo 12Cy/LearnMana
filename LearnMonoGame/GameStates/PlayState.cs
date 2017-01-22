@@ -16,7 +16,8 @@ using LearnMonoGame.Components;
 
 using LearnMonoGame.Summoneds.Enemies;
 using LearnMonoGame.Summoneds.Enemies.Monster;
-using LearnMonoGame.Weapon;
+using LearnMonoGame.Bullets;
+using LearnMonoGame.Spells;
 
 namespace LearnMonoGame.GameStates
 {
@@ -83,6 +84,10 @@ namespace LearnMonoGame.GameStates
                 a.Update(gTime);
                 
             }
+            for (int i = 0; i < BulletManager.Instance.bullets.Count; ++i)
+            {
+                BulletManager.Instance.bullets[i].Update(gTime);
+            }
             CollisionTestDebugZweckeWirdNochGeaendertKeineAngst();
 
             if (xIn.CheckKeyReleased(Keys.NumPad1))
@@ -102,7 +107,7 @@ namespace LearnMonoGame.GameStates
         {
             foreach (Enemy enemy in MonsterManager.Instance.enemyList)
             {
-                foreach (Fireball aFireball in PlayerManager.Instance.fireballList)
+                foreach (Fireball aFireball in BulletManager.Instance.bullets)
                 {
                     if (aFireball.Bounds.Intersects(enemy.Bounds) && aFireball.Visible)
                     {
@@ -159,6 +164,8 @@ namespace LearnMonoGame.GameStates
             {
                 a.Draw(spriteBatch);
             }
+            foreach(Bullet b in BulletManager.Instance.bullets)
+                b.Draw(spriteBatch);
 
             selectBar.Draw(spriteBatch);
 

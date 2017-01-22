@@ -26,7 +26,7 @@ namespace LearnMonoGame.Spells
         #endregion
 
         #region Methods
-        public abstract PlayerModifikator Cast(Vector2 _direction);
+        public abstract PlayerModifikator Cast(Rectangle bounds, Vector2 _direction);
         public bool CastAble(Player player)
         {
             return true;

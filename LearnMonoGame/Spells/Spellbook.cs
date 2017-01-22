@@ -25,10 +25,10 @@ namespace LearnMonoGame.Spells
         #endregion
 
         #region Methods
-        public virtual PlayerModifikator Cast(Vector2 _direction, byte index)
+        public virtual PlayerModifikator Cast(Rectangle bounds, Vector2 _direction, byte index)
         {
             if (index >= 0 && index < spell.Length)
-                return spell[index].Cast(_direction);
+                return spell[index].Cast(bounds, _direction);
 
             return new PlayerModifikator();
         }
