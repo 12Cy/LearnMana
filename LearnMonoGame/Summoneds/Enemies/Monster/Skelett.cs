@@ -1,4 +1,5 @@
-﻿using LearnMonoGame.Manager;
+﻿using LearnMonoGame.Components;
+using LearnMonoGame.Manager;
 using LearnMonoGame.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,8 +13,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
 {
     class Skelett : Enemy
     {
-        
-            
+        private object xin;
 
         public Skelett(Vector2 _pos) : base(SummonedsInformation.Instance.skelettInformation)
         {
@@ -25,7 +25,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         protected override void Initialize()
         {
             moveDestination = pos;
-
+            currentHealth = 10;
             // --- Animation ---
             animatedSprite = new AnimatedSprite(creatureTexture, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.dummy));
             animatedSprite.CurrentAnimation = AnimationKey.WalkRight;
@@ -33,6 +33,15 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         }
         public override void Update(GameTime gameTime)
         {
+            if (xIn.CheckKeyReleased(Microsoft.Xna.Framework.Input.Keys.M))
+            {
+                base.ResolveMove(MoveManager.GetMove("Heal"));
+            }
+            if (xIn.CheckKeyReleased(Microsoft.Xna.Framework.Input.Keys.N))
+            {
+                base.ResolveMove(MoveManager.GetMove("Hot"));
+            }
+
 
             base.Update(gameTime);
         }
@@ -40,11 +49,10 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         {
             base.Draw(spriteBatch);
         }
-        public override void CalculateHealth(float value)
+        public override void CalculateHealth(int value)
         {
             base.CalculateHealth(value);
         }
-
 
 
     }

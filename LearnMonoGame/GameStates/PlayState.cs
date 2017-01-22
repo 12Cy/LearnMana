@@ -62,7 +62,7 @@ namespace LearnMonoGame.GameStates
  
 
             selectBar = new SelectBar();
-            player = new Player(gameref, new Vector2(750, 250),_CM.GetTexture(_CM.TextureName.player));
+            PlayerManager.Instance.MyPlayer = new Player(gameref, new Vector2(750, 250),_CM.GetTexture(_CM.TextureName.player));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(200, 200)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(600, 400)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(350, 260)));
@@ -74,7 +74,7 @@ namespace LearnMonoGame.GameStates
         public EGameState Update(GameTime gTime)
         {
             MapStuff.Instance.map.Update(gTime);
-            player.Update(gTime);
+            PlayerManager.Instance.MyPlayer.Update(gTime);
             foreach (Summoned a in MonsterManager.Instance.mySummoned)
             {
                 a.Update(gTime);
@@ -100,8 +100,8 @@ namespace LearnMonoGame.GameStates
             if (xIn.CheckKeyReleased(Keys.NumPad2))
                 MapStuff.Instance.camera.ResetZoom();
 
-            selectBar.Update(player);
-            selectBar.CheckSelected(player);
+            selectBar.Update();
+            selectBar.CheckSelected();
 
 
             return EGameState.PlayState;
@@ -136,17 +136,19 @@ namespace LearnMonoGame.GameStates
         {
             spriteBatch.Begin();
 
-            Texture2D rectangle = new Texture2D(MapStuff.Instance.graphics, 200, 70);
-            Color[] data = new Color[200 * 80];
+            Texture2D rectangle = new Texture2D(MapStuff.Instance.graphics, 200, 90);
+            Color[] data = new Color[200 * 90];
             for (int i = 0; i < data.Length; i++) data[i] = Color.Chocolate;
             rectangle.SetData(data);
 
             spriteBatch.Draw(rectangle, new Vector2(5, 5), Color.White);
             spriteBatch.Draw(rectangle, new Vector2(210, 5), Color.White);
-            
+            spriteBatch.Draw(rectangle, new Vector2(415, 5), Color.White);
+
 
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nZoom: " + MapStuff.Instance.camera.Zoom + " Num1 & Num3\nReset Zoom: Num2", new Vector2(10, 10), Color.Bisque);
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nHealth +/- => L, K \nMana  +/- => O, I ", new Vector2(215, 10), Color.Bisque);
+            spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Bot Controll      \nHealth     => M    \nHot          => N \nDuration: "+ MoveManager.debugshitDuration , new Vector2(420, 10), Color.Bisque);
 
             spriteBatch.End();
         }
@@ -158,7 +160,7 @@ namespace LearnMonoGame.GameStates
             spriteBatch.Begin(transformMatrix: MapStuff.Instance.camera.GetViewMatrix());
             MapStuff.Instance.map.Draw(spriteBatch);
 
-            player.Draw(spriteBatch);
+            PlayerManager.Instance.MyPlayer.Draw(spriteBatch);
             foreach (Summoned a in MonsterManager.Instance.mySummoned)
             {
                 a.Draw(spriteBatch);

@@ -37,10 +37,9 @@ namespace LearnMonoGame.Tools
         }
 
 
-        public void Update(Player player)
+        public void Update()
         {
             MouseState aMouse = Mouse.GetState();
-            playerBounds = new Rectangle((int)player.Pos.X, (int)player.Pos.Y, size, size);
             //StartLocation !
             if (aMouse.LeftButton == ButtonState.Pressed && mPreviousMouseState.LeftButton == ButtonState.Released)
                 mSelectionBox = new Rectangle((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y, 0, 0);
@@ -51,8 +50,8 @@ namespace LearnMonoGame.Tools
             //still pressed- re-size where the mouse has currently been moved to.
             if (aMouse.LeftButton == ButtonState.Pressed)
             {
-                player.SetSelected(false);
-                player.AttackMode = false;
+                PlayerManager.Instance.MyPlayer.SetSelected(false);
+                PlayerManager.Instance.MyPlayer.AttackMode = false;
                 foreach (Summoned a in MonsterManager.Instance.mySummoned)
                         a.IsSelect = false;
 
@@ -66,7 +65,7 @@ namespace LearnMonoGame.Tools
         /// <CheckSelected>
         /// Überüft ob der Spieler anvisierit wurde
         /// </CheckSelected>
-        public void CheckSelected(Player player)
+        public void CheckSelected()
         {
             //Maus loslassen!
             if (xIn.CheckMouseReleased(MouseButtons.Left))    
@@ -78,10 +77,10 @@ namespace LearnMonoGame.Tools
                 if(mSelectionBox.Height > 0 && mSelectionBox.Width < 0)
                     mSelectionBox = new Rectangle(mSelectionBox.X + mSelectionBox.Width, mSelectionBox.Y, Math.Abs(mSelectionBox.Width), Math.Abs(mSelectionBox.Height));
 
-
+                playerBounds = new Rectangle((int)PlayerManager.Instance.MyPlayer.Pos.X, (int)PlayerManager.Instance.MyPlayer.Pos.Y, PlayerManager.Instance.MyPlayer.Size, PlayerManager.Instance.MyPlayer.Size);
                 if (mSelectionBox.Intersects(playerBounds))//player.Pos.X > mSelectionBox.X && player.Pos.X < mSelectionBox.X + mSelectionBox.Width && player.Pos.Y > mSelectionBox.Y && player.Pos.Y < mSelectionBox.Y + mSelectionBox.Height)
                 {
-                    player.SetSelected(true);
+                    PlayerManager.Instance.MyPlayer.SetSelected(true);
                    //mSelectionBox = new Rectangle(-1, -1, 0, 0); //defaultWert
                    //Console.WriteLine("Player Select");
 

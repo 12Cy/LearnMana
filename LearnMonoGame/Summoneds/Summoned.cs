@@ -1,5 +1,6 @@
 ﻿using LearnMonoGame.Components;
 using LearnMonoGame.Manager;
+using LearnMonoGame.Summoneds.Enemies;
 using LearnMonoGame.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -38,22 +39,25 @@ namespace LearnMonoGame.Summoneds
         protected float currentHealth;
 
         //Attributes
-        protected float maxHealth;
+        protected int maxHealth;
         protected float speed;
         protected float attackSpeed;
         protected int width;
         protected int height;
-        protected float damage;
-        protected float defense;
+        protected int damage;
+        protected int defense;
 
         //Offset
         protected float offset = 0.5f;
         protected int offsetHeight = 10; //Gibt die Height der LB Texture an!
 
+        protected List<IMove> effects;
+
         #endregion
 
         #region properties
 
+        public List<IMove> Effects{ get { return effects; }}
         public Vector2 Pos { get { return pos; } }
         public bool IsSelect { get { return IsSelect; } set { isSelected = value; } }
         public int Width { get { return width; } }
@@ -177,6 +181,22 @@ namespace LearnMonoGame.Summoneds
             }
 
             animatedSprite.Update(gameTime);
+        }
+
+        public int CalculateDefensiv()
+        {
+            int defenseMod = 0;
+
+            foreach (IMove move in effects)
+            {
+                if (move.MoveType == EMoveType.Buff)
+                    defenseMod += move.Defense;
+
+                if (move.MoveType == EMoveType.Debuff)
+                    defenseMod -= move.Defense;
+            }
+
+            return defense + defenseMod;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

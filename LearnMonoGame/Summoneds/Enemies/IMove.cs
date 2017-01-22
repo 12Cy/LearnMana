@@ -11,11 +11,11 @@ namespace LearnMonoGame.Summoneds.Enemies
         Self, Enemy
     }
 
-    public enum EMoveType
+    public enum EMoveType 
     {
         Attack, Heal, Buff, Debuff, Status
     }
-    public enum EStatus
+    public enum EStatus //welchen Status habe ich nach meinem Move
     {
         Normal, Sleep, Poison, Paralysis
     }
@@ -33,5 +33,10 @@ namespace LearnMonoGame.Summoneds.Enemies
         EStatus Status { get; }
         string Name { get; }
         int Duration { get; set; }
+        int Attack { get; }
+        int Defense { get; }
+        int Speed { get; }
+        int Health { get; }
+        object Clone();
     }
 }

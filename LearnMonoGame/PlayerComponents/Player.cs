@@ -32,8 +32,7 @@ namespace LearnMonoGame.PlayerComponents
         float mana, manaMax, manaReg;
 
         public PlayerModifikator(float _healthMax = 0, float _healthReg = 0, float _health = 0
-            , float _mana = 0, float _manaMax = 0, float _manaReg = 0
-            , float _speed = 0)
+            , float _mana = 0, float _manaMax = 0, float _manaReg = 0, float _speed = 0)
         {
             speed = _speed;
 
@@ -76,7 +75,7 @@ namespace LearnMonoGame.PlayerComponents
 
         //Movement
         float offset = 0.5f;
-        float speed = 180f;
+        float speed;
 
         Vector2 pos;
         Vector2 moveDestination;
@@ -98,9 +97,9 @@ namespace LearnMonoGame.PlayerComponents
 
         //Life
         float currentHealth;
-        float maxHealth = 100;
+        float maxHealth;
         float currentMana;
-        float maxMana = 100;
+        float maxMana;
 
 
         //Spellbook
@@ -114,6 +113,7 @@ namespace LearnMonoGame.PlayerComponents
 #region properties
 
         public Vector2 Pos { get { return pos; } }
+        public int Size { get { return size; } }
         public bool AttackMode { get { return attackMode; } set { attackMode = value; } }
         public void SetSelected(bool value)
         {
@@ -148,9 +148,15 @@ namespace LearnMonoGame.PlayerComponents
         {
             moveDestination = pos;
             //Select
-            
-            selected = false;
 
+            //Attributes
+            speed = PlayerManager.Instance.MyPlayerInformation.Speed;
+            maxHealth = PlayerManager.Instance.MyPlayerInformation.MaxHealth;
+            maxMana = PlayerManager.Instance.MyPlayerInformation.maxMana;
+
+
+
+            selected = false;
             attackMode = false;
 
             //Animation
@@ -174,16 +180,9 @@ namespace LearnMonoGame.PlayerComponents
 
         }
 
-        public void LoadContent(ContentManager content)
-        {
+        public void LoadContent(ContentManager content) { }
 
-
-        }
-
-        public void UnloadContent()
-        {
-
-        }
+        public void UnloadContent(){}
 
         public void Update(GameTime gameTime)
         {
