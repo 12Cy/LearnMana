@@ -43,7 +43,9 @@ namespace LearnMonoGame.Tools
             playerBounds = new Rectangle((int)player.Pos.X, (int)player.Pos.Y, size, size);
             //StartLocation !
             if (aMouse.LeftButton == ButtonState.Pressed && mPreviousMouseState.LeftButton == ButtonState.Released)
-                mSelectionBox = new Rectangle((int)xIn.MousePosition.X,(int)xIn.MousePosition.Y, 0, 0);
+                mSelectionBox = new Rectangle((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y, 0, 0);
+
+                
 
 
             //still pressed- re-size where the mouse has currently been moved to.
@@ -51,7 +53,7 @@ namespace LearnMonoGame.Tools
             {
                 player.SetSelected(false);
                 player.AttackMode = false;
-                foreach (Summoned a in PlayerManager.Instance.mySummoned)
+                foreach (Summoned a in MonsterManager.Instance.mySummoned)
                         a.IsSelect = false;
 
                 mSelectionBox = new Rectangle(mSelectionBox.X, mSelectionBox.Y, (int)xIn.MousePosition.X - mSelectionBox.X, (int)xIn.MousePosition.Y - mSelectionBox.Y);
@@ -84,7 +86,7 @@ namespace LearnMonoGame.Tools
                    //Console.WriteLine("Player Select");
 
                 }
-                foreach (Summoned a in PlayerManager.Instance.mySummoned)
+                foreach (Summoned a in MonsterManager.Instance.mySummoned)
                 {
                     Rectangle summonRectangle = new Rectangle((int)a.Pos.X, (int)a.Pos.Y, a.Width, a.Height);
                     if (mSelectionBox.Intersects(summonRectangle))

@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LearnMonoGame.Summoneds;
+using LearnMonoGame.Weapon;
 
 namespace LearnMonoGame.PlayerComponents
 {
     class PlayerManager
     {
-        public List<Summoned> mySummoned = new List<Summoned>();
+        public List<Fireball> fireballList = new List<Fireball>();
 
 
 

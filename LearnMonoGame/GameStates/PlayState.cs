@@ -14,6 +14,10 @@ using LearnMonoGame.Manager;
 using Microsoft.Xna.Framework.Input;
 using LearnMonoGame.Components;
 
+using LearnMonoGame.Summoneds.Enemies;
+using LearnMonoGame.Summoneds.Enemies.Monster;
+using LearnMonoGame.Weapon;
+
 namespace LearnMonoGame.GameStates
 {
     class PlayState : IGameState
@@ -57,7 +61,11 @@ namespace LearnMonoGame.GameStates
  
 
             selectBar = new SelectBar();
-            player = new Player(gameref, new Vector2(200, 200),_CM.GetTexture(_CM.TextureName.player));
+            player = new Player(gameref, new Vector2(750, 250),_CM.GetTexture(_CM.TextureName.player));
+            MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(200, 200)));
+            MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(600, 400)));
+            MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(350, 260)));
+            MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(270, 450)));
 
         }
 
@@ -66,10 +74,17 @@ namespace LearnMonoGame.GameStates
         {
             MapStuff.Instance.map.Update(gTime);
             player.Update(gTime);
-            foreach (Summoned a in PlayerManager.Instance.mySummoned)
+            foreach (Summoned a in MonsterManager.Instance.mySummoned)
             {
                 a.Update(gTime);
             }
+            foreach (Enemy a in MonsterManager.Instance.enemyList)
+            {
+                a.Update(gTime);
+                
+            }
+            CollisionTestDebugZweckeWirdNochGeaendertKeineAngst();
+
             if (xIn.CheckKeyReleased(Keys.NumPad1))
                 MapStuff.Instance.camera.Zoom += 0.1f;
             if(xIn.CheckKeyReleased(Keys.NumPad3))
@@ -83,6 +98,30 @@ namespace LearnMonoGame.GameStates
 
             return EGameState.PlayState;
         }
+        public void CollisionTestDebugZweckeWirdNochGeaendertKeineAngst()
+        {
+            foreach (Enemy enemy in MonsterManager.Instance.enemyList)
+            {
+                foreach (Fireball aFireball in PlayerManager.Instance.fireballList)
+                {
+                    if (aFireball.Bounds.Intersects(enemy.Bounds) && aFireball.Visible)
+                    {
+                        enemy.CalculateHealth(-20);
+                        aFireball.Visible = false;
+                    }
+                }
+
+            }
+            for (int i = 0; i < MonsterManager.Instance.enemyList.Count; i++)
+            {
+
+                if (!MonsterManager.Instance.enemyList[i].IsAlive)
+                {
+                    MonsterManager.Instance.enemyList.RemoveAt(i);
+                    i--;
+                }
+            }
+        }
 
 
         public void DrawGUI(SpriteBatch spriteBatch)
@@ -95,8 +134,12 @@ namespace LearnMonoGame.GameStates
             rectangle.SetData(data);
 
             spriteBatch.Draw(rectangle, new Vector2(5, 5), Color.White);
+            spriteBatch.Draw(rectangle, new Vector2(210, 5), Color.White);
+            
 
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nZoom: " + MapStuff.Instance.camera.Zoom + " Num1 & Num3\nReset Zoom: Num2", new Vector2(10, 10), Color.Bisque);
+            spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nHealth +/- => L, K \nMana  +/- => O, I ", new Vector2(215, 10), Color.Bisque);
+
             spriteBatch.End();
         }
 
@@ -108,7 +151,11 @@ namespace LearnMonoGame.GameStates
             MapStuff.Instance.map.Draw(spriteBatch);
 
             player.Draw(spriteBatch);
-            foreach (Summoned a in PlayerManager.Instance.mySummoned)
+            foreach (Summoned a in MonsterManager.Instance.mySummoned)
+            {
+                a.Draw(spriteBatch);
+            }
+            foreach (Enemy a in MonsterManager.Instance.enemyList)
             {
                 a.Draw(spriteBatch);
             }

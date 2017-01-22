@@ -55,7 +55,7 @@ namespace LearnMonoGame.PlayerComponents
         int offsetHeight = 10;
 
         //Weapon
-        List<Fireball> fireballList = new List<Fireball>();
+        
         int fireBallCost = 15;
         Vector2 rangeDestination;
         bool attackMode = false;
@@ -66,6 +66,8 @@ namespace LearnMonoGame.PlayerComponents
         float maxHealth = 100;
         float currentMana;
         float maxMana = 100;
+
+
 
 #endregion
 #region properties
@@ -123,6 +125,8 @@ namespace LearnMonoGame.PlayerComponents
             selectedTexture = _CM.GetTexture(_CM.TextureName.selected);
             damageselectedTexture = _CM.GetTexture(_CM.TextureName.damageselect);
 
+
+
         }
 
         public void LoadContent(ContentManager content)
@@ -140,7 +144,7 @@ namespace LearnMonoGame.PlayerComponents
         {
             PlayerMove(gameTime);
 
-            foreach (Fireball aFireball in fireballList)
+            foreach (Fireball aFireball in PlayerManager.Instance.fireballList)
             {
                 aFireball.Update(gameTime);
             }
@@ -183,7 +187,7 @@ namespace LearnMonoGame.PlayerComponents
             {
                 //Spell: Summon Dummy
                 Dummy a = new Dummy(new Vector2((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y));
-                PlayerManager.Instance.mySummoned.Add(a);
+                MonsterManager.Instance.mySummoned.Add(a);
             }
             DebugShit();
 
@@ -192,9 +196,9 @@ namespace LearnMonoGame.PlayerComponents
         private void DebugShit()
         {
             KeyboardState newState = Keyboard.GetState();
-            if (xIn.CheckKeyReleased(Keys.L))
+            if (newState.IsKeyDown(Keys.L))
                 CalculateHealth(1);
-            if (xIn.CheckKeyReleased(Keys.K))
+            if (newState.IsKeyDown(Keys.K))
             {
                 CalculateHealth(-1);
                 playerhit = true;
@@ -225,7 +229,7 @@ namespace LearnMonoGame.PlayerComponents
             }
 
             Fireball aFireball = new Fireball(new Rectangle((int)pos.X + size / 2, (int)pos.Y + size / 2, 20, 17), rangeDestination);
-            fireballList.Add(aFireball);
+            PlayerManager.Instance.fireballList.Add(aFireball);
         }
 
         private void PlayerMove(GameTime gameTime)
@@ -310,7 +314,7 @@ namespace LearnMonoGame.PlayerComponents
         public void Draw(SpriteBatch spritebatch)
         {
             animatedSprite.Draw( spritebatch);
-            foreach (Fireball aFireball in fireballList)
+            foreach (Fireball aFireball in PlayerManager.Instance.fireballList)
             {
                 aFireball.Draw(spritebatch);
 
@@ -319,6 +323,7 @@ namespace LearnMonoGame.PlayerComponents
             //LB
             if (selected || playerhit)
             {
+                MouseState amouse = Mouse.GetState();
                 /// <Lebensbalken>
                 /// Wir zeichnen zuerst  eine Background Farbe(1.Schicht), die Füllfarbe(2.Schicht), texture mit der Umrandung(3.Schicht).
                 /// Die Texture soll über dem Spieler gezeichnet werden
@@ -337,6 +342,7 @@ namespace LearnMonoGame.PlayerComponents
                     spritebatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, size, size), Color.White);
                 else
                     spritebatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, size, size), Color.White);
+
             }
 
         }

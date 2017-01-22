@@ -62,6 +62,7 @@ namespace LearnMonoGame
         protected override void Initialize()
         {
             MapStuff.Instance.graphics = graphics.GraphicsDevice;
+            MapStuff.Instance.game = this;
             currState = EGameState.TitleIntroState;
             prevState = EGameState.None;
             state = new TitleIntroState();

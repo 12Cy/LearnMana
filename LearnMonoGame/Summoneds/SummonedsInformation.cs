@@ -10,7 +10,13 @@ namespace LearnMonoGame.Summoneds
     {
         dummy,
     }
+    class SkelettInformation : Attributes
+    {
+        public SkelettInformation()
+        {
 
+        }
+    }
     class DummyInformation : Attributes
     {
         #region properties
@@ -23,6 +29,7 @@ namespace LearnMonoGame.Summoneds
     class SummonedsInformation
     {
         public DummyInformation dummyInformation = new DummyInformation();
+        public SkelettInformation skelettInformation = new SkelettInformation();
 
 
         static SummonedsInformation instance;

@@ -77,8 +77,6 @@ namespace LearnMonoGame.Map
         public void Draw(SpriteBatch spritebatch)
         {
 
-
-
             for (int y = 0; y < _tileMap.GetLength(1); y++) //nur die höhe möchte ich haben
             {
 

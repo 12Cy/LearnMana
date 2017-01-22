@@ -13,6 +13,7 @@ namespace LearnMonoGame.Manager
     class MapStuff
     {
         public GraphicsDevice graphics;
+        public Game1 game;
         public Tilemap map;
         public int size = 32;
 

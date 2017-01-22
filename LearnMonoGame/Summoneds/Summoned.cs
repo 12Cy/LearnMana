@@ -43,6 +43,8 @@ namespace LearnMonoGame.Summoneds
         protected float attackSpeed;
         protected int width;
         protected int height;
+        protected float damage;
+        protected float defense;
 
         //Offset
         protected float offset = 0.5f;
@@ -69,9 +71,11 @@ namespace LearnMonoGame.Summoneds
             width = info.Width;
             height = info.Height;
             maxHealth = info.MaxHealth;
+            damage = info.Damage;
+            defense = info.Defense;
 
-            // --- Life ---
-            currentHealth = maxHealth;
+        // --- Life ---
+        currentHealth = maxHealth;
             isAlive = true;
             isSelected = false;
             hitTimer = TimeSpan.Zero;

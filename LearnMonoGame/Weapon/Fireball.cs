@@ -18,17 +18,19 @@ namespace LearnMonoGame.Weapon
         Texture2D fireballTexture;
         Vector2 startPosition;
         Vector2 positon;
+        Rectangle bounds;
 
         int width;
         int height;
 
         float speed = 350; //Default Wert 
 
+        public Rectangle Bounds { get { return bounds; } }
 
         Vector2 direction;
         public Fireball(Rectangle _startPosition, Vector2 _direction) //Rectangel damit wir gleich die texture skaliert haben
         {
-
+            
             startPosition = new Vector2(_startPosition.X, _startPosition.Y);
             positon = startPosition;
             width = _startPosition.Width;
@@ -54,6 +56,8 @@ namespace LearnMonoGame.Weapon
                 return;
             }
 
+            
+
             //Bewege den Feuerball
             direction.Normalize();
             direction *= (speed * (float)gameTime.ElapsedGameTime.TotalSeconds);
@@ -62,7 +66,7 @@ namespace LearnMonoGame.Weapon
             positon = positon + direction;
 
             //ToDo: Collision mit enemys, Wall etc
-
+            bounds = new Rectangle((int)positon.X, (int)positon.Y, width, height);
 
         }
         public void Draw(SpriteBatch spriteBatch)

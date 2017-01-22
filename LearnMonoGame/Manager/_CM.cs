@@ -46,6 +46,7 @@ namespace LearnMonoGame.Manager
             textureDictionary.Add(TextureName.selectCircle, Content.Load<Texture2D>("Select//Circle"));
             textureDictionary.Add(TextureName.selected, Content.Load<Texture2D>("Select//selected"));
             textureDictionary.Add(TextureName.damageselect, Content.Load<Texture2D>("Select//Damageselected"));
+            textureDictionary.Add(TextureName.fireballCursor, Content.Load<Texture2D>("Select//Cursor//fireballCursor"));
 
             //Weapons
             textureDictionary.Add(TextureName.fireball, Content.Load<Texture2D>("Player//Weapons//Fireball"));
@@ -85,6 +86,7 @@ namespace LearnMonoGame.Manager
             frontLife,
             fireball,
             dummy,
+            fireballCursor,
                 
         }
         public enum FontName

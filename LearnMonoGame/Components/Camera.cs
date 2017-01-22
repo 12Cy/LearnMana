@@ -11,8 +11,12 @@ namespace LearnMonoGame.Components
 {
     class Camera
     {
+        int offsetPercent = 5;
         public Vector2 position;
         float zoom;
+        Rectangle bounds;
+
+        public Rectangle Bounds { get { return new Rectangle((int)position.X, (int)position.Y, MapStuff.Instance.x, MapStuff.Instance.y); } }
 
         public float Zoom
         {
@@ -39,13 +43,17 @@ namespace LearnMonoGame.Components
 
         public Matrix GetViewMatrix()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            float difX = (float)offsetPercent / 100 * MapStuff.Instance.x;
+            float difY = (float)offsetPercent / 100 * MapStuff.Instance.y;
+
+            MouseState aMouse = Mouse.GetState();
+            if (aMouse.X < difX)
                 position.X -= 5;
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (aMouse.X > MapStuff.Instance.x - difX)
                 position.X += 5;
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            if (aMouse.Y < difY)
                 position.Y -= 5;
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            if (aMouse.Y > MapStuff.Instance.y - difY)
                 position.Y += 5;
 
             return
