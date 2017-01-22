@@ -30,8 +30,7 @@ namespace LearnMonoGame.PlayerComponents
         float mana, manaMax, manaReg;
 
         public PlayerModifikator(float _healthMax = 0, float _healthReg = 0, float _health = 0
-            , float _mana = 0, float _manaMax = 0, float _manaReg = 0
-            , float _speed = 0)
+            , float _mana = 0, float _manaMax = 0, float _manaReg = 0, float _speed = 0)
         {
             speed = _speed;
 
@@ -74,7 +73,7 @@ namespace LearnMonoGame.PlayerComponents
 
         //Movement
         float offset = 0.5f;
-        float speed = 180f;
+        float speed;
 
         Vector2 pos;
         Vector2 moveDestination;
@@ -96,9 +95,9 @@ namespace LearnMonoGame.PlayerComponents
 
         //Life
         float currentHealth;
-        float maxHealth = 100;
+        float maxHealth;
         float currentMana;
-        float maxMana = 100;
+        float maxMana;
 
 
 
@@ -136,9 +135,15 @@ namespace LearnMonoGame.PlayerComponents
         {
             moveDestination = pos;
             //Select
-            
-            selected = false;
 
+            //Attributes
+            speed = PlayerManager.Instance.PlayerInformation.Speed;
+            maxHealth = PlayerManager.Instance.PlayerInformation.MaxHealth;
+            maxMana = PlayerManager.Instance.PlayerInformation.maxMana;
+
+
+
+            selected = false;
             attackMode = false;
 
             //Animation
@@ -162,16 +167,9 @@ namespace LearnMonoGame.PlayerComponents
 
         }
 
-        public void LoadContent(ContentManager content)
-        {
+        public void LoadContent(ContentManager content) { }
 
-
-        }
-
-        public void UnloadContent()
-        {
-
-        }
+        public void UnloadContent(){}
 
         public void Update(GameTime gameTime)
         {
