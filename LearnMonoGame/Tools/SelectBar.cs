@@ -52,6 +52,7 @@ namespace LearnMonoGame.Tools
             {
                 PlayerManager.Instance.MyPlayer.IsSelect = false;
                 PlayerManager.Instance.MyPlayer.AttackMode = false;
+
                 foreach (Character a in MonsterManager.Instance.mySummoned)
                         a.IsSelect = false;
                 foreach (Character a in MonsterManager.Instance.enemyList)
@@ -111,8 +112,6 @@ namespace LearnMonoGame.Tools
 
                     }
                 }
-
-
                 mSelectionBox = new Rectangle(-1, -1, 0, 0); //wenn der Spieler nicht im Bereich war Reset!
             }
 
