@@ -54,6 +54,8 @@ namespace LearnMonoGame.Tools
                 PlayerManager.Instance.MyPlayer.AttackMode = false;
                 foreach (Character a in MonsterManager.Instance.mySummoned)
                         a.IsSelect = false;
+                foreach (Character a in MonsterManager.Instance.enemyList)
+                    a.IsSelect = false;
 
                 mSelectionBox = new Rectangle(mSelectionBox.X, mSelectionBox.Y, (int)xIn.MousePosition.X - mSelectionBox.X, (int)xIn.MousePosition.Y - mSelectionBox.Y);
             }
@@ -67,9 +69,11 @@ namespace LearnMonoGame.Tools
         /// </CheckSelected>
         public void CheckSelected()
         {
+            bool isFriend = false;
             //Maus loslassen!
             if (xIn.CheckMouseReleased(MouseButtons.Left))    
             {
+                
                 if(mSelectionBox.Height < 0 && mSelectionBox.Width < 0)
                     mSelectionBox = new Rectangle(mSelectionBox.X + mSelectionBox.Width, mSelectionBox.Y + mSelectionBox.Height, Math.Abs(mSelectionBox.Width), Math.Abs(mSelectionBox.Height));
                 if(mSelectionBox.Height < 0 && mSelectionBox.Width > 0)
@@ -81,6 +85,7 @@ namespace LearnMonoGame.Tools
                 if (mSelectionBox.Intersects(playerBounds))//player.Pos.X > mSelectionBox.X && player.Pos.X < mSelectionBox.X + mSelectionBox.Width && player.Pos.Y > mSelectionBox.Y && player.Pos.Y < mSelectionBox.Y + mSelectionBox.Height)
                 {
                     PlayerManager.Instance.MyPlayer.IsSelect = true;
+                    isFriend = true;
                    //mSelectionBox = new Rectangle(-1, -1, 0, 0); //defaultWert
                    //Console.WriteLine("Player Select");
 
@@ -89,9 +94,24 @@ namespace LearnMonoGame.Tools
                 {
                     Rectangle summonRectangle = new Rectangle((int)a.Pos.X, (int)a.Pos.Y, a.Width, a.Height);
                     if (mSelectionBox.Intersects(summonRectangle))
+                    {
                         a.IsSelect = true;
+                        isFriend = true;
+                    }
+                        
 
                 }
+                if (!isFriend)
+                {
+                    foreach (Character a in MonsterManager.Instance.enemyList)
+                    {
+                        Rectangle summonRectangle = new Rectangle((int)a.Pos.X, (int)a.Pos.Y, a.Width, a.Height);
+                        if (mSelectionBox.Intersects(summonRectangle))
+                            a.IsSelect = true;
+
+                    }
+                }
+
 
                 mSelectionBox = new Rectangle(-1, -1, 0, 0); //wenn der Spieler nicht im Bereich war Reset!
             }

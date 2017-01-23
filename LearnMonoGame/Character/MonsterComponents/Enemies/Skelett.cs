@@ -19,6 +19,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         {
             pos = _pos;
             creatureTexture = _CM.GetTexture(_CM.TextureName.dummy);
+            selectedTexture = _CM.GetTexture(_CM.TextureName.damageselect);
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             Initialize();
         }
