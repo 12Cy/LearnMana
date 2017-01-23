@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LearnMonoGame.Summoneds.Enemies;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -36,8 +37,11 @@ namespace LearnMonoGame.Spells
 
         protected Vector2 direction;
 
-        public Bullet(BulletInformation bulletInfo, Rectangle _startPosition, Vector2 _direction, Texture2D _texture)
+        protected IMove effect;
+
+        public Bullet(BulletInformation bulletInfo, Rectangle _startPosition, Vector2 _direction, Texture2D _texture, IMove _effect)
         {
+            effect = _effect;
             livetimeTimer = 0;
             liveTimeTime = bulletInfo.lifetime;
             if (liveTimeTime > 0)

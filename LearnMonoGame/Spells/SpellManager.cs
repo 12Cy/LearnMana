@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LearnMonoGame.Summoneds.Enemies;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +11,15 @@ namespace LearnMonoGame.Spells
 
     struct SpellInformation
     {
-        public float mana;
-        public float time;
+        public int mana;
+        public float cooldown;
+        public float channelTime;
 
-        public SpellInformation(float _mana = 0, float _time = 0)
+        public SpellInformation(int _mana = 0, float _time = 0, float _channelTime = 0)
         {
             mana = _mana;
-            time = _time;
+            cooldown = _time;
+            channelTime = _channelTime;
         }
     }
 
@@ -27,9 +30,11 @@ namespace LearnMonoGame.Spells
         public int range;
         public float lifetime; //Seconds
         public float triggerTime;
+        public IMove attackInformation;
 
-        public BulletInformation(float _speed = 350, Point _size = new Point(), int _range = 500, int _lifetime = 5, float _triggerTime = 0)
+        public BulletInformation(IMove _modifikator = new IMove(), float _speed = 350, Point _size = new Point(), int _range = 500, int _lifetime = 5, float _triggerTime = 0)
         {
+            attackInformation = _modifikator;
             triggerTime = _triggerTime;
             range = _range;
             speed = _speed;
@@ -54,21 +59,24 @@ namespace LearnMonoGame.Spells
 
     class SpellManager
     {
-        public BulletInformation[] bulletInformation = 
+        public Dictionary<EBullet, BulletInformation> bulletInformation = new Dictionary<EBullet, Spells.BulletInformation>();
+        public Dictionary<EBullet, IMove> attackInformation = new Dictionary<EBullet, IMove>();
+        public Dictionary<ESpell, SpellInformation> spellInformation = new Dictionary<ESpell, SpellInformation>();
+
+        public void LoadInformation()
         {
-            new BulletInformation(_speed: 350, _size: new Point(12,12), _range: 700), //Fireball
-            new BulletInformation(_speed: 100, _size: new Point(20,20), _range: 300, _triggerTime: 0.2f), //FireWall
-            new BulletInformation(_speed: 0, _size: new Point(20,20), _range: 300) //FireBurn
-        };
+            bulletInformation.Add(EBullet.Fireball, new BulletInformation(_speed: 350, _size: new Point(12, 12), _range: 700));
+            bulletInformation.Add(EBullet.Firewall, new BulletInformation(_speed: 100, _size: new Point(20, 20), _range: 300, _triggerTime: 0.2f));
+            bulletInformation.Add(EBullet.Fireburn, new BulletInformation(_speed: 0, _size: new Point(20, 20), _range: 300));
 
+            attackInformation.Add(EBullet.Fireball, new IMove(EMoveType.Attack, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: 10));
+            attackInformation.Add(EBullet.Firewall, new IMove(EMoveType.Status, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: 3, _duration: 5));
+            attackInformation.Add(EBullet.Fireburn, new IMove(EMoveType.Status, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: 1, _duration: 3));
 
-
-
-        public SpellInformation[] spellInformation =
-        {
-            new SpellInformation(5,1), //SFireball
-            new SpellInformation(20,2) //SFireWall
-        };
+            spellInformation.Add(ESpell.SFireball, new SpellInformation(10, 1));
+            spellInformation.Add(ESpell.SFirewall, new SpellInformation(10, 1,1));
+            spellInformation.Add(ESpell.SFireburn, new SpellInformation(10, 1));
+        }
 
         static SpellManager instance;
         public static SpellManager Instance

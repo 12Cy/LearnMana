@@ -43,7 +43,8 @@ namespace LearnMonoGame.Summoneds.Enemies
         public EStatus status;
         public Elements elements;
         public string name;
-        public int duration;
+        public int duration; //Wenn duration = 0 -> Ein SPontanzauber
+        public float trigger;//Wenn trigger = 0 -> Der Zauber triggert nichts
         public int damage;
         public int defense;
         public int speed;
@@ -51,8 +52,9 @@ namespace LearnMonoGame.Summoneds.Enemies
         public int mana;
 
         public IMove(EMoveType _moveType,EStatus _status, Elements _elements = new Elements(), string _name = "null", int _duration = 0, 
-            int _damage = 0, int _defense = 0, int _speed = 0, int _health = 0, int _mana = 0)
+            int _damage = 0, int _defense = 0, int _speed = 0, int _health = 0, int _mana = 0, float _trigger = 0)
         {
+            trigger = _trigger;
             moveType = _moveType;
             status = _status;
             elements = _elements;

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LearnMonoGame.PlayerComponents;
 using Microsoft.Xna.Framework.Graphics;
+using LearnMonoGame.Summoneds.Enemies;
 
 namespace LearnMonoGame.Spells
 {
@@ -25,18 +26,15 @@ namespace LearnMonoGame.Spells
         #region Atrributes
         protected int maxSpell;
         protected List<Spell> spell;
-
-
-        int currentSpell;
         #endregion
 
         #region Methods
-        public PlayerModifikator Cast(Vector2 pos, Vector2 _direction, int index)
+        public IMove Cast(Vector2 pos, Vector2 _direction, int index)
         {
             if (index >= 0 && index < spell.Count)
                 return spell[index].Cast(pos, _direction);
 
-            return new PlayerModifikator();
+            return new IMove();
         }
 
         public void AddSpell(Spell sp)

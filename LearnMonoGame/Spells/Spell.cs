@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LearnMonoGame.PlayerComponents;
+using LearnMonoGame.Summoneds.Enemies;
 
 namespace LearnMonoGame.Spells
 {
@@ -14,8 +15,10 @@ namespace LearnMonoGame.Spells
         #region Constructor
         public Spell(SpellInformation spellInfo)
         {
-            maxTimer = spellInfo.time;
+            maxTimer = spellInfo.cooldown;
             manaCost = spellInfo.mana;
+            channelMax = spellInfo.channelTime;
+            channelTimer = 0;
             timer = 0;
         }
         #endregion
@@ -23,20 +26,27 @@ namespace LearnMonoGame.Spells
         #region Attributes
         protected float timer;
         protected float maxTimer;
+        protected float channelTimer;
+        protected float channelMax;
         protected Texture2D texture;
-        protected float manaCost;
+        protected int manaCost;
         #endregion
 
         #region Methods
-        public abstract PlayerModifikator Cast(Vector2 bounds, Vector2 _direction);
+        public abstract IMove Cast(Vector2 position, Vector2 _direction);
         public bool CastAble()
         {
-            if (timer > maxTimer)
+            if (timer >= maxTimer && channelTimer >= channelMax)
             {
                 return true;
             }
 
             return false;
+        }
+
+        public void Channel(GameTime gTime)
+        {
+            channelTimer += (float)gTime.ElapsedGameTime.TotalSeconds;
         }
 
         public void Update(GameTime gTime)
