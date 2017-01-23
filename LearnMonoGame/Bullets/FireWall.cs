@@ -10,10 +10,10 @@ using LearnMonoGame.Manager;
 
 namespace LearnMonoGame.Bullets
 {
-    class FlameWall : Bullet
+    class FireWall : Bullet
     {
-        public FlameWall(Rectangle _startPosition, Vector2 _direction, Texture2D texture, EBullet type) : 
-            base(SpellManager.Instance.bulletInformation[(int)type],_startPosition, _direction, texture)
+        public FireWall(Rectangle _startPosition, Vector2 _direction, Texture2D texture, EBullet type) :
+            base(SpellManager.Instance.bulletInformation[type], _startPosition, _direction, texture, SpellManager.Instance.attackInformation[type])
         {
         }
 

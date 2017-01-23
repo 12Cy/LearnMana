@@ -41,7 +41,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Bullets\FlameWall.cs" />
+    <Compile Include="Bullets\FireWall.cs" />
     <Compile Include="Manager\BulletManager.cs" />
     <Compile Include="Components\Camera.cs" />
     <Compile Include="Components\xIn.cs" />

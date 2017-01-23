@@ -6,24 +6,29 @@ using System.Threading.Tasks;
 using LearnMonoGame.PlayerComponents;
 using Microsoft.Xna.Framework;
 using LearnMonoGame.Manager;
+using LearnMonoGame.Summoneds.Enemies;
 
 namespace LearnMonoGame.Spells.Fire
 {
     class SFireWall : Spell
     {
-        public SFireWall() : base(SpellManager.Instance.spellInformation[(int)ESpell.SFirewall])
+        public SFireWall() : base(SpellManager.Instance.spellInformation[ESpell.SFirewall])
         {
         }
 
-        public override PlayerModifikator Cast(Vector2 bounds, Vector2 _direction)
+        public override IMove Cast(Vector2 bounds, Vector2 _direction)
         {
             if (CastAble())
             {
-                BulletManager.Instance.bullets.Add(new Bullets.FlameWall(new Rectangle(bounds.ToPoint(), Point.Zero), _direction, _CM.GetTexture(_CM.TextureName.fireball), EBullet.Firewall));
+                BulletManager.Instance.bullets.Add(new Bullets.FireWall(new Rectangle(bounds.ToPoint(), Point.Zero), _direction, _CM.GetTexture(_CM.TextureName.fireball), EBullet.Firewall));
                 timer = 0;
+                channelTimer = 0;
+                return new IMove(EMoveType.Attack,EStatus.Normal, _mana: -manaCost);
             }
 
-            return new PlayerModifikator(_mana: -manaCost);
+            return new IMove();
+
+
         }
 
         public override string ToString()

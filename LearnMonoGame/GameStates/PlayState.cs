@@ -55,6 +55,9 @@ namespace LearnMonoGame.GameStates
 
         public void Initialize()
         {
+
+
+            SpellManager.Instance.LoadInformation();
             //Erstellt im Singleton die Instanz der Map
             MapStuff.Instance.map = new Tilemap(new Texture2D[] { _CM.GetTexture(_CM.TextureName.grassTile), _CM.GetTexture(_CM.TextureName.stoneTile), _CM.GetTexture(_CM.TextureName.waterTile) }, _CM.GetTexture(_CM.TextureName.map), new Point(64,74/4));
             MapStuff.Instance.camera = new Camera();
@@ -67,6 +70,7 @@ namespace LearnMonoGame.GameStates
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(600, 400)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(350, 260)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(270, 450)));
+
 
         }
 
