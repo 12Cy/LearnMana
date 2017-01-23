@@ -70,7 +70,6 @@
     <Compile Include="Summoneds\Dummy.cs" />
     <Compile Include="Summoneds\Enemies\Monster\Skelett.cs" />
     <Compile Include="Summoneds\Enemies\IMove.cs" />
-    <Compile Include="Summoneds\Enemies\MoveManager.cs" />
     <Compile Include="Summoneds\MonsterManager.cs" />
     <Compile Include="Summoneds\SummonedsInformation.cs" />
     <Compile Include="Tools\AnimatedSprite.cs" />
