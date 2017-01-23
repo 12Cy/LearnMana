@@ -39,9 +39,7 @@ namespace LearnMonoGame.PlayerComponents
         bool attackMode = false;
 
 
-        //Life
-        float currentMana;
-        float maxMana;
+
 
         //Spellbook
         Spellbook spellBook;
@@ -297,19 +295,7 @@ namespace LearnMonoGame.PlayerComponents
 
         }
 
-        /// <CalculateMana>
-        /// need - or + Value
-        /// </CalculateMana>
-        public void CalculateMana(float value)
-        {
-            currentMana += value;
-            if (currentMana > 100)
-                currentMana = 100;
 
-            if (currentMana < 0)
-                currentMana = 0;
-
-        }
 
 #endregion
 

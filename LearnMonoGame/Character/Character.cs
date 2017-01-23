@@ -47,6 +47,8 @@ namespace LearnMonoGame.Summoneds
         protected bool isAlive;
         protected bool hit;
         protected float currentHealth;
+        protected float currentMana;
+        protected float maxMana;
 
         //Attributes
         protected int maxHealth;
@@ -54,7 +56,7 @@ namespace LearnMonoGame.Summoneds
         protected float attackSpeed;
         protected int width;
         protected int height;
-        protected int damage;
+        protected int attackDamage;
         protected float defense;
 
         // --- Fight ---
@@ -73,9 +75,19 @@ namespace LearnMonoGame.Summoneds
 
         protected List<IMove> effects;
 
-#endregion
+        //Modifier
 
-#region properties
+
+        protected float realSpeed;
+        protected float realAttackSpeed;
+        protected int realAttackDamage;
+        protected float realDefensiv;
+
+
+
+        #endregion
+
+        #region properties
 
         public ECharacterTyp CharacterTyp { get { return characterTyp; } }
         public List<IMove> Effects { get { return effects; } }
@@ -85,6 +97,10 @@ namespace LearnMonoGame.Summoneds
         public int Height { get { return height; } }
         public bool IsAlive { get { return isAlive; } set { isAlive = value; } }
         public Rectangle Bounds { get { return bounds; } }
+        public float RealSpeed { get { return realSpeed; }}
+        public float RealDefensiv {get { return realDefensiv; }}
+        public int RealAttackDamage{get { return realAttackDamage; }}
+        public float RealAttackSpeed{get { return realAttackSpeed; }}
 
         #endregion
 
@@ -99,7 +115,7 @@ namespace LearnMonoGame.Summoneds
             width = info.Width;
             height = info.Height;
             maxHealth = info.MaxHealth;
-            damage = info.Damage;
+            attackDamage = info.Damage;
             defense = info.Defense;
 
             bounds = new Rectangle((int)pos.X, (int)pos.Y, width, height);
@@ -138,21 +154,33 @@ namespace LearnMonoGame.Summoneds
                     hit = false;
                 }
 
-                //Ipdate EffectList
-                //for (int i = 0; i < effects.Count; i++)
-                //{
-                //    effects[i].Duration--;
-                //    MoveManager.debugshitDuration = effects[i].Duration;
-                //    if (effects[i].Name == "Hot")
-                //        CalculateHealth(effects[i].Health);
-                //
-                //
-                //    if (effects[i].Duration < 1)
-                //    {
-                //        effects.RemoveAt(i);
-                //        i--;
-                //    }
-                //}
+                realAttackDamage = attackDamage;
+                realDefensiv = defense;
+                realSpeed = speed;
+                realAttackSpeed = attackSpeed;
+
+                //Update EffectList
+                for (int i = 0; i < effects.Count; i++)
+                {
+                    
+                    effects[i].Update(gameTime);
+
+
+                    CalculateHealth(effects[i].damage);
+                    CalculateMana(effects[i].mana);
+
+                    attackDamage += effects[i].attackDamage;
+                    defense += effects[i].defense;
+                    speed += effects[i].speed;
+                    attackSpeed += effects[i].attackSpeed;
+
+
+
+
+
+                    if (!effects[i].isAlive)
+                        effects.RemoveAt(i--);
+                }
             }
         }
         protected void Move(GameTime gameTime)
@@ -261,7 +289,30 @@ namespace LearnMonoGame.Summoneds
                 currentHealth = 0;
 
         }
+        /// <CalculateMana>
+        /// need - or + Value
+        /// </CalculateMana>
+        public void CalculateMana(float value)
+        {
+            currentMana += value;
+            if (currentMana > 100)
+                currentMana = 100;
 
-#endregion
+            if (currentMana < 0)
+                currentMana = 0;
+
+        }
+
+        public void ApplyEffect(IMove iMove)
+        {
+            if (iMove.moveType == EMoveType.Attack)
+                CalculateHealth(iMove.damage);
+            if (iMove.moveType == EMoveType.Heal)
+                CalculateHealth(iMove.health);
+            if (iMove.moveType == EMoveType.Effect)
+                effects.Add(iMove);
+        }
+
+        #endregion
     }
 }
