@@ -41,7 +41,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Bullets\FlameWall.cs" />
+    <Compile Include="Bullets\FireWall.cs" />
     <Compile Include="Manager\BulletManager.cs" />
     <Compile Include="Components\Camera.cs" />
     <Compile Include="Components\xIn.cs" />
@@ -70,7 +70,6 @@
     <Compile Include="Summoneds\Dummy.cs" />
     <Compile Include="Summoneds\Enemies\Monster\Skelett.cs" />
     <Compile Include="Summoneds\Enemies\IMove.cs" />
-    <Compile Include="Summoneds\Enemies\MoveManager.cs" />
     <Compile Include="Summoneds\MonsterManager.cs" />
     <Compile Include="Summoneds\SummonedsInformation.cs" />
     <Compile Include="Tools\AnimatedSprite.cs" />
