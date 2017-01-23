@@ -23,70 +23,14 @@ namespace LearnMonoGame.PlayerComponents
     //Wenn maxHealth = 5 -> Der Spieler kommt auf seine maxHealth + 5 aufaddiert
     //Wenn alle Attribute auf 0 -> Es passiert garnichts (z.B. ich trage ein Stoffhemd - vielleicht noch Rüstung +1 :P)
 
-    public struct PlayerModifikator
-    {
-        float speed;
 
-        //health = spontante Heilung, healthMax = maximale Gesundheit, healthReg = Gesundheits-Regeneration
-        float health, healthMax, healthReg;
-        float mana, manaMax, manaReg;
-
-        public PlayerModifikator(float _healthMax = 0, float _healthReg = 0, float _health = 0
-            , float _mana = 0, float _manaMax = 0, float _manaReg = 0, float _speed = 0)
-        {
-            speed = _speed;
-
-
-            mana = _mana;
-            manaMax = _manaMax;
-            manaReg = _manaReg;
-
-
-            health = _health;
-            healthMax = _healthMax;
-            healthReg = _healthReg;
-        }
-        
-    }
-
-
-    public interface IBaseFunction
-    {
-        void Initialize();
-        void LoadContent(ContentManager content);
-        void UnloadContent();
-        void Update(GameTime gameTime);
-        void Draw(SpriteBatch spriteBatch);
-    }
-    public class Player : IBaseFunction
+    class Player : Character
     {
 
 #region variablen
 
-        Game1 gameRef;
-        Texture2D playerTexture;
-        AnimatedSprite animatedSprite;
-        int size = MapStuff.Instance.size;
-
-        //Select
-        Texture2D selectedTexture;
-        Texture2D damageselectedTexture;
-        bool selected;
-
-        //Movement
-        float offset = 0.5f;
-        float speed;
-
-        Vector2 pos;
-        Vector2 moveDestination;
-
         //HealthBar
-        Texture2D lifeTexture;
         Texture2D manaTexture;
-        TimeSpan playerHitTimer = TimeSpan.Zero;
-
-        bool playerhit;
-        int offsetHeight = 10;
 
         //Weapon
         
@@ -96,15 +40,11 @@ namespace LearnMonoGame.PlayerComponents
 
 
         //Life
-        float currentHealth;
-        float maxHealth;
         float currentMana;
         float maxMana;
 
-
         //Spellbook
         Spellbook spellBook;
-
         int currentSpell;
 
 
@@ -112,14 +52,8 @@ namespace LearnMonoGame.PlayerComponents
 #endregion
 #region properties
 
-        public Vector2 Pos { get { return pos; } }
-        public int Size { get { return size; } }
-        public bool AttackMode { get { return attackMode; } set { attackMode = value; } }
-        public void SetSelected(bool value)
-        {
-            selected = value;
-        }
 
+        public bool AttackMode { get { return attackMode; } set { attackMode = value; } }
         
 
 #endregion
@@ -128,11 +62,10 @@ namespace LearnMonoGame.PlayerComponents
 
 #region Constructors
 
-        public Player(Game1 _game, Vector2 _position, Texture2D _playerTexture)
+        public Player( Vector2 _position, Texture2D _playerTexture) : base(SummonedsInformation.Instance.playerInformation)
         {
-            this.gameRef = _game;
             this.pos = _position;
-            this.playerTexture = _playerTexture;
+            this.creatureTexture = _playerTexture;
             spellBook = new Spellbook();
             spellBook.AddSpell(new SFireball());
             spellBook.AddSpell(new SFireWall());
@@ -144,28 +77,24 @@ namespace LearnMonoGame.PlayerComponents
 
 #region Methods
 
-        public void Initialize()
+        protected override void Initialize()
         {
             moveDestination = pos;
-            //Select
+
+            characterTyp = ECharacterTyp.player;
+            element = EElement.none;
 
             //Attributes
-            speed = PlayerManager.Instance.MyPlayerInformation.Speed;
-            maxHealth = PlayerManager.Instance.MyPlayerInformation.MaxHealth;
-            maxMana = PlayerManager.Instance.MyPlayerInformation.maxMana;
+            maxMana = SummonedsInformation.Instance.playerInformation.maxMana;
 
-
-
-            selected = false;
             attackMode = false;
 
             //Animation
-            animatedSprite = new AnimatedSprite(playerTexture, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.player));
+            animatedSprite = new AnimatedSprite(creatureTexture, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.player));
             animatedSprite.CurrentAnimation = AnimationKey.WalkRight;
             animatedSprite.Position = pos;
 
-            //Life
-            currentHealth = maxHealth;
+            //Life & Mana
             currentMana = maxMana;
 
             //life
@@ -180,11 +109,8 @@ namespace LearnMonoGame.PlayerComponents
 
         }
 
-        public void LoadContent(ContentManager content) { }
 
-        public void UnloadContent(){}
-
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if (xIn.CheckKeyReleased(Keys.NumPad4))
                 currentSpell = 0;
@@ -196,17 +122,6 @@ namespace LearnMonoGame.PlayerComponents
 
             PlayerMove(gameTime);
 
-            if (playerhit)
-            {//Wenn der Spieler getroffen wurde, wird der LB angezeigt (für 1 Sekunde)
-                playerHitTimer += gameTime.ElapsedGameTime;
-
-                if (playerHitTimer > TimeSpan.FromSeconds(1))
-                {//1 Sekunde ist um, LB verschwindet
-
-                    playerHitTimer = TimeSpan.Zero;
-                    playerhit = false;
-                }
-            }
 
             //ToDo Kampf aktivieren(Fähigkeiten werden hier eingesetzt - Zauber/Beschwörungen)
             if (xIn.CheckKeyReleased(Keys.D1) )
@@ -229,6 +144,7 @@ namespace LearnMonoGame.PlayerComponents
                 MonsterManager.Instance.mySummoned.Add(a);
             }
             DebugShit();
+            base.Update(gameTime);
 
         }
 
@@ -240,14 +156,14 @@ namespace LearnMonoGame.PlayerComponents
             if (newState.IsKeyDown(Keys.K))
             {
                 CalculateHealth(-1);
-                playerhit = true;
+                hit = true;
             }
             if (newState.IsKeyDown(Keys.I))
                 CalculateMana(-1);
             if (newState.IsKeyDown(Keys.O))
                 CalculateMana(1);
             if (newState.IsKeyDown(Keys.T))
-                playerhit = true;
+                hit = true;
         }
 
         private void CastSpell(int index)
@@ -274,7 +190,7 @@ namespace LearnMonoGame.PlayerComponents
         {
             MouseState aMouse = Mouse.GetState();
 
-            if (selected && aMouse.RightButton == ButtonState.Pressed && !(attackMode))
+            if (IsSelect && aMouse.RightButton == ButtonState.Pressed && !(attackMode))
             {//Nicht im Angriffsmodus sondern im Movemodus
 
                 moveDestination = new Vector2((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y);
@@ -321,9 +237,9 @@ namespace LearnMonoGame.PlayerComponents
                 Vector2 newPosition = animatedSprite.Position + motion; // the position we are moving to is valid?
 
                 if(MapStuff.Instance.map.Walkable(newPosition)
-                  && MapStuff.Instance.map.Walkable(newPosition + new Vector2(size, 0))
-                  && MapStuff.Instance.map.Walkable(newPosition + new Vector2(0, size))
-                  && MapStuff.Instance.map.Walkable(newPosition + new Vector2(size, size)))
+                  && MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, 0))
+                  && MapStuff.Instance.map.Walkable(newPosition + new Vector2(0, height))
+                  && MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, height)))
                 {//Ist dort keine Collision?
 
                     animatedSprite.Position = newPosition;
@@ -349,12 +265,12 @@ namespace LearnMonoGame.PlayerComponents
             animatedSprite.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spritebatch)
+        public override void Draw(SpriteBatch spritebatch)
         {
             animatedSprite.Draw( spritebatch);
 
             //LB
-            if (selected || playerhit)
+            if (isSelected || hit)
             {
                 MouseState amouse = Mouse.GetState();
                 spritebatch.DrawString(_CM.GetFont(_CM.FontName.Arial), spellBook.ToString(currentSpell), xIn.MousePosition, Color.Red);
@@ -365,35 +281,22 @@ namespace LearnMonoGame.PlayerComponents
                 /// (SourceRectangle) :  Geht vom äußeren Rectangle aus(DesitinationRectangle)
                 ///  (2.Schicht) :  nehme die diff und verkleinere so die größe der Schicht.
                 /// </Lebensbalken>
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - size /4 - 5, size, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - size /4 - 5, (int)(size * ((float)currentMana / maxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - size /4 - 5, size, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height /4 - 5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height /4 - 5, (int)(width * ((float)currentMana / maxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height /4 - 5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
                                                                     
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - size/2 -5, size, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - size/2 -5 ,(int)(size * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - size/2 -5, size, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
-                if(playerhit)
-                    spritebatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, size, size), Color.White);
+                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height/2 -5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height/2 -5 ,(int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
+                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height/2 -5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+                if(hit)
+                    spritebatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
                 else
-                    spritebatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, size, size), Color.White);
+                    spritebatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
 
             }
 
         }
 
-        /// <CalculateHealth>
-        /// need - or + Value
-        /// </CalculateHealth>
-        public void CalculateHealth(float value)
-        {
-            currentHealth += value;
-            if (currentHealth > 100)
-                currentHealth = 100;
-
-            if (currentHealth < 0)
-                currentHealth = 0;
-
-        }
         /// <CalculateMana>
         /// need - or + Value
         /// </CalculateMana>

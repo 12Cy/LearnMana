@@ -6,9 +6,19 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Summoneds
 {
-    enum ITyp
+    class PlayerInformation : Attributes
     {
-        dummy,
+        public float maxMana;
+        public PlayerInformation()
+        {
+            speed = 180;
+            maxHealth = 100;
+            attackSpeed = 0.3f;
+            damage = 1;
+            defense = 1;
+            maxMana = 100;
+
+        }
     }
     class SkelettInformation : Attributes
     {
@@ -30,6 +40,7 @@ namespace LearnMonoGame.Summoneds
     {
         public DummyInformation dummyInformation = new DummyInformation();
         public SkelettInformation skelettInformation = new SkelettInformation();
+        public PlayerInformation playerInformation = new PlayerInformation();
 
 
         static SummonedsInformation instance;

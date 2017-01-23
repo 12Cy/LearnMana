@@ -14,16 +14,18 @@ namespace LearnMonoGame.Summoneds
         protected int maxHealth = 100;
         protected float attackSpeed = 0.3f;
         protected int damage = 1;
-        protected int defense = 1;
+        protected float defense = 1;
+
 
         protected int width = MapStuff.Instance.size;
         protected int height = MapStuff.Instance.size;
+
 
         public float Speed { get { return speed; } }
         public int Width { get { return width; } }
         public int Height { get { return height; } }
         public int MaxHealth { get { return maxHealth; } }
         public int Damage { get { return damage; } }
-        public int Defense { get { return defense; } }
+        public float Defense { get { return defense; } }
     }
 }

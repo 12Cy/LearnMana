@@ -13,7 +13,7 @@ using LearnMonoGame.Components;
 
 namespace LearnMonoGame.Summoneds
 {
-    class Dummy : Summoned
+    class Dummy : Character
     {
 
         public Dummy(Vector2 _position) : base(SummonedsInformation.Instance.dummyInformation)
@@ -24,8 +24,12 @@ namespace LearnMonoGame.Summoneds
             creatureTexture = _CM.GetTexture(_CM.TextureName.dummy);
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             selectedTexture = _CM.GetTexture(_CM.TextureName.selected);
+
+            characterTyp = ECharacterTyp.summoned;
+            element = EElement.none;
+
             Initialize();
-            Console.WriteLine("created Dummy");
+            Console.WriteLine("Dummy has beend created");
         }
         protected override void Initialize()
         {

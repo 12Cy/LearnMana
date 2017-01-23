@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Summoneds.Enemies.Monster
 {
-    class Skelett : Enemy
+    class Skelett : Character
     {
         private object xin;
 
@@ -33,14 +33,14 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         }
         public override void Update(GameTime gameTime)
         {
-            if (xIn.CheckKeyReleased(Microsoft.Xna.Framework.Input.Keys.M))
-            {
-                base.ResolveMove(MoveManager.GetMove("Heal"));
-            }
-            if (xIn.CheckKeyReleased(Microsoft.Xna.Framework.Input.Keys.N))
-            {
-                base.ResolveMove(MoveManager.GetMove("Hot"));
-            }
+            //if (xIn.CheckKeyReleased(Microsoft.Xna.Framework.Input.Keys.M))
+            //{
+            //    base.ResolveMove(MoveManager.GetMove("Heal"));
+            //}
+            //if (xIn.CheckKeyReleased(Microsoft.Xna.Framework.Input.Keys.N))
+            //{
+            //    base.ResolveMove(MoveManager.GetMove("Hot"));
+            //}
 
 
             base.Update(gameTime);
@@ -49,10 +49,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         {
             base.Draw(spriteBatch);
         }
-        public override void CalculateHealth(int value)
-        {
-            base.CalculateHealth(value);
-        }
+
 
 
     }
