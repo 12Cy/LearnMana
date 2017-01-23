@@ -303,7 +303,7 @@ namespace LearnMonoGame.Summoneds
 
         }
 
-        public void ApplyEffect(IMove iMove)
+        protected void ApplyEffect(IMove iMove)
         {
             if (iMove.moveType == EMoveType.Attack)
                 CalculateHealth(iMove.damage);
