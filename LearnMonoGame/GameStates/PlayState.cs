@@ -62,7 +62,7 @@ namespace LearnMonoGame.GameStates
  
 
             selectBar = new SelectBar();
-            PlayerManager.Instance.MyPlayer = new Player(gameref, new Vector2(750, 250),_CM.GetTexture(_CM.TextureName.player));
+            PlayerManager.Instance.MyPlayer = new Player(new Vector2(750, 250),_CM.GetTexture(_CM.TextureName.player));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(200, 200)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(600, 400)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(350, 260)));
@@ -75,11 +75,11 @@ namespace LearnMonoGame.GameStates
         {
             MapStuff.Instance.map.Update(gTime);
             PlayerManager.Instance.MyPlayer.Update(gTime);
-            foreach (Summoned a in MonsterManager.Instance.mySummoned)
+            foreach (Character a in MonsterManager.Instance.mySummoned)
             {
                 a.Update(gTime);
             }
-            foreach (Enemy a in MonsterManager.Instance.enemyList)
+            foreach (Character a in MonsterManager.Instance.enemyList)
             {
                 a.Update(gTime);
                 
@@ -108,7 +108,7 @@ namespace LearnMonoGame.GameStates
         }
         public void CollisionTestDebugZweckeWirdNochGeaendertKeineAngst()
         {
-            foreach (Enemy enemy in MonsterManager.Instance.enemyList)
+            foreach (Character enemy in MonsterManager.Instance.enemyList)
             {
                 foreach (Bullet aFireball in BulletManager.Instance.bullets)
                 {
@@ -148,7 +148,6 @@ namespace LearnMonoGame.GameStates
 
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nZoom: " + MapStuff.Instance.camera.Zoom + " Num1 & Num3\nReset Zoom: Num2", new Vector2(10, 10), Color.Bisque);
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nHealth +/- => L, K \nMana  +/- => O, I ", new Vector2(215, 10), Color.Bisque);
-            spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Bot Controll      \nHealth     => M    \nHot          => N \nDuration: "+ MoveManager.debugshitDuration , new Vector2(420, 10), Color.Bisque);
 
             spriteBatch.End();
         }
@@ -161,11 +160,11 @@ namespace LearnMonoGame.GameStates
             MapStuff.Instance.map.Draw(spriteBatch);
 
             PlayerManager.Instance.MyPlayer.Draw(spriteBatch);
-            foreach (Summoned a in MonsterManager.Instance.mySummoned)
+            foreach (Character a in MonsterManager.Instance.mySummoned)
             {
                 a.Draw(spriteBatch);
             }
-            foreach (Enemy a in MonsterManager.Instance.enemyList)
+            foreach (Character a in MonsterManager.Instance.enemyList)
             {
                 a.Draw(spriteBatch);
             }
