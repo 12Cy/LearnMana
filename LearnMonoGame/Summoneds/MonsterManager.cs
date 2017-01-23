@@ -11,8 +11,8 @@ namespace LearnMonoGame.Summoneds
     class MonsterManager
     {
 
-        public List<Enemy> enemyList = new List<Enemy>();
-        public List<Summoned> mySummoned = new List<Summoned>();
+        public List<Character> enemyList = new List<Character>();
+        public List<Character> mySummoned = new List<Character>();
 
 
         static MonsterManager instance;
