@@ -58,8 +58,9 @@
     <Compile Include="Character\PlayerComponents\Player.cs" />
     <Compile Include="Character\PlayerComponents\PlayerManager.cs" />
     <Compile Include="Bullets\Bullet.cs" />
-    <Compile Include="Spells\Fire\Level1\SFireWall.cs" />
-    <Compile Include="Spells\Fire\Level1\SFireball.cs" />
+    <Compile Include="Spells\Fire\SFireWall.cs" />
+    <Compile Include="Spells\Fire\SFireball.cs" />
+    <Compile Include="Spells\Ice\SIceLance.cs" />
     <Compile Include="Spells\Spell.cs" />
     <Compile Include="Spells\Spellbook.cs" />
     <Compile Include="Program.cs" />

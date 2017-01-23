@@ -12,8 +12,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using LearnMonoGame.Summoneds;
-using LearnMonoGame.Spells;
+using LearnMonoGame.Spells.Ice;
 using LearnMonoGame.Spells.Fire;
+using LearnMonoGame.Spells;
 
 namespace LearnMonoGame.PlayerComponents
 {
@@ -69,6 +70,7 @@ namespace LearnMonoGame.PlayerComponents
             spellBook = new Spellbook();
             spellBook.AddSpell(new SFireball());
             spellBook.AddSpell(new SFireWall());
+            spellBook.AddSpell(new SIceLance());
             currentSpell = 0;
             Initialize();
         }
@@ -113,9 +115,9 @@ namespace LearnMonoGame.PlayerComponents
         public override void Update(GameTime gameTime)
         {
             if (xIn.CheckKeyReleased(Keys.NumPad4))
-                currentSpell = 0;
+                currentSpell++;
             if (xIn.CheckKeyReleased(Keys.NumPad5))
-                currentSpell = 1;
+                currentSpell--;
 
             spellBook.Update(gameTime);
 

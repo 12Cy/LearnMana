@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static LearnMonoGame.Summoneds.Enemies.Elements;
 
 namespace LearnMonoGame.Spells
 {
@@ -125,7 +126,7 @@ namespace LearnMonoGame.Spells
             //ToDo: Feuerball zerstoeren
             if (Vector2.Distance(startPosition, positon) > MAX_DISTANCE)
             {//Ist der Fireball außerhalb der Distance?
-                Visible = false;
+                alive = false;
                 OnExplode();
                 return;
             }
@@ -139,7 +140,6 @@ namespace LearnMonoGame.Spells
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            if (Visible)
                 spriteBatch.Draw(texture, new Rectangle((int)positon.X, (int)positon.Y, width, height), Color.White);
 
         }

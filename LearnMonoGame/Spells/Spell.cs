@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LearnMonoGame.PlayerComponents;
 using LearnMonoGame.Summoneds.Enemies;
+using static LearnMonoGame.Summoneds.Enemies.Elements;
 
 namespace LearnMonoGame.Spells
 {

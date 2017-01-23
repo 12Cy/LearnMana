@@ -64,6 +64,10 @@ namespace LearnMonoGame.Manager
             //Monster
             textureDictionary.Add(TextureName.dummy, Content.Load<Texture2D>("Monster//Dummy"));
 
+
+            //Spells
+            textureDictionary.Add(TextureName.iceLance, Content.Load<Texture2D>("Player//Weapons//IceLance"));
+
         }
         static void LoadFont()
         {
@@ -87,6 +91,7 @@ namespace LearnMonoGame.Manager
             fireball,
             dummy,
             fireballCursor,
+            iceLance
                 
         }
         public enum FontName

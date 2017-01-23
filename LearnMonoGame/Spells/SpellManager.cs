@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static LearnMonoGame.Summoneds.Enemies.Elements;
 
 namespace LearnMonoGame.Spells
 {
@@ -45,16 +46,22 @@ namespace LearnMonoGame.Spells
     }
     enum ESpell
     {
-        SFireball, //Simple
-        SFirewall, //Eine FeuerWand, die an einem Fleck stehen bleibt und Schaden im Bereich zufügt
-        SFireburn  //Feuer Debuff, der Schaden über Zeit hinzufügt
+        SFireBall, //Simple
+        SFireWall, //Eine FeuerWand, die an einem Fleck stehen bleibt und Schaden im Bereich zufügt
+        SFireBurn,  //Feuer Debuff, der Schaden über Zeit hinzufügt
+        SIceLance,
+        SDarkImpact,
+        SHolyLight
     }
 
     enum EBullet
     {
-        Fireball,
-        Firewall,
-        Fireburn
+        FireBall,
+        FireWall,
+        FireBurn,
+        IceLance,
+        DarkImpact,
+        SHolyLight
     }
 
     class SpellManager
@@ -65,17 +72,22 @@ namespace LearnMonoGame.Spells
 
         public void LoadInformation()
         {
-            bulletInformation.Add(EBullet.Fireball, new BulletInformation(_speed: 350, _size: new Point(12, 12), _range: 700));
-            bulletInformation.Add(EBullet.Firewall, new BulletInformation(_speed: 100, _size: new Point(20, 20), _range: 300, _triggerTime: 0.2f));
-            bulletInformation.Add(EBullet.Fireburn, new BulletInformation(_speed: 0, _size: new Point(20, 20), _range: 300));
+            bulletInformation.Add(EBullet.FireBall, new BulletInformation(_speed: 350, _size: new Point(12, 12), _range: 700));
+            bulletInformation.Add(EBullet.FireWall, new BulletInformation(_speed: 100, _size: new Point(20, 20), _range: 300, _triggerTime: 0.2f));
+            bulletInformation.Add(EBullet.FireBurn, new BulletInformation(_speed: 0, _size: new Point(20, 20), _range: 300));
+            bulletInformation.Add(EBullet.IceLance, new BulletInformation(_speed: 500, _size: new Point(16, 19), _range: 800));
 
-            attackInformation.Add(EBullet.Fireball, new IMove(EMoveType.Attack, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: 10));
-            attackInformation.Add(EBullet.Firewall, new IMove(EMoveType.Status, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: 3, _duration: 5));
-            attackInformation.Add(EBullet.Fireburn, new IMove(EMoveType.Status, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: 1, _duration: 3));
+            attackInformation.Add(EBullet.FireBall, new IMove(EMoveType.Attack, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: 10));
+            attackInformation.Add(EBullet.FireWall, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: 3, _duration: 5));
+            attackInformation.Add(EBullet.FireBurn, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: 1, _duration: 3));
+            attackInformation.Add(EBullet.IceLance, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_ice: 50), _name: "IceLance", _damage: 6));
 
-            spellInformation.Add(ESpell.SFireball, new SpellInformation(10, 1));
-            spellInformation.Add(ESpell.SFirewall, new SpellInformation(10, 1,1));
-            spellInformation.Add(ESpell.SFireburn, new SpellInformation(10, 1));
+
+
+            spellInformation.Add(ESpell.SFireBall, new SpellInformation(10, 1));
+            spellInformation.Add(ESpell.SFireWall, new SpellInformation(10, 1));
+            spellInformation.Add(ESpell.SFireBurn, new SpellInformation(10, 1));
+            spellInformation.Add(ESpell.SIceLance, new SpellInformation(10, 0.3f));
         }
 
         static SpellManager instance;

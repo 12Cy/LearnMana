@@ -24,8 +24,9 @@ namespace LearnMonoGame.Summoneds.Enemies
         int fire;
         int water;
         int nature;
+        int ice;
 
-        public Elements(int _dark = 0, int _earth = 0, int _light = 0, int _fire = 0, int _water = 0, int _nature = 0)
+        public Elements(int _dark = 0, int _earth = 0, int _light = 0, int _fire = 0, int _water = 0, int _nature = 0, int _ice = 0)
         {
             dark = _dark;
             earth = _earth;
@@ -33,6 +34,7 @@ namespace LearnMonoGame.Summoneds.Enemies
             water = _water;
             nature = _nature;
             fire = _fire;
+            ice = _ice;
         }
     }
 
