@@ -47,7 +47,10 @@ namespace LearnMonoGame.Manager
             textureDictionary.Add(TextureName.selected, Content.Load<Texture2D>("Select//selected"));
             textureDictionary.Add(TextureName.damageselect, Content.Load<Texture2D>("Select//Damageselected"));
             textureDictionary.Add(TextureName.fireballCursor, Content.Load<Texture2D>("Select//Cursor//fireballCursor"));
+
+            //IMoves
             textureDictionary.Add(TextureName.heal, Content.Load<Texture2D>("IMove//Heal"));
+            textureDictionary.Add(TextureName.burn, Content.Load<Texture2D>("IMove//BurnMotherFucker"));
 
             //Weapons
             textureDictionary.Add(TextureName.fireball, Content.Load<Texture2D>("Player//Weapons//Fireball"));
@@ -93,7 +96,8 @@ namespace LearnMonoGame.Manager
             dummy,
             fireballCursor,
             iceLance,
-            heal
+            heal,
+            burn,
                 
         }
         public enum FontName
