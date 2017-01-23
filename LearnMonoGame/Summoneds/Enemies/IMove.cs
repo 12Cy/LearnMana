@@ -6,37 +6,63 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Summoneds.Enemies
 {
-    public enum ETarget
-    {
-        Self, Enemy
-    }
-
     public enum EMoveType 
     {
-        Attack, Heal, Buff, Debuff, Status
+        Attack, Heal, Effect, Status
     }
+
     public enum EStatus //welchen Status habe ich nach meinem Move
     {
-        Normal, Sleep, Poison, Paralysis
+        Normal, Sleep, Paralysis
     }
-    public enum EMoveElement
+
+    public struct Elements
     {
-        None, Dark, Earth, Fire, Light, Water, Wind
+        int dark;
+        int earth;
+        int light;
+        int fire;
+        int water;
+        int nature;
+
+        public Elements(int _dark = 0, int _earth = 0, int _light = 0, int _fire = 0, int _water = 0, int _nature = 0)
+        {
+            dark = _dark;
+            earth = _earth;
+            light = _light;
+            water = _water;
+            nature = _nature;
+            fire = _fire;
+        }
     }
 
 
-    public interface IMove
+    public struct IMove
     {
-        ETarget Target { get; }
-        EMoveType MoveType { get; }
-        EMoveElement MoveElement { get; }
-        EStatus Status { get; }
-        string Name { get; }
-        int Duration { get; set; }
-        int Attack { get; }
-        int Defense { get; }
-        int Speed { get; }
-        int Health { get; }
-        object Clone();
+        EMoveType moveType;
+        EStatus status;
+        Elements elements;
+        string name;
+        int duration;
+        int damage;
+        int defense;
+        int speed;
+        int health;
+        int mana;
+
+        public IMove(EMoveType _moveType,EStatus _status, Elements _elements = new Elements(), string _name = "null", int _duration = 0, 
+            int _damage = 0, int _defense = 0, int _speed = 0, int _health = 0, int _mana = 0)
+        {
+            moveType = _moveType;
+            status = _status;
+            elements = _elements;
+            name = _name;
+            duration = _duration;
+            damage = _damage;
+            defense = _defense;
+            speed = _speed;
+            health = _health;
+            mana = _mana;
+        }
     }
 }

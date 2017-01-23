@@ -58,7 +58,7 @@ namespace LearnMonoGame.Spells
         {
             new BulletInformation(_speed: 350, _size: new Point(12,12), _range: 700), //Fireball
             new BulletInformation(_speed: 100, _size: new Point(20,20), _range: 300, _triggerTime: 0.2f), //FireWall
-            new BulletInformation(_speed: 0, _size: new Point(20,20), _range: 300, _triggerTime: 20f) //FireBurn
+            new BulletInformation(_speed: 0, _size: new Point(20,20), _range: 300) //FireBurn
         };
 
 
