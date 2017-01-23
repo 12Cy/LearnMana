@@ -68,8 +68,6 @@
     <Compile Include="Summoneds\Attributes.cs" />
     <Compile Include="Summoneds\Dummy.cs" />
     <Compile Include="Summoneds\Enemies\Enemy.cs" />
-    <Compile Include="Summoneds\Enemies\Hot.cs" />
-    <Compile Include="Summoneds\Enemies\Heal.cs" />
     <Compile Include="Summoneds\Enemies\Monster\Skelett.cs" />
     <Compile Include="Summoneds\Enemies\IMove.cs" />
     <Compile Include="Summoneds\Enemies\MoveManager.cs" />

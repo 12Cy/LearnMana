@@ -39,16 +39,16 @@ namespace LearnMonoGame.Summoneds.Enemies
 
     public struct IMove
     {
-        EMoveType moveType;
-        EStatus status;
-        Elements elements;
-        string name;
-        int duration;
-        int damage;
-        int defense;
-        int speed;
-        int health;
-        int mana;
+        public EMoveType moveType;
+        public EStatus status;
+        public Elements elements;
+        public string name;
+        public int duration;
+        public int damage;
+        public int defense;
+        public int speed;
+        public int health;
+        public int mana;
 
         public IMove(EMoveType _moveType,EStatus _status, Elements _elements = new Elements(), string _name = "null", int _duration = 0, 
             int _damage = 0, int _defense = 0, int _speed = 0, int _health = 0, int _mana = 0)
