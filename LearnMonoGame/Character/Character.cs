@@ -154,33 +154,35 @@ namespace LearnMonoGame.Summoneds
                     hit = false;
                 }
 
-                realAttackDamage = attackDamage;
-                realDefensiv = defense;
-                realSpeed = speed;
-                realAttackSpeed = attackSpeed;
 
-                //Update EffectList
-                for (int i = 0; i < effects.Count; i++)
-                {
-                    
-                    effects[i].Update(gameTime);
+            }
 
+            realAttackDamage = attackDamage;
+            realDefensiv = defense;
+            realSpeed = speed;
+            realAttackSpeed = attackSpeed;
 
-                    CalculateHealth(effects[i].damage);
-                    CalculateMana(effects[i].mana);
+            //Update EffectList
+            for (int i = 0; i < effects.Count; i++)
+            {
 
-                    attackDamage += effects[i].attackDamage;
-                    defense += effects[i].defense;
-                    speed += effects[i].speed;
-                    attackSpeed += effects[i].attackSpeed;
+                effects[i].Update(gameTime);
 
 
+                CalculateHealth(effects[i].damage);
+                CalculateMana(effects[i].mana);
+
+                attackDamage += effects[i].attackDamage;
+                defense += effects[i].defense;
+                speed += effects[i].speed;
+                attackSpeed += effects[i].attackSpeed;
 
 
 
-                    if (!effects[i].isAlive)
-                        effects.RemoveAt(i--);
-                }
+
+
+                if (!effects[i].isAlive)
+                    effects.RemoveAt(i--);
             }
 
 
@@ -284,7 +286,7 @@ namespace LearnMonoGame.Summoneds
         /// </CalculateHealth>
         public virtual void CalculateHealth(float value)
         {
-            currentHealth += value;
+            currentHealth -= value;
             if (currentHealth > 100)
                 currentHealth = 100;
 
@@ -308,6 +310,7 @@ namespace LearnMonoGame.Summoneds
 
         public void ApplyEffect(IMove iMove)
         {
+            Console.WriteLine("ApplyEffect");
             if (iMove.moveType == EMoveType.Attack)
                 CalculateHealth(iMove.damage);
             if (iMove.moveType == EMoveType.Heal)

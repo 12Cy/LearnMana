@@ -69,6 +69,7 @@ namespace LearnMonoGame.PlayerComponents
             spellBook.AddSpell(new SFireball());
             spellBook.AddSpell(new SFireWall());
             spellBook.AddSpell(new SIceLance());
+            spellBook.AddSpell(new SFireBurn());
             currentSpell = 0;
             Initialize();
         }
@@ -183,7 +184,7 @@ namespace LearnMonoGame.PlayerComponents
                     animatedSprite.CurrentAnimation = AnimationKey.WalkUp;
             }
 
-            spellBook.Cast(pos, xIn.MousePosition - pos, currentSpell);
+            spellBook.Cast(pos, xIn.MousePosition, currentSpell);
         }
 
         private void PlayerMove(GameTime gameTime)
