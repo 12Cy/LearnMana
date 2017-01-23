@@ -61,7 +61,7 @@ namespace LearnMonoGame.Spells
         FireBurn,
         IceLance,
         DarkImpact,
-        SHolyLight
+        HolyLight
     }
 
     class SpellManager
@@ -81,6 +81,7 @@ namespace LearnMonoGame.Spells
             attackInformation.Add(EBullet.FireWall, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: 3, _duration: 5));
             attackInformation.Add(EBullet.FireBurn, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: 1, _duration: 3));
             attackInformation.Add(EBullet.IceLance, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_ice: 50), _name: "IceLance", _damage: 6));
+            attackInformation.Add(EBullet.HolyLight, new IMove(EMoveType.Heal, EStatus.Normal, new Elements(_light: 100), _name: "HolyLight", _health: 25));
 
 
 
@@ -88,6 +89,7 @@ namespace LearnMonoGame.Spells
             spellInformation.Add(ESpell.SFireWall, new SpellInformation(10, 1));
             spellInformation.Add(ESpell.SFireBurn, new SpellInformation(10, 1));
             spellInformation.Add(ESpell.SIceLance, new SpellInformation(10, 0.3f));
+            spellInformation.Add(ESpell.SHolyLight, new SpellInformation(10, 2));
         }
 
         static SpellManager instance;

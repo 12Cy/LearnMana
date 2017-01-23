@@ -15,6 +15,7 @@ using LearnMonoGame.Summoneds;
 using LearnMonoGame.Spells.Ice;
 using LearnMonoGame.Spells.Fire;
 using LearnMonoGame.Spells;
+using LearnMonoGame.Spells.Light;
 
 namespace LearnMonoGame.PlayerComponents
 {
@@ -70,6 +71,7 @@ namespace LearnMonoGame.PlayerComponents
             spellBook.AddSpell(new SFireWall());
             spellBook.AddSpell(new SIceLance());
             spellBook.AddSpell(new SFireBurn());
+            spellBook.AddSpell(new SHolyLight());
             currentSpell = 0;
             Initialize();
         }

@@ -314,7 +314,7 @@ namespace LearnMonoGame.Summoneds
             if (iMove.moveType == EMoveType.Attack)
                 CalculateHealth(iMove.damage);
             if (iMove.moveType == EMoveType.Heal)
-                CalculateHealth(iMove.health);
+                CalculateHealth(-iMove.health);
             if (iMove.moveType == EMoveType.Effect)
                 effects.Add(iMove);
         }

@@ -18,6 +18,7 @@ using LearnMonoGame.Summoneds.Enemies;
 using LearnMonoGame.Summoneds.Enemies.Monster;
 using LearnMonoGame.Bullets;
 using LearnMonoGame.Spells;
+using LearnMonoGame.Particle;
 
 namespace LearnMonoGame.GameStates
 {
@@ -107,6 +108,14 @@ namespace LearnMonoGame.GameStates
             selectBar.Update();
             selectBar.CheckSelected();
 
+            for(int i = 0; i < ParticleManager.Instance.particles.Count; ++i)
+            {
+                if (ParticleManager.Instance.particles[i].alive)
+                    ParticleManager.Instance.particles[i].Update(gTime);
+                else
+                    ParticleManager.Instance.particles.RemoveAt(i--);
+            }
+
 
             return EGameState.PlayState;
         }
@@ -133,6 +142,8 @@ namespace LearnMonoGame.GameStates
                     i--;
                 }
             }
+
+
         }
 
 
@@ -152,6 +163,9 @@ namespace LearnMonoGame.GameStates
 
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nZoom: " + MapStuff.Instance.camera.Zoom + " Num1 & Num3\nReset Zoom: Num2", new Vector2(10, 10), Color.Bisque);
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nHealth +/- => L, K \nMana  +/- => O, I ", new Vector2(215, 10), Color.Bisque);
+
+            foreach (SimpleParticle p in ParticleManager.Instance.particles)
+                p.Draw(spriteBatch);
 
             spriteBatch.End();
         }
