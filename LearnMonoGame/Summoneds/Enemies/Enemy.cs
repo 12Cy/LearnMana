@@ -90,7 +90,7 @@ namespace LearnMonoGame.Summoneds.Enemies
         public Enemy(Attributes info)
         {
             // --- Attributes --- (Hole mir alle Informationen von SummonedsInformation für das jeweilige Monster)
-            ticks = TimeSpan.Zero;
+
             speed = info.Speed;
             width = info.Width;
             height = info.Height;
@@ -101,7 +101,7 @@ namespace LearnMonoGame.Summoneds.Enemies
             bounds = new Rectangle((int)pos.X, (int)pos.Y, width, height);
             level = 1;
             experience = 0;
-
+            ticks = TimeSpan.Zero;
 
 
             knownMoves = new Dictionary<string, IMove>();
@@ -252,6 +252,7 @@ namespace LearnMonoGame.Summoneds.Enemies
 
             return defense + defenseMod;
         }
+
         public float CalculateSpeed()
         {
             int speedMod = 0;
