@@ -182,6 +182,9 @@ namespace LearnMonoGame.Summoneds
                         effects.RemoveAt(i--);
                 }
             }
+
+
+            bounds = new Rectangle(pos.ToPoint(), new Point(width, height));
         }
         protected void Move(GameTime gameTime)
         {
@@ -303,7 +306,7 @@ namespace LearnMonoGame.Summoneds
 
         }
 
-        protected void ApplyEffect(IMove iMove)
+        public void ApplyEffect(IMove iMove)
         {
             if (iMove.moveType == EMoveType.Attack)
                 CalculateHealth(iMove.damage);

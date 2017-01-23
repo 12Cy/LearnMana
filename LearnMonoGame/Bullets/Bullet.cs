@@ -1,4 +1,5 @@
-﻿using LearnMonoGame.Summoneds.Enemies;
+﻿using LearnMonoGame.Summoneds;
+using LearnMonoGame.Summoneds.Enemies;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -132,6 +133,16 @@ namespace LearnMonoGame.Spells
             }
 
             Move(gameTime);
+
+            foreach (Character c in MonsterManager.Instance.enemyList)
+            {
+                Rectangle my = new Rectangle(positon.ToPoint(), new Point(width, height));
+                if (my.Intersects(c.Bounds))
+                {
+                    c.ApplyEffect(effect);
+                    alive = false;
+                }
+            }
 
 
             //ToDo: Collision mit enemys, Wall etc
