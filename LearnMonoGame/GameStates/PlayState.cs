@@ -60,9 +60,9 @@ namespace LearnMonoGame.GameStates
 
             SpellManager.Instance.LoadInformation();
             //Erstellt im Singleton die Instanz der Map
-            MapStuff.Instance.map = new Tilemap(new Texture2D[] { _CM.GetTexture(_CM.TextureName.grassTile), _CM.GetTexture(_CM.TextureName.stoneTile), _CM.GetTexture(_CM.TextureName.waterTile) }, _CM.GetTexture(_CM.TextureName.map), new Point(64,74/4));
-            MapStuff.Instance.camera = new Camera();
-            MapStuff.Instance.camera.Zoom = 1f;
+            _MapStuff.Instance.map = new Tilemap(new Texture2D[] { _CM.GetTexture(_CM.TextureName.grassTile), _CM.GetTexture(_CM.TextureName.stoneTile), _CM.GetTexture(_CM.TextureName.waterTile) }, _CM.GetTexture(_CM.TextureName.map), new Point(64,74/4));
+            _MapStuff.Instance.camera = new Camera();
+            _MapStuff.Instance.camera.Zoom = 1f;
  
 
             selectBar = new SelectBar();
@@ -78,7 +78,7 @@ namespace LearnMonoGame.GameStates
 
         public EGameState Update(GameTime gTime)
         {
-            MapStuff.Instance.map.Update(gTime);
+            _MapStuff.Instance.map.Update(gTime);
             PlayerManager.Instance.MyPlayer.Update(gTime);
             foreach (Character a in MonsterManager.Instance.mySummoned)
             {
@@ -89,31 +89,31 @@ namespace LearnMonoGame.GameStates
                 a.Update(gTime);
                 
             }
-            for (int i = 0; i < BulletManager.Instance.bullets.Count; ++i)
+            for (int i = 0; i < _BulletManager.Instance.bullets.Count; ++i)
             {
-                if (BulletManager.Instance.bullets[i].alive)
-                    BulletManager.Instance.bullets[i].Update(gTime);
+                if (_BulletManager.Instance.bullets[i].alive)
+                    _BulletManager.Instance.bullets[i].Update(gTime);
                 else
-                    BulletManager.Instance.bullets.RemoveAt(i--);
+                    _BulletManager.Instance.bullets.RemoveAt(i--);
             }
             CollisionTestDebugZweckeWirdNochGeaendertKeineAngst();
 
             if (xIn.CheckKeyReleased(Keys.NumPad1))
-                MapStuff.Instance.camera.Zoom += 0.1f;
+                _MapStuff.Instance.camera.Zoom += 0.1f;
             if(xIn.CheckKeyReleased(Keys.NumPad3))
-                MapStuff.Instance.camera.Zoom -= 0.1f;
+                _MapStuff.Instance.camera.Zoom -= 0.1f;
             if (xIn.CheckKeyReleased(Keys.NumPad2))
-                MapStuff.Instance.camera.ResetZoom();
+                _MapStuff.Instance.camera.ResetZoom();
 
             selectBar.Update();
             selectBar.CheckSelected();
 
-            for(int i = 0; i < ParticleManager.Instance.particles.Count; ++i)
+            for(int i = 0; i < _ParticleManager.Instance.particles.Count; ++i)
             {
-                if (ParticleManager.Instance.particles[i].alive)
-                    ParticleManager.Instance.particles[i].Update(gTime);
+                if (_ParticleManager.Instance.particles[i].alive)
+                    _ParticleManager.Instance.particles[i].Update(gTime);
                 else
-                    ParticleManager.Instance.particles.RemoveAt(i--);
+                    _ParticleManager.Instance.particles.RemoveAt(i--);
             }
 
 
@@ -123,7 +123,7 @@ namespace LearnMonoGame.GameStates
         {
             foreach (Character enemy in MonsterManager.Instance.enemyList)
             {
-                foreach (Bullet aFireball in BulletManager.Instance.bullets)
+                foreach (Bullet aFireball in _BulletManager.Instance.bullets)
                 {
                     if (aFireball.Bounds.Intersects(enemy.Bounds) && aFireball.Visible)
                     {
@@ -151,7 +151,7 @@ namespace LearnMonoGame.GameStates
         {
             spriteBatch.Begin();
 
-            Texture2D rectangle = new Texture2D(MapStuff.Instance.graphics, 200, 90);
+            Texture2D rectangle = new Texture2D(_MapStuff.Instance.graphics, 200, 90);
             Color[] data = new Color[200 * 90];
             for (int i = 0; i < data.Length; i++) data[i] = Color.Chocolate;
             rectangle.SetData(data);
@@ -161,10 +161,10 @@ namespace LearnMonoGame.GameStates
             spriteBatch.Draw(rectangle, new Vector2(415, 5), Color.White);
 
 
-            spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nZoom: " + MapStuff.Instance.camera.Zoom + " Num1 & Num3\nReset Zoom: Num2", new Vector2(10, 10), Color.Bisque);
+            spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nZoom: " + _MapStuff.Instance.camera.Zoom + " Num1 & Num3\nReset Zoom: Num2", new Vector2(10, 10), Color.Bisque);
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nHealth +/- => L, K \nMana  +/- => O, I ", new Vector2(215, 10), Color.Bisque);
 
-            foreach (SimpleParticle p in ParticleManager.Instance.particles)
+            foreach (SimpleParticle p in _ParticleManager.Instance.particles)
                 p.Draw(spriteBatch);
 
             spriteBatch.End();
@@ -174,8 +174,8 @@ namespace LearnMonoGame.GameStates
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            spriteBatch.Begin(transformMatrix: MapStuff.Instance.camera.GetViewMatrix());
-            MapStuff.Instance.map.Draw(spriteBatch);
+            spriteBatch.Begin(transformMatrix: _MapStuff.Instance.camera.GetViewMatrix());
+            _MapStuff.Instance.map.Draw(spriteBatch);
 
             PlayerManager.Instance.MyPlayer.Draw(spriteBatch);
             foreach (Character a in MonsterManager.Instance.mySummoned)
@@ -186,7 +186,7 @@ namespace LearnMonoGame.GameStates
             {
                 a.Draw(spriteBatch);
             }
-            foreach(Bullet b in BulletManager.Instance.bullets)
+            foreach(Bullet b in _BulletManager.Instance.bullets)
                 b.Draw(spriteBatch);
 
             selectBar.Draw(spriteBatch);

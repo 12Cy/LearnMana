@@ -25,7 +25,7 @@ namespace LearnMonoGame.Tools
         int offsetHeight = 1;
         Texture2D dottedLine;
 
-        int size = MapStuff.Instance.size;
+        int size = _MapStuff.Instance.size;
 
         MouseState mPreviousMouseState;
 

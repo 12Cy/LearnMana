@@ -25,6 +25,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         }
         protected override void Initialize()
         {
+            characterTyp = ECharacterTyp.enemy;
             moveDestination = pos;
             currentHealth = 10;
             // --- Animation ---

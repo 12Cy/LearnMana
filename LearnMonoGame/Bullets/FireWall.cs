@@ -29,7 +29,7 @@ namespace LearnMonoGame.Bullets
 
         public override void OnTrigger()
         {
-            BulletManager.Instance.bullets.Add(new SimpleBullet(new Rectangle(positon.ToPoint(), Point.Zero), direction, _CM.GetTexture(_CM.TextureName.fireball), EBullet.FireBurn));
+            _BulletManager.Instance.bullets.Add(new SimpleBullet(new Rectangle(positon.ToPoint(), Point.Zero), direction, _CM.GetTexture(_CM.TextureName.fireball), EBullet.FireBurn));
             base.OnTrigger();
         }
 

@@ -17,8 +17,8 @@ namespace LearnMonoGame.Summoneds
         protected float defense = 1;
 
 
-        protected int width = MapStuff.Instance.size;
-        protected int height = MapStuff.Instance.size;
+        protected int width = _MapStuff.Instance.size;
+        protected int height = _MapStuff.Instance.size;
 
 
         public float Speed { get { return speed; } }

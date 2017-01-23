@@ -42,7 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bullets\FireWall.cs" />
-    <Compile Include="Manager\BulletManager.cs" />
+    <Compile Include="Manager\_BulletManager.cs" />
     <Compile Include="Components\Camera.cs" />
     <Compile Include="Components\xIn.cs" />
     <Compile Include="Game1.cs" />
@@ -50,8 +50,8 @@
     <Compile Include="GameStates\MainMenuState.cs" />
     <Compile Include="GameStates\PlayState.cs" />
     <Compile Include="GameStates\TitleIntroState.cs" />
-    <Compile Include="Manager\MapStuff.cs" />
-    <Compile Include="Manager\ParticleManager.cs" />
+    <Compile Include="Manager\_MapStuff.cs" />
+    <Compile Include="Manager\_ParticleManager.cs" />
     <Compile Include="Manager\_AnimationManager.cs" />
     <Compile Include="Manager\_CM.cs" />
     <Compile Include="Map\Tile.cs" />
@@ -75,7 +75,7 @@
     <Compile Include="Character\MonsterComponents\Summoned\Dummy.cs" />
     <Compile Include="Character\MonsterComponents\Enemies\Skelett.cs" />
     <Compile Include="Character\MonsterComponents\Enemies\IMove.cs" />
-    <Compile Include="Manager\MonsterManager.cs" />
+    <Compile Include="Manager\_MonsterManager.cs" />
     <Compile Include="Information\SummonedsInformation.cs" />
     <Compile Include="Tools\AnimatedSprite.cs" />
     <Compile Include="Tools\Animation.cs" />

@@ -239,10 +239,10 @@ namespace LearnMonoGame.PlayerComponents
 
                 Vector2 newPosition = animatedSprite.Position + motion; // the position we are moving to is valid?
 
-                if(MapStuff.Instance.map.Walkable(newPosition)
-                  && MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, 0))
-                  && MapStuff.Instance.map.Walkable(newPosition + new Vector2(0, height))
-                  && MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, height)))
+                if(_MapStuff.Instance.map.Walkable(newPosition)
+                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, 0))
+                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(0, height))
+                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, height)))
                 {//Ist dort keine Collision?
 
                     animatedSprite.Position = newPosition;

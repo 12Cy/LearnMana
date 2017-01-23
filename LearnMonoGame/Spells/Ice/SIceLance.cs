@@ -20,7 +20,7 @@ namespace LearnMonoGame.Spells.Ice
         {
             if (CastAble())
             {
-                BulletManager.Instance.bullets.Add(new Bullets.SimpleBullet(new Rectangle(bounds.ToPoint(), Point.Zero), _target - bounds, _CM.GetTexture(_CM.TextureName.iceLance), EBullet.IceLance));
+                _BulletManager.Instance.bullets.Add(new Bullets.SimpleBullet(new Rectangle(bounds.ToPoint(), Point.Zero), _target - bounds, _CM.GetTexture(_CM.TextureName.iceLance), EBullet.IceLance));
                 timer = 0;
                 channelTimer = 0;
                 return new IMove(EMoveType.Attack, EStatus.Normal, _mana: -manaCost);

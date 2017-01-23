@@ -60,8 +60,8 @@ namespace LearnMonoGame.Components
             xIn.previousMouseState = xIn.currentMouseState;
             xIn.currentMouseState = Mouse.GetState();
 
-            if (MapStuff.Instance.camera != null)
-                mouseposition = currentMouseState.Position.ToVector2() * 1f/MapStuff.Instance.camera.Zoom + MapStuff.Instance.camera.Position;
+            if (_MapStuff.Instance.camera != null)
+                mouseposition = currentMouseState.Position.ToVector2() * 1f/_MapStuff.Instance.camera.Zoom + _MapStuff.Instance.camera.Position;
             else
                 mouseposition = currentMouseState.Position.ToVector2();
 

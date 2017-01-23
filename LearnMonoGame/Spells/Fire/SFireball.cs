@@ -24,7 +24,7 @@ namespace LearnMonoGame.Spells.Fire
 
             if (CastAble())
             {
-                BulletManager.Instance.bullets.Add(new Bullets.SimpleBullet(new Rectangle(bounds.ToPoint(), Point.Zero), _target - bounds, _CM.GetTexture(_CM.TextureName.fireball),EBullet.FireBall));
+                _BulletManager.Instance.bullets.Add(new Bullets.SimpleBullet(new Rectangle(bounds.ToPoint(), Point.Zero), _target - bounds, _CM.GetTexture(_CM.TextureName.fireball),EBullet.FireBall));
                 timer = 0;
                 channelTimer = 0;
             }

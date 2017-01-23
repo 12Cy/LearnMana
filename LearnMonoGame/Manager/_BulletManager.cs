@@ -7,18 +7,18 @@ using LearnMonoGame.Spells;
 
 namespace LearnMonoGame.Manager
 {
-    class BulletManager
+    class _BulletManager
     {
         public List<Bullet> bullets = new List<Bullet>();
 
 
-        static BulletManager instance;
-        public static BulletManager Instance
+        static _BulletManager instance;
+        public static _BulletManager Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new BulletManager();
+                    instance = new _BulletManager();
 
                 return instance;
             }

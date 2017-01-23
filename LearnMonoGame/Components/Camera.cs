@@ -16,7 +16,7 @@ namespace LearnMonoGame.Components
         float zoom;
         Rectangle bounds;
 
-        public Rectangle Bounds { get { return new Rectangle((int)position.X, (int)position.Y, MapStuff.Instance.x, MapStuff.Instance.y); } }
+        public Rectangle Bounds { get { return new Rectangle((int)position.X, (int)position.Y, _MapStuff.Instance.x, _MapStuff.Instance.y); } }
 
         public float Zoom
         {
@@ -43,17 +43,17 @@ namespace LearnMonoGame.Components
 
         public Matrix GetViewMatrix()
         {
-            float difX = (float)offsetPercent / 100 * MapStuff.Instance.x;
-            float difY = (float)offsetPercent / 100 * MapStuff.Instance.y;
+            float difX = (float)offsetPercent / 100 * _MapStuff.Instance.x;
+            float difY = (float)offsetPercent / 100 * _MapStuff.Instance.y;
 
             MouseState aMouse = Mouse.GetState();
             if (aMouse.X < difX)
                 position.X -= 5;
-            if (aMouse.X > MapStuff.Instance.x - difX)
+            if (aMouse.X > _MapStuff.Instance.x - difX)
                 position.X += 5;
             if (aMouse.Y < difY)
                 position.Y -= 5;
-            if (aMouse.Y > MapStuff.Instance.y - difY)
+            if (aMouse.Y > _MapStuff.Instance.y - difY)
                 position.Y += 5;
 
             return

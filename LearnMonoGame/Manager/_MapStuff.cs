@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Manager
 {
-    class MapStuff
+    class _MapStuff
     {
         public GraphicsDevice graphics;
         public Game1 game;
@@ -24,19 +24,19 @@ namespace LearnMonoGame.Manager
         public Vector2 startPosition = new Vector2(0, 0);
 
 
-        private MapStuff()
+        private _MapStuff()
         {
 
         }
 
-        static MapStuff instance;
+        static _MapStuff instance;
 
-        public static MapStuff Instance
+        public static _MapStuff Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new MapStuff();
+                    instance = new _MapStuff();
 
                 return instance;
             }

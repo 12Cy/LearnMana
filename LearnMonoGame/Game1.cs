@@ -41,10 +41,10 @@ namespace LearnMonoGame
 
             this.IsMouseVisible = true;
 
-            screenRectangle = new Rectangle(0, 0, MapStuff.Instance.x, MapStuff.Instance.y);
+            screenRectangle = new Rectangle(0, 0, _MapStuff.Instance.x, _MapStuff.Instance.y);
 
-            graphics.PreferredBackBufferWidth = MapStuff.Instance.x;
-            graphics.PreferredBackBufferHeight = MapStuff.Instance.y;
+            graphics.PreferredBackBufferWidth = _MapStuff.Instance.x;
+            graphics.PreferredBackBufferHeight = _MapStuff.Instance.y;
 
             
 
@@ -61,8 +61,8 @@ namespace LearnMonoGame
         /// </summary>
         protected override void Initialize()
         {
-            MapStuff.Instance.graphics = graphics.GraphicsDevice;
-            MapStuff.Instance.game = this;
+            _MapStuff.Instance.graphics = graphics.GraphicsDevice;
+            _MapStuff.Instance.game = this;
             currState = EGameState.TitleIntroState;
             prevState = EGameState.None;
             state = new TitleIntroState();

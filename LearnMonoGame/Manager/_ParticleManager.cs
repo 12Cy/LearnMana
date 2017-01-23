@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Manager
 {
-    class ParticleManager
+    class _ParticleManager
     {
         public List<SimpleParticle> particles = new List<SimpleParticle>();
 
 
-        static ParticleManager instance;
-        public static ParticleManager Instance
+        static _ParticleManager instance;
+        public static _ParticleManager Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new ParticleManager();
+                    instance = new _ParticleManager();
 
                 return instance;
             }
