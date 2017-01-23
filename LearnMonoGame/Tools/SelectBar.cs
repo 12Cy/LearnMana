@@ -77,7 +77,7 @@ namespace LearnMonoGame.Tools
                 if(mSelectionBox.Height > 0 && mSelectionBox.Width < 0)
                     mSelectionBox = new Rectangle(mSelectionBox.X + mSelectionBox.Width, mSelectionBox.Y, Math.Abs(mSelectionBox.Width), Math.Abs(mSelectionBox.Height));
 
-                playerBounds = new Rectangle((int)PlayerManager.Instance.MyPlayer.Pos.X, (int)PlayerManager.Instance.MyPlayer.Pos.Y, PlayerManager.Instance.MyPlayer.Size, PlayerManager.Instance.MyPlayer.Size);
+                playerBounds = new Rectangle((int)PlayerManager.Instance.MyPlayer.Pos.X, (int)PlayerManager.Instance.MyPlayer.Pos.Y, PlayerManager.Instance.MyPlayer.Width, PlayerManager.Instance.MyPlayer.Height);
                 if (mSelectionBox.Intersects(playerBounds))//player.Pos.X > mSelectionBox.X && player.Pos.X < mSelectionBox.X + mSelectionBox.Width && player.Pos.Y > mSelectionBox.Y && player.Pos.Y < mSelectionBox.Y + mSelectionBox.Height)
                 {
                     PlayerManager.Instance.MyPlayer.IsSelect = true;
