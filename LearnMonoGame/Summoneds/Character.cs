@@ -80,7 +80,7 @@ namespace LearnMonoGame.Summoneds
         public ECharacterTyp CharacterTyp { get { return characterTyp; } }
         public List<IMove> Effects { get { return effects; } }
         public Vector2 Pos { get { return pos; } }
-        public bool IsSelect { get { return IsSelect; } set { isSelected = value; } }
+        public bool IsSelect { get { return isSelected; } set { isSelected = value; } }
         public int Width { get { return width; } }
         public int Height { get { return height; } }
         public bool IsAlive { get { return isAlive; } set { isAlive = value; } }
