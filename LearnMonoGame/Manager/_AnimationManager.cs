@@ -54,7 +54,7 @@ namespace LearnMonoGame.Manager
 
             Dictionary<AnimationKey, Animation> effectsDic = new Dictionary<AnimationKey, Animation>();
 
-            Animation animation2 = new Animation(3, 32, 32, 0, 0);
+            Animation animation2 = new Animation(10, 64, 64, 0, 0);
             effectsDic.Add(AnimationKey.effect, animation2);
             AnimationDictionary.Add(AnimationName.effects, effectsDic);
 
