@@ -86,7 +86,7 @@ namespace LearnMonoGame.Spells
 
 
             spellInformation.Add(ESpell.SFireBall, new SpellInformation(10, 1));
-            spellInformation.Add(ESpell.SFireWall, new SpellInformation(10, 1));
+            spellInformation.Add(ESpell.SFireWall, new SpellInformation(10, 1,1f));
             spellInformation.Add(ESpell.SFireBurn, new SpellInformation(10, 1));
             spellInformation.Add(ESpell.SIceLance, new SpellInformation(10, 0.3f));
             spellInformation.Add(ESpell.SHolyLight, new SpellInformation(10, 2));

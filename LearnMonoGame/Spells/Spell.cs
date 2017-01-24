@@ -34,7 +34,7 @@ namespace LearnMonoGame.Spells
         #endregion
 
         #region Methods
-        public abstract IMove Cast(Vector2 position, Vector2 _direction);
+        public abstract void Cast(Vector2 position, Vector2 _direction);
         public bool CastAble()
         {
             if (timer >= maxTimer && channelTimer >= channelMax)
@@ -45,9 +45,17 @@ namespace LearnMonoGame.Spells
             return false;
         }
 
-        public void Channel(GameTime gTime)
+        public bool Channel(GameTime gTime)
         {
             channelTimer += (float)gTime.ElapsedGameTime.TotalSeconds;
+            if (channelTimer >= channelMax) return true;
+            return false;
+        }
+
+        public bool Channel()
+        {
+            if (channelTimer < channelMax) return true;
+            return false;
         }
 
         public void Update(GameTime gTime)

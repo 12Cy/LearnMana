@@ -22,7 +22,6 @@ namespace LearnMonoGame.Particle
 
         public SimpleParticle(Texture2D _sprite, Vector2 _position, float duration, Character _character, Dictionary<AnimationKey, Animation> dic)
         {
-
             timer = 0;
             maxTimer = duration;
             sprite = _sprite;

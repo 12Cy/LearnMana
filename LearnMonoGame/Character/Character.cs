@@ -188,6 +188,9 @@ namespace LearnMonoGame.Summoneds
 
             bounds = new Rectangle(pos.ToPoint(), new Point(width, height));
         }
+
+
+
         protected void Move(GameTime gameTime)
         {
             MouseState aMouse = Mouse.GetState();
@@ -260,6 +263,7 @@ namespace LearnMonoGame.Summoneds
 
             animatedSprite.Update(gameTime);
         }
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             animatedSprite.Draw(spriteBatch);

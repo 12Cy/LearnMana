@@ -29,18 +29,18 @@ namespace LearnMonoGame.PlayerComponents
     class Player : Character
     {
 
-#region variablen
+        #region variablen
 
         //HealthBar
         Texture2D manaTexture;
 
         //Weapon
-        
+
         int fireBallCost = 15;
         Vector2 rangeDestination;
         bool attackMode = false;
 
-
+        bool channelMode = false;
 
 
         //Spellbook
@@ -49,20 +49,20 @@ namespace LearnMonoGame.PlayerComponents
 
 
 
-#endregion
-#region properties
+        #endregion
+        #region properties
 
 
         public bool AttackMode { get { return attackMode; } set { attackMode = value; } }
-        
-
-#endregion
 
 
+        #endregion
 
-#region Constructors
 
-        public Player( Vector2 _position, Texture2D _playerTexture) : base(SummonedsInformation.Instance.playerInformation)
+
+        #region Constructors
+
+        public Player(Vector2 _position, Texture2D _playerTexture) : base(SummonedsInformation.Instance.playerInformation)
         {
             this.pos = _position;
             this.creatureTexture = _playerTexture;
@@ -76,9 +76,9 @@ namespace LearnMonoGame.PlayerComponents
             Initialize();
         }
 
-#endregion
+        #endregion
 
-#region Methods
+        #region Methods
 
         protected override void Initialize()
         {
@@ -115,20 +115,30 @@ namespace LearnMonoGame.PlayerComponents
 
         public override void Update(GameTime gameTime)
         {
+            spellBook.Update(gameTime);
+
+            if (channelMode)
+            {
+                if (spellBook.CastChannel(currentSpell, gameTime))
+                {
+                    spellBook.Cast(pos, xIn.MousePosition, currentSpell);
+                    channelMode = false;
+                }
+                return;
+            }
+
             if (xIn.CheckKeyReleased(Keys.D3))
                 currentSpell++;
             if (xIn.CheckKeyReleased(Keys.D4))
                 currentSpell--;
-
-            spellBook.Update(gameTime);
 
 
             PlayerMove(gameTime);
 
 
             //ToDo Kampf aktivieren(Fähigkeiten werden hier eingesetzt - Zauber/Beschwörungen)
-            if (xIn.CheckKeyReleased(Keys.D1) )
-            { 
+            if (xIn.CheckKeyReleased(Keys.D1))
+            {
                 moveDestination = pos; //Spieler soll sofort stehen bleiben!
                 attackMode = true; //Kann zauber wirken!
 
@@ -180,13 +190,17 @@ namespace LearnMonoGame.PlayerComponents
 
             if (Math.Abs(rangeDestination.X / rangeDestination.Y) < offset)
             {
-                if(rangeDestination.Y > 0)
+                if (rangeDestination.Y > 0)
                     animatedSprite.CurrentAnimation = AnimationKey.WalkDown;
                 else
                     animatedSprite.CurrentAnimation = AnimationKey.WalkUp;
             }
-
-            spellBook.Cast(pos, xIn.MousePosition, currentSpell);
+            if (spellBook.CheckChannel(currentSpell))
+                channelMode = true;
+            else
+            {
+                spellBook.Cast(pos, xIn.MousePosition, currentSpell);
+            }
         }
 
         private void PlayerMove(GameTime gameTime)
@@ -239,7 +253,7 @@ namespace LearnMonoGame.PlayerComponents
 
                 Vector2 newPosition = animatedSprite.Position + motion; // the position we are moving to is valid?
 
-                if(_MapStuff.Instance.map.Walkable(newPosition)
+                if (_MapStuff.Instance.map.Walkable(newPosition)
                   && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, 0))
                   && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(0, height))
                   && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, height)))
@@ -257,7 +271,7 @@ namespace LearnMonoGame.PlayerComponents
                 }
 
                 //ToDo: PATHFINDER
-                 
+
             }
             else
             {
@@ -270,7 +284,7 @@ namespace LearnMonoGame.PlayerComponents
 
         public override void Draw(SpriteBatch spritebatch)
         {
-            animatedSprite.Draw( spritebatch);
+            animatedSprite.Draw(spritebatch);
 
             //LB
             if (isSelected || hit)
@@ -284,14 +298,14 @@ namespace LearnMonoGame.PlayerComponents
                 /// (SourceRectangle) :  Geht vom äußeren Rectangle aus(DesitinationRectangle)
                 ///  (2.Schicht) :  nehme die diff und verkleinere so die größe der Schicht.
                 /// </Lebensbalken>
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height /4 - 5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height /4 - 5, (int)(width * ((float)currentMana / maxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height /4 - 5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
-                                                                    
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height/2 -5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height/2 -5 ,(int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height/2 -5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
-                if(hit)
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentMana / maxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+
+                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 2 - 5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 2 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
+                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 2 - 5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+                if (hit)
                     spritebatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
                 else
                     spritebatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
@@ -302,7 +316,7 @@ namespace LearnMonoGame.PlayerComponents
 
 
 
-#endregion
+        #endregion
 
     }
 }

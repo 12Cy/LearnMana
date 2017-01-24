@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LearnMonoGame.Summoneds.Enemies;
 using Microsoft.Xna.Framework;
 using LearnMonoGame.Manager;
+using LearnMonoGame.PlayerComponents;
 
 namespace LearnMonoGame.Spells.Ice
 {
@@ -16,17 +17,15 @@ namespace LearnMonoGame.Spells.Ice
         {
 
         }
-        public override IMove Cast(Vector2 bounds, Vector2 _target)
+        public override void Cast(Vector2 bounds, Vector2 _target)
         {
             if (CastAble())
             {
                 _BulletManager.Instance.bullets.Add(new Bullets.SimpleBullet(new Rectangle(bounds.ToPoint(), Point.Zero), _target - bounds, _CM.GetTexture(_CM.TextureName.iceLance), EBullet.IceLance));
                 timer = 0;
                 channelTimer = 0;
-                return new IMove(EMoveType.Attack, EStatus.Normal, _mana: -manaCost);
+                PlayerManager.Instance.MyPlayer.ApplyEffect(new IMove(EMoveType.Attack, EStatus.Normal, _mana: -manaCost));
             }
-
-            return new IMove();
 
 
         }

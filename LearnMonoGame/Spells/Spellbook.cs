@@ -29,17 +29,31 @@ namespace LearnMonoGame.Spells
         #endregion
 
         #region Methods
-        public IMove Cast(Vector2 pos, Vector2 _direction, int index)
+        public void Cast(Vector2 pos, Vector2 _direction, int index)
         {
             if (index >= 0 && index < spell.Count)
-                return spell[index].Cast(pos, _direction);
-
-            return new IMove();
+                spell[index].Cast(pos, _direction);
         }
 
         public void AddSpell(Spell sp)
         {
             spell.Add(sp);
+        }
+
+        public bool CastChannel(int index, GameTime gTime)
+        {
+            if (index >= 0 && index < spell.Count)
+                return spell[index].Channel(gTime);
+
+            return true;
+        }
+
+        public bool CheckChannel(int index)
+        {
+            if (index >= 0 && index < spell.Count)
+                return spell[index].Channel();
+
+            return false;
         }
 
         public void Update(GameTime gTime)

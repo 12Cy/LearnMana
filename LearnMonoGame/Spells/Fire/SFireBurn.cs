@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LearnMonoGame.Summoneds.Enemies;
 using Microsoft.Xna.Framework;
 using LearnMonoGame.Summoneds;
+using LearnMonoGame.PlayerComponents;
 
 namespace LearnMonoGame.Spells.Fire
 {
@@ -15,7 +16,7 @@ namespace LearnMonoGame.Spells.Fire
         {
         }
 
-        public override IMove Cast(Vector2 bounds, Vector2 _direction)
+        public override void Cast(Vector2 bounds, Vector2 _direction)
         {
             if (CastAble())
             {
@@ -30,12 +31,10 @@ namespace LearnMonoGame.Spells.Fire
                         channelTimer = 0;
                     }
                 }
-                
 
-                return new IMove(EMoveType.Attack, EStatus.Normal, _mana: -manaCost);
+
+                PlayerManager.Instance.MyPlayer.ApplyEffect(new IMove(EMoveType.Attack, EStatus.Normal, _mana: -manaCost));
             }
-
-            return new IMove();
 
 
         }
