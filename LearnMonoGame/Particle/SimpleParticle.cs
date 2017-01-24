@@ -31,7 +31,7 @@ namespace LearnMonoGame.Particle
             character = _character;
             position = new Vector2(character.Bounds.X, character.Bounds.Y);
             animatedSprite = new AnimatedSprite(_sprite, dic);
-            animatedSprite.CurrentAnimation = AnimationKey.heal;
+            animatedSprite.CurrentAnimation = AnimationKey.effect;
             animatedSprite.Position = position;
         }
 
