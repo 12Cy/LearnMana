@@ -164,9 +164,6 @@ namespace LearnMonoGame.GameStates
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nZoom: " + _MapStuff.Instance.camera.Zoom + " Num1 & Num3\nReset Zoom: Num2", new Vector2(10, 10), Color.Bisque);
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nHealth +/- => L, K \nMana  +/- => O, I ", new Vector2(215, 10), Color.Bisque);
 
-            foreach (SimpleParticle p in _ParticleManager.Instance.particles)
-                p.Draw(spriteBatch);
-
             spriteBatch.End();
         }
 
@@ -188,6 +185,10 @@ namespace LearnMonoGame.GameStates
             }
             foreach(Bullet b in _BulletManager.Instance.bullets)
                 b.Draw(spriteBatch);
+
+
+            foreach (SimpleParticle p in _ParticleManager.Instance.particles)
+                p.Draw(spriteBatch);
 
             selectBar.Draw(spriteBatch);
 
