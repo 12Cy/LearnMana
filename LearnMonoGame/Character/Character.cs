@@ -168,8 +168,8 @@ namespace LearnMonoGame.Summoneds
 
                 effects[i].Update(gameTime);
 
-
-                CalculateHealth(effects[i].damage);
+                CalculateHealth(effects[i].health);
+                CalculateHealth(-effects[i].damage);
                 CalculateMana(effects[i].mana);
 
                 attackDamage += effects[i].attackDamage;
@@ -310,7 +310,6 @@ namespace LearnMonoGame.Summoneds
 
         public void ApplyEffect(IMove iMove)
         {
-            Console.WriteLine("ApplyEffect");
             if (iMove.moveType == EMoveType.Attack)
                 CalculateHealth(-1 * iMove.damage);
             if (iMove.moveType == EMoveType.Heal)
