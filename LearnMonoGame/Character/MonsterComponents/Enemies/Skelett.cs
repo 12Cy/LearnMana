@@ -69,7 +69,6 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
             {
                 StepsWalked = 0;
                 StepsToWalk = (int)(random.NextDouble() * 7 + 1);
-                Console.WriteLine(StepsToWalk);
                 moveDestination = new Vector2((int)(pos.X + random.NextDouble() * 80 - 40), (int)(pos.Y + random.NextDouble() * 80 - 40));                
 
             }
