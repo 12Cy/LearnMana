@@ -15,7 +15,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
     class Wolf : Character
     {
         private object xin;
-        private int smell_distance = 100;
+        private int smell_distance = 320;
         private bool chaseMode = false;
 
         public Wolf(Vector2 _pos) : base(SummonedsInformation.Instance.wolfInformation)
@@ -52,13 +52,10 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         {
             Vector2 dif = PlayerManager.Instance.MyPlayer.Pos -  pos;
             // Um negative Zahlen zu eliminieren
-            long true_dif = (long)(Math.Sqrt(dif.X * dif.X)+Math.Sqrt(dif.X * dif.Y));
-
-            //Console.WriteLine(true_dif);
+            int true_dif = (int)(Math.Sqrt(dif.X * dif.X)+Math.Sqrt(dif.Y * dif.Y));
 
             if (true_dif<smell_distance)
             {
-                //Console.WriteLine("Smelled him haha!");
                 return true;
             }
             else
