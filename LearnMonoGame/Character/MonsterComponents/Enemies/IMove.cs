@@ -40,7 +40,7 @@ namespace LearnMonoGame.Summoneds.Enemies
     }
 
 
-    public struct IMove
+    public class IMove
     {
         public EMoveType moveType;
         public EStatus status;
@@ -60,7 +60,10 @@ namespace LearnMonoGame.Summoneds.Enemies
         public float delay;
         TimeSpan timeSpan;
 
+        public IMove()
+        {
 
+        }
 
         public IMove(EMoveType _moveType,EStatus _status, Elements _elements = new Elements(), string _name = "null", int _duration = 0, 
             int _damage = 0, int _defense = 0,int _attackDamage = 0, float _attackSpeed = 0, int _speed = 0, int _health = 0, int _mana = 0, float _trigger = 0, bool _isAlive = true, TimeSpan _timeSpan = new TimeSpan(),
@@ -100,7 +103,6 @@ namespace LearnMonoGame.Summoneds.Enemies
         }
         public void SetDelay(GameTime gameTime)
         {
-            Console.WriteLine(delay);
             delay -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             Console.WriteLine(delay);
