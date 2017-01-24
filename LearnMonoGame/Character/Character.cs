@@ -140,8 +140,6 @@ namespace LearnMonoGame.Summoneds
         public virtual void UnloadContent() { }
         public virtual void Update(GameTime gameTime)
         {
-            if(this.characterTyp == ECharacterTyp.summoned)
-                Move(gameTime);
 
             if (hit)
             {//Wenn der Spieler getroffen wurde, wird der LB angezeigt (für 1 Sekunde)
@@ -189,18 +187,16 @@ namespace LearnMonoGame.Summoneds
             bounds = new Rectangle(pos.ToPoint(), new Point(width, height));
         }
 
-
-
-        protected void Move(GameTime gameTime)
+        protected void Move(GameTime gameTime, Vector2 dif)
         {
-            MouseState aMouse = Mouse.GetState();
+            /*MouseState aMouse = Mouse.GetState();
 
             if (isSelected && aMouse.RightButton == ButtonState.Pressed)
             {
                 moveDestination = new Vector2((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y);
             }
             Vector2 dif = moveDestination - pos; //VerbindungsVektor
-
+*/
             if (dif.Length() < 3f)
             {//Ziel angekommen?
 

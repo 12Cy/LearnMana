@@ -16,7 +16,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         private object xin;
         private int StepsToWalk = 0;
         private int StepsWalked = 0;
-        int updaterate = 1300;
+        int updaterate = 1500;
 
 
         public Skelett(Vector2 _pos) : base(SummonedsInformation.Instance.skelettInformation)
@@ -39,15 +39,6 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         }
         public override void Update(GameTime gameTime)
         {
-            //if (xIn.CheckKeyReleased(Microsoft.Xna.Framework.Input.Keys.M))
-            //{
-            //    base.ResolveMove(MoveManager.GetMove("Heal"));
-            //}
-            //if (xIn.CheckKeyReleased(Microsoft.Xna.Framework.Input.Keys.N))
-            //{
-            //    base.ResolveMove(MoveManager.GetMove("Hot"));
-            //}
-
             MoveRandom(gameTime);
             base.Update(gameTime);
         }

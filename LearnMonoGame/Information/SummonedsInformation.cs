@@ -24,7 +24,17 @@ namespace LearnMonoGame.Summoneds
     {
         public SkelettInformation()
         {
-            speed = 1;
+            speed = 90;
+
+        }
+    }
+
+    class WolfInformation : Attributes
+    {
+        public WolfInformation()
+        {
+            speed = 110;
+
         }
     }
     class DummyInformation : Attributes
@@ -41,6 +51,7 @@ namespace LearnMonoGame.Summoneds
         public DummyInformation dummyInformation = new DummyInformation();
         public SkelettInformation skelettInformation = new SkelettInformation();
         public PlayerInformation playerInformation = new PlayerInformation();
+        public WolfInformation wolfInformation = new WolfInformation();
 
 
         static SummonedsInformation instance;
