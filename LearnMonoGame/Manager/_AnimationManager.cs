@@ -38,25 +38,34 @@ namespace LearnMonoGame.Manager
 
             Dictionary<AnimationKey, Animation> dummyDic = new Dictionary<AnimationKey, Animation>();
 
-            Animation animation1 = new Animation(3, 32, 32, 0, 0);
-            dummyDic.Add(AnimationKey.WalkDown, animation1);
+            animation = new Animation(3, 32, 32, 0, 0);
+            dummyDic.Add(AnimationKey.WalkDown, animation);
 
-            animation1 = new Animation(3, 32, 32, 0, 32);
-            dummyDic.Add(AnimationKey.WalkLeft, animation1);
+            animation = new Animation(3, 32, 32, 0, 32);
+            dummyDic.Add(AnimationKey.WalkLeft, animation);
 
-            animation1 = new Animation(3, 32, 32, 0, 64);
-            dummyDic.Add(AnimationKey.WalkRight, animation1);
+            animation = new Animation(3, 32, 32, 0, 64);
+            dummyDic.Add(AnimationKey.WalkRight, animation);
 
-            animation1 = new Animation(3, 32, 32, 0, 96);
-            dummyDic.Add(AnimationKey.WalkUp, animation1);
+            animation = new Animation(3, 32, 32, 0, 96);
+            dummyDic.Add(AnimationKey.WalkUp, animation);
 
             AnimationDictionary.Add(AnimationName.dummy, dummyDic);
 
             Dictionary<AnimationKey, Animation> effectsDic = new Dictionary<AnimationKey, Animation>();
 
-            Animation animation2 = new Animation(10, 64, 64, 0, 0);
-            effectsDic.Add(AnimationKey.effect, animation2);
+            animation = new Animation(10, 64, 64, 0, 0);
+            effectsDic.Add(AnimationKey.heal, animation);
+ 
+
+            animation = new Animation(5, 64, 64, 0, 0);
+            effectsDic.Add(AnimationKey.burn, animation);
             AnimationDictionary.Add(AnimationName.effects, effectsDic);
+
+
+
+
+
 
 
 
@@ -83,7 +92,7 @@ namespace LearnMonoGame.Manager
         {
             player,
             dummy,
-            effects
+            effects,
 
         }
     }

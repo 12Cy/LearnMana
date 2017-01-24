@@ -16,7 +16,7 @@ namespace LearnMonoGame.Spells
         public float cooldown;
         public float channelTime;
 
-        public SpellInformation(int _mana = 0, float _time = 0, float _channelTime = 0)
+        public SpellInformation(int _mana = 0, float _time = 0, float _channelTime = 0) // mana Abkingzeit, ChannelTime?
         {
             mana = _mana;
             cooldown = _time;
@@ -89,7 +89,7 @@ namespace LearnMonoGame.Spells
             spellInformation.Add(ESpell.SFireWall, new SpellInformation(10, 1));
             spellInformation.Add(ESpell.SFireBurn, new SpellInformation(10, 1));
             spellInformation.Add(ESpell.SIceLance, new SpellInformation(10, 0.3f));
-            spellInformation.Add(ESpell.SHolyLight, new SpellInformation(10, 2));
+            spellInformation.Add(ESpell.SHolyLight, new SpellInformation(10, 1));
         }
 
         static SpellManager instance;
