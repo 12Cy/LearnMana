@@ -41,6 +41,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Bullets\AreaBullet.cs" />
     <Compile Include="Bullets\FireWall.cs" />
     <Compile Include="Character\MonsterComponents\Enemies\Wolf.cs" />
     <Compile Include="Manager\_BulletManager.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Spells\Fire\SFireWall.cs" />
     <Compile Include="Spells\Fire\SFireball.cs" />
     <Compile Include="Spells\Ice\SIceLance.cs" />
+    <Compile Include="Spells\Ice\SIceTornado.cs" />
     <Compile Include="Spells\Light\SHolyLight.cs" />
     <Compile Include="Spells\Spell.cs" />
     <Compile Include="Spells\Spellbook.cs" />

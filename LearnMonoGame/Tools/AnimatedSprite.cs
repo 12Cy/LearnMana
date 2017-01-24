@@ -28,7 +28,8 @@ namespace LearnMonoGame.Tools
 
         //Spells
         heal,
-        burn
+        burn,
+        tornado
 
     }
     public class AnimatedSprite
