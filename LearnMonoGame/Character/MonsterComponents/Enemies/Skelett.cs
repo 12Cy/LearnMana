@@ -53,6 +53,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
+
             base.Draw(spriteBatch);
         }
 

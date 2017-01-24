@@ -30,7 +30,7 @@ namespace LearnMonoGame.Particle
 
             character = _character;
             //position = new Vector2(character.Bounds.X, character.Bounds.Y);
-            position = new Vector2(character.Bounds.X - character.Width / 2, character.Bounds.Y - character.Height*2 );
+            position = new Vector2(character.Bounds.X - character.Width / 2, character.Bounds.Y - character.Height/2 * 4 );
             animatedSprite = new AnimatedSprite(_sprite, dic);
             animatedSprite.CurrentAnimation = AnimationKey.effect;
             animatedSprite.Position = position;
@@ -39,7 +39,7 @@ namespace LearnMonoGame.Particle
         public void Update(GameTime gTime)
         {
             //position = new Vector2(character.Bounds.X, character.Bounds.Y);
-            animatedSprite.Position = new Vector2(character.Bounds.X - character.Width / 2, character.Bounds.Y - character.Height*2);
+            animatedSprite.Position = new Vector2(character.Bounds.X - character.Width / 2, character.Bounds.Y - character.Height/2 *4);
             animatedSprite.IsAnimating = true;
             timer += (float) gTime.ElapsedGameTime.TotalSeconds;
 
