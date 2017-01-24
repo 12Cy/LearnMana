@@ -41,7 +41,7 @@ namespace LearnMonoGame.Particle
             animatedSprite.Position = new Vector2(character.Bounds.X - character.Width / 2, character.Bounds.Y - character.Height/2 *4);
             animatedSprite.IsAnimating = true;
             timer += (float) gTime.ElapsedGameTime.TotalSeconds;
-
+            
             if (timer > maxTimer)
             {
                 alive = false;

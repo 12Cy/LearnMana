@@ -74,6 +74,7 @@ namespace LearnMonoGame.Summoneds
         protected int offsetHeight = 10; //Gibt die Height der LB Texture an!
 
         protected List<IMove> effects;
+        protected List<IMove> instantEffects;
 
         //Modifier
 
@@ -122,6 +123,7 @@ namespace LearnMonoGame.Summoneds
             level = 1;
             experience = 0;
             effects = new List<IMove>();
+            instantEffects = new List<IMove>();
 
             // --- Life ---
             currentHealth = maxHealth;
@@ -154,6 +156,20 @@ namespace LearnMonoGame.Summoneds
 
 
             }
+
+            for (int i = 0; i < instantEffects.Count; i++)
+            {
+                Console.WriteLine("BIN DRIN");
+                instantEffects[i].SetDelay(gameTime);
+                if (instantEffects[i].delay == 0)
+                {
+                    Console.WriteLine("Delay: " + instantEffects[i].delay);
+                    ApplyEffect(instantEffects[i]);
+                    instantEffects.RemoveAt(i--);
+                }
+            }
+
+
 
             realAttackDamage = attackDamage;
             realDefensiv = defense;
@@ -290,8 +306,8 @@ namespace LearnMonoGame.Summoneds
         public virtual void CalculateHealth(float value)
         {
             currentHealth += value;
-            if (currentHealth > 100)
-                currentHealth = 100;
+            if (currentHealth > maxHealth)
+                currentHealth = maxHealth;
 
             if (currentHealth < 0)
             {
@@ -320,12 +336,25 @@ namespace LearnMonoGame.Summoneds
 
         public void ApplyEffect(IMove iMove)
         {
-            if (iMove.moveType == EMoveType.Attack)
-                CalculateHealth(-1 * iMove.damage);
-            if (iMove.moveType == EMoveType.Heal)
-                CalculateHealth(iMove.health);
-            if (iMove.moveType == EMoveType.Effect)
-                effects.Add(iMove);
+            Console.WriteLine("Aufgerufen");
+            if(iMove.delay == 0)
+            {
+                if (iMove.moveType == EMoveType.Attack)
+                    CalculateHealth(-1 * iMove.damage);
+                if (iMove.moveType == EMoveType.Heal)
+                    CalculateHealth(iMove.health);
+                if (iMove.moveType == EMoveType.Effect)
+                    effects.Add(iMove);
+                Console.WriteLine("Verrechnet");
+            }
+            else
+            {
+                instantEffects.Add(iMove);
+            }
+            
+
+
+
         }
 
 #endregion
