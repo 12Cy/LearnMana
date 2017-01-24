@@ -54,11 +54,11 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
             // Um negative Zahlen zu eliminieren
             long true_dif = (long)(Math.Sqrt(dif.X * dif.X)+Math.Sqrt(dif.X * dif.Y));
 
-            Console.WriteLine(true_dif);
+            //Console.WriteLine(true_dif);
 
             if (true_dif<smell_distance)
             {
-                Console.WriteLine("Smelled him haha!");
+                //Console.WriteLine("Smelled him haha!");
                 return true;
             }
             else
