@@ -20,7 +20,7 @@ namespace LearnMonoGame.Particle
         Character character;
         AnimatedSprite animatedSprite;
 
-        public SimpleParticle(Texture2D _sprite, Vector2 _position, float duration, Character _character, Dictionary<AnimationKey, Animation> dic)
+        public SimpleParticle(Texture2D _sprite, Vector2 _position, float duration, Character _character, Dictionary<AnimationKey, Animation> dic, AnimationKey animationkey)
         {
 
             timer = 0;
@@ -32,7 +32,7 @@ namespace LearnMonoGame.Particle
             //position = new Vector2(character.Bounds.X, character.Bounds.Y);
             position = new Vector2(character.Bounds.X - character.Width / 2, character.Bounds.Y - character.Height/2 * 4 );
             animatedSprite = new AnimatedSprite(_sprite, dic);
-            animatedSprite.CurrentAnimation = AnimationKey.effect;
+            animatedSprite.CurrentAnimation = animationkey;
             animatedSprite.Position = position;
         }
 
