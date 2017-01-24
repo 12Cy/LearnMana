@@ -100,7 +100,7 @@ namespace LearnMonoGame.Spells
 
         void Move(GameTime gameTime)
         {
-            if (speed == 0)
+            if (speed == 0 || (direction.X == 0 && direction.Y == 0))
                 return;
 
 

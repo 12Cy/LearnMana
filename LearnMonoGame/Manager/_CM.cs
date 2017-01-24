@@ -71,6 +71,7 @@ namespace LearnMonoGame.Manager
 
             //Spells
             textureDictionary.Add(TextureName.iceLance, Content.Load<Texture2D>("Player//Weapons//IceLance"));
+            textureDictionary.Add(TextureName.tornado, Content.Load<Texture2D>("Player//Weapons//Tornado"));
 
         }
         static void LoadFont()
@@ -98,6 +99,7 @@ namespace LearnMonoGame.Manager
             iceLance,
             heal,
             burn,
+            tornado
                 
         }
         public enum FontName
