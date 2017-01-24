@@ -14,6 +14,10 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
     class Skelett : Character
     {
         private object xin;
+        private int StepsToWalk = 0;
+        private int StepsWalked = 0;
+        int updaterate = 1300;
+
 
         public Skelett(Vector2 _pos) : base(SummonedsInformation.Instance.skelettInformation)
         {
@@ -56,23 +60,34 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         protected void MoveRandom(GameTime gameTime)
         {
 
-            int seed = (int)DateTime.Now.Ticks;
-            Random random = new Random(Guid.NewGuid().GetHashCode());
+            int seed = Guid.NewGuid().GetHashCode();
+            Random random = new Random(seed);
 
+
+            if ((int)gameTime.TotalGameTime.TotalMilliseconds % updaterate == 0)
+            {
+                StepsWalked = 0;
+                StepsToWalk = (int)(random.NextDouble() * 7 + 1);
+                Console.WriteLine(StepsToWalk);
+                moveDestination = new Vector2((int)(pos.X + random.NextDouble() * 80 - 40), (int)(pos.Y + random.NextDouble() * 80 - 40));                
+
+            }
             Vector2 dif = moveDestination - pos; //VerbindungsVektor
-            int updaterate = 800;
 
             if (dif.Length() < 3f)
             {//Ziel angekommen?
-
-                moveDestination = pos;
-                dif = Vector2.Zero;
-                if ((int)gameTime.TotalGameTime.TotalMilliseconds % updaterate == 0)
+                if (StepsToWalk > StepsWalked)
                 {
-                    moveDestination = new Vector2((int)(pos.X + random.NextDouble() * 60 - 30), (int)(pos.Y + random.NextDouble() * 60 - 30));
-
+                    moveDestination = new Vector2((int)(pos.X + random.NextDouble() * 80 - 40), (int)(pos.Y + random.NextDouble() * 80 - 40));
+                    StepsWalked++;
                 }
-                return;
+                else
+                {
+                    moveDestination = pos;
+                    dif = Vector2.Zero;
+
+                    return;
+                }
             }
             Vector2 motion = Vector2.Normalize(dif);
 
@@ -96,7 +111,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
             if (motion != Vector2.Zero)
             {
                 //motion.Normalize();
-                motion *= (speed * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                motion *= (speed* (float)gameTime.ElapsedGameTime.TotalSeconds);
 
                 Vector2 newPosition = animatedSprite.Position + motion; // the position we are moving to is valid?
 
@@ -115,6 +130,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
 
                     animatedSprite.ResetAnimation();
                     animatedSprite.IsAnimating = false;
+                    moveDestination = new Vector2((int)(pos.X + random.NextDouble() * 60 - 30), (int)(pos.Y + random.NextDouble() * 60 - 30));
                 }
 
                 //ToDo: PATHFINDER
