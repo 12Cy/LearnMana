@@ -25,7 +25,7 @@ namespace LearnMonoGame.Summoneds
         public SkelettInformation()
         {
             speed = 90;
-            maxHealth = 1000;
+            maxHealth = 100;
 
         }
     }

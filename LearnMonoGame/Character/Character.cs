@@ -159,7 +159,7 @@ namespace LearnMonoGame.Summoneds
 
             for (int i = 0; i < instantEffects.Count; i++)
             {
-                Console.WriteLine("BIN DRIN");
+                Console.WriteLine("ANzahl der El: "+instantEffects.Count);
                 instantEffects[i].SetDelay(gameTime);
                 if (instantEffects[i].delay == 0)
                 {
@@ -336,7 +336,7 @@ namespace LearnMonoGame.Summoneds
 
         public void ApplyEffect(IMove iMove)
         {
-            Console.WriteLine("Aufgerufen");
+            Console.WriteLine("Aufgerufen "+ iMove.delay);
             if(iMove.delay == 0)
             {
                 if (iMove.moveType == EMoveType.Attack)

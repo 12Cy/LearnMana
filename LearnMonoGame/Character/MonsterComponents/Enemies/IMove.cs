@@ -99,7 +99,8 @@ namespace LearnMonoGame.Summoneds.Enemies
         {
             Console.WriteLine(delay);
             delay -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            
+
+            Console.WriteLine(delay);
             if (delay < 0)
                 delay = 0;
 
