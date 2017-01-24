@@ -294,7 +294,11 @@ namespace LearnMonoGame.Summoneds
                 currentHealth = 100;
 
             if (currentHealth < 0)
+            {
                 currentHealth = 0;
+                isAlive = false;
+            }
+                
 
         }
         /// <CalculateMana>
@@ -307,7 +311,10 @@ namespace LearnMonoGame.Summoneds
                 currentMana = 100;
 
             if (currentMana < 0)
+            {
                 currentMana = 0;
+            }
+                
 
         }
 
