@@ -29,8 +29,7 @@ namespace LearnMonoGame.Spells.Light
                     if (c.Bounds.Intersects(my))
                     {
                         c.ApplyEffect(SpellManager.Instance.attackInformation[EBullet.HolyLight]);
-                        _ParticleManager.Instance.particles.Add(new SimpleParticle(_CM.GetTexture(_CM.TextureName.heal),
-                            _direction,2));
+                        _ParticleManager.Instance.particles.Add(new SimpleParticle(_CM.GetTexture(_CM.TextureName.heal), _direction, 2, c, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.effects)));
                         timer = 0;
                         channelTimer = 0;
                     }
@@ -39,8 +38,7 @@ namespace LearnMonoGame.Spells.Light
                 if (my.Intersects(PlayerManager.Instance.MyPlayer.Bounds))
                 {
                     PlayerManager.Instance.MyPlayer.ApplyEffect(SpellManager.Instance.attackInformation[EBullet.HolyLight]);
-                    _ParticleManager.Instance.particles.Add(new SimpleParticle(_CM.GetTexture(_CM.TextureName.heal), 
-                    _direction, 2));
+                    _ParticleManager.Instance.particles.Add(new SimpleParticle(_CM.GetTexture(_CM.TextureName.heal), _direction, 2, PlayerManager.Instance.MyPlayer, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.effects)));
                     timer = 0;
                     channelTimer = 0;
                 }

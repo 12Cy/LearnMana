@@ -52,6 +52,14 @@ namespace LearnMonoGame.Manager
 
             AnimationDictionary.Add(AnimationName.dummy, dummyDic);
 
+            Dictionary<AnimationKey, Animation> effectsDic = new Dictionary<AnimationKey, Animation>();
+
+            Animation animation2 = new Animation(3, 32, 32, 0, 0);
+            effectsDic.Add(AnimationKey.heal, animation2);
+            AnimationDictionary.Add(AnimationName.effects, effectsDic);
+
+
+
         }
         public static Dictionary <AnimationKey, Animation> GetAnimation (AnimationName animationName)
         {
@@ -75,6 +83,7 @@ namespace LearnMonoGame.Manager
         {
             player,
             dummy,
+            effects
 
         }
     }

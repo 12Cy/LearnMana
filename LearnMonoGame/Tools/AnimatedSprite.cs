@@ -25,6 +25,10 @@ namespace LearnMonoGame.Tools
         JumpLeft,
         JumpRight,
         Dieing,
+
+        //Spells
+        heal,
+        burn,
     }
     public class AnimatedSprite
     {

@@ -44,13 +44,91 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
             //    base.ResolveMove(MoveManager.GetMove("Hot"));
             //}
 
-
+            MoveRandom(gameTime);
             base.Update(gameTime);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
         }
+
+
+        protected void MoveRandom(GameTime gameTime)
+        {
+
+            int seed = (int)DateTime.Now.Ticks;
+            Random random = new Random(Guid.NewGuid().GetHashCode());
+
+            Vector2 dif = moveDestination - pos; //VerbindungsVektor
+            int updaterate = 800;
+
+            if (dif.Length() < 3f)
+            {//Ziel angekommen?
+
+                moveDestination = pos;
+                dif = Vector2.Zero;
+                if ((int)gameTime.TotalGameTime.TotalMilliseconds % updaterate == 0)
+                {
+                    moveDestination = new Vector2((int)(pos.X + random.NextDouble() * 60 - 30), (int)(pos.Y + random.NextDouble() * 60 - 30));
+
+                }
+                return;
+            }
+            Vector2 motion = Vector2.Normalize(dif);
+
+            if (motion != Vector2.Zero)
+            {//Soll ich mich bewegen?
+                if (motion.X > 0)
+                    animatedSprite.CurrentAnimation = AnimationKey.WalkRight;
+
+                else
+                    animatedSprite.CurrentAnimation = AnimationKey.WalkLeft;
+
+                if (Math.Abs(motion.X / motion.Y) < offset)
+                {
+                    if (motion.Y > 0)
+                        animatedSprite.CurrentAnimation = AnimationKey.WalkDown;
+                    else
+                        animatedSprite.CurrentAnimation = AnimationKey.WalkUp;
+                }
+            }
+            //Movement calculated
+            if (motion != Vector2.Zero)
+            {
+                //motion.Normalize();
+                motion *= (speed * (float)gameTime.ElapsedGameTime.TotalSeconds);
+
+                Vector2 newPosition = animatedSprite.Position + motion; // the position we are moving to is valid?
+
+                if (_MapStuff.Instance.map.Walkable(newPosition)
+                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, 0))
+                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(0, height))
+                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, height)))
+                {//Ist dort keine Collision?
+
+                    animatedSprite.Position = newPosition;
+                    pos = newPosition;
+                    animatedSprite.IsAnimating = true;
+                }
+                else
+                {//Collision vorhanden
+
+                    animatedSprite.ResetAnimation();
+                    animatedSprite.IsAnimating = false;
+                }
+
+                //ToDo: PATHFINDER
+
+            }
+            else
+            {
+                animatedSprite.ResetAnimation();
+                animatedSprite.IsAnimating = false;
+            }
+
+            animatedSprite.Update(gameTime);
+        }
+
 
 
 

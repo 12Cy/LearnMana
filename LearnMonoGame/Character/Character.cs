@@ -85,9 +85,9 @@ namespace LearnMonoGame.Summoneds
 
 
 
-        #endregion
+#endregion
 
-        #region properties
+#region properties
 
         public ECharacterTyp CharacterTyp { get { return characterTyp; } }
         public List<IMove> Effects { get { return effects; } }
@@ -102,9 +102,9 @@ namespace LearnMonoGame.Summoneds
         public int RealAttackDamage{get { return realAttackDamage; }}
         public float RealAttackSpeed{get { return realAttackSpeed; }}
 
-        #endregion
+#endregion
 
-        #region Constructor
+#region Constructor
 
 
         public Character(Attributes info)
@@ -312,13 +312,13 @@ namespace LearnMonoGame.Summoneds
         {
             Console.WriteLine("ApplyEffect");
             if (iMove.moveType == EMoveType.Attack)
-                CalculateHealth(iMove.damage);
+                CalculateHealth(-1 * iMove.damage);
             if (iMove.moveType == EMoveType.Heal)
-                CalculateHealth(-iMove.health);
+                CalculateHealth(iMove.health);
             if (iMove.moveType == EMoveType.Effect)
                 effects.Add(iMove);
         }
 
-        #endregion
+#endregion
     }
 }
