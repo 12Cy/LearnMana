@@ -71,6 +71,7 @@ namespace LearnMonoGame.GameStates
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(600, 400)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(350, 260)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(270, 450)));
+            MonsterManager.Instance.enemyList.Add(new Wolf(new Vector2(1500, 450)));
 
 
         }

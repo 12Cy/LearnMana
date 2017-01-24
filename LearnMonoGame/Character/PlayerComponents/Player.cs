@@ -200,72 +200,8 @@ namespace LearnMonoGame.PlayerComponents
             }
 
             Vector2 dif = moveDestination - pos; //VerbindungsVektor
+            Move(gameTime, dif);
 
-            if (dif.Length() < 3f)
-            {//Ziel angekommen?
-
-                moveDestination = pos;
-                dif = Vector2.Zero;
-                return;
-            }
-
-            //Vector2 motion = !(dif.X == 0 && dif.Y == 0) ? Vector2.Normalize(dif) : Vector2.Zero;
-            Vector2 motion = Vector2.Normalize(dif);
-
-            if (motion != Vector2.Zero)
-            {//Soll ich mich bewegen?
-
-                if (motion.X > 0)
-                    animatedSprite.CurrentAnimation = AnimationKey.WalkRight;
-
-                else
-                    animatedSprite.CurrentAnimation = AnimationKey.WalkLeft;
-
-                if (Math.Abs(motion.X / motion.Y) < offset)
-                {
-                    if (motion.Y > 0)
-                        animatedSprite.CurrentAnimation = AnimationKey.WalkDown;
-                    else
-                        animatedSprite.CurrentAnimation = AnimationKey.WalkUp;
-                }
-            }
-
-
-            //Movement calculated
-            if (motion != Vector2.Zero)
-            {
-                //motion.Normalize();
-                motion *= (speed * (float)gameTime.ElapsedGameTime.TotalSeconds);
-
-                Vector2 newPosition = animatedSprite.Position + motion; // the position we are moving to is valid?
-
-                if(_MapStuff.Instance.map.Walkable(newPosition)
-                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, 0))
-                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(0, height))
-                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, height)))
-                {//Ist dort keine Collision?
-
-                    animatedSprite.Position = newPosition;
-                    pos = newPosition;
-                    animatedSprite.IsAnimating = true;
-                }
-                else
-                {//Collision vorhanden
-
-                    animatedSprite.ResetAnimation();
-                    animatedSprite.IsAnimating = false;
-                }
-
-                //ToDo: PATHFINDER
-                 
-            }
-            else
-            {
-                animatedSprite.ResetAnimation();
-                animatedSprite.IsAnimating = false;
-            }
-
-            animatedSprite.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spritebatch)

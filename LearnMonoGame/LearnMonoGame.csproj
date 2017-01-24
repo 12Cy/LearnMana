@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bullets\FireWall.cs" />
+    <Compile Include="Character\MonsterComponents\Enemies\Wolf.cs" />
     <Compile Include="Manager\_BulletManager.cs" />
     <Compile Include="Components\Camera.cs" />
     <Compile Include="Components\xIn.cs" />
