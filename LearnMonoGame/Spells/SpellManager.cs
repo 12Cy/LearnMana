@@ -33,7 +33,7 @@ namespace LearnMonoGame.Spells
         public float triggerTime;
         public IMove attackInformation;
 
-        public BulletInformation(IMove _modifikator = null, float _speed = 350, Point _size = new Point(), int _range = 500, int _lifetime = 5, float _triggerTime = 0)
+        public BulletInformation(IMove _modifikator = new IMove(), float _speed = 350, Point _size = new Point(), int _range = 500, int _lifetime = 5, float _triggerTime = 0)
         {
             attackInformation = _modifikator;
             triggerTime = _triggerTime;

@@ -13,6 +13,38 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Summoneds
 {
+    public class TimerMove
+    {
+        public IMove effect;
+        double timerDuration;
+        double timerTrigger;
+
+        public TimerMove(IMove _effect, float duration)
+        {
+            timerTrigger = 0;
+            effect = _effect;
+            timerDuration = duration;
+        }
+
+        public bool Trigger(GameTime gTime)
+        {
+            timerTrigger += gTime.ElapsedGameTime.TotalSeconds;
+            if (timerTrigger >= effect.trigger)
+            {
+                timerTrigger = 0;
+                return true;
+            }
+            return false;
+        }
+
+        public bool Update(GameTime gTime)
+        {
+            timerDuration -= gTime.ElapsedGameTime.TotalSeconds;
+            if (timerDuration > 0) return false;
+            return true;
+        }
+    }
+
     public enum ECharacterTyp
     {
         player,
@@ -26,7 +58,7 @@ namespace LearnMonoGame.Summoneds
     public abstract class Character
     {
 
-#region Variable
+        #region Variable
 
         protected Texture2D creatureTexture;
         protected AnimatedSprite animatedSprite;
@@ -73,8 +105,8 @@ namespace LearnMonoGame.Summoneds
         protected float offset = 0.5f;
         protected int offsetHeight = 10; //Gibt die Height der LB Texture an!
 
-        protected List<IMove> effects;
-        protected List<IMove> instantEffects;
+        protected List<TimerMove> effects;
+        protected List<TimerMove> delayEffects;
 
         //Modifier
 
@@ -86,26 +118,26 @@ namespace LearnMonoGame.Summoneds
 
 
 
-#endregion
+        #endregion
 
-#region properties
+        #region properties
 
         public ECharacterTyp CharacterTyp { get { return characterTyp; } }
-        public List<IMove> Effects { get { return effects; } }
+        public List<TimerMove> Effects { get { return effects; } }
         public Vector2 Pos { get { return pos; } }
         public bool IsSelect { get { return isSelected; } set { isSelected = value; } }
         public int Width { get { return width; } }
         public int Height { get { return height; } }
         public bool IsAlive { get { return isAlive; } set { isAlive = value; } }
         public Rectangle Bounds { get { return bounds; } }
-        public float RealSpeed { get { return realSpeed; }}
-        public float RealDefensiv {get { return realDefensiv; }}
-        public int RealAttackDamage{get { return realAttackDamage; }}
-        public float RealAttackSpeed{get { return realAttackSpeed; }}
+        public float RealSpeed { get { return realSpeed; } }
+        public float RealDefensiv { get { return realDefensiv; } }
+        public int RealAttackDamage { get { return realAttackDamage; } }
+        public float RealAttackSpeed { get { return realAttackSpeed; } }
 
-#endregion
+        #endregion
 
-#region Constructor
+        #region Constructor
 
 
         public Character(Attributes info)
@@ -122,8 +154,8 @@ namespace LearnMonoGame.Summoneds
             bounds = new Rectangle((int)pos.X, (int)pos.Y, width, height);
             level = 1;
             experience = 0;
-            effects = new List<IMove>();
-            instantEffects = new List<IMove>();
+            effects = new List<TimerMove>();
+            delayEffects = new List<TimerMove>();
 
             // --- Life ---
             currentHealth = maxHealth;
@@ -133,9 +165,9 @@ namespace LearnMonoGame.Summoneds
             hitTimer = TimeSpan.Zero;
 
         }
-#endregion
+        #endregion
 
-#region Methoden
+        #region Methoden
 
         protected virtual void Initialize() { }
 
@@ -157,18 +189,14 @@ namespace LearnMonoGame.Summoneds
 
             }
 
-            for (int i = 0; i < instantEffects.Count; i++)
+            for (int i = 0; i < delayEffects.Count; ++i)
             {
-                instantEffects[i].SetDelay(gameTime);
-                if (instantEffects[i].delay == 0)
+                if (delayEffects[i].Update(gameTime))
                 {
-                    ApplyEffect(instantEffects[i]);
-                    instantEffects[i].delay = instantEffects[i].maxDelay;
-                    instantEffects.RemoveAt(i--);
+                    ApplyEffectWithoutDelay(delayEffects[i].effect);
+                    delayEffects.RemoveAt(i--);
                 }
             }
-
-
 
             realAttackDamage = attackDamage;
             realDefensiv = defense;
@@ -178,24 +206,19 @@ namespace LearnMonoGame.Summoneds
             //Update EffectList
             for (int i = 0; i < effects.Count; i++)
             {
-
-                effects[i].Update(gameTime);
-
-                CalculateHealth(effects[i].health);
-                CalculateHealth(-effects[i].damage);
-                CalculateMana(effects[i].mana);
-
-                attackDamage += effects[i].attackDamage;
-                defense += effects[i].defense;
-                speed += effects[i].speed;
-                attackSpeed += effects[i].attackSpeed;
+                if (effects[i].Trigger(gameTime))
+                {
+                    CalculateHealth(effects[i].effect.health);
+                    CalculateHealth(-effects[i].effect.damage);
+                    CalculateMana(effects[i].effect.mana);
+                }
 
 
-
-
-
-                if (!effects[i].isAlive)
-                    effects.RemoveAt(i--);
+                if (effects[i].Update(gameTime))
+                {
+                    ReRollEffect(effects[i].effect);
+                    effects.RemoveAt(i--);                    
+                }
             }
 
 
@@ -289,7 +312,7 @@ namespace LearnMonoGame.Summoneds
                 ///  (2.Schicht) :  nehme die diff und verkleinere so die größe der Schicht.
                 /// </Lebensbalken>
                 spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                if(characterTyp == ECharacterTyp.summoned || characterTyp == ECharacterTyp.player)
+                if (characterTyp == ECharacterTyp.summoned || characterTyp == ECharacterTyp.player)
                     spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
                 else
                     spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Red);
@@ -313,7 +336,7 @@ namespace LearnMonoGame.Summoneds
                 currentHealth = 0;
                 isAlive = false;
             }
-                
+
 
         }
         /// <CalculateMana>
@@ -329,33 +352,47 @@ namespace LearnMonoGame.Summoneds
             {
                 currentMana = 0;
             }
-                
 
+
+        }
+
+        void ApplyEffectWithoutDelay(IMove iMove)
+        {
+
+            if (iMove.moveType == EMoveType.Attack)
+                CalculateHealth(-1 * iMove.damage);
+            if (iMove.moveType == EMoveType.Heal)
+                CalculateHealth(iMove.health);
+            if (iMove.moveType == EMoveType.Effect)
+                effects.Add(new TimerMove(iMove, iMove.duration));
+
+
+            attackDamage += iMove.attackDamage;
+            defense += iMove.defense;
+            speed += iMove.speed;
+            attackSpeed += iMove.attackSpeed;
+        }
+
+        void ReRollEffect(IMove iMove)
+        {
+            attackDamage -= iMove.attackDamage;
+            defense -= iMove.defense;
+            speed -= iMove.speed;
+            attackSpeed -= iMove.attackSpeed;
         }
 
         public void ApplyEffect(IMove iMove)
         {
-            Console.WriteLine("Aufgerufen "+ iMove.delay);
-            if(iMove.delay == 0)
+            if (iMove.delay == 0)
             {
-                if (iMove.moveType == EMoveType.Attack)
-                    CalculateHealth(-1 * iMove.damage);
-                if (iMove.moveType == EMoveType.Heal)
-                    CalculateHealth(iMove.health);
-                if (iMove.moveType == EMoveType.Effect)
-                    effects.Add(iMove);
-                Console.WriteLine("Verrechnet");
+                ApplyEffectWithoutDelay(iMove);
             }
             else
             {
-                instantEffects.Add(iMove);
+                delayEffects.Add(new TimerMove(iMove, iMove.delay));
             }
-            
-
-
-
         }
 
-#endregion
+        #endregion
     }
 }
