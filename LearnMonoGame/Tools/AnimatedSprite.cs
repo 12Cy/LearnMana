@@ -27,7 +27,8 @@ namespace LearnMonoGame.Tools
         Dieing,
 
         //Spells
-        effect,
+        heal,
+        burn
 
     }
     public class AnimatedSprite

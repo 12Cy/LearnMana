@@ -50,7 +50,7 @@ namespace LearnMonoGame.Manager
 
             //IMoves
             textureDictionary.Add(TextureName.heal, Content.Load<Texture2D>("IMove//Heal"));
-            textureDictionary.Add(TextureName.burn, Content.Load<Texture2D>("IMove//BurnMotherFucker"));
+            textureDictionary.Add(TextureName.burn, Content.Load<Texture2D>("IMove//Burn"));
 
             //Weapons
             textureDictionary.Add(TextureName.fireball, Content.Load<Texture2D>("Player//Weapons//Fireball"));

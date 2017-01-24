@@ -24,7 +24,7 @@ namespace LearnMonoGame.Summoneds
     {
         public SkelettInformation()
         {
-
+            speed = 1;
         }
     }
     class DummyInformation : Attributes
