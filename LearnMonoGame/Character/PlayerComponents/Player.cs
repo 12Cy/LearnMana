@@ -115,9 +115,9 @@ namespace LearnMonoGame.PlayerComponents
 
         public override void Update(GameTime gameTime)
         {
-            if (xIn.CheckKeyReleased(Keys.NumPad4))
+            if (xIn.CheckKeyReleased(Keys.D3))
                 currentSpell++;
-            if (xIn.CheckKeyReleased(Keys.NumPad5))
+            if (xIn.CheckKeyReleased(Keys.D4))
                 currentSpell--;
 
             spellBook.Update(gameTime);
