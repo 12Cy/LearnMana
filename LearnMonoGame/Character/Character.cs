@@ -159,13 +159,11 @@ namespace LearnMonoGame.Summoneds
 
             for (int i = 0; i < instantEffects.Count; i++)
             {
-                Console.WriteLine("Before:"+instantEffects[i].delay);
                 instantEffects[i].SetDelay(gameTime);
-                Console.WriteLine("After:" + instantEffects[i].delay);
                 if (instantEffects[i].delay == 0)
                 {
-                    Console.WriteLine("Delay: " + instantEffects[i].delay);
                     ApplyEffect(instantEffects[i]);
+                    instantEffects[i].delay = instantEffects[i].maxDelay;
                     instantEffects.RemoveAt(i--);
                 }
             }

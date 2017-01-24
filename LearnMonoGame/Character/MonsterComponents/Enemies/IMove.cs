@@ -58,6 +58,8 @@ namespace LearnMonoGame.Summoneds.Enemies
         public bool isAlive;
 		public Rectangle effectArea;
         public float delay;
+        public float maxDelay;
+        public float maxDuration;
         TimeSpan timeSpan;
 
         public IMove()
@@ -86,6 +88,11 @@ namespace LearnMonoGame.Summoneds.Enemies
             health = _health;
             mana = _mana;
             delay = _delay;
+
+
+            //Wichtige Variablen
+            maxDelay = _delay;
+            maxDuration = duration;
         }
         public void Update(GameTime gameTime)
         {
@@ -96,16 +103,14 @@ namespace LearnMonoGame.Summoneds.Enemies
             {
                 if (duration == 0)
                     isAlive = false;
-                Console.WriteLine(duration + "hihI");
                 duration--;
-                Console.WriteLine(duration + "hihI");
+
             }
         }
         public void SetDelay(GameTime gameTime)
         {
             delay -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            Console.WriteLine(delay);
             if (delay < 0)
                 delay = 0;
 
