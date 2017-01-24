@@ -37,6 +37,7 @@ namespace LearnMonoGame.Spells.Light
 
                 if (my.Intersects(PlayerManager.Instance.MyPlayer.Bounds))
                 {
+                    //Duration wie lange die Animation geht!
                     PlayerManager.Instance.MyPlayer.ApplyEffect(SpellManager.Instance.attackInformation[EBullet.HolyLight]);
                     _ParticleManager.Instance.particles.Add(new SimpleParticle(_CM.GetTexture(_CM.TextureName.heal), _direction, 2, PlayerManager.Instance.MyPlayer, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.effects), AnimationKey.heal));
                     timer = 0;
