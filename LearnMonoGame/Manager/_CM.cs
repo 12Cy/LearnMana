@@ -73,6 +73,7 @@ namespace LearnMonoGame.Manager
 
             //Monster
             textureDictionary.Add(TextureName.dummy, Content.Load<Texture2D>("Monster//Dummy"));
+            textureDictionary.Add(TextureName.wolf, Content.Load<Texture2D>("Content//Monster//Wolf"));
 
 
             //Spells
@@ -101,6 +102,7 @@ namespace LearnMonoGame.Manager
             frontLife,
             fireball,
             dummy,
+            wolf,
             fireballCursor,
             iceLance,
             heal,

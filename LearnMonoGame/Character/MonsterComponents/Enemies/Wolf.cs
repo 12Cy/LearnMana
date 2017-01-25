@@ -21,7 +21,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         public Wolf(Vector2 _pos) : base(SummonedsInformation.Instance.wolfInformation)
         {
             pos = _pos;
-            creatureTexture = _CM.GetTexture(_CM.TextureName.dummy);
+            creatureTexture = _CM.GetTexture(_CM.TextureName.wolf);
             selectedTexture = _CM.GetTexture(_CM.TextureName.damageselect);
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             Initialize();

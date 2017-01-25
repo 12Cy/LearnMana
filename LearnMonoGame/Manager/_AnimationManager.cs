@@ -52,6 +52,24 @@ namespace LearnMonoGame.Manager
 
             AnimationDictionary.Add(AnimationName.dummy, dummyDic);
 
+            // Load Wolf
+
+            Dictionary<AnimationKey, Animation> wolfDic = new Dictionary<AnimationKey, Animation>();
+
+            animation = new Animation(4, 32, 32, 0, 0);
+            wolfDic.Add(AnimationKey.WalkDown, animation);
+
+            animation = new Animation(4, 32, 32, 0, 32);
+            wolfDic.Add(AnimationKey.WalkLeft, animation);
+
+            animation = new Animation(4, 32, 32, 0, 64);
+            wolfDic.Add(AnimationKey.WalkRight, animation);
+
+            animation = new Animation(4, 32, 32, 0, 96);
+            wolfDic.Add(AnimationKey.WalkUp, animation);
+
+            AnimationDictionary.Add(AnimationName.wolf, wolfDic);
+
             Dictionary<AnimationKey, Animation> effectsDic = new Dictionary<AnimationKey, Animation>();
 
             animation = new Animation(10, 64, 64, 0, 0);
@@ -96,6 +114,7 @@ namespace LearnMonoGame.Manager
         {
             player,
             dummy,
+            wolf,
             effects,
 
         }
