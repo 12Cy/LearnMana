@@ -133,7 +133,14 @@ namespace LearnMonoGame.Spells
             }
 
             Move(gameTime);
+            Collision();
 
+            //ToDo: Collision mit enemys, Wall etc
+            bounds = new Rectangle((int)positon.X, (int)positon.Y, width, height);
+        }
+
+        protected virtual void Collision()
+        {
             foreach (Character c in MonsterManager.Instance.enemyList)
             {
                 Rectangle my = new Rectangle(positon.ToPoint(), new Point(width, height));
@@ -144,9 +151,6 @@ namespace LearnMonoGame.Spells
                 }
             }
 
-
-            //ToDo: Collision mit enemys, Wall etc
-            bounds = new Rectangle((int)positon.X, (int)positon.Y, width, height);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
