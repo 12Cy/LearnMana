@@ -20,7 +20,7 @@ namespace LearnMonoGame
         IGameState state;
         EGameState currState, prevState;
 
-
+        
 
 
 
@@ -46,7 +46,6 @@ namespace LearnMonoGame
             graphics.PreferredBackBufferWidth = _MapStuff.Instance.x;
             graphics.PreferredBackBufferHeight = _MapStuff.Instance.y;
 
-            
 
             Content.RootDirectory = "Content";
            

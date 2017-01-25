@@ -236,13 +236,13 @@ namespace LearnMonoGame.PlayerComponents
                 /// (SourceRectangle) :  Geht vom äußeren Rectangle aus(DesitinationRectangle)
                 ///  (2.Schicht) :  nehme die diff und verkleinere so die größe der Schicht.
                 /// </Lebensbalken>
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentMana / maxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height /3 + 9 , width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height /3 + 9 , (int)(width * ((float)currentMana / maxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 3 + 9, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
 
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 2 - 5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 2 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 2 - 5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5 , width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5 , (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
+                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5 , width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
                 if (hit)
                     spritebatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
                 else

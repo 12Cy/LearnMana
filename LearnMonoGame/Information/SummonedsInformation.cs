@@ -17,6 +17,8 @@ namespace LearnMonoGame.Summoneds
             damage = 1;
             defense = 1;
             maxMana = 100;
+            width = 64;
+            height = 64;
 
         }
     }
