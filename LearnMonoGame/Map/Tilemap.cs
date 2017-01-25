@@ -45,11 +45,23 @@ namespace LearnMonoGame.Map
                 {
                     if (colores[y * _tileMap.GetLength(0) + x] == Color.White) //Weiß = Gras auf der TileMap
                     {
-                        _tileMap[x, y,0] = new Tile(textures[0], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)),y * _tileSize.Y), ETile.Terrain);
+                        _tileMap[x, y, 0] = new Tile(textures[0], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
                     }
                     else if (colores[y * _tileMap.GetLength(0) + x] == new Color(0, 162, 232, 255))
                     {
-                        _tileMap[x, y,0] = new Tile(textures[2], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
+                        _tileMap[x, y, 0] = new Tile(textures[2], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
+                    }
+                    else if (colores[y * _tileMap.GetLength(0) + x] == Color.Red)
+                    {
+                        _tileMap[x, y, 0] = new Tile(textures[3], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
+                    }
+                    else if (colores[y * _tileMap.GetLength(0) + x] == new Color(40, 255, 0))
+                    {
+                        _tileMap[x, y, 0] = new Tile(textures[4], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
+                    }
+                    else if (colores[y * _tileMap.GetLength(0) + x] == new Color(255, 0, 182))
+                    {
+                        _tileMap[x, y, 0] = new Tile(textures[5], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
                     }
 
                     else //sonst Stein

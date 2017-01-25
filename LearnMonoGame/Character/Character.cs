@@ -335,7 +335,7 @@ namespace LearnMonoGame.Summoneds
 
         public void ApplyEffect(IMove iMove)
         {
-            Console.WriteLine("Aufgerufen "+ iMove.delay);
+
             if(iMove.delay == 0)
             {
                 if (iMove.moveType == EMoveType.Attack)
@@ -344,7 +344,6 @@ namespace LearnMonoGame.Summoneds
                     CalculateHealth(iMove.health);
                 if (iMove.moveType == EMoveType.Effect)
                     effects.Add(iMove);
-                Console.WriteLine("Verrechnet");
             }
             else
             {

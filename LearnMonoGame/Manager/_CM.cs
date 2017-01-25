@@ -61,9 +61,15 @@ namespace LearnMonoGame.Manager
             textureDictionary.Add(TextureName.map, Content.Load<Texture2D>("Map//Map1"));
 
             //Tiles
-            textureDictionary.Add(TextureName.grassTile, Content.Load<Texture2D>("Map//Tiles//GrassIso"));
+            textureDictionary.Add(TextureName.grassTile, Content.Load<Texture2D>("Map//Tiles//GrassIso01"));
             textureDictionary.Add(TextureName.stoneTile, Content.Load<Texture2D>("Map//Tiles//StoneIso"));
             textureDictionary.Add(TextureName.waterTile, Content.Load<Texture2D>("Map//Tiles//WaterIso"));
+            textureDictionary.Add(TextureName.tryTrio, Content.Load<Texture2D>("Map//Tiles//TryTri"));
+            textureDictionary.Add(TextureName.wasteland, Content.Load<Texture2D>("Map//Tiles//WasteLand"));
+            textureDictionary.Add(TextureName.wastelandflower, Content.Load<Texture2D>("Map//Tiles//WasteLandFlower"));
+            textureDictionary.Add(TextureName.grasFlower, Content.Load<Texture2D>("Map//Tiles//GrassIsoFlower"));
+            textureDictionary.Add(TextureName.tree, Content.Load<Texture2D>("Map//Tiles//TreeColor"));
+
 
             //Monster
             textureDictionary.Add(TextureName.dummy, Content.Load<Texture2D>("Monster//Dummy"));
@@ -99,7 +105,12 @@ namespace LearnMonoGame.Manager
             iceLance,
             heal,
             burn,
-            tornado
+            tornado,
+            tryTrio,
+            wastelandflower,
+            wasteland,
+            grasFlower,
+            tree
                 
         }
         public enum FontName
