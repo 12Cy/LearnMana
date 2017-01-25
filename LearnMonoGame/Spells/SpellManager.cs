@@ -88,7 +88,7 @@ namespace LearnMonoGame.Spells
             attackInformation.Add(EBullet.FireBurn, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_fire: 50), _name: "FireBurn", _damage: 1, _duration: 2, _delay: 1, _trigger: 0.1f));
             attackInformation.Add(EBullet.IceLance, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_ice: 50), _name: "IceLance", _damage: 6));
             
-            attackInformation.Add(EBullet.HolyLight, new IMove(EMoveType.Heal, EStatus.Normal, new Elements(_light: 100), _name: "HolyLight", _health: 25, _delay: 2));
+            attackInformation.Add(EBullet.HolyLight, new IMove(EMoveType.Heal, EStatus.Normal, new Elements(_light: 100), _name: "HolyLight", _health: 25, _delay: 2f));
             attackInformation.Add(EBullet.IceTornado, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_ice: 70), _name: "IceTornado", 
                 _damage: 1, _speed: -50,_duration: 1, _trigger: 0.2f,_effectArea:new Rectangle(0,0,32,32)));
 

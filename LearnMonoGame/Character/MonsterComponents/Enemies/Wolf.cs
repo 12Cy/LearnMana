@@ -30,7 +30,6 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         {
             characterTyp = ECharacterTyp.enemy;
             moveDestination = pos;
-            currentHealth = 10;
             // --- Animation ---
             animatedSprite = new AnimatedSprite(creatureTexture, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.dummy));
             animatedSprite.CurrentAnimation = AnimationKey.WalkRight;

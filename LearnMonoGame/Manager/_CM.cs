@@ -26,6 +26,7 @@ namespace LearnMonoGame.Manager
             {
                 LoadTexture();
             }
+            Console.WriteLine(textureName);
             return textureDictionary[textureName];
         }
         public static SpriteFont GetFont(FontName FontName)
@@ -41,17 +42,15 @@ namespace LearnMonoGame.Manager
 
         static void LoadTexture()
         {
-            textureDictionary.Add(TextureName.player, Content.Load<Texture2D>("Player//femalePlayer"));
             textureDictionary.Add(TextureName.select, Content.Load<Texture2D>("Select//DottedLine3"));
-            textureDictionary.Add(TextureName.selectCircle, Content.Load<Texture2D>("Select//Circle"));
             textureDictionary.Add(TextureName.selected, Content.Load<Texture2D>("Select//selected"));
+            textureDictionary.Add(TextureName.selectCircle, Content.Load<Texture2D>("Select//Circle"));
             textureDictionary.Add(TextureName.damageselect, Content.Load<Texture2D>("Select//Damageselected"));
-            textureDictionary.Add(TextureName.fireballCursor, Content.Load<Texture2D>("Select//Cursor//fireballCursor"));
             textureDictionary.Add(TextureName.malePlayer, Content.Load<Texture2D>("Player//maleplayer"));
 
             //IMoves
-            textureDictionary.Add(TextureName.heal, Content.Load<Texture2D>("IMove//Heal"));
-            textureDictionary.Add(TextureName.burn, Content.Load<Texture2D>("IMove//Burn"));
+            textureDictionary.Add(TextureName.heal, Content.Load<Texture2D>("IMove//Heal-sheet128x128"));
+            textureDictionary.Add(TextureName.burn, Content.Load<Texture2D>("IMove//Burn-sheet128x128"));
 
             //Weapons
             textureDictionary.Add(TextureName.fireball, Content.Load<Texture2D>("Player//Weapons//Fireball"));
@@ -73,7 +72,6 @@ namespace LearnMonoGame.Manager
 
 
             //Monster
-            textureDictionary.Add(TextureName.dummy, Content.Load<Texture2D>("Monster//Dummy"));
             textureDictionary.Add(TextureName.wolf, Content.Load<Texture2D>("Monster//Wolf"));
 
 
@@ -90,7 +88,6 @@ namespace LearnMonoGame.Manager
 
         public enum TextureName
         {
-            player,
             map,
             grassTile,
             stoneTile,
@@ -102,9 +99,7 @@ namespace LearnMonoGame.Manager
             backLife,
             frontLife,
             fireball,
-            dummy,
             wolf,
-            fireballCursor,
             iceLance,
             heal,
             burn,

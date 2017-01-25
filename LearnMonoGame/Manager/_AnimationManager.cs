@@ -38,16 +38,16 @@ namespace LearnMonoGame.Manager
 
             Dictionary<AnimationKey, Animation> dummyDic = new Dictionary<AnimationKey, Animation>();
 
-            animation = new Animation(3, 32, 32, 0, 0);
+            animation = new Animation(3, 64, 64, 0, 0);
             dummyDic.Add(AnimationKey.WalkDown, animation);
 
-            animation = new Animation(3, 32, 32, 0, 32);
+            animation = new Animation(3, 64, 64, 0, 64);
             dummyDic.Add(AnimationKey.WalkLeft, animation);
 
-            animation = new Animation(3, 32, 32, 0, 64);
+            animation = new Animation(3, 64, 64, 0, 128);
             dummyDic.Add(AnimationKey.WalkRight, animation);
 
-            animation = new Animation(3, 32, 32, 0, 96);
+            animation = new Animation(3, 64, 64, 0, 192);
             dummyDic.Add(AnimationKey.WalkUp, animation);
 
             AnimationDictionary.Add(AnimationName.dummy, dummyDic);
@@ -72,11 +72,11 @@ namespace LearnMonoGame.Manager
 
             Dictionary<AnimationKey, Animation> effectsDic = new Dictionary<AnimationKey, Animation>();
 
-            animation = new Animation(10, 64, 64, 0, 0);
+            animation = new Animation(10, 128, 128, 0, 0);
             effectsDic.Add(AnimationKey.heal, animation);
  
 
-            animation = new Animation(5, 64, 64, 0, 0);
+            animation = new Animation(5, 128, 128, 0, 0);
             effectsDic.Add(AnimationKey.burn, animation);
 
             animation = new Animation(1, 32, 35, 0, 0);

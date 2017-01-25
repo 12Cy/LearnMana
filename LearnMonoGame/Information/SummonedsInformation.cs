@@ -45,6 +45,8 @@ namespace LearnMonoGame.Summoneds
         #region properties
         public DummyInformation()
         {
+            width = 64;
+            height = 64;
         }
 
         #endregion

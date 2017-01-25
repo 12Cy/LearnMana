@@ -22,7 +22,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         public Skelett(Vector2 _pos) : base(SummonedsInformation.Instance.skelettInformation)
         {
             pos = _pos;
-            creatureTexture = _CM.GetTexture(_CM.TextureName.dummy);
+            creatureTexture = _CM.GetTexture(_CM.TextureName.malePlayer);
             selectedTexture = _CM.GetTexture(_CM.TextureName.damageselect);
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             Initialize();

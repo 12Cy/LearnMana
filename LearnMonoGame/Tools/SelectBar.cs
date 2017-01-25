@@ -21,8 +21,8 @@ namespace LearnMonoGame.Tools
         int offsetVertical = 8;
 
         //Offset der Texture(Größe)
-        int offsetWidth = 5;
-        int offsetHeight = 1;
+        int offsetWidth = 6;
+        int offsetHeight = 2;
         Texture2D dottedLine;
 
         int size = _MapStuff.Instance.size;
