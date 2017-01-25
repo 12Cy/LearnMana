@@ -177,8 +177,11 @@ namespace LearnMonoGame.GameStates
 
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nZoom: " + _MapStuff.Instance.camera.Zoom + " Num1 & Num3\nReset Zoom: Num2", new Vector2(10, 10), Color.Bisque);
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nHealth +/- => L, K \nMana  +/- => O, I ", new Vector2(215, 10), Color.Bisque);
+            spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Player Attack     \nAktueller Spell: "+ PlayerManager.Instance.MyPlayer.Spellbook.ToString(PlayerManager.Instance.MyPlayer.CurrentSpell), new Vector2(415, 10), Color.Bisque);
 
             spriteBatch.End();
+
+
         }
 
 
