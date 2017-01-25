@@ -53,6 +53,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
             Vector2 dif = PlayerManager.Instance.MyPlayer.Pos -  pos;
             // Um negative Zahlen zu eliminieren
             int true_dif = (int)(Math.Sqrt(dif.X * dif.X)+Math.Sqrt(dif.Y * dif.Y));
+            
 
             if (true_dif<smell_distance)
             {
@@ -65,7 +66,12 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-
+            if (chaseMode)
+            {
+                Vector2 scale = new Vector2(-30,-20);
+                spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "WOOOOOOOOOO", Pos + scale, Color.Red);
+            }
+                
             base.Draw(spriteBatch);
         }
 
