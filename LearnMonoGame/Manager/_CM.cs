@@ -47,6 +47,7 @@ namespace LearnMonoGame.Manager
             textureDictionary.Add(TextureName.selected, Content.Load<Texture2D>("Select//selected"));
             textureDictionary.Add(TextureName.damageselect, Content.Load<Texture2D>("Select//Damageselected"));
             textureDictionary.Add(TextureName.fireballCursor, Content.Load<Texture2D>("Select//Cursor//fireballCursor"));
+            textureDictionary.Add(TextureName.malePlayer, Content.Load<Texture2D>("Player//maleplayer"));
 
             //IMoves
             textureDictionary.Add(TextureName.heal, Content.Load<Texture2D>("IMove//Heal"));
@@ -112,7 +113,8 @@ namespace LearnMonoGame.Manager
             wastelandflower,
             wasteland,
             grasFlower,
-            tree
+            tree,
+            malePlayer,
                 
         }
         public enum FontName

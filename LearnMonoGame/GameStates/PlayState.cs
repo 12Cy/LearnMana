@@ -77,7 +77,7 @@ namespace LearnMonoGame.GameStates
  
 
             selectBar = new SelectBar();
-            PlayerManager.Instance.MyPlayer = new Player(new Vector2(750, 250),_CM.GetTexture(_CM.TextureName.player));
+            PlayerManager.Instance.MyPlayer = new Player(new Vector2(750, 250),_CM.GetTexture(_CM.TextureName.malePlayer));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(200, 200)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(600, 400)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(350, 260)));
@@ -135,18 +135,6 @@ namespace LearnMonoGame.GameStates
         }
         public void CollisionTestDebugZweckeWirdNochGeaendertKeineAngst()
         {
-            foreach (Character enemy in MonsterManager.Instance.enemyList)
-            {
-                foreach (Bullet aFireball in _BulletManager.Instance.bullets)
-                {
-                    if (aFireball.Bounds.Intersects(enemy.Bounds) && aFireball.Visible)
-                    {
-                        enemy.CalculateHealth(-20);
-                        aFireball.alive = false;
-                    }
-                }
-
-            }
             for (int i = 0; i < MonsterManager.Instance.enemyList.Count; i++)
             {
 

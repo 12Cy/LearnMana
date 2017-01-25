@@ -355,7 +355,7 @@
 /processorParam:TextureFormat=Color
 /build:Map/Tiles/TreeColor.PNG
 
-#begin Monster/Wolf.png
+#begin Player/maleplayer.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -365,5 +365,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Monster/Wolf.png
+/build:Player/maleplayer.png
 

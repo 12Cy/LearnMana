@@ -20,16 +20,16 @@ namespace LearnMonoGame.Manager
             //LoadPlayer
             Dictionary<AnimationKey, Animation> playerDic = new Dictionary<AnimationKey, Animation>();
 
-            Animation animation = new Animation(3, 32, 32, 0, 0);
+            Animation animation = new Animation(3, 64, 64, 0, 0);
             playerDic.Add(AnimationKey.WalkDown, animation);
 
-            animation = new Animation(3, 32, 32, 0, 32);
+            animation = new Animation(3, 64, 64, 0, 64);
             playerDic.Add(AnimationKey.WalkLeft, animation);
 
-            animation = new Animation(3, 32, 32, 0, 64);
+            animation = new Animation(3, 64, 64, 0, 128);
             playerDic.Add(AnimationKey.WalkRight, animation);
 
-            animation = new Animation(3, 32, 32, 0, 96);
+            animation = new Animation(3, 64, 64, 0, 192);
             playerDic.Add(AnimationKey.WalkUp, animation);
 
             AnimationDictionary.Add(AnimationName.player, playerDic);

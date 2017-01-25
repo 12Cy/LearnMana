@@ -79,18 +79,18 @@ namespace LearnMonoGame.Spells
             bulletInformation.Add(EBullet.FireWall, new BulletInformation(_speed: 100, _size: new Point(20, 20), _range: 300, _triggerTime: 0.2f));
             bulletInformation.Add(EBullet.FireBurn, new BulletInformation(_speed: 0, _size: new Point(20, 20), _range: 300));
             bulletInformation.Add(EBullet.IceLance, new BulletInformation(_speed: 500, _size: new Point(16, 19), _range: 800));
-            bulletInformation.Add(EBullet.IceTornado, new BulletInformation(_speed: 30, _size: new Point(32, 35), _range: 800, _triggerTime: 1f));
+            bulletInformation.Add(EBullet.IceTornado, new BulletInformation(_speed: 30, _size: new Point(32, 35), _range: 800, _triggerTime: 0.5f));
 
             //Duration ist die BUFF dauer! / Delay dauert der Animation der Texture -> Danach passiert der Effekt! 
             attackInformation.Add(EBullet.FireBall, new IMove(EMoveType.Attack, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: 10));
             attackInformation.Add(EBullet.FireWall, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: 3, _duration: 5));
             
-            attackInformation.Add(EBullet.FireBurn, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: 1, _duration: 2, _delay: 2, _trigger: 0.2f));
+            attackInformation.Add(EBullet.FireBurn, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_fire: 50), _name: "FireBurn", _damage: 1, _duration: 2, _delay: 1, _trigger: 0.1f));
             attackInformation.Add(EBullet.IceLance, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_ice: 50), _name: "IceLance", _damage: 6));
             
             attackInformation.Add(EBullet.HolyLight, new IMove(EMoveType.Heal, EStatus.Normal, new Elements(_light: 100), _name: "HolyLight", _health: 25, _delay: 2));
             attackInformation.Add(EBullet.IceTornado, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_ice: 70), _name: "IceTornado", 
-                _damage: 1, _speed: -50,_duration: 1,_effectArea:new Rectangle(0,0,32,32)));
+                _damage: 1, _speed: -50,_duration: 1, _trigger: 0.2f,_effectArea:new Rectangle(0,0,32,32)));
 
 
             //Spellinformation timer = Abklingzeit

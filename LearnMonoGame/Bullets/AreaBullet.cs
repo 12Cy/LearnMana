@@ -28,6 +28,10 @@ namespace LearnMonoGame.Bullets
             base.OnExplode();
         }
 
+        protected override void Collision()
+        {
+        }
+
         public override void OnTrigger()
         {
             Rectangle me = new Rectangle((int)positon.X - effect.effectArea.Width / 2,
