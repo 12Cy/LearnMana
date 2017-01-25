@@ -77,7 +77,7 @@ namespace LearnMonoGame.GameStates
  
 
             selectBar = new SelectBar();
-            PlayerManager.Instance.MyPlayer = new Player(new Vector2(750, 250),_CM.GetTexture(_CM.TextureName.player));
+            PlayerManager.Instance.MyPlayer = new Player(new Vector2(750, 250),_CM.GetTexture(_CM.TextureName.malePlayer));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(200, 200)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(600, 400)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(350, 260)));
@@ -165,8 +165,11 @@ namespace LearnMonoGame.GameStates
 
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nZoom: " + _MapStuff.Instance.camera.Zoom + " Num1 & Num3\nReset Zoom: Num2", new Vector2(10, 10), Color.Bisque);
             spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Debug Information \nHealth +/- => L, K \nMana  +/- => O, I ", new Vector2(215, 10), Color.Bisque);
+            spriteBatch.DrawString(_CM.GetFont(_CM.FontName.Arial), "Player Attack     \nAktueller Spell: "+ PlayerManager.Instance.MyPlayer.Spellbook.ToString(PlayerManager.Instance.MyPlayer.CurrentSpell), new Vector2(415, 10), Color.Bisque);
 
             spriteBatch.End();
+
+
         }
 
 

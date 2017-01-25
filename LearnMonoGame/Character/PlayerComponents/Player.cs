@@ -54,7 +54,8 @@ namespace LearnMonoGame.PlayerComponents
 
 
         public bool AttackMode { get { return attackMode; } set { attackMode = value; } }
-
+        public Spellbook Spellbook { get { return spellBook; } }
+        public int CurrentSpell { get { return currentSpell; } }
 
         #endregion
 
@@ -227,7 +228,7 @@ namespace LearnMonoGame.PlayerComponents
             if (isSelected || hit)
             {
                 MouseState amouse = Mouse.GetState();
-                spritebatch.DrawString(_CM.GetFont(_CM.FontName.Arial), spellBook.ToString(currentSpell), xIn.MousePosition, Color.Red);
+
                 /// <Lebensbalken>
                 /// Wir zeichnen zuerst  eine Background Farbe(1.Schicht), die Füllfarbe(2.Schicht), texture mit der Umrandung(3.Schicht).
                 /// Die Texture soll über dem Spieler gezeichnet werden
