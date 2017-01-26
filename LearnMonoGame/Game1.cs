@@ -5,6 +5,7 @@ using LearnMonoGame.Manager;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 
 namespace LearnMonoGame
@@ -19,6 +20,7 @@ namespace LearnMonoGame
 
         IGameState state;
         EGameState currState, prevState;
+        Song mainSong;
 
         
 
@@ -70,6 +72,9 @@ namespace LearnMonoGame
             Components.Add(new xIn(this));
             _CM myContentManager = new _CM(Content);
 
+            MediaPlayer.IsRepeating = true;
+
+
 
             base.Initialize();
         }
@@ -82,7 +87,10 @@ namespace LearnMonoGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+            mainSong = Content.Load<Song>("Music\\DanceAroundMana");
+
+            MediaPlayer.Play(mainSong);
+            MediaPlayer.Volume = 0.2f;
 
             // TODO: use this.Content to load your game content here
         }

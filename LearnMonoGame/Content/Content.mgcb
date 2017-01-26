@@ -331,3 +331,9 @@
 /processorParam:TextureFormat=Color
 /build:Select/Circle.png
 
+#begin Music/DanceAroundMana.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/DanceAroundMana.mp3
+
