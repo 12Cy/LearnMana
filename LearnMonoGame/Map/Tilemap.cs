@@ -63,7 +63,6 @@ namespace LearnMonoGame.Map
                     {
                         _tileMap[x, y, 0] = new Tile(textures[5], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
                     }
-
                     else //sonst Stein
                     {
                         _tileMap[x, y,0] = new Tile(textures[1], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.stone);

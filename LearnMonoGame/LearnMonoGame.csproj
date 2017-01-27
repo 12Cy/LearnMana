@@ -66,6 +66,7 @@
     <Compile Include="Spells\Fire\SFireInferno.cs" />
     <Compile Include="Spells\Fire\SFireWall.cs" />
     <Compile Include="Spells\Fire\SFireball.cs" />
+    <Compile Include="Spells\Ice\SIceFreeze.cs" />
     <Compile Include="Spells\Ice\SIceLance.cs" />
     <Compile Include="Spells\Ice\SIceTornado.cs" />
     <Compile Include="Spells\Light\SHolyLight.cs" />

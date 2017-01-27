@@ -75,6 +75,7 @@ namespace LearnMonoGame.PlayerComponents
             spellBook.AddSpell(new SHolyLight());
             spellBook.AddSpell(new SIceTornado());
             Spellbook.AddSpell(new SFireInferno());
+            spellBook.AddSpell(new SIceFreeze());
             currentSpell = 0;
             Initialize();
         }
