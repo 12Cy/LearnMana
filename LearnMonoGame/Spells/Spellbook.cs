@@ -40,10 +40,10 @@ namespace LearnMonoGame.Spells
             spell.Add(sp);
         }
 
-        public bool CastChannel(int index, GameTime gTime)
+        public bool CastChannel(int index, GameTime gTime, Vector2 pos, Vector2 _direction)
         {
             if (index >= 0 && index < spell.Count)
-                return spell[index].Channel(gTime);
+                return spell[index].Channel(gTime, pos, _direction);
 
             return true;
         }

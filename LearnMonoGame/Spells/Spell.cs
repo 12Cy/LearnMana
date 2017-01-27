@@ -19,6 +19,8 @@ namespace LearnMonoGame.Spells
             maxTimer = spellInfo.cooldown;
             manaCost = spellInfo.mana;
             channelMax = spellInfo.channelTime;
+            triggerTimer = 0;
+            triggerMax = spellInfo.triggerTime;
             channelTimer = 0;
             timer = 0;
         }
@@ -29,12 +31,18 @@ namespace LearnMonoGame.Spells
         protected float maxTimer;
         protected float channelTimer;
         protected float channelMax;
+        protected float triggerTimer;
+        protected float triggerMax;
         protected Texture2D texture;
         protected int manaCost;
         #endregion
 
         #region Methods
         public abstract void Cast(Vector2 position, Vector2 _direction);
+        public virtual void OnChannel(Vector2 positiion, Vector2 _direction)
+        {
+
+        }
         public bool CastAble()
         {
             if (timer >= maxTimer && channelTimer >= channelMax)
@@ -45,10 +53,16 @@ namespace LearnMonoGame.Spells
             return false;
         }
 
-        public bool Channel(GameTime gTime)
+        public bool Channel(GameTime gTime, Vector2 position, Vector2 _direction)
         {
             channelTimer += (float)gTime.ElapsedGameTime.TotalSeconds;
+            triggerTimer += (float)gTime.ElapsedGameTime.TotalSeconds;
             if (channelTimer >= channelMax) return true;
+            if (triggerTimer >= triggerMax)
+            {
+                triggerTimer = 0;
+                OnChannel(position, _direction);
+            }
             return false;
         }
 
