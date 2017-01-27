@@ -11,7 +11,8 @@ namespace LearnMonoGame.Map
     enum ETile
     {
         stone,
-        Terrain
+        Terrain,
+        manaSource
     }
     class Tile
     {
@@ -39,7 +40,11 @@ namespace LearnMonoGame.Map
         }
         public bool Walkable()
         {
-            return type == ETile.Terrain;
+            return type == ETile.Terrain || type == ETile.manaSource;
+        }
+        public bool ManaSource()
+        {
+            return type == ETile.manaSource;
         }
     }
 }

@@ -68,6 +68,7 @@ namespace LearnMonoGame.GameStates
                 _CM.GetTexture(_CM.TextureName.wasteland),
                 _CM.GetTexture(_CM.TextureName.wastelandflower),
                 _CM.GetTexture(_CM.TextureName.grasFlower),
+                _CM.GetTexture(_CM.TextureName.manaSource)
 
             }, 
              
@@ -128,6 +129,10 @@ namespace LearnMonoGame.GameStates
                     _ParticleManager.Instance.particles[i].Update(gTime);
                 else
                     _ParticleManager.Instance.particles.RemoveAt(i--);
+            }
+            foreach (ManaSource a in _MapStuff.Instance.manaSourceList)
+            {
+                a.Update(gTime);
             }
 
 
@@ -196,6 +201,11 @@ namespace LearnMonoGame.GameStates
                 p.Draw(spriteBatch);
 
             selectBar.Draw(spriteBatch);
+
+            foreach (ManaSource a in _MapStuff.Instance.manaSourceList)
+            {
+                a.Draw(spriteBatch);
+            }
 
             spriteBatch.End();
 

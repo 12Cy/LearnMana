@@ -26,6 +26,8 @@ namespace LearnMonoGame.Tools
         JumpRight,
         Dieing,
 
+        //EffectsWorld
+        manaSource,
         //Spells
         heal,
         burn,

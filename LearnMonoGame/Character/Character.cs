@@ -1,5 +1,6 @@
 ﻿using LearnMonoGame.Components;
 using LearnMonoGame.Manager;
+using LearnMonoGame.Map;
 using LearnMonoGame.Summoneds.Enemies;
 using LearnMonoGame.Tools;
 using Microsoft.Xna.Framework;
@@ -275,6 +276,13 @@ namespace LearnMonoGame.Summoneds
                   && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, height)))
                 {//Ist dort keine Collision?
 
+
+                        foreach(ManaSource a in _MapStuff.Instance.manaSourceList)
+                        {
+                            a.CheckCollisionWithManaSource(this);
+                        }
+
+                         
                     animatedSprite.Position = newPosition;
                     pos = newPosition;
                     animatedSprite.IsAnimating = true;
@@ -347,8 +355,9 @@ namespace LearnMonoGame.Summoneds
         public void CalculateMana(float value)
         {
             currentMana += value;
-            if (currentMana > 100)
-                currentMana = 100;
+            Console.WriteLine(currentMana);
+            if (currentMana > maxMana)
+                currentMana = maxMana;
 
             if (currentMana < 0)
             {

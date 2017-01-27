@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LearnMonoGame.Manager;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -63,6 +64,12 @@ namespace LearnMonoGame.Map
                     {
                         _tileMap[x, y, 0] = new Tile(textures[5], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
                     }
+                    //ManaSource
+                    else if (colores[y * _tileMap.GetLength(0) + x] == new Color(222,255,0))//FARBE EINGEBEN)
+                    {
+                        _tileMap[x, y, 0] = new Tile(textures[6], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.manaSource);
+                        _MapStuff.Instance.manaSourceList.Add(new ManaSource(new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y)));
+                    }
 
                     else //sonst Stein
                     {
@@ -80,6 +87,11 @@ namespace LearnMonoGame.Map
         public bool Walkable(Vector2 currentPosition)
         {
             return _tileMap[(int)currentPosition.X / _tileSize.X, (int)currentPosition.Y / _tileSize.Y, 0].Walkable();
+        }
+
+        public bool ManaSource(Vector2 currentPosition)
+        {
+            return _tileMap[(int)currentPosition.X / _tileSize.X, (int)currentPosition.Y / _tileSize.Y, 0].ManaSource();
         }
 
         public void Update(GameTime gameTime)

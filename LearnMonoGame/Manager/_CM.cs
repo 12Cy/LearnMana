@@ -26,7 +26,6 @@ namespace LearnMonoGame.Manager
             {
                 LoadTexture();
             }
-            Console.WriteLine(textureName);
             return textureDictionary[textureName];
         }
         public static SpriteFont GetFont(FontName FontName)
@@ -69,6 +68,8 @@ namespace LearnMonoGame.Manager
             textureDictionary.Add(TextureName.wastelandflower, Content.Load<Texture2D>("Map//Tiles//WasteLandFlower"));
             textureDictionary.Add(TextureName.grasFlower, Content.Load<Texture2D>("Map//Tiles//GrassIsoFlower"));
             textureDictionary.Add(TextureName.tree, Content.Load<Texture2D>("Map//Tiles//TreeColor"));
+            textureDictionary.Add(TextureName.manaSource, Content.Load<Texture2D>("Map//Tiles//ManaSource74x64"));
+            textureDictionary.Add(TextureName.manaSourceAnimation, Content.Load<Texture2D>("Map//Tiles//ManaSourceAnimation96x96"));
 
 
             //Monster
@@ -110,6 +111,8 @@ namespace LearnMonoGame.Manager
             grasFlower,
             tree,
             malePlayer,
+            manaSource,
+            manaSourceAnimation,
                 
         }
         public enum FontName

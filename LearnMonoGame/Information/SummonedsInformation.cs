@@ -28,6 +28,8 @@ namespace LearnMonoGame.Summoneds
         {
             speed = 90;
             maxHealth = 100;
+            width = 64;
+            height = 64;
 
         }
     }

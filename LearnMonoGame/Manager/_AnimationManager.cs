@@ -82,6 +82,9 @@ namespace LearnMonoGame.Manager
             animation = new Animation(1, 32, 35, 0, 0);
             effectsDic.Add(AnimationKey.tornado, animation);
 
+            animation = new Animation(4, 96, 96, 0, 0);
+            effectsDic.Add(AnimationKey.manaSource, animation);
+
             AnimationDictionary.Add(AnimationName.effects, effectsDic);
 
 
