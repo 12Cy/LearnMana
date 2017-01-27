@@ -15,9 +15,11 @@ namespace LearnMonoGame.Spells
         public int mana;
         public float cooldown;
         public float channelTime;
+        public float triggerTime;
 
-        public SpellInformation(int _mana = 0, float _time = 0, float _channelTime = 0) // mana Abkingzeit, ChannelTime?
+        public SpellInformation(int _mana = 0, float _time = 0, float _channelTime = 0, float _triggerTime = 0) // mana Abkingzeit, ChannelTime?
         {
+            triggerTime = _triggerTime;
             mana = _mana;
             cooldown = _time;
             channelTime = _channelTime;
@@ -53,7 +55,8 @@ namespace LearnMonoGame.Spells
         SIceLance,
         SIceTornado,
         SDarkImpact,
-        SHolyLight
+        SHolyLight,
+        SFireInferno
     }
 
     enum EBullet
@@ -72,6 +75,7 @@ namespace LearnMonoGame.Spells
         public Dictionary<EBullet, BulletInformation> bulletInformation = new Dictionary<EBullet, Spells.BulletInformation>();
         public Dictionary<EBullet, IMove> attackInformation = new Dictionary<EBullet, IMove>();
         public Dictionary<ESpell, SpellInformation> spellInformation = new Dictionary<ESpell, SpellInformation>();
+        public Random rnd = new Random(BitConverter.ToInt32(Guid.NewGuid().ToByteArray(), 0));
 
         public void LoadInformation()
         {
@@ -100,6 +104,7 @@ namespace LearnMonoGame.Spells
             spellInformation.Add(ESpell.SIceLance, new SpellInformation(10, 0.3f));
             spellInformation.Add(ESpell.SIceTornado, new SpellInformation(10, 1));
             spellInformation.Add(ESpell.SHolyLight, new SpellInformation(10, 1));
+            spellInformation.Add(ESpell.SFireInferno, new SpellInformation(1, 3, 2,0.1f));
         }
 
         static SpellManager instance;

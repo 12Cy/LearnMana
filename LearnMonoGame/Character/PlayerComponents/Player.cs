@@ -74,6 +74,7 @@ namespace LearnMonoGame.PlayerComponents
             spellBook.AddSpell(new SFireBurn());
             spellBook.AddSpell(new SHolyLight());
             spellBook.AddSpell(new SIceTornado());
+            Spellbook.AddSpell(new SFireInferno());
             currentSpell = 0;
             Initialize();
         }
@@ -121,7 +122,7 @@ namespace LearnMonoGame.PlayerComponents
 
             if (channelMode)
             {
-                if (spellBook.CastChannel(currentSpell, gameTime))
+                if (spellBook.CastChannel(currentSpell, gameTime,pos, xIn.MousePosition))
                 {
                     spellBook.Cast(pos, xIn.MousePosition, currentSpell);
                     channelMode = false;
