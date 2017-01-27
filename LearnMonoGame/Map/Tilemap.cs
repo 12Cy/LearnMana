@@ -64,7 +64,7 @@ namespace LearnMonoGame.Map
                     {
                         _tileMap[x, y, 0] = new Tile(textures[5], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
                     }
-<<<<<<< HEAD
+
                     //ManaSource
                     else if (colores[y * _tileMap.GetLength(0) + x] == new Color(222,255,0))//FARBE EINGEBEN)
                     {
@@ -72,8 +72,7 @@ namespace LearnMonoGame.Map
                         _MapStuff.Instance.manaSourceList.Add(new ManaSource(new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y)));
                     }
 
-=======
->>>>>>> afd3b4e8cd5cbd9608af5108c6d9da2a01c0deea
+
                     else //sonst Stein
                     {
                         _tileMap[x, y,0] = new Tile(textures[1], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.stone);
