@@ -331,35 +331,9 @@
 /processorParam:TextureFormat=Color
 /build:Select/Circle.png
 
-<<<<<<< HEAD
-#begin Map/Tiles/ManaSource74x64.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Map/Tiles/ManaSource74x64.png
-
-#begin Map/Tiles/ManaSourceAnimation96x96.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Map/Tiles/ManaSourceAnimation96x96.png
-=======
 #begin Music/DanceAroundMana.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Music/DanceAroundMana.mp3
->>>>>>> afd3b4e8cd5cbd9608af5108c6d9da2a01c0deea
 
