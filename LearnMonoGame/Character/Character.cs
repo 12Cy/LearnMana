@@ -117,7 +117,7 @@ namespace LearnMonoGame.Summoneds
         protected int realAttackDamage;
         protected float realDefensiv;
 
-
+        protected Vector2 origin;
 
         #endregion
 
@@ -135,6 +135,7 @@ namespace LearnMonoGame.Summoneds
         public float RealDefensiv { get { return realDefensiv; } }
         public int RealAttackDamage { get { return realAttackDamage; } }
         public float RealAttackSpeed { get { return realAttackSpeed; } }
+        public Vector2 Origin { get { return origin; }}
 
         #endregion
 
@@ -151,7 +152,7 @@ namespace LearnMonoGame.Summoneds
             maxHealth = info.MaxHealth;
             attackDamage = info.Damage;
             defense = info.Defense;
-
+           
             bounds = new Rectangle((int)pos.X, (int)pos.Y, width, height);
             level = 1;
             experience = 0;
@@ -165,6 +166,8 @@ namespace LearnMonoGame.Summoneds
             isSelected = false;
             hitTimer = TimeSpan.Zero;
 
+            this.origin = new Vector2(pos.X + width / 2, pos.Y + height / 2);
+
         }
         #endregion
 
@@ -175,6 +178,7 @@ namespace LearnMonoGame.Summoneds
         public virtual void UnloadContent() { }
         public virtual void Update(GameTime gameTime)
         {
+            origin = new Vector2(pos.X + width / 2, pos.Y + height / 2);
 
             if (hit)
             {//Wenn der Spieler getroffen wurde, wird der LB angezeigt (für 1 Sekunde)
@@ -228,6 +232,7 @@ namespace LearnMonoGame.Summoneds
 
         protected void Move(GameTime gameTime, Vector2 dif)
         {
+            //Vector2 dif = new Vector2(_dif.X - width / 2, _dif.Y - height / 2);
             /*MouseState aMouse = Mouse.GetState();
 
             if (isSelected && aMouse.RightButton == ButtonState.Pressed)
@@ -243,6 +248,7 @@ namespace LearnMonoGame.Summoneds
                 dif = Vector2.Zero;
                 return;
             }
+            
             Vector2 motion = Vector2.Normalize(dif);
 
             if (motion != Vector2.Zero)

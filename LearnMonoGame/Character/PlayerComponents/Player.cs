@@ -29,7 +29,7 @@ namespace LearnMonoGame.PlayerComponents
     class Player : Character
     {
 
-        #region variablen
+#region variablen
 
         //HealthBar
         Texture2D manaTexture;
@@ -49,23 +49,24 @@ namespace LearnMonoGame.PlayerComponents
 
 
 
-        #endregion
-        #region properties
+#endregion
+#region properties
 
 
         public bool AttackMode { get { return attackMode; } set { attackMode = value; } }
         public Spellbook Spellbook { get { return spellBook; } }
         public int CurrentSpell { get { return currentSpell; } }
 
-        #endregion
+#endregion
 
 
 
-        #region Constructors
+#region Constructors
 
         public Player(Vector2 _position, Texture2D _playerTexture) : base(SummonedsInformation.Instance.playerInformation)
         {
-            this.pos = _position;
+            this.pos = new Vector2(_position.X, _position.Y);
+
             this.creatureTexture = _playerTexture;
             spellBook = new Spellbook();
             spellBook.AddSpell(new SFireball());
@@ -120,6 +121,7 @@ namespace LearnMonoGame.PlayerComponents
         public override void Update(GameTime gameTime)
         {
             spellBook.Update(gameTime);
+            
 
             if (channelMode)
             {
@@ -214,7 +216,7 @@ namespace LearnMonoGame.PlayerComponents
             if (IsSelect && aMouse.RightButton == ButtonState.Pressed && !(attackMode))
             {//Nicht im Angriffsmodus sondern im Movemodus
 
-                moveDestination = new Vector2((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y);
+                moveDestination = new Vector2((int)xIn.MousePosition.X - width/2, (int)xIn.MousePosition.Y - height);
             }
 
             Vector2 dif = moveDestination - pos; //VerbindungsVektor

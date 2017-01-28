@@ -51,7 +51,7 @@ namespace LearnMonoGame.Summoneds
             if (IsSelect && aMouse.RightButton == ButtonState.Pressed)
             {
 
-                moveDestination = new Vector2((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y);
+                moveDestination = new Vector2((int)xIn.MousePosition.X - width/2, (int)xIn.MousePosition.Y - height);
             }
 
             Vector2 dif = moveDestination - pos; //VerbindungsVektor
