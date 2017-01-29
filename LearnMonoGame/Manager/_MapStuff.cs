@@ -16,7 +16,7 @@ namespace LearnMonoGame.Manager
         public Game1 game;
         public Tilemap map;
         public List<ManaSource> manaSourceList = new List<ManaSource>();
-        public int size = 32;
+        public int size = 64;
 
         public int x = 1280;
         public int y = 720;
