@@ -62,13 +62,17 @@ namespace LearnMonoGame.GameStates
             //Erstellt im Singleton die Instanz der Map
             _MapStuff.Instance.map = new Tilemap(new Texture2D[] 
             {
-                _CM.GetTexture(_CM.TextureName.grassTile),
-                _CM.GetTexture(_CM.TextureName.stoneTile),
-                _CM.GetTexture(_CM.TextureName.tryTrio),
-                _CM.GetTexture(_CM.TextureName.wasteland),
-                _CM.GetTexture(_CM.TextureName.wastelandflower),
-                _CM.GetTexture(_CM.TextureName.grasFlower),
-                _CM.GetTexture(_CM.TextureName.manaSource)
+                _CM.GetTexture(_CM.TextureName.stoneTile), //0
+                _CM.GetTexture(_CM.TextureName._flower1),   //1
+                _CM.GetTexture(_CM.TextureName._flower2),   //2
+                _CM.GetTexture(_CM.TextureName._grass1),    //3
+                _CM.GetTexture(_CM.TextureName._grass2),    //4
+                _CM.GetTexture(_CM.TextureName._grass3),    //5
+                _CM.GetTexture(_CM.TextureName._cheast),    //6
+                _CM.GetTexture(_CM.TextureName._water),     //7
+                _CM.GetTexture(_CM.TextureName._wood),      //8
+                _CM.GetTexture(_CM.TextureName.manaSource), //9
+                _CM.GetTexture(_CM.TextureName._stone)      //10
 
             }, 
              
