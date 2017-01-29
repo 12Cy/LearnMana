@@ -128,6 +128,7 @@ namespace LearnMonoGame.PlayerComponents
                 if (spellBook.CastChannel(currentSpell, gameTime,pos, xIn.MousePosition))
                 {
                     spellBook.Cast(pos, xIn.MousePosition, currentSpell);
+                    attackMode = false;
                     channelMode = false;
                 }
                 return;
