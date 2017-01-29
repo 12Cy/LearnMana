@@ -74,6 +74,8 @@ namespace LearnMonoGame.Manager
 
             //Monster
             textureDictionary.Add(TextureName.wolf, Content.Load<Texture2D>("Monster//Wolf"));
+            textureDictionary.Add(TextureName.skelett, Content.Load<Texture2D>("Monster//Skelett"));
+            textureDictionary.Add(TextureName.zombie, Content.Load<Texture2D>("Monster//Zombie"));
 
 
             //Spells
@@ -113,6 +115,8 @@ namespace LearnMonoGame.Manager
             malePlayer,
             manaSource,
             manaSourceAnimation,
+            skelett,
+            zombie,
                 
         }
         public enum FontName

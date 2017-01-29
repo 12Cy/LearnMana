@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Summoneds.Enemies.Monster
 {
-    class Skelett : Character
+    class Zombie : Character
     {
         private object xin;
         private int StepsToWalk = 0;
@@ -19,10 +19,10 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         int updaterate = 1500;
 
 
-        public Skelett(Vector2 _pos) : base(SummonedsInformation.Instance.skelettInformation)
+        public Zombie(Vector2 _pos) : base(SummonedsInformation.Instance.skelettInformation)
         {
             pos = _pos;
-            creatureTexture = _CM.GetTexture(_CM.TextureName.skelett);
+            creatureTexture = _CM.GetTexture(_CM.TextureName.zombie);
             selectedTexture = _CM.GetTexture(_CM.TextureName.damageselect);
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             Initialize();

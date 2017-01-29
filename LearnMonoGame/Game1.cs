@@ -90,7 +90,7 @@ namespace LearnMonoGame
             mainSong = Content.Load<Song>("Music\\DanceAroundMana");
 
             MediaPlayer.Play(mainSong);
-            MediaPlayer.Volume = 0.2f;
+            MediaPlayer.Volume = 0f;
 
             // TODO: use this.Content to load your game content here
         }

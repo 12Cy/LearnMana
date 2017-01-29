@@ -216,6 +216,7 @@ namespace LearnMonoGame.PlayerComponents
             if (IsSelect && aMouse.RightButton == ButtonState.Pressed && !(attackMode))
             {//Nicht im Angriffsmodus sondern im Movemodus
 
+                //Setzt den ORIGIN! (!!!)
                 moveDestination = new Vector2((int)xIn.MousePosition.X - width/2, (int)xIn.MousePosition.Y - height);
             }
 

@@ -83,6 +83,11 @@ namespace LearnMonoGame.GameStates
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(600, 400)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(350, 260)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(270, 450)));
+
+            MonsterManager.Instance.enemyList.Add(new Zombie(new Vector2(980, 575)));
+            MonsterManager.Instance.enemyList.Add(new Zombie(new Vector2(950, 520)));
+            MonsterManager.Instance.enemyList.Add(new Zombie(new Vector2(850, 490)));
+
             MonsterManager.Instance.enemyList.Add(new Wolf(new Vector2(1500, 450)));
             MonsterManager.Instance.enemyList.Add(new Wolf(new Vector2(1630, 550)));
             MonsterManager.Instance.enemyList.Add(new Wolf(new Vector2(1690, 150)));

@@ -70,6 +70,44 @@ namespace LearnMonoGame.Manager
 
             AnimationDictionary.Add(AnimationName.wolf, wolfDic);
 
+            //SkelettDic
+            Dictionary<AnimationKey, Animation> skelettDic = new Dictionary<AnimationKey, Animation>();
+
+
+            animation = new Animation(6, 64, 64, 0, 0);
+            skelettDic.Add(AnimationKey.WalkDown, animation);
+
+            animation = new Animation(6, 64, 64, 0, 64);
+            skelettDic.Add(AnimationKey.WalkLeft, animation);
+
+            animation = new Animation(6, 64, 64, 0, 128);
+            skelettDic.Add(AnimationKey.WalkRight, animation);
+
+            animation = new Animation(6, 64, 64, 0, 192);
+            skelettDic.Add(AnimationKey.WalkUp, animation);
+
+            AnimationDictionary.Add(AnimationName.skelett, skelettDic);
+
+            //ZombieDIc
+            Dictionary<AnimationKey, Animation> zombieDic = new Dictionary<AnimationKey, Animation>();
+
+
+            animation = new Animation(6, 64, 64, 0, 0);
+            zombieDic.Add(AnimationKey.WalkDown, animation);
+
+            animation = new Animation(6, 64, 64, 0, 64);
+            zombieDic.Add(AnimationKey.WalkLeft, animation);
+
+            animation = new Animation(6, 64, 64, 0, 128);
+            zombieDic.Add(AnimationKey.WalkRight, animation);
+
+            animation = new Animation(6, 64, 64, 0, 192);
+            zombieDic.Add(AnimationKey.WalkUp, animation);
+
+            AnimationDictionary.Add(AnimationName.zombie, zombieDic);
+
+            //Effects
+
             Dictionary<AnimationKey, Animation> effectsDic = new Dictionary<AnimationKey, Animation>();
 
             animation = new Animation(10, 128, 128, 0, 0);
@@ -119,6 +157,8 @@ namespace LearnMonoGame.Manager
             dummy,
             wolf,
             effects,
+            skelett,
+            zombie
 
         }
     }
