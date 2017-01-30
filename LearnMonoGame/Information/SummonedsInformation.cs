@@ -11,7 +11,7 @@ namespace LearnMonoGame.Summoneds
         public float maxMana;
         public PlayerInformation()
         {
-            speed = 180;
+            speed = 120;
             maxHealth = 100;
             attackSpeed = 0.3f;
             damage = 1;
@@ -38,7 +38,7 @@ namespace LearnMonoGame.Summoneds
     {
         public WolfInformation()
         {
-            speed = 110;
+            speed = 90;
 
         }
     }
@@ -47,6 +47,7 @@ namespace LearnMonoGame.Summoneds
         #region properties
         public DummyInformation()
         {
+            speed = 120;
             width = 64;
             height = 64;
         }

@@ -21,7 +21,7 @@ namespace LearnMonoGame.Summoneds
 
             pos = _position;
 
-            creatureTexture = _CM.GetTexture(_CM.TextureName.malePlayer);
+            creatureTexture = _CM.GetTexture(_CM.TextureName.skelett);
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             selectedTexture = _CM.GetTexture(_CM.TextureName.selected);
 
