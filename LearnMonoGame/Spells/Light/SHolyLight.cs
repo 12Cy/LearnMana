@@ -44,7 +44,7 @@ namespace LearnMonoGame.Spells.Light
                     channelTimer = 0;
                 }
 
-                PlayerManager.Instance.MyPlayer.ApplyEffect(new IMove(EMoveType.Attack, EStatus.Normal, _mana: -manaCost));
+                PlayerManager.Instance.MyPlayer.ApplyEffect(new IMove(EMoveType.Attack, EStatus.Normal, _mana: new[] { -manaCost, -manaCost }));
             }
 
 

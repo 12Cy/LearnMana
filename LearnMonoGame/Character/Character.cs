@@ -1,6 +1,7 @@
 ﻿using LearnMonoGame.Components;
 using LearnMonoGame.Manager;
 using LearnMonoGame.Map;
+using LearnMonoGame.Spells;
 using LearnMonoGame.Summoneds.Enemies;
 using LearnMonoGame.Tools;
 using Microsoft.Xna.Framework;
@@ -176,6 +177,14 @@ namespace LearnMonoGame.Summoneds
         protected virtual void Initialize() { }
 
         public virtual void UnloadContent() { }
+
+        float CalculateRandomValue(int[] ary)
+        {
+            int diff = ary[1] - ary[0];
+
+            return SpellManager.Instance.rnd.Next(diff + 1) + ary[0];
+        }
+
         public virtual void Update(GameTime gameTime)
         {
             origin = new Vector2(pos.X + width / 2, pos.Y + height / 2);
@@ -213,9 +222,9 @@ namespace LearnMonoGame.Summoneds
             {
                 if (effects[i].Trigger(gameTime))
                 {
-                    CalculateHealth(effects[i].effect.health);
-                    CalculateHealth(-effects[i].effect.damage);
-                    CalculateMana(effects[i].effect.mana);
+                    CalculateHealth(CalculateRandomValue(effects[i].effect.health));
+                    CalculateHealth(-CalculateRandomValue(effects[i].effect.damage));
+                    CalculateMana(CalculateRandomValue(effects[i].effect.mana));
                 }
 
 
@@ -378,28 +387,28 @@ namespace LearnMonoGame.Summoneds
 
             if (iMove.moveType == EMoveType.Attack)
             {
-                CalculateHealth(-1 * iMove.damage);
-                CalculateMana(iMove.mana);
+                CalculateHealth(-CalculateRandomValue( iMove.damage));
+                CalculateMana(CalculateRandomValue(iMove.mana));
             }
                 
             if (iMove.moveType == EMoveType.Heal)
-                CalculateHealth(iMove.health);
+                CalculateHealth(CalculateRandomValue(iMove.health));
             if (iMove.moveType == EMoveType.Effect)
                 effects.Add(new TimerMove(iMove, iMove.duration));
 
 
-            attackDamage += iMove.attackDamage;
-            defense += iMove.defense;
-            speed += iMove.speed;
-            attackSpeed += iMove.attackSpeed;
+            attackDamage += iMove.attackDamage[0];
+            defense += iMove.defense[0];
+            speed += iMove.speed[0];
+            attackSpeed += iMove.attackSpeed[0];
         }
 
         void ReRollEffect(IMove iMove)
         {
-            attackDamage -= iMove.attackDamage;
-            defense -= iMove.defense;
-            speed -= iMove.speed;
-            attackSpeed -= iMove.attackSpeed;
+            attackDamage -= iMove.attackDamage[0];
+            defense -= iMove.defense[0];
+            speed -= iMove.speed[0];
+            attackSpeed -= iMove.attackSpeed[0];
         }
 
         public void ApplyEffect(IMove iMove)

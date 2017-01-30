@@ -29,7 +29,7 @@ namespace LearnMonoGame.PlayerComponents
     class Player : Character
     {
 
-#region variablen
+        #region variablen
 
         //HealthBar
         Texture2D manaTexture;
@@ -49,19 +49,19 @@ namespace LearnMonoGame.PlayerComponents
 
 
 
-#endregion
-#region properties
+        #endregion
+        #region properties
 
 
         public bool AttackMode { get { return attackMode; } set { attackMode = value; } }
         public Spellbook Spellbook { get { return spellBook; } }
         public int CurrentSpell { get { return currentSpell; } }
 
-#endregion
+        #endregion
 
 
 
-#region Constructors
+        #region Constructors
 
         public Player(Vector2 _position, Texture2D _playerTexture) : base(SummonedsInformation.Instance.playerInformation)
         {
@@ -121,11 +121,11 @@ namespace LearnMonoGame.PlayerComponents
         public override void Update(GameTime gameTime)
         {
             spellBook.Update(gameTime);
-            
+
 
             if (channelMode)
             {
-                if (spellBook.CastChannel(currentSpell, gameTime,pos, xIn.MousePosition))
+                if (spellBook.CastChannel(currentSpell, gameTime, pos, xIn.MousePosition))
                 {
                     spellBook.Cast(pos, xIn.MousePosition, currentSpell);
                     attackMode = false;
@@ -218,7 +218,7 @@ namespace LearnMonoGame.PlayerComponents
             {//Nicht im Angriffsmodus sondern im Movemodus
 
                 //Setzt den ORIGIN! (!!!)
-                moveDestination = new Vector2((int)xIn.MousePosition.X - width/2, (int)xIn.MousePosition.Y - height);
+                moveDestination = new Vector2((int)xIn.MousePosition.X - width / 2, (int)xIn.MousePosition.Y - height);
             }
 
             Vector2 dif = moveDestination - pos; //VerbindungsVektor
@@ -242,13 +242,13 @@ namespace LearnMonoGame.PlayerComponents
                 /// (SourceRectangle) :  Geht vom äußeren Rectangle aus(DesitinationRectangle)
                 ///  (2.Schicht) :  nehme die diff und verkleinere so die größe der Schicht.
                 /// </Lebensbalken>
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height /3 + 9 , width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height /3 + 9 , (int)(width * ((float)currentMana / maxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 3 + 9, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 3 + 9, (int)(width * ((float)currentMana / maxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
                 spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 3 + 9, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
 
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5 , width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X,  (int)pos.Y - height / 4 - 5 , (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5 , width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
+                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
                 if (hit)
                     spritebatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
                 else
@@ -260,7 +260,10 @@ namespace LearnMonoGame.PlayerComponents
 
 
 
-        #endregion
+
 
     }
+    #endregion
+
+
 }
