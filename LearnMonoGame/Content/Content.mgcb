@@ -493,3 +493,9 @@
 /processorParam:TextureFormat=Color
 /build:Map/Tiles/TestFiles/Stones_74x64.png
 
+#begin Font/DamagePopUp.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Font/DamagePopUp.spritefont
+

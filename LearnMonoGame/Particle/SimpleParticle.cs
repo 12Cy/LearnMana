@@ -1,4 +1,5 @@
-﻿using LearnMonoGame.Summoneds;
+﻿using LearnMonoGame.Manager;
+using LearnMonoGame.Summoneds;
 using LearnMonoGame.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,13 +11,12 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Particle
 {
-    class SimpleParticle
+    class SimpleParticle : GameParticle
     {
         float timer;
         float maxTimer;
         Texture2D sprite;
         Vector2 position;
-        public bool alive = true;
         Character character;
         AnimatedSprite animatedSprite;
 
@@ -25,6 +25,7 @@ namespace LearnMonoGame.Particle
             timer = 0;
             maxTimer = duration;
             sprite = _sprite;
+            alive = true;
             //position = _position - (_sprite.Bounds.Size.ToVector2() / 2);
 
             character = _character;
@@ -35,7 +36,7 @@ namespace LearnMonoGame.Particle
             animatedSprite.Position = position;
         }
 
-        public void Update(GameTime gTime)
+        public override void Update(GameTime gTime)
         {
             //position = new Vector2(character.Bounds.X, character.Bounds.Y);
             animatedSprite.Position = new Vector2(character.Bounds.X - character.Width / 2, character.Bounds.Y - character.Height/2 *4);
@@ -51,7 +52,7 @@ namespace LearnMonoGame.Particle
                
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             animatedSprite.Draw(spriteBatch);
         }

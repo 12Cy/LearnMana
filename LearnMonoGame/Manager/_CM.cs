@@ -96,6 +96,7 @@ namespace LearnMonoGame.Manager
         static void LoadFont()
         {
             fontDictionary.Add(FontName.Arial, Content.Load<SpriteFont>("Font//Arial"));
+            fontDictionary.Add(FontName.DamagePopUp, Content.Load<SpriteFont>("Font//DamagePopUp"));
         }
 
 
@@ -142,6 +143,7 @@ namespace LearnMonoGame.Manager
         public enum FontName
         {
             Arial,
+            DamagePopUp
 
         }
 

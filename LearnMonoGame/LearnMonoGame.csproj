@@ -63,6 +63,7 @@
     <Compile Include="Character\PlayerComponents\Player.cs" />
     <Compile Include="Character\PlayerComponents\PlayerManager.cs" />
     <Compile Include="Bullets\Bullet.cs" />
+    <Compile Include="Particle\PopUpText.cs" />
     <Compile Include="Particle\SimpleParticle.cs" />
     <Compile Include="Spells\Fire\SFireBurn.cs" />
     <Compile Include="Spells\Fire\SFireInferno.cs" />

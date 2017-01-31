@@ -190,7 +190,7 @@ namespace LearnMonoGame.GameStates
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            spriteBatch.Begin(transformMatrix: _MapStuff.Instance.camera.GetViewMatrix());
+            spriteBatch.Begin(transformMatrix: _MapStuff.Instance.camera.GetViewMatrix(),blendState: BlendState.NonPremultiplied);
             _MapStuff.Instance.map.Draw(spriteBatch);
 
             PlayerManager.Instance.MyPlayer.Draw(spriteBatch);
@@ -206,7 +206,7 @@ namespace LearnMonoGame.GameStates
                 b.Draw(spriteBatch);
 
 
-            foreach (SimpleParticle p in _ParticleManager.Instance.particles)
+            foreach (GameParticle p in _ParticleManager.Instance.particles)
                 p.Draw(spriteBatch);
 
             selectBar.Draw(spriteBatch);
