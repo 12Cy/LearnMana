@@ -186,6 +186,19 @@ namespace LearnMonoGame.Summoneds
             return SpellManager.Instance.rnd.Next(diff + 1) + ary[0];
         }
 
+        float CalculateCritValue(IMove effect)
+        {
+            int diff = (int)effect.crit[1]*100 - (int)effect.crit[0]*100;
+
+            float value = SpellManager.Instance.rnd.Next(diff + 1) + effect.crit[0]*100;
+
+            if (SpellManager.Instance.rnd.Next(101) < effect.critChance)
+                return value / 100f;
+            else
+                return 1;
+
+        }
+
         public virtual void Update(GameTime gameTime)
         {
             origin = new Vector2(pos.X + width / 2, pos.Y + height / 2);
@@ -223,9 +236,9 @@ namespace LearnMonoGame.Summoneds
             {
                 if (effects[i].Trigger(gameTime))
                 {
-                    CalculateHealth(CalculateRandomValue(effects[i].effect.health));
-                    CalculateHealth(-CalculateRandomValue(effects[i].effect.damage));
-                    CalculateMana(CalculateRandomValue(effects[i].effect.mana));
+                    CalculateHealth(CalculateRandomValue(effects[i].effect.health) * CalculateCritValue(effects[i].effect));
+                    CalculateHealth(-CalculateRandomValue(effects[i].effect.damage) * CalculateCritValue(effects[i].effect));
+                    CalculateMana(CalculateRandomValue(effects[i].effect.mana) * CalculateCritValue(effects[i].effect));
                 }
 
 
@@ -353,6 +366,7 @@ namespace LearnMonoGame.Summoneds
         /// </CalculateHealth>
         public virtual void CalculateHealth(float value)
         {
+            value = (int)value;
             if(value > 0)
                 _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2,animatedSprite.Height / 2) - new Vector2(10,20), 2f, value.ToString(), Color.GreenYellow));
             else if(value < 0)
@@ -374,12 +388,12 @@ namespace LearnMonoGame.Summoneds
         /// </CalculateMana>
         public void CalculateMana(float value)
         {
-            if(value > 0)
+            value = (int)value;
+            if (value > 0)
                 _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, value.ToString(), Color.DarkBlue));
             else if(value < 0)
                 _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, value.ToString(), Color.LightBlue));
             currentMana += value;
-            Console.WriteLine(currentMana);
             if (currentMana > maxMana)
                 currentMana = maxMana;
 
@@ -396,36 +410,36 @@ namespace LearnMonoGame.Summoneds
 
             if (iMove.moveType == EMoveType.Attack)
             {
-                CalculateHealth(-CalculateRandomValue( iMove.damage));
+                CalculateHealth(-CalculateRandomValue( iMove.damage) * CalculateCritValue(iMove));
                 CalculateMana(CalculateRandomValue(iMove.mana));
             }
                 
             if (iMove.moveType == EMoveType.Heal)
-                CalculateHealth(CalculateRandomValue(iMove.health));
+                CalculateHealth(CalculateRandomValue(iMove.health) * CalculateCritValue(iMove));
             if (iMove.moveType == EMoveType.Effect)
                 effects.Add(new TimerMove(iMove, iMove.duration));
 
 
 
             if(iMove.attackDamage[0] > 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, attackDamage.ToString(), Color.OrangeRed));
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.attackDamage[0].ToString(), Color.OrangeRed));
             else if(iMove.attackDamage[0] < 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, attackDamage.ToString(), Color.Orchid));
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.attackDamage[0].ToString(), Color.Orchid));
 
             if (iMove.defense[0] > 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, defense.ToString(), Color.Gray));
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.defense[0].ToString(), Color.Gray));
             else if (iMove.defense[0] < 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, defense.ToString(), Color.DarkSeaGreen));
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.defense[0].ToString(), Color.DarkSeaGreen));
 
             if (iMove.speed[0] > 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, speed.ToString(), Color.Yellow));
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.speed[0].ToString(), Color.Yellow));
             else if (iMove.speed[0] < 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, speed.ToString(), Color.BlueViolet));
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.speed[0].ToString(), Color.BlueViolet));
 
             if (iMove.attackSpeed[0] > 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, attackSpeed.ToString(), Color.BlanchedAlmond));
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.attackSpeed[0].ToString(), Color.BlanchedAlmond));
             else if (iMove.attackSpeed[0] < 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, attackSpeed.ToString(), Color.AliceBlue));
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.attackSpeed[0].ToString(), Color.AliceBlue));
 
 
 

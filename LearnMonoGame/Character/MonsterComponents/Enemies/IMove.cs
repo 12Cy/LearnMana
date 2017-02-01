@@ -48,13 +48,15 @@ namespace LearnMonoGame.Summoneds.Enemies
         public string name;
         public int duration; //Wenn duration = 0 -> Ein SPontanzauber | 4 -> 4 sekunden (BUFF)
         public float trigger;//Wenn trigger = 0 -> Der Zauber triggert nichts | gibt an wie oft
-        public int[] damage;
-        public int[] defense;
+        public int[] damage; //Schaden vom Zauber, sowohl bei Eintritt als auch bei einem Effekt
+        public int[] defense; 
         public int[] attackDamage;
         public int[] attackSpeed;
         public int[] speed;
         public int[] health;
         public int[] mana;
+        public float[] crit; //Der Schadensmulitplikator des kritischen Schaden. Der Faktor in Crit wird mit dem Schaden Mulitpliziert. Schaden *= Crit;
+        public int critChance;
         public bool isAlive;
         public Rectangle effectArea;
         public float delay;
@@ -62,6 +64,7 @@ namespace LearnMonoGame.Summoneds.Enemies
 
         public IMove(EMoveType _moveType, EStatus _status, Elements _elements = new Elements(), string _name = "null", int _duration = 0,
             int[] _damage = null, int[] _defense = null, int[] _attackDamage = null, int[] _attackSpeed = null, int[] _speed = null, int[] _health = null, int[] _mana = null,
+            float[] _crit = null, int _critChance = 0,
             float _trigger = 0, bool _isAlive = true, TimeSpan _timeSpan = new TimeSpan(),
             float _delay = 0, Rectangle _effectArea = new Rectangle())
         {
@@ -75,6 +78,12 @@ namespace LearnMonoGame.Summoneds.Enemies
             name = _name;
             duration = _duration;
             delay = _delay;
+            critChance = _critChance;
+
+            if (_crit == null)
+                crit = new[] { 1f, 1f };
+            else
+                crit = _crit;
 
             if (_damage == null)
                 damage = new[] { 0, 0 };

@@ -89,9 +89,9 @@ namespace LearnMonoGame.Spells
             bulletInformation.Add(EBullet.IceTornado, new BulletInformation(_speed: 30, _size: new Point(32, 35), _range: 800, _triggerTime: 0.5f));
 
             //Duration ist die BUFF dauer! / Delay dauert der Animation der Texture -> Danach passiert der Effekt! 
-            attackInformation.Add(EBullet.FireBall, new IMove(EMoveType.Attack, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: new[]{ 6, 10 }));
+            attackInformation.Add(EBullet.FireBall, new IMove(EMoveType.Attack, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: new[]{ 6, 10 }, _crit: new[] { 2f, 3f }, _critChance: 15));
             attackInformation.Add(EBullet.FireWall, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: new[] { 2, 3 }, _duration: 5));
-            attackInformation.Add(EBullet.FireBurn, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_fire: 50), _name: "FireBurn", _damage: new[] { 2, 3 }, _duration: 2, _delay: 1, _trigger: 0.1f));
+            attackInformation.Add(EBullet.FireBurn, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_fire: 50), _name: "FireBurn", _damage: new[] { 2, 3 }, _duration: 2, _delay: 1, _trigger: 0.1f, _crit: new[] { 2f, 3f }, _critChance: 10));
 
             attackInformation.Add(EBullet.IceFreeze, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_ice: 80), _name: "IceFreeze",  _duration: 4, _speed: new[] { -40, -60 }, _attackSpeed: new[] { 6, 10 }));
             attackInformation.Add(EBullet.IceLance, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_ice: 50), _name: "IceLance", _damage: new[] { 6, 10 }));
