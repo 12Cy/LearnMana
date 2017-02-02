@@ -82,7 +82,7 @@
     <Compile Include="Character\Character.cs" />
     <Compile Include="Character\MonsterComponents\Summoned\Dummy.cs" />
     <Compile Include="Character\MonsterComponents\Enemies\Skelett.cs" />
-    <Compile Include="Character\MonsterComponents\Enemies\IMove.cs" />
+    <Compile Include="Character\MonsterComponents\Enemies\SAbility.cs" />
     <Compile Include="Manager\_MonsterManager.cs" />
     <Compile Include="Information\SummonedsInformation.cs" />
     <Compile Include="Tools\AnimatedSprite.cs" />
