@@ -33,9 +33,9 @@ namespace LearnMonoGame.Spells
         public int range;
         public float lifetime; //Seconds
         public float triggerTime;
-        public IMove attackInformation;
+        public SAbility attackInformation;
 
-        public BulletInformation(IMove _modifikator = new IMove(), float _speed = 350, Point _size = new Point(), int _range = 500, int _lifetime = 5, float _triggerTime = 0)
+        public BulletInformation(SAbility _modifikator = new SAbility(), float _speed = 350, Point _size = new Point(), int _range = 500, int _lifetime = 5, float _triggerTime = 0)
         {
             attackInformation = _modifikator;
             triggerTime = _triggerTime;
@@ -75,7 +75,7 @@ namespace LearnMonoGame.Spells
     class SpellManager
     {
         public Dictionary<EBullet, BulletInformation> bulletInformation = new Dictionary<EBullet, Spells.BulletInformation>();
-        public Dictionary<EBullet, IMove> attackInformation = new Dictionary<EBullet, IMove>();
+        public Dictionary<EBullet, SAbility> attackInformation = new Dictionary<EBullet, SAbility>();
         public Dictionary<ESpell, SpellInformation> spellInformation = new Dictionary<ESpell, SpellInformation>();
         public Random rnd = new Random(BitConverter.ToInt32(Guid.NewGuid().ToByteArray(), 0));
 
@@ -89,16 +89,16 @@ namespace LearnMonoGame.Spells
             bulletInformation.Add(EBullet.IceTornado, new BulletInformation(_speed: 30, _size: new Point(32, 35), _range: 800, _triggerTime: 0.5f));
 
             //Duration ist die BUFF dauer! / Delay dauert der Animation der Texture -> Danach passiert der Effekt! 
-            attackInformation.Add(EBullet.FireBall, new IMove(EMoveType.Attack, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: new[]{ 6, 10 }, _crit: new[] { 2f, 3f }, _critChance: 15));
-            attackInformation.Add(EBullet.FireWall, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: new[] { 2, 3 }, _duration: 5));
-            attackInformation.Add(EBullet.FireBurn, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_fire: 50), _name: "FireBurn", _damage: new[] { 2, 3 }, _duration: 2, _delay: 1, _trigger: 0.1f, _crit: new[] { 2f, 3f }, _critChance: 10));
+            attackInformation.Add(EBullet.FireBall, new SAbility(EMoveType.Attack, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: new[]{ 6, 10 }, _crit: new[] { 2f, 3f }, _critChance: 15));
+            attackInformation.Add(EBullet.FireWall, new SAbility(EMoveType.Effect, EStatus.Normal, new Elements(_fire: 50), _name: "Feuerball", _damage: new[] { 2, 3 }, _duration: 5));
+            attackInformation.Add(EBullet.FireBurn, new SAbility(EMoveType.Effect, EStatus.Normal, new Elements(_fire: 50), _name: "FireBurn", _damage: new[] { 2, 3 }, _duration: 2, _delay: 1, _trigger: 0.1f, _crit: new[] { 2f, 3f }, _critChance: 10));
 
-            attackInformation.Add(EBullet.IceFreeze, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_ice: 80), _name: "IceFreeze",  _duration: 4, _speed: new[] { -40, -60 }, _attackSpeed: new[] { 6, 10 }));
-            attackInformation.Add(EBullet.IceLance, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_ice: 50), _name: "IceLance", _damage: new[] { 6, 10 }));
-            attackInformation.Add(EBullet.IceTornado, new IMove(EMoveType.Effect, EStatus.Normal, new Elements(_ice: 70), _name: "IceTornado",
+            attackInformation.Add(EBullet.IceFreeze, new SAbility(EMoveType.Effect, EStatus.Normal, new Elements(_ice: 80), _name: "IceFreeze",  _duration: 4, _speed: new[] { -40, -60 }, _attackSpeed: new[] { 6, 10 }));
+            attackInformation.Add(EBullet.IceLance, new SAbility(EMoveType.Effect, EStatus.Normal, new Elements(_ice: 50), _name: "IceLance", _damage: new[] { 6, 10 }));
+            attackInformation.Add(EBullet.IceTornado, new SAbility(EMoveType.Effect, EStatus.Normal, new Elements(_ice: 70), _name: "IceTornado",
     _damage: new[] { 1, 1 }, _speed: new[] { -50, -70 }, _duration: 1, _trigger: 0.2f, _effectArea: new Rectangle(0, 0, 32, 32)));
 
-            attackInformation.Add(EBullet.HolyLight, new IMove(EMoveType.Heal, EStatus.Normal, new Elements(_light: 100), _name: "HolyLight", _health: new[] { 10, 50 }, _delay: 2f));
+            attackInformation.Add(EBullet.HolyLight, new SAbility(EMoveType.Heal, EStatus.Normal, new Elements(_light: 100), _name: "HolyLight", _health: new[] { 10, 50 }, _delay: 2f));
 
 
 

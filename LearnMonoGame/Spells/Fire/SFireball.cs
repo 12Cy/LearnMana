@@ -27,7 +27,7 @@ namespace LearnMonoGame.Spells.Fire
                 _BulletManager.Instance.bullets.Add(new Bullets.SimpleBullet(new Rectangle(bounds.ToPoint(), Point.Zero), _target - bounds, _CM.GetTexture(_CM.TextureName.fireball),EBullet.FireBall));
                 timer = 0;
                 channelTimer = 0;
-                PlayerManager.Instance.MyPlayer.ApplyEffect(new IMove(EMoveType.Attack, EStatus.Normal, _mana: new[] { -manaCost, -manaCost }));
+                PlayerManager.Instance.MyPlayer.ApplyEffect(new SAbility(EMoveType.Attack, EStatus.Normal, _mana: new[] { -manaCost, -manaCost }));
             }
 
 

@@ -33,7 +33,7 @@ namespace LearnMonoGame.Spells.Fire
 
                         timer = 0;
                         channelTimer = 0;
-                        PlayerManager.Instance.MyPlayer.ApplyEffect(new IMove(EMoveType.Attack, EStatus.Normal, _mana: new[] { -manaCost, -manaCost }));
+                        PlayerManager.Instance.MyPlayer.ApplyEffect(new SAbility(EMoveType.Attack, EStatus.Normal, _mana: new[] { -manaCost, -manaCost }));
                     }
                 }
 

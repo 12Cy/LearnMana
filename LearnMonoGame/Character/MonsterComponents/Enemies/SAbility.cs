@@ -40,7 +40,7 @@ namespace LearnMonoGame.Summoneds.Enemies
     }
 
 
-    public struct IMove
+    public struct SAbility
     {
         public EMoveType moveType;
         public EStatus status;
@@ -62,7 +62,7 @@ namespace LearnMonoGame.Summoneds.Enemies
         public float delay;
         TimeSpan timeSpan;
 
-        public IMove(EMoveType _moveType, EStatus _status, Elements _elements = new Elements(), string _name = "null", int _duration = 0,
+        public SAbility(EMoveType _moveType, EStatus _status, Elements _elements = new Elements(), string _name = "null", int _duration = 0,
             int[] _damage = null, int[] _defense = null, int[] _attackDamage = null, int[] _attackSpeed = null, int[] _speed = null, int[] _health = null, int[] _mana = null,
             float[] _crit = null, int _critChance = 0,
             float _trigger = 0, bool _isAlive = true, TimeSpan _timeSpan = new TimeSpan(),

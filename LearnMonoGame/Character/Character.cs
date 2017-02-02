@@ -18,11 +18,11 @@ namespace LearnMonoGame.Summoneds
 {
     public class TimerMove
     {
-        public IMove effect;
+        public SAbility effect;
         double timerDuration;
         double timerTrigger;
 
-        public TimerMove(IMove _effect, float duration)
+        public TimerMove(SAbility _effect, float duration)
         {
             timerTrigger = 0;
             effect = _effect;
@@ -186,7 +186,7 @@ namespace LearnMonoGame.Summoneds
             return SpellManager.Instance.rnd.Next(diff + 1) + ary[0];
         }
 
-        float CalculateCritValue(IMove effect)
+        float CalculateCritValue(SAbility effect)
         {
             int diff = (int)effect.crit[1]*100 - (int)effect.crit[0]*100;
 
@@ -405,7 +405,7 @@ namespace LearnMonoGame.Summoneds
 
         }
 
-        void ApplyEffectWithoutDelay(IMove iMove)
+        void ApplyEffectWithoutDelay(SAbility iMove)
         {
 
             if (iMove.moveType == EMoveType.Attack)
@@ -449,7 +449,7 @@ namespace LearnMonoGame.Summoneds
             attackSpeed += iMove.attackSpeed[0];
         }
 
-        void ReRollEffect(IMove iMove)
+        void ReRollEffect(SAbility iMove)
         {
             attackDamage -= iMove.attackDamage[0];
             defense -= iMove.defense[0];
@@ -457,7 +457,7 @@ namespace LearnMonoGame.Summoneds
             attackSpeed -= iMove.attackSpeed[0];
         }
 
-        public void ApplyEffect(IMove iMove)
+        public void ApplyEffect(SAbility iMove)
         {
             if (iMove.delay == 0)
             {
