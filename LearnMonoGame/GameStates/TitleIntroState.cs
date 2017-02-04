@@ -45,6 +45,11 @@ namespace LearnMonoGame.GameStates
                 return EGameState.MainmenuState;
             }
 
+            if (xIn.KeyboardState.IsKeyDown(Keys.Enter))
+            {
+                return EGameState.EditorState;
+            }
+
             elapsed += gTime.ElapsedGameTime;
 
 

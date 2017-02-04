@@ -14,7 +14,8 @@ namespace LearnMonoGame.GameStates
         None = -1,
         MainmenuState,
         PlayState,
-        TitleIntroState
+        TitleIntroState,
+        EditorState
     }
 
     interface IGameState

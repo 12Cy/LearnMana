@@ -20,6 +20,7 @@ namespace LearnMonoGame.Manager
             Content = _content;
 
         }
+
         public static Texture2D GetTexture(TextureName textureName)
         {
             if (textureDictionary.Count == 0)
@@ -28,6 +29,7 @@ namespace LearnMonoGame.Manager
             }
             return textureDictionary[textureName];
         }
+
         public static SpriteFont GetFont(FontName FontName)
         {
 
@@ -80,7 +82,11 @@ namespace LearnMonoGame.Manager
             textureDictionary.Add(TextureName.iceLance, Content.Load<Texture2D>("Player//Weapons//IceLance"));
             textureDictionary.Add(TextureName.tornado, Content.Load<Texture2D>("Player//Weapons//Tornado"));
 
+            //DebugGraphics
+            textureDictionary.Add(TextureName.whitePixel, Content.Load<Texture2D>("DebugTextures//whitePixel"));
+
         }
+
         static void LoadFont()
         {
             fontDictionary.Add(FontName.Arial, Content.Load<SpriteFont>("Font//Arial"));
@@ -93,6 +99,7 @@ namespace LearnMonoGame.Manager
             grassTile,
             stoneTile,
             waterTile,
+            whitePixel,
             select,
             selected,
             damageselect,

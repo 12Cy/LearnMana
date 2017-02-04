@@ -87,10 +87,10 @@ namespace LearnMonoGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            mainSong = Content.Load<Song>("Music\\DanceAroundMana");
+            //mainSong = Content.Load<Song>("Music\\DanceAroundMana");
 
-            MediaPlayer.Play(mainSong);
-            MediaPlayer.Volume = 0.2f;
+            //MediaPlayer.Play(mainSong);
+            //MediaPlayer.Volume = 0.2f;
 
             // TODO: use this.Content to load your game content here
         }
@@ -152,14 +152,15 @@ namespace LearnMonoGame
 
                 switch (currState)
                 {
-
                     case EGameState.MainmenuState:
                         state = new MainMenuState();
                         break;
                     case EGameState.PlayState:
                         state = new PlayState(this);
                         break;
-
+                    case EGameState.TitleIntroState:
+                        state = new EditorState();
+                        break;
                 }
 
                 state.Initialize();

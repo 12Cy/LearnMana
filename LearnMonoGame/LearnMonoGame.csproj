@@ -44,6 +44,10 @@
     <Compile Include="Bullets\AreaBullet.cs" />
     <Compile Include="Bullets\FireWall.cs" />
     <Compile Include="Character\MonsterComponents\Enemies\Wolf.cs" />
+    <Compile Include="Editor\EditorState.cs" />
+    <Compile Include="GraphicClasses\Line.cs" />
+    <Compile Include="GraphicClasses\MathHelper.cs" />
+    <Compile Include="GraphicClasses\Sprite.cs" />
     <Compile Include="Manager\_BulletManager.cs" />
     <Compile Include="Components\Camera.cs" />
     <Compile Include="Components\xIn.cs" />

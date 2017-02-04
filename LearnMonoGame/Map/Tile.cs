@@ -28,6 +28,7 @@ namespace LearnMonoGame.Map
             this._texture = _texture;
             this.type = _type;
         }
+
         public void Update(GameTime gameTime)
         {
 

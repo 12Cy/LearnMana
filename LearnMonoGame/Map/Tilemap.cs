@@ -28,6 +28,7 @@ namespace LearnMonoGame.Map
 
             BuildMap(textures, bitMap);
         }
+
         void BuildMap(Texture2D[] textures, Texture2D bitMap)
         {
             Color[] colores = new Color[bitMap.Width * bitMap.Height];
