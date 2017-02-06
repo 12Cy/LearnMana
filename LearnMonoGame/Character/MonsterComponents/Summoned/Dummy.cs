@@ -46,6 +46,7 @@ namespace LearnMonoGame.Summoneds
 
         public override void Update(GameTime gameTime)
         {
+            
             MouseState aMouse = Mouse.GetState();
 
             if (IsSelect && aMouse.RightButton == ButtonState.Pressed)
@@ -57,7 +58,7 @@ namespace LearnMonoGame.Summoneds
                 moveDestinationAnimation.Position = new Vector2(moveDestination.X + 16, moveDestination.Y + 48);
 
             }
-            Console.WriteLine(moveDestination);
+
             Vector2 dif = moveDestination - pos; //VerbindungsVektor
             Move(gameTime, dif);
             base.Update(gameTime);

@@ -233,6 +233,7 @@ namespace LearnMonoGame.Summoneds
 
         public virtual void Update(GameTime gameTime)
         {
+            moveDestinationAnimation.Update(gameTime);
             origin = new Vector2(pos.X + width / 2, pos.Y + height / 2);
 
             if (hit)
