@@ -390,10 +390,11 @@ namespace LearnMonoGame.Summoneds
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             animatedSprite.Draw(spriteBatch);
-            if(isRunning)
+            if(isRunning && isSelected)
                 moveDestinationAnimation.Draw(spriteBatch);
+
             //LB
-            if (isSelected || hit)
+            if (isSelected)
             {
                 /// <Lebensbalken>
                 /// Wir zeichnen zuerst  eine Background Farbe(1.Schicht), die Füllfarbe(2.Schicht), texture mit der Umrandung(3.Schicht).
@@ -405,16 +406,22 @@ namespace LearnMonoGame.Summoneds
                 spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
 
                 if (characterTyp == ECharacterTyp.summoned || characterTyp == ECharacterTyp.player)
-                    spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
+                    spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
                 else
                     spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Red);
 
                 spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
 
-                if (isSelected)
+
+                //if(isSelected)
+                //    spriteBatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
+                if (hit)
+                    spriteBatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
+                else
                     spriteBatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
 
             }
+
         }
 
         public virtual void CalculateHealth(float value)
