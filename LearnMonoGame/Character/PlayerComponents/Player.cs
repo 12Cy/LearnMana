@@ -102,6 +102,8 @@ namespace LearnMonoGame.PlayerComponents
             animatedSprite.CurrentAnimation = AnimationKey.WalkRight;
             animatedSprite.Position = pos;
 
+
+
             //Life & Mana
             currentMana = maxMana;
 
@@ -121,6 +123,7 @@ namespace LearnMonoGame.PlayerComponents
         public override void Update(GameTime gameTime)
         {
             spellBook.Update(gameTime);
+            moveDestinationAnimation.Update(gameTime);
 
 
             if (channelMode)
@@ -218,7 +221,12 @@ namespace LearnMonoGame.PlayerComponents
             {//Nicht im Angriffsmodus sondern im Movemodus
 
                 //Setzt den ORIGIN! (!!!)
-                moveDestination = new Vector2((int)xIn.MousePosition.X - width / 2, (int)xIn.MousePosition.Y - height);
+                
+                moveDestination = new Vector2((int)PosDestination.X - width / 2, (int)posDestination.Y - height);
+                //moveDestinationAnimation.ResetAnimation();
+                isRunning = true;
+                moveDestinationAnimation.IsAnimating = true;
+                moveDestinationAnimation.Position = new Vector2(moveDestination.X + 16, moveDestination.Y +  48);
             }
 
             Vector2 dif = moveDestination - pos; //VerbindungsVektor
@@ -229,6 +237,8 @@ namespace LearnMonoGame.PlayerComponents
         public override void Draw(SpriteBatch spritebatch)
         {
             animatedSprite.Draw(spritebatch);
+            if(isRunning)
+                 moveDestinationAnimation.Draw(spritebatch);
 
             //LB
             if (isSelected || hit)

@@ -87,6 +87,7 @@
     <Compile Include="Information\SummonedsInformation.cs" />
     <Compile Include="Tools\AnimatedSprite.cs" />
     <Compile Include="Tools\Animation.cs" />
+    <Compile Include="Tools\_DebugShit.cs" />
     <Compile Include="Tools\SelectBar.cs" />
     <Compile Include="Bullets\SimpleBullet.cs" />
   </ItemGroup>

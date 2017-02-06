@@ -15,7 +15,11 @@ namespace LearnMonoGame.Manager
         public GraphicsDevice graphics;
         public Game1 game;
         public Tilemap map;
+
         public List<ManaSource> manaSourceList = new List<ManaSource>();
+        
+
+
         public int size = 64;
 
         public int x = 1280;
@@ -29,6 +33,7 @@ namespace LearnMonoGame.Manager
         {
 
         }
+
 
         static _MapStuff instance;
 

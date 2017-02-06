@@ -79,20 +79,7 @@ namespace LearnMonoGame.Map
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle a = new Rectangle(player.Bounds.X + player.Bounds.Width / 2, player.Bounds.Y + player.Bounds.Height, player.Bounds.Width / 4, player.Bounds.Height / 4);
-            help = a;
-            //DEBUG
-            //Texture2D rectangle = new Texture2D(_MapStuff.Instance.graphics, bounds.Width, bounds.Height);
-            //Color[] data = new Color[bounds.Width * bounds.Height];
-            //for (int i = 0; i < data.Length; i++) data[i] = Color.Chocolate;
-            //rectangle.SetData(data);
-            //spriteBatch.Draw(rectangle, new Vector2(bounds.X, bounds.Y), Color.White);
-            //
-            //Texture2D rectangle1 = new Texture2D(_MapStuff.Instance.graphics, help.Width, help.Height);
-            //Color[] data1 = new Color[help.Width * help.Height];
-            //for (int i = 0; i < data1.Length; i++) data1[i] = Color.Red;
-            //rectangle1.SetData(data1);
-            //spriteBatch.Draw(rectangle1, new Vector2(help.X,help.Y), Color.White);
+
             if(giveMana)
                 animatedSprite.Draw(spriteBatch);
         }

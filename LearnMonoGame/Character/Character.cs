@@ -65,6 +65,8 @@ namespace LearnMonoGame.Summoneds
 
         protected Texture2D creatureTexture;
         protected AnimatedSprite animatedSprite;
+        protected Texture2D moveAnimation;
+        protected AnimatedSprite moveDestinationAnimation;
         protected Rectangle bounds;
 
         //selected
@@ -75,7 +77,9 @@ namespace LearnMonoGame.Summoneds
 
         //Movement
         protected Vector2 pos;
-        protected Vector2 moveDestination;
+        protected Vector2 moveDestination; //Move richtung
+        protected Vector2 posDestination; // position des Ziels!
+        protected bool isRunning;
 
         //Life
         protected Texture2D lifeTexture;
@@ -137,12 +141,12 @@ namespace LearnMonoGame.Summoneds
         public float RealDefensiv { get { return realDefensiv; } }
         public int RealAttackDamage { get { return realAttackDamage; } }
         public float RealAttackSpeed { get { return realAttackSpeed; } }
-        public Vector2 Origin { get { return origin; }}
+        public Vector2 Origin { get { return origin; } }
+        public Vector2 PosDestination { get { return posDestination; } set { posDestination = value; } }
 
         #endregion
 
         #region Constructor
-
 
         public Character(Attributes info)
         {
@@ -168,7 +172,13 @@ namespace LearnMonoGame.Summoneds
             isSelected = false;
             hitTimer = TimeSpan.Zero;
 
+            isRunning = false;
+            moveAnimation = _CM.GetTexture(_CM.TextureName.animationClick);
+
             this.origin = new Vector2(pos.X + width / 2, pos.Y + height / 2);
+
+            moveDestinationAnimation = new AnimatedSprite(moveAnimation, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.move));
+            moveDestinationAnimation.CurrentAnimation = AnimationKey.moveClick;
 
         }
         #endregion
@@ -255,20 +265,12 @@ namespace LearnMonoGame.Summoneds
 
         protected void Move(GameTime gameTime, Vector2 dif)
         {
-            //Vector2 dif = new Vector2(_dif.X - width / 2, _dif.Y - height / 2);
-            /*MouseState aMouse = Mouse.GetState();
-
-            if (isSelected && aMouse.RightButton == ButtonState.Pressed)
-            {
-                moveDestination = new Vector2((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y);
-            }
-            Vector2 dif = moveDestination - pos; //VerbindungsVektor
-*/
             if (dif.Length() < 3f)
             {//Ziel angekommen?
 
                 moveDestination = pos;
                 dif = Vector2.Zero;
+                isRunning = false;
                 return;
             }
             
@@ -338,6 +340,8 @@ namespace LearnMonoGame.Summoneds
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             animatedSprite.Draw(spriteBatch);
+            if(isRunning)
+                moveDestinationAnimation.Draw(spriteBatch);
             //LB
             if (isSelected || hit)
             {
@@ -356,14 +360,13 @@ namespace LearnMonoGame.Summoneds
                     spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Red);
 
                 spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+
                 if (isSelected)
                     spriteBatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
 
             }
         }
-        /// <CalculateHealth>
-        /// need - or + Value
-        /// </CalculateHealth>
+
         public virtual void CalculateHealth(float value)
         {
             value = (int)value;
@@ -383,9 +386,7 @@ namespace LearnMonoGame.Summoneds
 
 
         }
-        /// <CalculateMana>
-        /// need - or + Value
-        /// </CalculateMana>
+
         public void CalculateMana(float value)
         {
             value = (int)value;

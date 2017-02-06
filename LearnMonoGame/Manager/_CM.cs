@@ -46,6 +46,7 @@ namespace LearnMonoGame.Manager
             textureDictionary.Add(TextureName.selectCircle, Content.Load<Texture2D>("Select//Circle"));
             textureDictionary.Add(TextureName.damageselect, Content.Load<Texture2D>("Select//Damageselected"));
             textureDictionary.Add(TextureName.malePlayer, Content.Load<Texture2D>("Player//maleplayer"));
+            textureDictionary.Add(TextureName.animationClick, Content.Load<Texture2D>("Select//MoveAnimationClick"));
 
             //IMoves
             textureDictionary.Add(TextureName.heal, Content.Load<Texture2D>("IMove//Heal-sheet128x128"));
@@ -128,6 +129,7 @@ namespace LearnMonoGame.Manager
             manaSourceAnimation,
             skelett,
             zombie,
+            animationClick,
             //TestArea
             _flower1,
             _flower2,

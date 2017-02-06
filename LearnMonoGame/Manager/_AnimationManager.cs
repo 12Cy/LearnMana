@@ -17,6 +17,7 @@ namespace LearnMonoGame.Manager
 
         static void LoadAnimation()
         {
+            #region Character
             //LoadPlayer
             Dictionary<AnimationKey, Animation> playerDic = new Dictionary<AnimationKey, Animation>();
 
@@ -106,6 +107,9 @@ namespace LearnMonoGame.Manager
 
             AnimationDictionary.Add(AnimationName.zombie, zombieDic);
 
+            #endregion
+
+            #region effects
             //Effects
 
             Dictionary<AnimationKey, Animation> effectsDic = new Dictionary<AnimationKey, Animation>();
@@ -124,6 +128,16 @@ namespace LearnMonoGame.Manager
             effectsDic.Add(AnimationKey.manaSource, animation);
 
             AnimationDictionary.Add(AnimationName.effects, effectsDic);
+
+            #endregion
+
+
+            Dictionary<AnimationKey, Animation> clickAnimation = new Dictionary<AnimationKey, Animation>();
+
+            animation = new Animation(6, 32, 32, 0, 0);
+            clickAnimation.Add(AnimationKey.moveClick, animation);
+
+            AnimationDictionary.Add(AnimationName.move, clickAnimation);
 
 
 
@@ -158,7 +172,8 @@ namespace LearnMonoGame.Manager
             wolf,
             effects,
             skelett,
-            zombie
+            zombie,
+            move
 
         }
     }
