@@ -21,6 +21,7 @@ namespace LearnMonoGame.Summoneds
 
         public void GetDestination()
         {
+            selectedList = selectedList.OrderBy(a => Guid.NewGuid()).ToList();
             Vector2 mouse = new Vector2(xIn.MousePosition.X, xIn.MousePosition.Y);
             Random random = new Random(Guid.NewGuid().GetHashCode());
 
@@ -33,13 +34,27 @@ namespace LearnMonoGame.Summoneds
             int i = 0;
 
 
-                for (int y = 0; y < count; y++)
+
+
+            for (int y = 0; y < count; y++)
                 {
                     for (int x = 0; x < count; x++)
                     {
-                        if (i >= selectedList.Count)
+                    int help = random.Next(1, 3);
+                    if (help != 1)
+                        help = -1;
+                    int help2 = random.Next(1, 3);
+                    if (help2 != 1)
+                        help2 = -1;
+
+
+
+                    int nextValueX = random.Next(40, 45);
+                    int nextValueY = random.Next(40, 45);
+
+                    if (i >= selectedList.Count)
                             break;
-                        selectedList[i++].PosDestination = new Vector2(mouse.X + (x - k) * 64, mouse.Y + (y - k) * 64);
+                        selectedList[i++].PosDestination = new Vector2(mouse.X + (x - k) * 64 + nextValueX * help, mouse.Y + (y - k) * 64 + nextValueY * help2);
 
                     }
                 }

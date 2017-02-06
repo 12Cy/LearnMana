@@ -60,7 +60,7 @@ namespace LearnMonoGame.Tools
 
                 mSelectionBox = new Rectangle(mSelectionBox.X, mSelectionBox.Y, (int)xIn.MousePosition.X - mSelectionBox.X, (int)xIn.MousePosition.Y - mSelectionBox.Y);
             }
-            if(aMouse.RightButton == ButtonState.Pressed)
+            if(aMouse.RightButton == ButtonState.Pressed && mPreviousMouseState.RightButton == ButtonState.Released)
                 MonsterManager.Instance.GetDestination();
             //Store the previous mouse state
             mPreviousMouseState = aMouse;
