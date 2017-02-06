@@ -49,12 +49,12 @@ namespace LearnMonoGame.Summoneds
 
 
 
-                    int nextValueX = random.Next(40, 45);
-                    int nextValueY = random.Next(40, 45);
+                    int nextValueX = random.Next(5, 10);
+                    int nextValueY = random.Next(5, 10);
 
                     if (i >= selectedList.Count)
                             break;
-                        selectedList[i++].PosDestination = new Vector2(mouse.X + (x - k) * 64 + nextValueX * help, mouse.Y + (y - k) * 64 + nextValueY * help2);
+                        selectedList[i++].PosDestination = new Vector2(mouse.X + (x - k) * 74 + nextValueX * help, mouse.Y + (y - k) * 74 + nextValueY * help2);
 
                     }
                 }
