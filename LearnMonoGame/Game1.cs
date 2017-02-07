@@ -159,6 +159,9 @@ namespace LearnMonoGame
                         state = new PlayState(this);
                         break;
                     case EGameState.TitleIntroState:
+                        state = new TitleIntroState();
+                        break;
+                    case EGameState.EditorState:
                         state = new EditorState();
                         break;
                 }
