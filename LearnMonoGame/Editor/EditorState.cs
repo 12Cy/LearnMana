@@ -54,7 +54,7 @@ namespace LearnMonoGame
                         {
                             Vector2 startX = new Vector2(startingPoint.X + textureSize.X * 0.5f + x * textureSize.X * 0.5f, startingPoint.Y);
                             // lines starting at the top
-                            lineList.Add(new Line(startX, new Vector2(startX.X + textureSize.X * sizeY + 0.5f * textureSize.X, startX.Y + textureSize.Y * sizeY + 0.5f * textureSize.Y), whitePixel));   // to the right
+                            lineList.Add(new Line(startX, new Vector2(startX.X + ((sizeY < (sizeX - x) / 2) ? textureSize.X * sizeY + 0.5f * textureSize.X : ((sizeY * 2 == sizeX - x) ? sizeX - x : (sizeX - x + 1)) * textureSize.X * 0.5f), (startX.Y + ((sizeY < (sizeX - x) / 2) ? textureSize.Y * sizeY + 0.5f * textureSize.Y : (sizeX - x) * 0.5f * textureSize.Y + ((sizeY * 2 == (sizeX - x)) ? 0 : 0.5f * textureSize.Y)))), whitePixel));   // to the right
                             lineList.Add(new Line(startX, new Vector2(startX.X - ((sizeY < x / 2) ? textureSize.X * sizeY + 0.5f * textureSize.X : ((sizeY * 2 == x)? x : (x + 1)) * textureSize.X * 0.5f), (startX.Y + ((sizeY < x / 2) ? textureSize.Y * sizeY + 0.5f * textureSize.Y: x * 0.5f * textureSize.Y + ((sizeY * 2 == x)? 0: 0.5f * textureSize.Y)))), whitePixel)); // to the left
                         }
                     }
