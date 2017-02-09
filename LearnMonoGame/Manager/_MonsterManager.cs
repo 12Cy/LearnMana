@@ -25,16 +25,16 @@ namespace LearnMonoGame.Summoneds
             Vector2 mouse = new Vector2(xIn.MousePosition.X, xIn.MousePosition.Y);
             Random random = new Random(Guid.NewGuid().GetHashCode());
 
+            if (selectedList.Count == 1)
+            {
+                selectedList[0].PosDestination = mouse;
+                return;
+            }
 
             int count = (int)Math.Ceiling(Math.Sqrt(selectedList.Count));
-            Console.WriteLine(count);
             int[,] grid = new int[count, count];
             int k = count / 2;
-            Console.WriteLine(k);
             int i = 0;
-
-
-
 
             for (int y = 0; y < count; y++)
                 {
@@ -47,8 +47,6 @@ namespace LearnMonoGame.Summoneds
                     if (help2 != 1)
                         help2 = -1;
 
-
-
                     int nextValueX = random.Next(5, 10);
                     int nextValueY = random.Next(5, 10);
 
@@ -58,8 +56,6 @@ namespace LearnMonoGame.Summoneds
 
                     }
                 }
-
-
 
                 //selectedList[0].PosDestination = mouse;
                 //if (selectedList.Count == 2)

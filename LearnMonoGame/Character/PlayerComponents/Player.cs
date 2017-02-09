@@ -33,6 +33,7 @@ namespace LearnMonoGame.PlayerComponents
 
         //HealthBar
         Texture2D manaTexture;
+        
 
         //Weapon
 
@@ -78,6 +79,7 @@ namespace LearnMonoGame.PlayerComponents
             Spellbook.AddSpell(new SFireInferno());
             spellBook.AddSpell(new SIceFreeze());
             currentSpell = 0;
+            characterTyp = ECharacterTyp.player;
             Initialize();
         }
 
@@ -236,11 +238,12 @@ namespace LearnMonoGame.PlayerComponents
 
         public override void Draw(SpriteBatch spritebatch)
         {
-            animatedSprite.Draw(spritebatch);
-            if(isRunning)
-                 moveDestinationAnimation.Draw(spritebatch);
+            //animatedSprite.Draw(spritebatch);
+            //if(isRunning && isSelected)
+            //     moveDestinationAnimation.Draw(spritebatch);
 
             //LB
+            
             if (isSelected || hit)
             {
                 MouseState amouse = Mouse.GetState();
@@ -256,15 +259,17 @@ namespace LearnMonoGame.PlayerComponents
                 spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 3 + 9, (int)(width * ((float)currentMana / maxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
                 spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 3 + 9, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
 
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
-                if (hit)
-                    spritebatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
-                else
-                    spritebatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
+                //spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                //spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
+                //spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+
+                //if (hit)
+                //    spritebatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
+                //else
+                //    spritebatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
 
             }
+            base.Draw(spritebatch);
 
         }
 
