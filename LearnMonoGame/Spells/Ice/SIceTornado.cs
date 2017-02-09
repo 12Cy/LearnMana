@@ -16,7 +16,7 @@ namespace LearnMonoGame.Spells.Ice
 {
     class SIceTornado : Spell
     {
-        public SIceTornado() : base(SpellManager.Instance.spellInformation[ESpell.SIceTornado])
+        public SIceTornado() : base(SpellManager.Instance.spellInformation["SIceTornado"])
         {
 
         }
@@ -26,7 +26,7 @@ namespace LearnMonoGame.Spells.Ice
             if (CastAble())
             {
                 _BulletManager.Instance.bullets.Add(new AreaBullet(new Rectangle(_direction.ToPoint(),Point.Zero),Vector2.Zero,
-                    _CM.GetTexture(_CM.TextureName.tornado),EBullet.IceTornado));
+                    _CM.GetTexture(_CM.TextureName.tornado),"IceTornado"));
                 timer = 0;
                 channelTimer = 0;
                 PlayerManager.Instance.MyPlayer.ApplyEffect(new SAbility(EMoveType.Attack, EStatus.Normal, _mana: new[] { -manaCost, -manaCost }));

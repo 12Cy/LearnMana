@@ -15,7 +15,7 @@ namespace LearnMonoGame.Spells.Fire
 {
     class SFireBurn : Spell
     {
-        public SFireBurn() : base(SpellManager.Instance.spellInformation[ESpell.SFireBurn])
+        public SFireBurn() : base(SpellManager.Instance.spellInformation["SFireBurn"])
         {
         }
 
@@ -28,7 +28,7 @@ namespace LearnMonoGame.Spells.Fire
                 {
                     if (c.Bounds.Intersects(my))
                     {
-                        c.ApplyEffect(SpellManager.Instance.attackInformation[EBullet.FireBurn]);
+                        c.ApplyEffect(SpellManager.Instance.attackInformation["FireBurn"]);
                         _ParticleManager.Instance.particles.Add(new SimpleParticle(_CM.GetTexture(_CM.TextureName.burn), _direction, 1f, c, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.effects), AnimationKey.burn));
 
                         timer = 0;

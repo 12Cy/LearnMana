@@ -15,7 +15,7 @@ namespace LearnMonoGame.Spells.Light
 {
     class SHolyLight : Spell
     {
-        public SHolyLight() : base(SpellManager.Instance.spellInformation[ESpell.SHolyLight])
+        public SHolyLight() : base(SpellManager.Instance.spellInformation["SHolyLight"])
         {
         }
 
@@ -28,7 +28,7 @@ namespace LearnMonoGame.Spells.Light
                 {
                     if (c.Bounds.Intersects(my))
                     {
-                        c.ApplyEffect(SpellManager.Instance.attackInformation[EBullet.HolyLight]);
+                        c.ApplyEffect(SpellManager.Instance.attackInformation["HolyLight"]);
                         _ParticleManager.Instance.particles.Add(new SimpleParticle(_CM.GetTexture(_CM.TextureName.heal), _direction, 2, c, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.effects), AnimationKey.heal));
                         timer = 0;
                         channelTimer = 0;
@@ -38,7 +38,7 @@ namespace LearnMonoGame.Spells.Light
                 if (my.Intersects(PlayerManager.Instance.MyPlayer.Bounds))
                 {
                     //Duration wie lange die Animation geht!
-                    PlayerManager.Instance.MyPlayer.ApplyEffect(SpellManager.Instance.attackInformation[EBullet.HolyLight]);
+                    PlayerManager.Instance.MyPlayer.ApplyEffect(SpellManager.Instance.attackInformation["HolyLight"]);
                     _ParticleManager.Instance.particles.Add(new SimpleParticle(_CM.GetTexture(_CM.TextureName.heal), _direction, 2, PlayerManager.Instance.MyPlayer, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.effects), AnimationKey.heal));
                     timer = 0;
                     channelTimer = 0;

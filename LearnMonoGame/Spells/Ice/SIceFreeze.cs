@@ -14,7 +14,7 @@ namespace LearnMonoGame.Spells.Ice
 {
     class SIceFreeze : Spell
     {
-        public SIceFreeze() : base(SpellManager.Instance.spellInformation[ESpell.SIceFreeze])
+        public SIceFreeze() : base(SpellManager.Instance.spellInformation["SIceFreeze"])
         {
         }
 
@@ -27,7 +27,7 @@ namespace LearnMonoGame.Spells.Ice
                 {
                     if (c.Bounds.Intersects(my))
                     {
-                        c.ApplyEffect(SpellManager.Instance.attackInformation[EBullet.IceFreeze]);
+                        c.ApplyEffect(SpellManager.Instance.attackInformation["IceFreeze"]);
                         //_ParticleManager.Instance.particles.Add(new SimpleParticle(_CM.GetTexture(_CM.TextureName.burn), _direction, 1f, c, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.effects), AnimationKey.burn));
 
                         timer = 0;

@@ -14,7 +14,7 @@ namespace LearnMonoGame.Bullets
 {
     class AreaBullet : Bullet
     {
-        public AreaBullet( Rectangle _startPosition, Vector2 _direction, Texture2D _texture, EBullet type) : base(SpellManager.Instance.bulletInformation[type], _startPosition, _direction, _texture, SpellManager.Instance.attackInformation[type])
+        public AreaBullet( Rectangle _startPosition, Vector2 _direction, Texture2D _texture, string type) : base(SpellManager.Instance.bulletInformation[type], _startPosition, _direction, _texture, SpellManager.Instance.attackInformation[type])
         {
         }
 

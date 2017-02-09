@@ -1,0 +1,28 @@
+﻿name: FireBall
+speed: 350
+size: 12;12
+range: 700
+-
+
+name: FireWall
+speed: 100
+size: 20;20
+range: 300
+triggerTime: 0,2
+-
+name: FireBurn
+speed: 0
+size: 20;20
+range: 300
+-
+name: IceLance
+speed: 500
+size: 16;19
+range: 800
+-
+name: IceTornado
+speed: 30
+size: 32;35
+range: 800
+triggerTime: 0,5
+-

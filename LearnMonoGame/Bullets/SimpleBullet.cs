@@ -13,7 +13,7 @@ namespace LearnMonoGame.Bullets
 {
     class SimpleBullet : Bullet
     {
-        public SimpleBullet(Rectangle _startPosition, Vector2 _direction, Texture2D texture, EBullet type) : base(SpellManager.Instance.bulletInformation[type],
+        public SimpleBullet(Rectangle _startPosition, Vector2 _direction, Texture2D texture, string type) : base(SpellManager.Instance.bulletInformation[type],
             _startPosition, _direction, texture,SpellManager.Instance.attackInformation[type]) //Rectangel damit wir gleich die texture skaliert haben
         {
         }
