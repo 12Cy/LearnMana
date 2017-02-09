@@ -465,6 +465,8 @@ namespace LearnMonoGame.Summoneds
 
         void ApplyEffectWithoutDelay(SAbility iMove)
         {
+            if (SpellManager.Instance.rnd.Next(101) < iMove.spellChance)
+                ApplyEffect(SpellManager.Instance.attackInformation[iMove.spell]);
 
             if (iMove.moveType == EMoveType.Attack)
             {

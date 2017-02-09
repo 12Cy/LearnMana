@@ -65,7 +65,8 @@
 
 
 [FEUER]
-
+name: Null
+-
 name: FireBall
 moveType: attack
 status: normal
@@ -73,6 +74,8 @@ element: 0;0;0;50;0;0;0
 damage: 6;10
 crit: 2;3
 critChance: 15
+spellChance: 30
+spell: FireBurn
 -
 name: FireWall
 moveType: effect

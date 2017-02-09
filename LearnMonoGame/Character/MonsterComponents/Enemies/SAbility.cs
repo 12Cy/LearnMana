@@ -57,19 +57,21 @@ namespace LearnMonoGame.Summoneds.Enemies
         public int[] mana;
         public float[] crit; //Der Schadensmulitplikator des kritischen Schaden. Der Faktor in Crit wird mit dem Schaden Mulitpliziert. Schaden *= Crit;
         public int critChance;
+        public int spellChance;
+        public string spell;
         public bool isAlive;
         public Rectangle effectArea;
         public float delay;
-        TimeSpan timeSpan;
 
         public SAbility(EMoveType _moveType, EStatus _status, Elements _elements = new Elements(), string _name = "null", int _duration = 0,
             int[] _damage = null, int[] _defense = null, int[] _attackDamage = null, int[] _attackSpeed = null, int[] _speed = null, int[] _health = null, int[] _mana = null,
             float[] _crit = null, int _critChance = 0,
-            float _trigger = 0, bool _isAlive = true, TimeSpan _timeSpan = new TimeSpan(),
-            float _delay = 0, Rectangle _effectArea = new Rectangle())
+            float _trigger = 0, bool _isAlive = true,
+            float _delay = 0, Rectangle _effectArea = new Rectangle(),int _spellChance = 0, string _spell = "FireBall")
         {
+            spell = _spell;
+            spellChance = _spellChance;
             effectArea = _effectArea;
-            timeSpan = _timeSpan;
             isAlive = _isAlive;
             trigger = _trigger;
             moveType = _moveType;
@@ -123,16 +125,6 @@ namespace LearnMonoGame.Summoneds.Enemies
         }
         public void Update(GameTime gameTime)
         {
-
-            timeSpan += gameTime.ElapsedGameTime;
-
-            if (timeSpan > TimeSpan.FromSeconds(1))
-            {
-                if (duration == 0)
-                    isAlive = false;
-                duration--;
-
-            }
         }
         public void SetDelay(GameTime gameTime)
         {

@@ -196,6 +196,8 @@ namespace LearnMonoGame.Spells
             bool isAlive = true;
             Rectangle effectArea = new Rectangle(0, 0, 0, 0);
             float delay = 0;
+            int spellChance = 0;
+            string spell = "Null";
 
             for (int line = 0; line < str.Length; ++line)
             {
@@ -208,7 +210,7 @@ namespace LearnMonoGame.Spells
                 {
                     Console.WriteLine("Create SAbility" + name);
                     attackInformation.Add(name, new SAbility(moveType, status, elements, name, duration, damage, defense, attackDamage, attackSpeed, speed, health,
-                        mana, crit, critChance, trigger, isAlive, _delay: delay, _effectArea: effectArea));
+                        mana, crit, critChance, trigger, isAlive, delay, effectArea,spellChance,spell));
 
                     name = "null";
                     moveType = EMoveType.Attack;
@@ -225,6 +227,8 @@ namespace LearnMonoGame.Spells
                     mana = new[] { 0, 0 };
                     crit = new[] { 1f, 1f }; //Der Schadensmulitplikator des kritischen Schaden. Der Faktor in Crit wird mit dem Schaden Mulitpliziert. Schaden *= Crit;
                     critChance = 0;
+                    spellChance = 0;
+                    spell = "Null";
                     isAlive = true;
                     effectArea = new Rectangle(0, 0, 0, 0);
                     delay = 0;
@@ -251,6 +255,12 @@ namespace LearnMonoGame.Spells
 
                     switch (split[0].Trim())
                     {
+                        case "spell":
+                            spell = aryValues[0];
+                            break;
+                        case "spellChance":
+                            spellChance = int.Parse(aryValues[0]);
+                            break;
                         case "name":
                             name = aryValues[0];
                             break;
