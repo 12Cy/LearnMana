@@ -25,6 +25,7 @@ channelTime: 1
 name : SFireBurn
 mana  : 10
 cooldown: 1
+range: 400
 -
 name: SFireInferno
 mana: 10

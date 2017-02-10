@@ -116,9 +116,9 @@ namespace LearnMonoGame.Summoneds
                     }
                 }
             }
-            else if(alignment == EAlignment.Player)
+            else if (alignment == EAlignment.Player)
             {
-                foreach(Character c in enemyList)
+                foreach (Character c in enemyList)
                 {
                     if (c.Bounds.Intersects(bounds))
                         return c;
@@ -204,6 +204,69 @@ namespace LearnMonoGame.Summoneds
             }
 
             return cList;
+        }
+
+        public Character CheckNearestCharacter(EAlignment alignment, Rectangle bounds)
+        {
+            Character helpChar = null;
+            float range = float.PositiveInfinity;
+            Vector2 origin = bounds.Location.ToVector2() + bounds.Size.ToVector2() / 2;
+            if (alignment == EAlignment.Enemy)
+            {
+                if ((PlayerManager.Instance.MyPlayer.Bounds.Location.ToVector2() - origin).Length() < range)
+                {
+                    helpChar = PlayerManager.Instance.MyPlayer;
+                    range = (PlayerManager.Instance.MyPlayer.Bounds.Location.ToVector2() - origin).Length();
+                }
+
+                foreach (Character c in mySummoned)
+                {
+                    if ((c.Bounds.Location.ToVector2() - origin).Length() < range)
+                    {
+                        helpChar = c;
+                        range = (c.Bounds.Location.ToVector2() - origin).Length();
+                    }
+                }
+            }
+            else if (alignment == EAlignment.Player)
+            {
+                foreach (Character c in enemyList)
+                {
+                    if ((c.Bounds.Location.ToVector2() - origin).Length() < range)
+                    {
+                        helpChar = c;
+                        range = (c.Bounds.Location.ToVector2() - origin).Length();
+                    }
+                }
+            }
+            else
+            {
+                if ((PlayerManager.Instance.MyPlayer.Bounds.Location.ToVector2() - origin).Length() < range)
+                {
+                    helpChar = PlayerManager.Instance.MyPlayer;
+                    range = (PlayerManager.Instance.MyPlayer.Bounds.Location.ToVector2() - origin).Length();
+                }
+
+                foreach (Character c in mySummoned)
+                {
+                    if ((c.Bounds.Location.ToVector2() - origin).Length() < range)
+                    {
+                        helpChar = c;
+                        range = (c.Bounds.Location.ToVector2() - origin).Length();
+                    }
+                }
+
+                foreach (Character c in enemyList)
+                {
+                    if ((c.Bounds.Location.ToVector2() - origin).Length() < range)
+                    {
+                        helpChar = c;
+                        range = (c.Bounds.Location.ToVector2() - origin).Length();
+                    }
+                }
+            }
+
+            return helpChar;
         }
 
         public static MonsterManager Instance

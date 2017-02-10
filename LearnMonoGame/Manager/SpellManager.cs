@@ -17,9 +17,11 @@ namespace LearnMonoGame.Spells
         public float cooldown;
         public float channelTime;
         public float triggerTime;
+        public int range;
 
-        public SpellInformation(int _mana = 0, float _time = 0, float _channelTime = 0, float _triggerTime = 0) // mana Abkingzeit, ChannelTime?
+        public SpellInformation(int _mana = 0, float _time = 0, float _channelTime = 0, float _triggerTime = 0, int _range = 0) // mana Abkingzeit, ChannelTime?
         {
+            range = _range;
             triggerTime = _triggerTime;
             mana = _mana;
             cooldown = _time;
@@ -360,6 +362,7 @@ namespace LearnMonoGame.Spells
             float cooldown = 0;
             float channelTime = 0;
             float triggerTime = 0;
+            int range = 0;
 
             for (int line = 0; line < str.Length; ++line)
             {
@@ -371,12 +374,13 @@ namespace LearnMonoGame.Spells
                 if (str[line][0] == '-')
                 {
                     Console.WriteLine("Create SpellInformation " + name);
-                    spellInformation.Add(name, new SpellInformation(mana, cooldown, channelTime, triggerTime));
+                    spellInformation.Add(name, new SpellInformation(mana, cooldown, channelTime, triggerTime,range));
                     name = "null";
                     mana = 0;
                     cooldown = 0;
                     channelTime = 0;
                     triggerTime = 0;
+                    range = 0;
                     continue;
                 }
 
@@ -391,11 +395,15 @@ namespace LearnMonoGame.Spells
                 {
                     switch (split[0].Trim())
                     {
+                        
                         case "name":
                             name = split[1].Trim();
                             break;
                         case "mana":
                             mana = int.Parse(split[1].Trim());
+                            break;
+                        case "range":
+                            range = int.Parse(split[1].Trim());
                             break;
                         case "cooldown":
                             cooldown = float.Parse(split[1].Trim());

@@ -24,7 +24,7 @@ namespace LearnMonoGame.Spells.Fire
         {
 
 
-            if (CastAble(me))
+            if (CastAble(me,bounds,_target))
             {
                 _BulletManager.Instance.bullets.Add(new Bullets.SimpleBullet(new Rectangle(bounds.ToPoint(), Point.Zero), _target - bounds, 
                     _CM.GetTexture(_CM.TextureName.fireball),"FireBall", alignment));

@@ -24,7 +24,7 @@ namespace LearnMonoGame.Spells.Ice
 
         public override void Cast(Vector2 bounds, Vector2 _direction, Character me)
         {
-            if (CastAble(me))
+            if (CastAble(me, bounds, _direction))
             {
                 _BulletManager.Instance.bullets.Add(new AreaBullet(new Rectangle(_direction.ToPoint(),Point.Zero),Vector2.Zero,
                     _CM.GetTexture(_CM.TextureName.tornado),"IceTornado",alignment));

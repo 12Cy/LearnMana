@@ -21,7 +21,7 @@ namespace LearnMonoGame.Spells.Ice
 
         public override void Cast(Vector2 bounds, Vector2 _direction, Character me)
         {
-            if (CastAble(me))
+            if (CastAble(me, bounds, _direction))
             {
                 Rectangle my = new Rectangle(_direction.ToPoint(), new Point(1, 1));
                 Character c = MonsterManager.Instance.CheckCollisionOne(alignment, my);
