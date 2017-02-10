@@ -37,59 +37,23 @@ namespace LearnMonoGame.Summoneds
             int i = 0;
 
             for (int y = 0; y < count; y++)
+            {
+                for (int x = 0; x < count; x++)
                 {
-                    for (int x = 0; x < count; x++)
-                    {
-                    int help = random.Next(1, 3);
-                    if (help != 1)
-                        help = -1;
-                    int help2 = random.Next(1, 3);
-                    if (help2 != 1)
-                        help2 = -1;
+                    int help = random.Next(0, 2) * 2 - 1;
+                    int help2 = random.Next(0, 2) * 2 - 1;
 
                     int nextValueX = random.Next(5, 10);
                     int nextValueY = random.Next(5, 10);
 
                     if (i >= selectedList.Count)
-                            break;
-                        selectedList[i++].PosDestination = new Vector2(mouse.X + (x - k) * 74 + nextValueX * help, mouse.Y + (y - k) * 74 + nextValueY * help2);
+                        break;
+                    selectedList[i++].PosDestination = new Vector2(mouse.X + (x - k) * 74 + nextValueX * help, mouse.Y + (y - k) * 74 + nextValueY * help2);
 
-                    }
                 }
-
-                //selectedList[0].PosDestination = mouse;
-                //if (selectedList.Count == 2)
-                //{
-                //    for (int i = 1; i < selectedList.Count; i++)
-                //    {
-                //        int help = random.Next(1, 3);
-                //        if (help != 1)
-                //            help = -1;
-                //        int help2 = random.Next(1, 3);
-                //        if (help2 != 1)
-                //            help2 = -1;
-                //
-                //        int nextValueX = random.Next(40, 64);
-                //        int nextValueY = random.Next(40, 64);
-                //
-                //
-                //
-                //        mouse.X +=  help *  nextValueX;
-                //        mouse.Y +=  help2 * nextValueY;
-                //        selectedList[i].PosDestination = mouse;
-                //        
-                //    }
-                //}
-                //else if (selectedList.Count == 3)
-                //{
-                //    Console.WriteLine("3");
-                //}
-            
-
+            }
 
         }
-
-        
 
         public static MonsterManager Instance
         {
