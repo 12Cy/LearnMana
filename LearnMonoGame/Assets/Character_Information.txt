@@ -1,0 +1,21 @@
+﻿name: Player
+speed : 120
+maxMana : 100
+width : 64
+height : 64
+-
+name: Skelett
+speed : 80
+maxHealth : 400
+maxMana : 100
+width : 64
+height : 64
+-
+name: Wolf
+speed : 100
+-
+name: Dummy
+speed : 120
+width : 64
+height : 64
+-

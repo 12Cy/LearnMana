@@ -17,7 +17,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         private int smell_distance = 320;
         private bool chaseMode = false;
 
-        public Wolf(Vector2 _pos) : base(SummonedsInformation.Instance.wolfInformation)
+        public Wolf(Vector2 _pos) : base(SummonedsInformation.Instance.characterInformation["Wolf"])
         {
             pos = _pos;
             creatureTexture = _CM.GetTexture(_CM.TextureName.wolf);

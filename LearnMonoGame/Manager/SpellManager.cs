@@ -103,6 +103,7 @@ namespace LearnMonoGame.Spells
 
         void ParseBulletInformation(string filePath)
         {
+            bulletInformation.Clear();
             string[] str = File.ReadAllLines(filePath);
 
             string name = "null";
@@ -176,6 +177,7 @@ namespace LearnMonoGame.Spells
         }
         void ParseAttackInformation(string filePath)
         {
+            attackInformation.Clear();
             string[] str = File.ReadAllLines(filePath);
 
             string name = "null";
@@ -350,6 +352,7 @@ namespace LearnMonoGame.Spells
         }
         void ParseSpellInformation(string filePath)
         {
+            spellInformation.Clear();
             string[] str = File.ReadAllLines(filePath);
 
             string name = "null";

@@ -16,7 +16,7 @@ namespace LearnMonoGame.Summoneds
     class Dummy : Character
     {
 
-        public Dummy(Vector2 _position) : base(SummonedsInformation.Instance.dummyInformation)
+        public Dummy(Vector2 _position) : base(SummonedsInformation.Instance.characterInformation["Dummy"])
         {
 
             pos = _position;

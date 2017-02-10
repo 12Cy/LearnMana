@@ -176,8 +176,8 @@ namespace LearnMonoGame.Summoneds
             width = info.Width;
             height = info.Height;
             maxHealth = info.MaxHealth;
-            attackDamage = info.Damage;
             defense = info.Defense;
+            maxMana = info.MaxMana;
 
             bounds = new Rectangle((int)pos.X, (int)pos.Y, width, height);
             level = 1;

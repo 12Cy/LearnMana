@@ -56,7 +56,7 @@ namespace LearnMonoGame.PlayerComponents
 
         #region Constructors
 
-        public Player(Vector2 _position, Texture2D _playerTexture) : base(SummonedsInformation.Instance.playerInformation)
+        public Player(Vector2 _position, Texture2D _playerTexture) : base(SummonedsInformation.Instance.characterInformation["Player"])
         {
             this.pos = new Vector2(_position.X, _position.Y);
 
@@ -84,9 +84,6 @@ namespace LearnMonoGame.PlayerComponents
 
             characterTyp = ECharacterTyp.player;
             element = EElement.none;
-
-            //Attributes
-            maxMana = SummonedsInformation.Instance.playerInformation.maxMana;
 
             attackMode = false;
 
