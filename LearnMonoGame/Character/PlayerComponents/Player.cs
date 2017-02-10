@@ -34,7 +34,7 @@ namespace LearnMonoGame.PlayerComponents
 
         //HealthBar
         Texture2D manaTexture;
-        
+
 
         //Weapon
         Vector2 rangeDestination;
@@ -115,18 +115,12 @@ namespace LearnMonoGame.PlayerComponents
 
         public override void Update(GameTime gameTime)
         {
-            spellBook.Update(gameTime);
             moveDestinationAnimation.Update(gameTime);
 
 
-            if (channelMode)
+            if (spellBook.Status == ESpellStatus.Channel)
             {
-                if (spellBook.CastChannel(gameTime, pos, xIn.MousePosition, this))
-                {
-                    spellBook.Cast(pos, xIn.MousePosition, this);
-                    attackMode = false;
-                    channelMode = false;
-                }
+                spellBook.Cast(gameTime, pos, xIn.MousePosition, this);
                 return;
             }
 
@@ -150,7 +144,7 @@ namespace LearnMonoGame.PlayerComponents
             //Vielleicht dann doch nicht ALLE. :D
             if (xIn.CheckMouseReleased(MouseButtons.Right) && attackMode)
             {
-                CastSpell(0);
+                CastSpell(gameTime);
 
             }
             if (xIn.CheckKeyReleased(Keys.D2) && attackMode)
@@ -182,7 +176,7 @@ namespace LearnMonoGame.PlayerComponents
                 hit = true;
         }
 
-        private void CastSpell(int index)
+        private void CastSpell(GameTime gTime)
         {
             rangeDestination.Normalize();
 
@@ -198,11 +192,11 @@ namespace LearnMonoGame.PlayerComponents
                 else
                     animatedSprite.CurrentAnimation = AnimationKey.WalkUp;
             }
-            if (spellBook.CheckChannel())
+            if (spellBook.Cast(gTime, pos, xIn.MousePosition, this))
                 channelMode = true;
             else
             {
-                spellBook.Cast(pos, xIn.MousePosition, this);
+                spellBook.Cast(gTime, pos, xIn.MousePosition, this);
             }
         }
 
@@ -214,12 +208,12 @@ namespace LearnMonoGame.PlayerComponents
             {//Nicht im Angriffsmodus sondern im Movemodus
 
                 //Setzt den ORIGIN! (!!!)
-                
+
                 moveDestination = new Vector2((int)PosDestination.X - width / 2, (int)posDestination.Y - height);
                 //moveDestinationAnimation.ResetAnimation();
                 isRunning = true;
                 moveDestinationAnimation.IsAnimating = true;
-                moveDestinationAnimation.Position = new Vector2(moveDestination.X + 16, moveDestination.Y +  48);
+                moveDestinationAnimation.Position = new Vector2(moveDestination.X + 16, moveDestination.Y + 48);
             }
 
             Vector2 dif = moveDestination - pos; //VerbindungsVektor
@@ -234,7 +228,7 @@ namespace LearnMonoGame.PlayerComponents
             //     moveDestinationAnimation.Draw(spritebatch);
 
             //LB
-            
+
             if (isSelected || hit)
             {
                 MouseState amouse = Mouse.GetState();
