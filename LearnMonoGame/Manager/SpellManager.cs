@@ -11,7 +11,7 @@ using static LearnMonoGame.Summoneds.Enemies.Elements;
 namespace LearnMonoGame.Spells
 {
 
-    struct SpellInformation
+    public struct SpellInformation
     {
         public int mana;
         public float cooldown;
@@ -27,7 +27,7 @@ namespace LearnMonoGame.Spells
         }
     }
 
-    struct BulletInformation
+    public struct BulletInformation
     {
         public Point size;
         public float speed;
@@ -48,7 +48,7 @@ namespace LearnMonoGame.Spells
 
     }
 
-    class SpellManager
+    public class SpellManager
     {
         public Dictionary<string, BulletInformation> bulletInformation = new Dictionary<string, BulletInformation>();
         public Dictionary<string, SAbility> attackInformation = new Dictionary<string, SAbility>();

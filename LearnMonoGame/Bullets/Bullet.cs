@@ -1,5 +1,6 @@
 ﻿using LearnMonoGame.Summoneds;
 using LearnMonoGame.Summoneds.Enemies;
+using LearnMonoGame.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -21,6 +22,7 @@ namespace LearnMonoGame.Spells
         protected Vector2 startPosition;
         protected Vector2 positon;
         protected Rectangle bounds;
+        protected EAlignment alignment;
 
         protected int width;
         protected int height;
@@ -41,8 +43,11 @@ namespace LearnMonoGame.Spells
 
         protected SAbility effect;
 
-        public Bullet(BulletInformation bulletInfo, Rectangle _startPosition, Vector2 _direction, Texture2D _texture, SAbility _effect)
+        public Bullet(BulletInformation bulletInfo, Rectangle _startPosition, Vector2 _direction, Texture2D _texture, SAbility _effect, EAlignment _alignment)
         {
+            alignment = _alignment;
+
+
             effect = _effect;
             livetimeTimer = 0;
             liveTimeTime = bulletInfo.lifetime;
@@ -67,16 +72,27 @@ namespace LearnMonoGame.Spells
             speed = bulletInfo.speed;
         }
 
+        /// <summary>
+        /// Wird ausgefüht, wenn die Bullet zerstört wird.
+        /// </summary>
         public virtual void OnExplode()
         {
 
         }
 
+        /// <summary>
+        /// Wird ausgeführt, wenn die TriggerTime ausschlägt
+        /// </summary>
         public virtual void OnTrigger()
         {
 
         }
 
+        /// <summary>
+        /// Überprüft die TimeEvents.
+        /// LifeTime und/oder TriggerTime
+        /// </summary>
+        /// <param name="gameTime"></param>
         void CheckTimeEvents(GameTime gameTime)
         {
             livetimeTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -141,21 +157,17 @@ namespace LearnMonoGame.Spells
 
         protected virtual void Collision()
         {
-            foreach (Character c in MonsterManager.Instance.enemyList)
-            {
-                Rectangle my = new Rectangle(positon.ToPoint(), new Point(width, height));
-                if (my.Intersects(c.Bounds))
-                {
-                    c.ApplyEffect(effect);
-                    alive = false;
-                }
-            }
+            Character c = MonsterManager.Instance.CheckCollisionOne(alignment, bounds);
+            if (c == null)
+                return;
+            c.ApplyEffect(effect);
+            alive = false;
 
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-                spriteBatch.Draw(texture, new Rectangle((int)positon.X, (int)positon.Y, width, height), Color.White);
+            spriteBatch.Draw(texture, new Rectangle((int)positon.X, (int)positon.Y, width, height), Color.White);
 
         }
     }

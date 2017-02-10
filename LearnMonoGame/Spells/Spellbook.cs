@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using LearnMonoGame.PlayerComponents;
 using Microsoft.Xna.Framework.Graphics;
 using LearnMonoGame.Summoneds.Enemies;
+using LearnMonoGame.Summoneds;
 
 namespace LearnMonoGame.Spells
 {
@@ -15,24 +16,27 @@ namespace LearnMonoGame.Spells
         sp_fireball,
         su_dummy,
     }
-    class Spellbook
+    public class Spellbook
     {
         public Spellbook()
         {
             maxSpell = 10;
             spell = new List<Spell>();
+            index = 0;
         }
 
         #region Atrributes
         protected int maxSpell;
         protected List<Spell> spell;
+
+        int index;
         #endregion
 
         #region Methods
-        public void Cast(Vector2 pos, Vector2 _direction, int index)
+        public void Cast(Vector2 pos, Vector2 _direction, Character me)
         {
             if (index >= 0 && index < spell.Count)
-                spell[index].Cast(pos, _direction);
+                spell[index].Cast(pos, _direction, me);
         }
 
         public void AddSpell(Spell sp)
@@ -40,15 +44,15 @@ namespace LearnMonoGame.Spells
             spell.Add(sp);
         }
 
-        public bool CastChannel(int index, GameTime gTime, Vector2 pos, Vector2 _direction)
+        public bool CastChannel(GameTime gTime, Vector2 pos, Vector2 _direction, Character me)
         {
             if (index >= 0 && index < spell.Count)
-                return spell[index].Channel(gTime, pos, _direction);
+                return spell[index].Channel(gTime, pos, _direction, me);
 
             return true;
         }
 
-        public bool CheckChannel(int index)
+        public bool CheckChannel()
         {
             if (index >= 0 && index < spell.Count)
                 return spell[index].Channel();
@@ -62,12 +66,24 @@ namespace LearnMonoGame.Spells
                 sp.Update(gTime);
         }
 
+        public void NextSpell()
+        {
+            if (index + 1 < spell.Count)
+                index++;
+        }
+
+        public void PrevSpell()
+        {
+            if (index - 1 >= 0)
+                index--;
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
 
         }
 
-        public string ToString(int index)
+        public override string ToString()
         {
             if (index >= 0 && index < spell.Count)
                 return spell[index].ToString();

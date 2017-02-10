@@ -134,7 +134,8 @@ namespace LearnMonoGame.Summoneds
         protected Vector2 origin;
 
 
-        //Weapon
+        //Weapon,Spell
+        protected Spellbook spellBook;
         protected Weapon weapon;
         protected EAlignment alignment; //Beeiflusst die Waffe, welche Ziele sie angreift.
         protected EWeaponStatus weaponStatus;
@@ -158,6 +159,8 @@ namespace LearnMonoGame.Summoneds
         public Vector2 Origin { get { return origin; } }
 
         public Vector2 PosDestination { get { return posDestination; } set { posDestination = value; } }
+
+        public float CurrMana { get { return currentMana; } }
 
 
 
@@ -196,6 +199,9 @@ namespace LearnMonoGame.Summoneds
 
             moveDestinationAnimation = new AnimatedSprite(moveAnimation, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.move));
             moveDestinationAnimation.CurrentAnimation = AnimationKey.moveClick;
+
+            //Weapon,Spell
+            spellBook = new Spellbook();
 
         }
         #endregion

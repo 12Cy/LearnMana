@@ -11,25 +11,26 @@ using LearnMonoGame.Summoneds.Enemies;
 using LearnMonoGame.PlayerComponents;
 using LearnMonoGame.Tools;
 using LearnMonoGame.Bullets;
+using LearnMonoGame.Weapons;
 
 namespace LearnMonoGame.Spells.Ice
 {
     class SIceTornado : Spell
     {
-        public SIceTornado() : base(SpellManager.Instance.spellInformation["SIceTornado"])
+        public SIceTornado(EAlignment alignment) : base(SpellManager.Instance.spellInformation["SIceTornado"], alignment)
         {
 
         }
 
-        public override void Cast(Vector2 bounds, Vector2 _direction)
+        public override void Cast(Vector2 bounds, Vector2 _direction, Character me)
         {
-            if (CastAble())
+            if (CastAble(me))
             {
                 _BulletManager.Instance.bullets.Add(new AreaBullet(new Rectangle(_direction.ToPoint(),Point.Zero),Vector2.Zero,
-                    _CM.GetTexture(_CM.TextureName.tornado),"IceTornado"));
+                    _CM.GetTexture(_CM.TextureName.tornado),"IceTornado",alignment));
                 timer = 0;
                 channelTimer = 0;
-                PlayerManager.Instance.MyPlayer.ApplyEffect(new SAbility(EMoveType.Attack, EStatus.Normal, _mana: new[] { -manaCost, -manaCost }));
+                me.ApplyEffect(new SAbility(EMoveType.Attack, EStatus.Normal, _mana: new[] { -manaCost, -manaCost }));
             }
 
 

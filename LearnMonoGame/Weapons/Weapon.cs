@@ -13,7 +13,8 @@ namespace LearnMonoGame.Weapons
     public enum EAlignment
     {
         Enemy,
-        Player
+        Player,
+        All
     }
     /// <summary>
     /// Eine Vorlage für NAHKAMPFWaffen.

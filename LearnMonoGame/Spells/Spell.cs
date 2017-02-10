@@ -8,14 +8,17 @@ using System.Threading.Tasks;
 using LearnMonoGame.PlayerComponents;
 using LearnMonoGame.Summoneds.Enemies;
 using static LearnMonoGame.Summoneds.Enemies.Elements;
+using LearnMonoGame.Weapons;
+using LearnMonoGame.Summoneds;
 
 namespace LearnMonoGame.Spells
 {
-    abstract class Spell
+    public abstract class Spell
     {
         #region Constructor
-        public Spell(SpellInformation spellInfo)
+        public Spell(SpellInformation spellInfo, EAlignment _alignment)
         {
+            alignment = _alignment;
             maxTimer = spellInfo.cooldown;
             manaCost = spellInfo.mana;
             channelMax = spellInfo.channelTime;
@@ -35,17 +38,19 @@ namespace LearnMonoGame.Spells
         protected float triggerMax;
         protected Texture2D texture;
         protected int manaCost;
+        protected EAlignment alignment;
+        private SpellInformation spellInformation;
         #endregion
 
         #region Methods
-        public abstract void Cast(Vector2 position, Vector2 _direction);
-        public virtual void OnChannel(Vector2 positiion, Vector2 _direction)
+        public abstract void Cast(Vector2 position, Vector2 _direction, Character me);
+        public virtual void OnChannel(Vector2 positiion, Vector2 _direction, Character me)
         {
 
         }
-        public bool CastAble()
+        public bool CastAble(Character me)
         {
-            if (timer >= maxTimer && channelTimer >= channelMax)
+            if (timer >= maxTimer && channelTimer >= channelMax && me.CurrMana >= manaCost)
             {
                 return true;
             }
@@ -53,7 +58,7 @@ namespace LearnMonoGame.Spells
             return false;
         }
 
-        public bool Channel(GameTime gTime, Vector2 position, Vector2 _direction)
+        public bool Channel(GameTime gTime, Vector2 position, Vector2 _direction, Character me)
         {
             channelTimer += (float)gTime.ElapsedGameTime.TotalSeconds;
             triggerTimer += (float)gTime.ElapsedGameTime.TotalSeconds;
@@ -61,7 +66,7 @@ namespace LearnMonoGame.Spells
             if (triggerTimer >= triggerMax)
             {
                 triggerTimer = 0;
-                OnChannel(position, _direction);
+                OnChannel(position, _direction, me);
             }
             return false;
         }

@@ -9,12 +9,22 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using LearnMonoGame.Summoneds;
 using LearnMonoGame.PlayerComponents;
+using LearnMonoGame.Weapons;
 
 namespace LearnMonoGame.Bullets
 {
     class AreaBullet : Bullet
     {
-        public AreaBullet( Rectangle _startPosition, Vector2 _direction, Texture2D _texture, string type) : base(SpellManager.Instance.bulletInformation[type], _startPosition, _direction, _texture, SpellManager.Instance.attackInformation[type])
+        /// <summary>
+        /// Erstellt eine Bullet, die einen ganzen Bereich abdeckt.
+        /// Beispiel: Tornado, Schutzschild etc.
+        /// </summary>
+        /// <param name="_startPosition"></param>
+        /// <param name="_direction"></param>
+        /// <param name="_texture"></param>
+        /// <param name="type"></param>
+        public AreaBullet( Rectangle _startPosition, Vector2 _direction, Texture2D _texture, string type, EAlignment alignment) : 
+            base(SpellManager.Instance.bulletInformation[type], _startPosition, _direction, _texture, SpellManager.Instance.attackInformation[type], alignment)
         {
         }
 

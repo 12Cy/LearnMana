@@ -16,6 +16,7 @@ using LearnMonoGame.Spells.Ice;
 using LearnMonoGame.Spells.Fire;
 using LearnMonoGame.Spells;
 using LearnMonoGame.Spells.Light;
+using LearnMonoGame.Weapons;
 
 namespace LearnMonoGame.PlayerComponents
 {
@@ -36,18 +37,10 @@ namespace LearnMonoGame.PlayerComponents
         
 
         //Weapon
-
-        int fireBallCost = 15;
         Vector2 rangeDestination;
         bool attackMode = false;
 
         bool channelMode = false;
-
-
-        //Spellbook
-        Spellbook spellBook;
-        int currentSpell;
-
 
 
         #endregion
@@ -56,7 +49,6 @@ namespace LearnMonoGame.PlayerComponents
 
         public bool AttackMode { get { return attackMode; } set { attackMode = value; } }
         public Spellbook Spellbook { get { return spellBook; } }
-        public int CurrentSpell { get { return currentSpell; } }
 
         #endregion
 
@@ -70,15 +62,14 @@ namespace LearnMonoGame.PlayerComponents
 
             this.creatureTexture = _playerTexture;
             spellBook = new Spellbook();
-            spellBook.AddSpell(new SFireball());
-            spellBook.AddSpell(new SFireWall());
-            spellBook.AddSpell(new SIceLance());
-            spellBook.AddSpell(new SFireBurn());
-            spellBook.AddSpell(new SHolyLight());
-            spellBook.AddSpell(new SIceTornado());
-            Spellbook.AddSpell(new SFireInferno());
-            spellBook.AddSpell(new SIceFreeze());
-            currentSpell = 0;
+            spellBook.AddSpell(new SFireball(EAlignment.Player));
+            spellBook.AddSpell(new SFireWall(EAlignment.Player));
+            spellBook.AddSpell(new SIceLance(EAlignment.Player));
+            spellBook.AddSpell(new SFireBurn(EAlignment.Player));
+            spellBook.AddSpell(new SHolyLight(EAlignment.Enemy));
+            spellBook.AddSpell(new SIceTornado(EAlignment.All));
+            Spellbook.AddSpell(new SFireInferno(EAlignment.Player));
+            spellBook.AddSpell(new SIceFreeze(EAlignment.Player));
             characterTyp = ECharacterTyp.player;
             Initialize();
         }
@@ -130,9 +121,9 @@ namespace LearnMonoGame.PlayerComponents
 
             if (channelMode)
             {
-                if (spellBook.CastChannel(currentSpell, gameTime, pos, xIn.MousePosition))
+                if (spellBook.CastChannel(gameTime, pos, xIn.MousePosition, this))
                 {
-                    spellBook.Cast(pos, xIn.MousePosition, currentSpell);
+                    spellBook.Cast(pos, xIn.MousePosition, this);
                     attackMode = false;
                     channelMode = false;
                 }
@@ -140,9 +131,9 @@ namespace LearnMonoGame.PlayerComponents
             }
 
             if (xIn.CheckKeyReleased(Keys.D3))
-                currentSpell++;
+                spellBook.NextSpell();
             if (xIn.CheckKeyReleased(Keys.D4))
-                currentSpell--;
+                spellBook.PrevSpell();
 
 
             PlayerMove(gameTime);
@@ -207,11 +198,11 @@ namespace LearnMonoGame.PlayerComponents
                 else
                     animatedSprite.CurrentAnimation = AnimationKey.WalkUp;
             }
-            if (spellBook.CheckChannel(currentSpell))
+            if (spellBook.CheckChannel())
                 channelMode = true;
             else
             {
-                spellBook.Cast(pos, xIn.MousePosition, currentSpell);
+                spellBook.Cast(pos, xIn.MousePosition, this);
             }
         }
 
