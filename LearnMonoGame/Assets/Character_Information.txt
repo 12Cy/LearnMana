@@ -12,7 +12,7 @@ width : 64
 height : 64
 -
 name: Wolf
-speed : 100
+speed : 90
 -
 name: Dummy
 speed : 120
