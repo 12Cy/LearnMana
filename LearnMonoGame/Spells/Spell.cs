@@ -26,10 +26,12 @@ namespace LearnMonoGame.Spells
             triggerMax = spellInfo.triggerTime;
             channelTimer = 0;
             timer = 0;
+            range = spellInfo.range;
         }
         #endregion
 
         #region Attributes
+        protected float range;
         protected float timer;
         protected float maxTimer;
         protected float channelTimer;
@@ -46,11 +48,15 @@ namespace LearnMonoGame.Spells
         public abstract void Cast(Vector2 position, Vector2 _direction, Character me);
         public virtual void OnChannel(Vector2 positiion, Vector2 _direction, Character me)
         {
-
+            
         }
-        public bool CastAble(Character me)
+        public bool CastAble(Character me, Vector2 positiion, Vector2 _direction)
         {
-            if (timer >= maxTimer && channelTimer >= channelMax && me.CurrMana >= manaCost)
+
+            int _range = 0;
+            if(range != 0)
+                _range = (int)(me.Bounds.Location.ToVector2() - MonsterManager.Instance.CheckNearestCharacter(alignment, new Rectangle((int)_direction.X, (int)_direction.Y, 1, 1)).Bounds.Location.ToVector2()).Length();
+            if (timer >= maxTimer && channelTimer >= channelMax && me.CurrMana >= manaCost && (range == 0 || _range < range))
             {
                 return true;
             }

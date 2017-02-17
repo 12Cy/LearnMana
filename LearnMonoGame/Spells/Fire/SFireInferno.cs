@@ -20,7 +20,7 @@ namespace LearnMonoGame.Spells.Fire
 
         public override void Cast(Vector2 bounds, Vector2 _target, Character me)
         {
-            if (CastAble(me))
+            if (CastAble(me, bounds, _target))
             {
                 me.ApplyEffect(new SAbility(EMoveType.Attack, EStatus.Normal, _mana: new[] { -manaCost, -manaCost }));
                 timer = 0;

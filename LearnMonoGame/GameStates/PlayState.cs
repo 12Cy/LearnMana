@@ -62,6 +62,7 @@ namespace LearnMonoGame.GameStates
 
 
             SpellManager.Instance.LoadInformation();
+            SummonedsInformation.Instance.LoadInformation();
             //Erstellt im Singleton die Instanz der Map
             _MapStuff.Instance.map = new Tilemap(new Texture2D[] 
             {

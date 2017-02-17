@@ -1,5 +1,8 @@
 ﻿using LearnMonoGame.Components;
 using LearnMonoGame.Manager;
+using LearnMonoGame.PlayerComponents;
+using LearnMonoGame.Spells;
+using LearnMonoGame.Spells.Fire;
 using LearnMonoGame.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,7 +22,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         int updaterate = 1500;
 
 
-        public Skelett(Vector2 _pos) : base(SummonedsInformation.Instance.skelettInformation)
+        public Skelett(Vector2 _pos) : base(SummonedsInformation.Instance.characterInformation["Skelett"])
         {
             pos = _pos;
             creatureTexture = _CM.GetTexture(_CM.TextureName.skelett);
@@ -27,6 +30,8 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             Initialize();
         }
+
+
         protected override void Initialize()
         {
             characterTyp = ECharacterTyp.enemy;
@@ -37,8 +42,11 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
             animatedSprite.CurrentAnimation = AnimationKey.WalkRight;
             animatedSprite.Position = pos;
         }
+
+
         public override void Update(GameTime gameTime)
         {
+
             MoveRandom(gameTime);
             base.Update(gameTime);
         }

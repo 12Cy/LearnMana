@@ -16,6 +16,14 @@ namespace LearnMonoGame.Spells
         sp_fireball,
         su_dummy,
     }
+
+    public enum ESpellStatus
+    {
+        NoTarget,
+        FoundTarget,
+        Channel
+    }
+
     public class Spellbook
     {
         public Spellbook()
@@ -26,17 +34,29 @@ namespace LearnMonoGame.Spells
         }
 
         #region Atrributes
+
+
+        protected ESpellStatus status;
         protected int maxSpell;
         protected List<Spell> spell;
 
         int index;
         #endregion
 
+
+        public ESpellStatus Status { get { return status; } }
+
         #region Methods
-        public void Cast(Vector2 pos, Vector2 _direction, Character me)
+        public bool Cast(GameTime gTime, Vector2 pos, Vector2 _direction, Character me)
         {
-            if (index >= 0 && index < spell.Count)
+            if (CastChannel(gTime, pos, _direction, me))
+            {
                 spell[index].Cast(pos, _direction, me);
+                status = ESpellStatus.NoTarget;
+                return true;
+            }
+            status = ESpellStatus.Channel;
+            return false;
         }
 
         public void AddSpell(Spell sp)
@@ -44,20 +64,12 @@ namespace LearnMonoGame.Spells
             spell.Add(sp);
         }
 
-        public bool CastChannel(GameTime gTime, Vector2 pos, Vector2 _direction, Character me)
+        bool CastChannel(GameTime gTime, Vector2 pos, Vector2 _direction, Character me)
         {
             if (index >= 0 && index < spell.Count)
                 return spell[index].Channel(gTime, pos, _direction, me);
 
             return true;
-        }
-
-        public bool CheckChannel()
-        {
-            if (index >= 0 && index < spell.Count)
-                return spell[index].Channel();
-
-            return false;
         }
 
         public void Update(GameTime gTime)

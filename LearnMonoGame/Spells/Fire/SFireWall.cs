@@ -21,7 +21,7 @@ namespace LearnMonoGame.Spells.Fire
 
         public override void Cast(Vector2 bounds, Vector2 _target, Character me)
         {
-            if (CastAble(me))
+            if (CastAble(me, bounds, _target))
             {
                 _BulletManager.Instance.bullets.Add(new Bullets.FireWall(new Rectangle(bounds.ToPoint(), Point.Zero), _target - bounds, 
                     _CM.GetTexture(_CM.TextureName.fireball), "FireWall", alignment));

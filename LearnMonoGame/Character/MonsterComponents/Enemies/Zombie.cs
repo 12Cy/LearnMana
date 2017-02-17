@@ -20,7 +20,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         int updaterate = 1500;
 
 
-        public Zombie(Vector2 _pos) : base(SummonedsInformation.Instance.skelettInformation)
+        public Zombie(Vector2 _pos) : base(SummonedsInformation.Instance.characterInformation["Skelett"])
         {
             pos = _pos;
             creatureTexture = _CM.GetTexture(_CM.TextureName.zombie);
