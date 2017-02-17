@@ -2,6 +2,7 @@
 using LearnMonoGame.Components;
 using LearnMonoGame.GameStates;
 using LearnMonoGame.Manager;
+using LearnMonoGame.Tools.Logger;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -38,6 +39,7 @@ namespace LearnMonoGame
         }
         public Game1()
         {
+            LogHelper.Instance.ResetAll();
             graphics = new GraphicsDeviceManager(this);
             
 

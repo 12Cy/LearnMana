@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using LearnMonoGame.Components;
 using Microsoft.Xna.Framework.Input;
 using LearnMonoGame.Manager;
+using LearnMonoGame.Tools.Logger;
 
 namespace LearnMonoGame.GameStates
 {
@@ -23,7 +24,7 @@ namespace LearnMonoGame.GameStates
 
         public TitleIntroState()
         {
-            Console.WriteLine("TITLEINTROSTATE");
+            LogHelper.Instance.Log(Logtarget.Contructor, "TitleIntroState");
         }
 
 

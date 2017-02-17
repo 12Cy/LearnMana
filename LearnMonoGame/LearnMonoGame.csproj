@@ -89,6 +89,8 @@
     <Compile Include="Information\SummonedsInformation.cs" />
     <Compile Include="Tools\AnimatedSprite.cs" />
     <Compile Include="Tools\Animation.cs" />
+    <Compile Include="Tools\Logger\LogBase.cs" />
+    <Compile Include="Tools\Logger\LogHelper.cs" />
     <Compile Include="Tools\_DebugShit.cs" />
     <Compile Include="Tools\SelectBar.cs" />
     <Compile Include="Bullets\SimpleBullet.cs" />
@@ -113,6 +115,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
+    <Content Include="LoggerOutput\ConstructorLog.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LoggerOutput\FileLog.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

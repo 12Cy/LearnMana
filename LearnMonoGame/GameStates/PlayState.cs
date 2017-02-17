@@ -19,6 +19,7 @@ using LearnMonoGame.Summoneds.Enemies.Monster;
 using LearnMonoGame.Bullets;
 using LearnMonoGame.Spells;
 using LearnMonoGame.Particle;
+using LearnMonoGame.Tools.Logger;
 
 namespace LearnMonoGame.GameStates
 {
@@ -47,6 +48,8 @@ namespace LearnMonoGame.GameStates
         {
             this.gameref = _gameref;
 
+            LogHelper.Instance.Log(Logtarget.File, "TestFeld1");
+            LogHelper.Instance.Log(Logtarget.Contructor, "PlayState");
             Console.WriteLine("PLAYSTATE");
 
         }
