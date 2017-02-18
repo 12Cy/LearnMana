@@ -385,6 +385,9 @@ namespace LearnMonoGame.Summoneds
                             {
                                 //ToDO Summoned einstellen
                             }
+
+                            //ToDo Enemys blocken Enemys
+
                             if (SAT.AreColliding(b.bounds, PlayerManager.Instance.MyPlayer.bounds))
                                 return;
                         }
@@ -397,10 +400,12 @@ namespace LearnMonoGame.Summoneds
                             {
                                 //ToDO EnemyList einstellen
                             }
+
+                            //ToDo Summoned blockt Summoned
+
                             if (SAT.AreColliding(new Rectangle((int)newPosition.X, (int)newPosition.Y, c.bounds.Width, c.bounds.Height), PlayerManager.Instance.MyPlayer.bounds))
-                            {
                                 return;
-                            }
+
                         }
                     }
                         
