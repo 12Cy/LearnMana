@@ -89,6 +89,7 @@
     <Compile Include="Information\SummonedsInformation.cs" />
     <Compile Include="Tools\AnimatedSprite.cs" />
     <Compile Include="Tools\Animation.cs" />
+    <Compile Include="Tools\Collider\SAT.cs" />
     <Compile Include="Tools\Logger\LogBase.cs" />
     <Compile Include="Tools\Logger\LogHelper.cs" />
     <Compile Include="Tools\_DebugShit.cs" />

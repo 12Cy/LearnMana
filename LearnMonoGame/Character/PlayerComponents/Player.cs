@@ -105,8 +105,6 @@ namespace LearnMonoGame.PlayerComponents
             selectedTexture = _CM.GetTexture(_CM.TextureName.selected);
             damageselectedTexture = _CM.GetTexture(_CM.TextureName.damageselect);
 
-
-
         }
 
 

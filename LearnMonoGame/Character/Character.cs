@@ -2,9 +2,11 @@
 using LearnMonoGame.Manager;
 using LearnMonoGame.Map;
 using LearnMonoGame.Particle;
+using LearnMonoGame.PlayerComponents;
 using LearnMonoGame.Spells;
 using LearnMonoGame.Summoneds.Enemies;
 using LearnMonoGame.Tools;
+using LearnMonoGame.Tools.Collider;
 using LearnMonoGame.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -157,7 +159,6 @@ namespace LearnMonoGame.Summoneds
         public int RealAttackDamage { get { return realAttackDamage; } }
         public float RealAttackSpeed { get { return realAttackSpeed; } }
         public Vector2 Origin { get { return origin; } }
-
         public Vector2 PosDestination { get { return posDestination; } set { posDestination = value; } }
 
         public float CurrMana { get { return currentMana; } }
@@ -363,7 +364,46 @@ namespace LearnMonoGame.Summoneds
                   && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(0, height))
                   && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, height)))
                 {//Ist dort keine Collision?
-
+                    if(characterTyp == ECharacterTyp.player)
+                    {
+                        foreach(Character b in MonsterManager.Instance.enemyList)
+                        {
+                            if (SAT.AreColliding(new Rectangle((int)newPosition.X, (int)newPosition.Y, this.bounds.Width, this.bounds.Height), b.bounds))
+                                return;
+                        }
+                        foreach(Character c in MonsterManager.Instance.mySummoned)
+                        {
+                            if (SAT.AreColliding(new Rectangle((int)newPosition.X, (int)newPosition.Y, this.bounds.Width, this.bounds.Height), c.bounds))
+                                return;
+                        }
+                    }
+                    if(characterTyp == ECharacterTyp.enemy)
+                    {
+                        foreach (Character b in MonsterManager.Instance.enemyList)
+                        {
+                            foreach (Character c in MonsterManager.Instance.mySummoned)
+                            {
+                                //ToDO Summoned einstellen
+                            }
+                            if (SAT.AreColliding(b.bounds, PlayerManager.Instance.MyPlayer.bounds))
+                                return;
+                        }
+                    }
+                    if(characterTyp == ECharacterTyp.summoned)
+                    {
+                        foreach(Character c in MonsterManager.Instance.mySummoned)
+                        {
+                            foreach(Character b in MonsterManager.Instance.enemyList)
+                            {
+                                //ToDO EnemyList einstellen
+                            }
+                            if (SAT.AreColliding(new Rectangle((int)newPosition.X, (int)newPosition.Y, c.bounds.Width, c.bounds.Height), PlayerManager.Instance.MyPlayer.bounds))
+                            {
+                                return;
+                            }
+                        }
+                    }
+                        
 
                     foreach (ManaSource a in _MapStuff.Instance.manaSourceList)
                     {

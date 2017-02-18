@@ -2,6 +2,7 @@
 using LearnMonoGame.Components;
 using LearnMonoGame.GameStates;
 using LearnMonoGame.Manager;
+using LearnMonoGame.Summoneds.Enemies;
 using LearnMonoGame.Tools.Logger;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -76,6 +77,9 @@ namespace LearnMonoGame
 
             MediaPlayer.IsRepeating = true;
 
+            SAbility s = new SAbility();
+            s.name = "HAllo";
+            System.Console.WriteLine(s.name);
 
 
             base.Initialize();
@@ -132,10 +136,6 @@ namespace LearnMonoGame
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-             
-
-            
 
             // TODO: Add your drawing code here
 

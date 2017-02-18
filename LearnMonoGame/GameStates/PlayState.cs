@@ -48,7 +48,6 @@ namespace LearnMonoGame.GameStates
         {
             this.gameref = _gameref;
 
-            LogHelper.Instance.Log(Logtarget.File, "TestFeld1");
             LogHelper.Instance.Log(Logtarget.Contructor, "PlayState");
             Console.WriteLine("PLAYSTATE");
 
