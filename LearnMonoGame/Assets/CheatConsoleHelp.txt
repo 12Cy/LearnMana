@@ -1,0 +1,38 @@
+﻿
+
+
+Derzeitige Befehle:
+spawn : Name : X,Y
+
+Lässt den ausgewählten Character an der Position X,Y spawnen.
+
+Bsp.: spawn : Skelett : 200,200
+Spawnt ein Skelett an der Position 200,200
+
+-----------------------------------------------
+
+destroy : id
+destroy : list
+
+Der Character mit der jeweiligen ID, oder Liste, wird zerstört
+
+destroy : SK1
+Das Skelett mit der ID SK1 wird zerstört.
+
+Hinweis:
+Skelett = SK
+Zombie = ZM
+Wolf = WF
+Dummie = DM
+enemy = Alle Gegner
+selected = Alle ausgewählten Charaktere
+mysummoned = Alle eigene Beschwörenden
+
+----------------------------------------------
+
+list : type
+
+Listet die komplette Liste vom jeweiligen Type auf.
+
+list : enemy
+Die komplette EnemyList wird aufgelistet und mit ID und Position ausgegeben.

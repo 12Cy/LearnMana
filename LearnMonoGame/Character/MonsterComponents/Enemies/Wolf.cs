@@ -22,10 +22,13 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         private bool chaseModeTrigger = false; // Player recognised 
         private bool aggroTrigger = false; // Player didnt leave Wolf alone
         private bool runTrigger = false;
-       // private bool 
+        // private bool 
+
+        static int ID = 0;
 
         public Wolf(Vector2 _pos) : base(SummonedsInformation.Instance.characterInformation["Wolf"])
         {
+            id = "WF" + ID++;
             pos = _pos;
             creatureTexture = _CM.GetTexture(_CM.TextureName.wolf);
             selectedTexture = _CM.GetTexture(_CM.TextureName.damageselect);

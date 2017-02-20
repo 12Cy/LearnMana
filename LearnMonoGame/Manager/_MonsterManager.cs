@@ -1,6 +1,7 @@
 ﻿using LearnMonoGame.Components;
 using LearnMonoGame.PlayerComponents;
 using LearnMonoGame.Summoneds.Enemies;
+using LearnMonoGame.Summoneds.Enemies.Monster;
 using LearnMonoGame.Weapons;
 using Microsoft.Xna.Framework;
 using System;
@@ -21,6 +22,98 @@ namespace LearnMonoGame.Summoneds
         public List<Character> selectedList = new List<Character>();
 
         static MonsterManager instance;
+
+        public void SpawnCharacter(string name, Vector2 position)
+        {
+            switch (name)
+            {
+                case "skelett":
+                    enemyList.Add(new Skelett(position));
+                    break;
+                case "wolf":
+                    enemyList.Add(new Wolf(position));
+                    break;
+                case "zombie":
+                    enemyList.Add(new Zombie(position));
+                    break;
+                default:
+                    Console.WriteLine("Didnt Found Character (" + name + ")");
+                    break;
+            }
+        }
+
+        public bool DestroyCharacter(string id)
+        {
+            id = id.ToUpper();
+            for(int i = 0; i < enemyList.Count; ++i)
+            {
+                if(string.Compare(enemyList[i].GetID,id) == 0)
+                {
+                    enemyList.RemoveAt(i);
+                    Console.WriteLine("Destroyed Character " + id);
+                    return true;
+                }
+            }
+
+            for (int i = 0; i < mySummoned.Count; ++i)
+            {
+                if (string.Compare(enemyList[i].GetID, id) == 0)
+                {
+                    enemyList.RemoveAt(i);
+                    Console.WriteLine("Destroyed Character " + id);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void DestroyCharacterList(string type)
+        {
+            switch (type)
+            {
+                case "enemy":
+                    enemyList.Clear();
+                    break;
+                case "mysummoned":
+                    mySummoned.Clear();
+                    break;
+                case "selected":
+                    foreach (Character c in selectedList)
+                    {
+                        DestroyCharacter(c.GetID);
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Found no List/Character of type (" + type + ")");
+                    return;
+            }
+        }
+
+        public void PrintList(string type)
+        {
+            List<Character> printList = null;
+            switch(type)
+            {
+                case "enemy":
+                    printList = enemyList;
+                    break;
+                case "mySummoned":
+                    printList = mySummoned;
+                    break;
+                case "selected":
+                    printList = selectedList;
+                    break;
+                default:
+                    Console.WriteLine("Found no List of type (" + type + ")");
+                    return;
+            }
+
+            foreach(Character c in printList)
+            {
+                Console.WriteLine(c.GetID + "  " + c.Pos);
+            }
+
+        }
 
         public void GetDestination()
         {

@@ -142,6 +142,9 @@ namespace LearnMonoGame.Summoneds
         protected EAlignment alignment; //Beeiflusst die Waffe, welche Ziele sie angreift.
         protected EWeaponStatus weaponStatus;
 
+
+        protected string id;
+
         #endregion
 
         #region properties
@@ -160,6 +163,8 @@ namespace LearnMonoGame.Summoneds
         public float RealAttackSpeed { get { return realAttackSpeed; } }
         public Vector2 Origin { get { return origin; } }
         public Vector2 PosDestination { get { return posDestination; } set { posDestination = value; } }
+
+        public string GetID { get { return id; } }
 
         public float CurrMana { get { return currentMana; } }
 

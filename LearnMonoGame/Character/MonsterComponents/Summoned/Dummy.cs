@@ -15,10 +15,10 @@ namespace LearnMonoGame.Summoneds
 {
     class Dummy : Character
     {
-
+        static int ID = 0;
         public Dummy(Vector2 _position) : base(SummonedsInformation.Instance.characterInformation["Dummy"])
         {
-
+            id = "DM" + ID++;
             pos = _position;
 
             creatureTexture = _CM.GetTexture(_CM.TextureName.skelett);

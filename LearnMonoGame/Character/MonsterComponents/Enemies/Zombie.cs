@@ -19,9 +19,12 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         private int StepsWalked = 0;
         int updaterate = 1500;
 
+        static int ID = 0;
+
 
         public Zombie(Vector2 _pos) : base(SummonedsInformation.Instance.characterInformation["Skelett"])
         {
+            id = "ZM" + ID++;
             pos = _pos;
             creatureTexture = _CM.GetTexture(_CM.TextureName.zombie);
             selectedTexture = _CM.GetTexture(_CM.TextureName.damageselect);

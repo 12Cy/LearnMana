@@ -21,9 +21,12 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         private int StepsWalked = 0;
         int updaterate = 1500;
 
+        static int ID = 0;
+
 
         public Skelett(Vector2 _pos) : base(SummonedsInformation.Instance.characterInformation["Skelett"])
         {
+            id = "SK" + ID++;
             pos = _pos;
             creatureTexture = _CM.GetTexture(_CM.TextureName.skelett);
             selectedTexture = _CM.GetTexture(_CM.TextureName.damageselect);

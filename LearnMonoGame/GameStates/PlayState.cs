@@ -31,6 +31,7 @@ namespace LearnMonoGame.GameStates
         Game1 gameref;
         SelectBar selectBar; //Selektiert die Player/Monsters
         Dictionary<AnimationKey, Animation> playerAnimations = new Dictionary<AnimationKey, Animation>(); //Speichert alle Animationen des Spielers
+        CheatConsole cheatConsole;
 
 #endregion
 
@@ -59,7 +60,7 @@ namespace LearnMonoGame.GameStates
         public void Initialize()
         {
 
-
+            cheatConsole = new CheatConsole();
             SpellManager.Instance.LoadInformation();
             SummonedsInformation.Instance.LoadInformation();
             //Erstellt im Singleton die Instanz der Map
@@ -105,6 +106,7 @@ namespace LearnMonoGame.GameStates
 
         public EGameState Update(GameTime gTime)
         {
+            cheatConsole.Update(gTime);
             _MapStuff.Instance.map.Update(gTime);
             PlayerManager.Instance.MyPlayer.Update(gTime);
             foreach (Character a in MonsterManager.Instance.mySummoned)
@@ -169,6 +171,8 @@ namespace LearnMonoGame.GameStates
         public void DrawGUI(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+
+            cheatConsole.Draw(spriteBatch);
 
             Texture2D rectangle = new Texture2D(_MapStuff.Instance.graphics, 200, 90);
             Color[] data = new Color[200 * 90];
