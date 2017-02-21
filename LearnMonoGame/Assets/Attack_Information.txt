@@ -91,7 +91,7 @@ element: 0;0;0;50;0;0;0
 damage: 2;3
 duration: 2
 delay: 1
-trigger: 0,1
+trigger: 1
 crit: 2;3
 critChance: 10
 -

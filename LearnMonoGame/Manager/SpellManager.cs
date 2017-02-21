@@ -1,4 +1,5 @@
 ﻿using LearnMonoGame.Summoneds.Enemies;
+using LearnMonoGame.Tools.Logger;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -124,7 +125,8 @@ namespace LearnMonoGame.Spells
 
                 if (str[line][0] == '-')
                 {
-                    Console.WriteLine("Create BulletInformation" + name);
+
+                    LogHelper.Instance.Log(Logtarget.ParserLog, "Create BulletInformation" + name);
                     bulletInformation.Add(name, new BulletInformation(new SAbility(), speed, size, range, lifetime, triggerTime));
                     name = "null";
                     size = new Point(12, 12);
@@ -212,7 +214,8 @@ namespace LearnMonoGame.Spells
 
                 if (str[line][0] == '-')
                 {
-                    Console.WriteLine("Create SAbility" + name);
+
+                    LogHelper.Instance.Log(Logtarget.ParserLog, "Create SAbility" + name);
                     attackInformation.Add(name, new SAbility(moveType, status, elements, name, duration, damage, defense, attackDamage, attackSpeed, speed, health,
                         mana, crit, critChance, trigger, isAlive, delay, effectArea,spellChance,spell));
 
@@ -373,7 +376,8 @@ namespace LearnMonoGame.Spells
 
                 if (str[line][0] == '-')
                 {
-                    Console.WriteLine("Create SpellInformation " + name);
+                    //Console.WriteLine("Create SpellInformation " + name);
+                    LogHelper.Instance.Log(Logtarget.ParserLog, "Create SpellInformation " + name);
                     spellInformation.Add(name, new SpellInformation(mana, cooldown, channelTime, triggerTime,range));
                     name = "null";
                     mana = 0;

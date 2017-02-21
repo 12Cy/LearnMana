@@ -10,7 +10,7 @@ namespace LearnMonoGame.Tools.Logger
 {
     public enum Logtarget
     {
-        File, Contructor, EventLog
+        File, Contructor, EventLog, ParserLog
     }
     public abstract class LogBase
     {
@@ -34,8 +34,7 @@ namespace LearnMonoGame.Tools.Logger
                 using (StreamWriter streamWriter = new StreamWriter(filePath, true))
                 {
 
-
-                    streamWriter.WriteLine(message);
+                    streamWriter.WriteLine(message+ " | Zeit: " + System.DateTime.Now.TimeOfDay);
                     streamWriter.Flush();
                     streamWriter.Close();
                 }
@@ -63,7 +62,7 @@ namespace LearnMonoGame.Tools.Logger
             //{
             using (StreamWriter streamWriter = new StreamWriter(filePath, true))
             {
-                streamWriter.WriteLine(message);
+                streamWriter.WriteLine(message + " | Zeit: " + System.DateTime.Now.TimeOfDay);
                 streamWriter.Flush();
                 streamWriter.Close();
             }
@@ -74,12 +73,41 @@ namespace LearnMonoGame.Tools.Logger
         {
             using (StreamWriter streamWriter = new StreamWriter(filePath, false))
             {
-                streamWriter.WriteLine("");
+                streamWriter.Write("");
             }
         }
 
     }
-    
+
+    public class ParserLogger : LogBase
+    {
+
+        public string filePath = "./LoggerOutput/ParserLog.txt";
+        //static StreamWriter  streamWriter = new StreamWriter("./LoggerOutput/ConstructorLog.txt");
+
+        public override void Log(string message)
+        {
+            //lock (lockobj)
+            //{
+            using (StreamWriter streamWriter = new StreamWriter(filePath, true))
+            {
+                streamWriter.WriteLine(message + " | Zeit: " + System.DateTime.Now.TimeOfDay);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+
+        }
+        public override void DeleteTextFile()
+        {
+            using (StreamWriter streamWriter = new StreamWriter(filePath, false))
+            {
+                streamWriter.Write("");
+            }
+        }
+
+    }
+
     //}
 
 
@@ -88,7 +116,7 @@ namespace LearnMonoGame.Tools.Logger
 
     public class EventLogger : LogBase
     {
-        public override void Log(string message)
+        public override void Log(string message )
         {
             lock (lockobj)
             {

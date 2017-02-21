@@ -10,6 +10,8 @@ namespace LearnMonoGame.Tools.Logger
     {
         LogBase fileLogger = new FileLogger();
         LogBase constructorLogger = new ContructorLogger();
+        LogBase ParserLogger = new ParserLogger();
+
         public void Log(Logtarget target, string message)
         {
             
@@ -20,8 +22,10 @@ namespace LearnMonoGame.Tools.Logger
                     break;
                 case (Logtarget.Contructor):
                     constructorLogger.Log(message);
-                 
                     break;
+                case (Logtarget.ParserLog):
+                ParserLogger.Log(message);
+                break;
                 case Logtarget.EventLog:
                     //logger = new EventLogger();
                     //logger.Log(message);
@@ -34,6 +38,7 @@ namespace LearnMonoGame.Tools.Logger
         {
             constructorLogger.DeleteTextFile();
             fileLogger.DeleteTextFile();
+            ParserLogger.DeleteTextFile();
         }
 
         static LogHelper instance;

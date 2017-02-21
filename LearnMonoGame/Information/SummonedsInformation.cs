@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LearnMonoGame.Tools.Logger;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -61,6 +62,7 @@ namespace LearnMonoGame.Summoneds
         public void LoadInformation()
         {
             ParseEnemyInformation("Assets/Character_Information.txt");
+
         }
 
         void ParseEnemyInformation(string filePath)
@@ -85,7 +87,8 @@ namespace LearnMonoGame.Summoneds
 
                 if (str[line][0] == '-')
                 {
-                    Console.WriteLine("Create CharacterInformations " + name);
+
+                    LogHelper.Instance.Log(Logtarget.ParserLog, "Create CharacterInformations " + name);
                     characterInformation.Add(name, new Attributes(speed,maxHealth,attackSpeed,defense,maxMana,size));
                     name = "null";
                     speed = 180;
