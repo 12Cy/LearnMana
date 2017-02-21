@@ -1,8 +1,11 @@
 ﻿using LearnMonoGame.Components;
 using LearnMonoGame.Manager;
 using LearnMonoGame.Map;
+using LearnMonoGame.Particle;
+using LearnMonoGame.Spells;
 using LearnMonoGame.Summoneds.Enemies;
 using LearnMonoGame.Tools;
+using LearnMonoGame.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -16,11 +19,11 @@ namespace LearnMonoGame.Summoneds
 {
     public class TimerMove
     {
-        public IMove effect;
+        public SAbility effect;
         double timerDuration;
         double timerTrigger;
 
-        public TimerMove(IMove _effect, float duration)
+        public TimerMove(SAbility _effect, float duration)
         {
             timerTrigger = 0;
             effect = _effect;
@@ -46,6 +49,13 @@ namespace LearnMonoGame.Summoneds
         }
     }
 
+    public enum EWeaponStatus
+    {
+        NoTarget,
+        TargetFound,
+        Channel,
+        Attack
+    }
     public enum ECharacterTyp
     {
         player,
@@ -63,6 +73,8 @@ namespace LearnMonoGame.Summoneds
 
         protected Texture2D creatureTexture;
         protected AnimatedSprite animatedSprite;
+        protected Texture2D moveAnimation;
+        protected AnimatedSprite moveDestinationAnimation;
         protected Rectangle bounds;
 
         //selected
@@ -73,7 +85,9 @@ namespace LearnMonoGame.Summoneds
 
         //Movement
         protected Vector2 pos;
-        protected Vector2 moveDestination;
+        protected Vector2 moveDestination; //Move richtung
+        protected Vector2 posDestination; // position des Ziels!
+        protected bool isRunning;
 
         //Life
         protected Texture2D lifeTexture;
@@ -117,7 +131,13 @@ namespace LearnMonoGame.Summoneds
         protected int realAttackDamage;
         protected float realDefensiv;
 
+        protected Vector2 origin;
 
+
+        //Weapon
+        protected Weapon weapon;
+        protected EAlignment alignment; //Beeiflusst die Waffe, welche Ziele sie angreift.
+        protected EWeaponStatus weaponStatus;
 
         #endregion
 
@@ -135,11 +155,15 @@ namespace LearnMonoGame.Summoneds
         public float RealDefensiv { get { return realDefensiv; } }
         public int RealAttackDamage { get { return realAttackDamage; } }
         public float RealAttackSpeed { get { return realAttackSpeed; } }
+        public Vector2 Origin { get { return origin; } }
+
+        public Vector2 PosDestination { get { return posDestination; } set { posDestination = value; } }
+
+
 
         #endregion
 
         #region Constructor
-
 
         public Character(Attributes info)
         {
@@ -165,6 +189,14 @@ namespace LearnMonoGame.Summoneds
             isSelected = false;
             hitTimer = TimeSpan.Zero;
 
+            isRunning = false;
+            moveAnimation = _CM.GetTexture(_CM.TextureName.animationClick);
+
+            this.origin = new Vector2(pos.X + width / 2, pos.Y + height / 2);
+
+            moveDestinationAnimation = new AnimatedSprite(moveAnimation, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.move));
+            moveDestinationAnimation.CurrentAnimation = AnimationKey.moveClick;
+
         }
         #endregion
 
@@ -173,8 +205,36 @@ namespace LearnMonoGame.Summoneds
         protected virtual void Initialize() { }
 
         public virtual void UnloadContent() { }
+
+        float CalculateRandomValue(int[] ary)
+        {
+            int diff = ary[1] - ary[0];
+
+            return SpellManager.Instance.rnd.Next(diff + 1) + ary[0];
+        }
+
+        float CalculateCritValue(SAbility effect)
+        {
+            int diff = (int)effect.crit[1] * 100 - (int)effect.crit[0] * 100;
+
+            float value = SpellManager.Instance.rnd.Next(diff + 1) + effect.crit[0] * 100;
+
+            if (SpellManager.Instance.rnd.Next(101) < effect.critChance)
+                return value / 100f;
+            else
+                return 1;
+
+        }
+
+        public void SetPosition(Vector2 pos)
+        {
+            bounds = new Rectangle(pos.ToPoint(), bounds.Size);
+        }
+
         public virtual void Update(GameTime gameTime)
         {
+            moveDestinationAnimation.Update(gameTime);
+            origin = new Vector2(pos.X + width / 2, pos.Y + height / 2);
 
             if (hit)
             {//Wenn der Spieler getroffen wurde, wird der LB angezeigt (für 1 Sekunde)
@@ -209,40 +269,61 @@ namespace LearnMonoGame.Summoneds
             {
                 if (effects[i].Trigger(gameTime))
                 {
-                    CalculateHealth(effects[i].effect.health);
-                    CalculateHealth(-effects[i].effect.damage);
-                    CalculateMana(effects[i].effect.mana);
+                    CalculateHealth(CalculateRandomValue(effects[i].effect.health) * CalculateCritValue(effects[i].effect));
+                    CalculateHealth(-CalculateRandomValue(effects[i].effect.damage) * CalculateCritValue(effects[i].effect));
+                    CalculateMana(CalculateRandomValue(effects[i].effect.mana) * CalculateCritValue(effects[i].effect));
                 }
 
 
                 if (effects[i].Update(gameTime))
                 {
                     ReRollEffect(effects[i].effect);
-                    effects.RemoveAt(i--);                    
+                    effects.RemoveAt(i--);
                 }
             }
 
 
             bounds = new Rectangle(pos.ToPoint(), new Point(width, height));
+
+            if (weapon != null)
+                WeaponUpdate(gameTime, alignment);
+
+        }
+
+        protected virtual void WeaponUpdate(GameTime gameTime, EAlignment alignment)
+        {
+            switch (weaponStatus)
+            {
+                case EWeaponStatus.NoTarget:
+                    if (weapon.CheckAttack(this, alignment))
+                        weaponStatus = EWeaponStatus.TargetFound;
+                    break;
+                case EWeaponStatus.TargetFound:
+                    if (!weapon.CheckAttack(this, alignment))
+                        weaponStatus = EWeaponStatus.NoTarget;
+                    break;
+                case EWeaponStatus.Channel:
+                    if (weapon.Channel(this, gameTime, alignment))
+                    {
+                        weaponStatus = EWeaponStatus.NoTarget;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         protected void Move(GameTime gameTime, Vector2 dif)
         {
-            /*MouseState aMouse = Mouse.GetState();
-
-            if (isSelected && aMouse.RightButton == ButtonState.Pressed)
-            {
-                moveDestination = new Vector2((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y);
-            }
-            Vector2 dif = moveDestination - pos; //VerbindungsVektor
-*/
             if (dif.Length() < 3f)
             {//Ziel angekommen?
 
                 moveDestination = pos;
                 dif = Vector2.Zero;
+                isRunning = false;
                 return;
             }
+
             Vector2 motion = Vector2.Normalize(dif);
 
             if (motion != Vector2.Zero)
@@ -277,12 +358,12 @@ namespace LearnMonoGame.Summoneds
                 {//Ist dort keine Collision?
 
 
-                        foreach(ManaSource a in _MapStuff.Instance.manaSourceList)
-                        {
-                            a.CheckCollisionWithManaSource(this);
-                        }
+                    foreach (ManaSource a in _MapStuff.Instance.manaSourceList)
+                    {
+                        a.CheckCollisionWithManaSource(this);
+                    }
 
-                         
+
                     animatedSprite.Position = newPosition;
                     pos = newPosition;
                     animatedSprite.IsAnimating = true;
@@ -309,8 +390,11 @@ namespace LearnMonoGame.Summoneds
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             animatedSprite.Draw(spriteBatch);
+            if(isRunning && isSelected)
+                moveDestinationAnimation.Draw(spriteBatch);
+
             //LB
-            if (isSelected || hit)
+            if (isSelected)
             {
                 /// <Lebensbalken>
                 /// Wir zeichnen zuerst  eine Background Farbe(1.Schicht), die Füllfarbe(2.Schicht), texture mit der Umrandung(3.Schicht).
@@ -322,21 +406,31 @@ namespace LearnMonoGame.Summoneds
                 spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
 
                 if (characterTyp == ECharacterTyp.summoned || characterTyp == ECharacterTyp.player)
-                    spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
+                    spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
                 else
                     spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Red);
 
                 spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
-                if (isSelected)
+
+
+                //if(isSelected)
+                //    spriteBatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
+                if (hit)
+                    spriteBatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
+                else
                     spriteBatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
 
             }
+
         }
-        /// <CalculateHealth>
-        /// need - or + Value
-        /// </CalculateHealth>
+
         public virtual void CalculateHealth(float value)
         {
+            value = (int)value;
+            if (value > 0)
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, value.ToString(), Color.GreenYellow));
+            else if (value < 0)
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, value.ToString(), Color.Red));
             currentHealth += value;
             if (currentHealth > maxHealth)
                 currentHealth = maxHealth;
@@ -349,13 +443,15 @@ namespace LearnMonoGame.Summoneds
 
 
         }
-        /// <CalculateMana>
-        /// need - or + Value
-        /// </CalculateMana>
+
         public void CalculateMana(float value)
         {
+            value = (int)value;
+            if (value > 0)
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, value.ToString(), Color.DarkBlue));
+            else if (value < 0)
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, value.ToString(), Color.LightBlue));
             currentMana += value;
-            Console.WriteLine(currentMana);
             if (currentMana > maxMana)
                 currentMana = maxMana;
 
@@ -367,36 +463,61 @@ namespace LearnMonoGame.Summoneds
 
         }
 
-        void ApplyEffectWithoutDelay(IMove iMove)
+        void ApplyEffectWithoutDelay(SAbility iMove)
         {
+            if (SpellManager.Instance.rnd.Next(101) < iMove.spellChance)
+                ApplyEffect(SpellManager.Instance.attackInformation[iMove.spell]);
 
             if (iMove.moveType == EMoveType.Attack)
             {
-                CalculateHealth(-1 * iMove.damage);
-                CalculateMana(iMove.mana);
+                CalculateHealth(-CalculateRandomValue(iMove.damage) * CalculateCritValue(iMove));
+                CalculateMana(CalculateRandomValue(iMove.mana));
             }
-                
+
             if (iMove.moveType == EMoveType.Heal)
-                CalculateHealth(iMove.health);
+                CalculateHealth(CalculateRandomValue(iMove.health) * CalculateCritValue(iMove));
             if (iMove.moveType == EMoveType.Effect)
                 effects.Add(new TimerMove(iMove, iMove.duration));
 
 
-            attackDamage += iMove.attackDamage;
-            defense += iMove.defense;
-            speed += iMove.speed;
-            attackSpeed += iMove.attackSpeed;
+
+            if (iMove.attackDamage[0] > 0)
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.attackDamage[0].ToString(), Color.OrangeRed));
+            else if (iMove.attackDamage[0] < 0)
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.attackDamage[0].ToString(), Color.Orchid));
+
+            if (iMove.defense[0] > 0)
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.defense[0].ToString(), Color.Gray));
+            else if (iMove.defense[0] < 0)
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.defense[0].ToString(), Color.DarkSeaGreen));
+
+            if (iMove.speed[0] > 0)
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.speed[0].ToString(), Color.Yellow));
+            else if (iMove.speed[0] < 0)
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.speed[0].ToString(), Color.BlueViolet));
+
+            if (iMove.attackSpeed[0] > 0)
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.attackSpeed[0].ToString(), Color.BlanchedAlmond));
+            else if (iMove.attackSpeed[0] < 0)
+                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.attackSpeed[0].ToString(), Color.AliceBlue));
+
+
+
+            attackDamage += iMove.attackDamage[0];
+            defense += iMove.defense[0];
+            speed += iMove.speed[0];
+            attackSpeed += iMove.attackSpeed[0];
         }
 
-        void ReRollEffect(IMove iMove)
+        void ReRollEffect(SAbility iMove)
         {
-            attackDamage -= iMove.attackDamage;
-            defense -= iMove.defense;
-            speed -= iMove.speed;
-            attackSpeed -= iMove.attackSpeed;
+            attackDamage -= iMove.attackDamage[0];
+            defense -= iMove.defense[0];
+            speed -= iMove.speed[0];
+            attackSpeed -= iMove.attackSpeed[0];
         }
 
-        public void ApplyEffect(IMove iMove)
+        public void ApplyEffect(SAbility iMove)
         {
             if (iMove.delay == 0)
             {

@@ -62,13 +62,17 @@ namespace LearnMonoGame.GameStates
             //Erstellt im Singleton die Instanz der Map
             _MapStuff.Instance.map = new Tilemap(new Texture2D[] 
             {
-                _CM.GetTexture(_CM.TextureName.grassTile),
-                _CM.GetTexture(_CM.TextureName.stoneTile),
-                _CM.GetTexture(_CM.TextureName.tryTrio),
-                _CM.GetTexture(_CM.TextureName.wasteland),
-                _CM.GetTexture(_CM.TextureName.wastelandflower),
-                _CM.GetTexture(_CM.TextureName.grasFlower),
-                _CM.GetTexture(_CM.TextureName.manaSource)
+                _CM.GetTexture(_CM.TextureName.stoneTile), //0
+                _CM.GetTexture(_CM.TextureName._flower1),   //1
+                _CM.GetTexture(_CM.TextureName._flower2),   //2
+                _CM.GetTexture(_CM.TextureName._grass1),    //3
+                _CM.GetTexture(_CM.TextureName._grass2),    //4
+                _CM.GetTexture(_CM.TextureName._grass3),    //5
+                _CM.GetTexture(_CM.TextureName._cheast),    //6
+                _CM.GetTexture(_CM.TextureName._water),     //7
+                _CM.GetTexture(_CM.TextureName._wood),      //8
+                _CM.GetTexture(_CM.TextureName.manaSource), //9
+                _CM.GetTexture(_CM.TextureName._stone)      //10
 
             }, 
              
@@ -83,6 +87,11 @@ namespace LearnMonoGame.GameStates
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(600, 400)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(350, 260)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(270, 450)));
+
+            MonsterManager.Instance.enemyList.Add(new Zombie(new Vector2(980, 575)));
+            MonsterManager.Instance.enemyList.Add(new Zombie(new Vector2(950, 520)));
+            MonsterManager.Instance.enemyList.Add(new Zombie(new Vector2(850, 490)));
+
             MonsterManager.Instance.enemyList.Add(new Wolf(new Vector2(1500, 450)));
             MonsterManager.Instance.enemyList.Add(new Wolf(new Vector2(1630, 550)));
             MonsterManager.Instance.enemyList.Add(new Wolf(new Vector2(1690, 150)));
@@ -181,7 +190,7 @@ namespace LearnMonoGame.GameStates
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            spriteBatch.Begin(transformMatrix: _MapStuff.Instance.camera.GetViewMatrix());
+            spriteBatch.Begin(transformMatrix: _MapStuff.Instance.camera.GetViewMatrix(),blendState: BlendState.NonPremultiplied);
             _MapStuff.Instance.map.Draw(spriteBatch);
 
             PlayerManager.Instance.MyPlayer.Draw(spriteBatch);
@@ -197,7 +206,7 @@ namespace LearnMonoGame.GameStates
                 b.Draw(spriteBatch);
 
 
-            foreach (SimpleParticle p in _ParticleManager.Instance.particles)
+            foreach (GameParticle p in _ParticleManager.Instance.particles)
                 p.Draw(spriteBatch);
 
             selectBar.Draw(spriteBatch);

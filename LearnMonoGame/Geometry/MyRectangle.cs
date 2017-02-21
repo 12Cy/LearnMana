@@ -28,7 +28,6 @@ namespace LearnMonoGame
             triangles = new Triangle[6];
             angle = ang;
             position = pos;
-            debug = Manager._CM.GetTexture(Manager._CM.TextureName.debug);
             size = new Vector2(40, 40);
             init();
         }

@@ -8,10 +8,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LearnMonoGame.Weapons;
 
 namespace LearnMonoGame.Summoneds.Enemies.Monster
 {
-    class Skelett : Character
+    class Zombie : Character
     {
         private object xin;
         private int StepsToWalk = 0;
@@ -19,13 +20,14 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         int updaterate = 1500;
 
 
-        public Skelett(Vector2 _pos) : base(SummonedsInformation.Instance.skelettInformation)
+        public Zombie(Vector2 _pos) : base(SummonedsInformation.Instance.skelettInformation)
         {
             pos = _pos;
-            creatureTexture = _CM.GetTexture(_CM.TextureName.skelett);
+            creatureTexture = _CM.GetTexture(_CM.TextureName.zombie);
             selectedTexture = _CM.GetTexture(_CM.TextureName.damageselect);
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             Initialize();
+            weapon = new Weapon(new SAbility(EMoveType.Attack, EStatus.Normal,_name:"SwordAttack", _damage: new[] { 1, 5 },_crit: new[] { 2f, 4f }, _critChance: 30),1,100);
         }
         protected override void Initialize()
         {
@@ -39,13 +41,25 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         }
         public override void Update(GameTime gameTime)
         {
-            MoveRandom(gameTime);
+            if (weaponStatus != EWeaponStatus.Channel)
+                MoveRandom(gameTime);
+
+
             base.Update(gameTime);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
 
             base.Draw(spriteBatch);
+        }
+
+        protected override void WeaponUpdate(GameTime gameTime, EAlignment alignment)
+        {
+
+            if (weaponStatus == EWeaponStatus.TargetFound)
+                weaponStatus = EWeaponStatus.Channel;
+
+            base.WeaponUpdate(gameTime, alignment);
         }
 
 

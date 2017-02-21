@@ -26,7 +26,6 @@ namespace LearnMonoGame.Tools
         Texture2D dottedLine;
 
         int size = _MapStuff.Instance.size;
-
         MouseState mPreviousMouseState;
 
         public SelectBar()
@@ -36,16 +35,15 @@ namespace LearnMonoGame.Tools
             dottedLine = _CM.GetTexture(_CM.TextureName.selectCircle);
         }
 
-
         public void Update()
         {
             MouseState aMouse = Mouse.GetState();
             //StartLocation !
             if (aMouse.LeftButton == ButtonState.Pressed && mPreviousMouseState.LeftButton == ButtonState.Released)
+            {
                 mSelectionBox = new Rectangle((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y, 0, 0);
-
+            }
                 
-
 
             //still pressed- re-size where the mouse has currently been moved to.
             if (aMouse.LeftButton == ButtonState.Pressed)
@@ -58,8 +56,12 @@ namespace LearnMonoGame.Tools
                 foreach (Character a in MonsterManager.Instance.enemyList)
                     a.IsSelect = false;
 
+                MonsterManager.Instance.selectedList.Clear();
+
                 mSelectionBox = new Rectangle(mSelectionBox.X, mSelectionBox.Y, (int)xIn.MousePosition.X - mSelectionBox.X, (int)xIn.MousePosition.Y - mSelectionBox.Y);
             }
+            if(aMouse.RightButton == ButtonState.Pressed && mPreviousMouseState.RightButton == ButtonState.Released)
+                MonsterManager.Instance.GetDestination();
             //Store the previous mouse state
             mPreviousMouseState = aMouse;
           
@@ -85,6 +87,7 @@ namespace LearnMonoGame.Tools
                 playerBounds = new Rectangle((int)PlayerManager.Instance.MyPlayer.Pos.X, (int)PlayerManager.Instance.MyPlayer.Pos.Y, PlayerManager.Instance.MyPlayer.Width, PlayerManager.Instance.MyPlayer.Height);
                 if (mSelectionBox.Intersects(playerBounds))//player.Pos.X > mSelectionBox.X && player.Pos.X < mSelectionBox.X + mSelectionBox.Width && player.Pos.Y > mSelectionBox.Y && player.Pos.Y < mSelectionBox.Y + mSelectionBox.Height)
                 {
+                    MonsterManager.Instance.selectedList.Add(PlayerManager.Instance.MyPlayer);
                     PlayerManager.Instance.MyPlayer.IsSelect = true;
                     isFriend = true;
                    //mSelectionBox = new Rectangle(-1, -1, 0, 0); //defaultWert
@@ -96,28 +99,30 @@ namespace LearnMonoGame.Tools
                     Rectangle summonRectangle = new Rectangle((int)a.Pos.X, (int)a.Pos.Y, a.Width, a.Height);
                     if (mSelectionBox.Intersects(summonRectangle))
                     {
+                        MonsterManager.Instance.selectedList.Add(a);
                         a.IsSelect = true;
                         isFriend = true;
                     }
-                        
-
                 }
+
                 if (!isFriend)
                 {
                     foreach (Character a in MonsterManager.Instance.enemyList)
                     {
                         Rectangle summonRectangle = new Rectangle((int)a.Pos.X, (int)a.Pos.Y, a.Width, a.Height);
                         if (mSelectionBox.Intersects(summonRectangle))
+                        {
+                            MonsterManager.Instance.selectedList.Add(a);
                             a.IsSelect = true;
-
+                        }
+                            
                     }
                 }
+                
                 mSelectionBox = new Rectangle(-1, -1, 0, 0); //wenn der Spieler nicht im Bereich war Reset!
             }
 
         }
-
-
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -127,7 +132,6 @@ namespace LearnMonoGame.Tools
             DrawVerticalLine(mSelectionBox.X, spriteBatch);
             DrawVerticalLine(mSelectionBox.X + mSelectionBox.Width, spriteBatch);
         }
-
 
         private void DrawHorizontalLine(int thePositionY, SpriteBatch spriteBatch)
         {
@@ -155,8 +159,6 @@ namespace LearnMonoGame.Tools
                 }
             }
         }
-
-
         private void DrawVerticalLine(int thePositionX, SpriteBatch spriteBatch)
         {
             if (mSelectionBox.Height > 0)

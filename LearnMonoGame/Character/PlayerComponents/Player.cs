@@ -33,6 +33,7 @@ namespace LearnMonoGame.PlayerComponents
 
         //HealthBar
         Texture2D manaTexture;
+        
 
         //Weapon
 
@@ -65,7 +66,8 @@ namespace LearnMonoGame.PlayerComponents
 
         public Player(Vector2 _position, Texture2D _playerTexture) : base(SummonedsInformation.Instance.playerInformation)
         {
-            this.pos = _position;
+            this.pos = new Vector2(_position.X, _position.Y);
+
             this.creatureTexture = _playerTexture;
             spellBook = new Spellbook();
             spellBook.AddSpell(new SFireball());
@@ -77,6 +79,7 @@ namespace LearnMonoGame.PlayerComponents
             Spellbook.AddSpell(new SFireInferno());
             spellBook.AddSpell(new SIceFreeze());
             currentSpell = 0;
+            characterTyp = ECharacterTyp.player;
             Initialize();
         }
 
@@ -101,6 +104,8 @@ namespace LearnMonoGame.PlayerComponents
             animatedSprite.CurrentAnimation = AnimationKey.WalkRight;
             animatedSprite.Position = pos;
 
+
+
             //Life & Mana
             currentMana = maxMana;
 
@@ -120,12 +125,15 @@ namespace LearnMonoGame.PlayerComponents
         public override void Update(GameTime gameTime)
         {
             spellBook.Update(gameTime);
+            moveDestinationAnimation.Update(gameTime);
+
 
             if (channelMode)
             {
-                if (spellBook.CastChannel(currentSpell, gameTime,pos, xIn.MousePosition))
+                if (spellBook.CastChannel(currentSpell, gameTime, pos, xIn.MousePosition))
                 {
                     spellBook.Cast(pos, xIn.MousePosition, currentSpell);
+                    attackMode = false;
                     channelMode = false;
                 }
                 return;
@@ -214,7 +222,13 @@ namespace LearnMonoGame.PlayerComponents
             if (IsSelect && aMouse.RightButton == ButtonState.Pressed && !(attackMode))
             {//Nicht im Angriffsmodus sondern im Movemodus
 
-                moveDestination = new Vector2((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y);
+                //Setzt den ORIGIN! (!!!)
+                
+                moveDestination = new Vector2((int)PosDestination.X - width / 2, (int)posDestination.Y - height);
+                //moveDestinationAnimation.ResetAnimation();
+                isRunning = true;
+                moveDestinationAnimation.IsAnimating = true;
+                moveDestinationAnimation.Position = new Vector2(moveDestination.X + 16, moveDestination.Y +  48);
             }
 
             Vector2 dif = moveDestination - pos; //VerbindungsVektor
@@ -224,9 +238,12 @@ namespace LearnMonoGame.PlayerComponents
 
         public override void Draw(SpriteBatch spritebatch)
         {
-            animatedSprite.Draw(spritebatch);
+            //animatedSprite.Draw(spritebatch);
+            //if(isRunning && isSelected)
+            //     moveDestinationAnimation.Draw(spritebatch);
 
             //LB
+            
             if (isSelected || hit)
             {
                 MouseState amouse = Mouse.GetState();
@@ -238,25 +255,30 @@ namespace LearnMonoGame.PlayerComponents
                 /// (SourceRectangle) :  Geht vom äußeren Rectangle aus(DesitinationRectangle)
                 ///  (2.Schicht) :  nehme die diff und verkleinere so die größe der Schicht.
                 /// </Lebensbalken>
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height /3 + 9 , width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height /3 + 9 , (int)(width * ((float)currentMana / maxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 3 + 9, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 3 + 9, (int)(width * ((float)currentMana / maxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
                 spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 3 + 9, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
 
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5 , width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X,  (int)pos.Y - height / 4 - 5 , (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
-                spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5 , width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
-                if (hit)
-                    spritebatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
-                else
-                    spritebatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
+                //spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                //spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
+                //spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+
+                //if (hit)
+                //    spritebatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
+                //else
+                //    spritebatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
 
             }
+            base.Draw(spritebatch);
 
         }
 
 
 
-        #endregion
+
 
     }
+    #endregion
+
+
 }

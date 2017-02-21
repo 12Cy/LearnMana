@@ -13,7 +13,7 @@ namespace LearnMonoGame.Spells.Fire
 {
     class SFireWall : Spell
     {
-        public SFireWall() : base(SpellManager.Instance.spellInformation[ESpell.SFireWall])
+        public SFireWall() : base(SpellManager.Instance.spellInformation["SFireWall"])
         {
         }
 
@@ -21,10 +21,10 @@ namespace LearnMonoGame.Spells.Fire
         {
             if (CastAble())
             {
-                _BulletManager.Instance.bullets.Add(new Bullets.FireWall(new Rectangle(bounds.ToPoint(), Point.Zero), _target - bounds, _CM.GetTexture(_CM.TextureName.fireball), EBullet.FireWall));
+                _BulletManager.Instance.bullets.Add(new Bullets.FireWall(new Rectangle(bounds.ToPoint(), Point.Zero), _target - bounds, _CM.GetTexture(_CM.TextureName.fireball), "FireWall"));
                 timer = 0;
                 channelTimer = 0;
-                PlayerManager.Instance.MyPlayer.ApplyEffect(new IMove(EMoveType.Attack, EStatus.Normal, _mana: -manaCost));
+                PlayerManager.Instance.MyPlayer.ApplyEffect(new SAbility(EMoveType.Attack, EStatus.Normal, _mana: new[] { -manaCost, -manaCost }));
             }
 
 

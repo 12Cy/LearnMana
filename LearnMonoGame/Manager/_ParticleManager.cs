@@ -1,4 +1,6 @@
 ﻿using LearnMonoGame.Particle;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +9,17 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Manager
 {
+    public abstract class GameParticle
+    {
+        public bool alive;
+
+        public abstract void Update(GameTime gTime);
+        public abstract void Draw(SpriteBatch spriteBatch);
+    }
+
     class _ParticleManager
     {
-        public List<SimpleParticle> particles = new List<SimpleParticle>();
+        public List<GameParticle> particles = new List<GameParticle>();
 
 
         static _ParticleManager instance;

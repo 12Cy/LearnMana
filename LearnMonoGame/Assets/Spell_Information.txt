@@ -1,0 +1,52 @@
+﻿[Vor Gebrauch BITTE LESEN!!!]
+[Hier können folgende Werte für die Spells angepasst werde]
+[Folgende Datentypen können dabei gesetzt werden]
+
+[name ... Der Name des Zaubers. ACHTUNG: Keine Namen von bereits implementierten Zauber ändern!!!]
+[mana(Ganzzahlig) ... Die ManaKosten eines Dauer]
+[cooldown(Gleitkommazahl) ... Die Abklingzeit des Zaubers]
+[channelTime(Gleitkommazahl) ... Die Kanalisierungszeit des Zaubers]
+[triggerTime(Gleitkommazahl) ... Die Tickrate während des Kanalisieren. Beispiel SFireInferno]
+
+[Syntax: DatenTyp : Value]
+[Beispiel: mana : 10]
+
+
+[Feuer]
+name: SFireBall
+mana: 10
+cooldown: 1
+-
+name: SFireWall
+mana   : 10
+cooldown  : 1
+channelTime: 1
+-
+name : SFireBurn
+mana  : 10
+cooldown: 1
+-
+name: SFireInferno
+mana: 10
+cooldown: 1
+channelTime: 1
+triggerTime: 0,1
+-
+[Ice]
+name: SIceLance
+mana: 50
+cooldown: 1
+-
+name: SIceTornado
+mana: 10
+cooldown: 1
+-
+name: SIceFreeze
+mana: 10
+cooldown: 1
+-
+[Holy]
+name:SHolyLight
+mana: 10
+cooldown: 1
+-

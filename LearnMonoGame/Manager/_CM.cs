@@ -48,6 +48,7 @@ namespace LearnMonoGame.Manager
             textureDictionary.Add(TextureName.selectCircle, Content.Load<Texture2D>("Select//Circle"));
             textureDictionary.Add(TextureName.damageselect, Content.Load<Texture2D>("Select//Damageselected"));
             textureDictionary.Add(TextureName.malePlayer, Content.Load<Texture2D>("Player//maleplayer"));
+            textureDictionary.Add(TextureName.animationClick, Content.Load<Texture2D>("Select//MoveAnimationClick"));
 
             //IMoves
             textureDictionary.Add(TextureName.heal, Content.Load<Texture2D>("IMove//Heal-sheet128x128"));
@@ -73,9 +74,21 @@ namespace LearnMonoGame.Manager
             textureDictionary.Add(TextureName.manaSource, Content.Load<Texture2D>("Map//Tiles//ManaSource74x64"));
             textureDictionary.Add(TextureName.manaSourceAnimation, Content.Load<Texture2D>("Map//Tiles//ManaSourceAnimation96x96"));
 
+            textureDictionary.Add(TextureName._flower1, Content.Load<Texture2D>("Map//Tiles//TestFiles//Flower74x64"));
+            textureDictionary.Add(TextureName._flower2, Content.Load<Texture2D>("Map//Tiles//TestFiles//Flower274x64"));
+            textureDictionary.Add(TextureName._grass1, Content.Load<Texture2D>("Map//Tiles//TestFiles//Grass2_74x64"));
+            textureDictionary.Add(TextureName._grass2, Content.Load<Texture2D>("Map//Tiles//TestFiles//Grass3_74x64"));
+            textureDictionary.Add(TextureName._grass3, Content.Load<Texture2D>("Map//Tiles//TestFiles//Grass74x64"));
+            textureDictionary.Add(TextureName._stone, Content.Load<Texture2D>("Map//Tiles//TestFiles//Stones_74x64"));
+            textureDictionary.Add(TextureName._cheast, Content.Load<Texture2D>("Map//Tiles//TestFiles//KisteGrass_74x64"));
+            textureDictionary.Add(TextureName._water, Content.Load<Texture2D>("Map//Tiles//TestFiles//Water74x64"));
+            textureDictionary.Add(TextureName._wood, Content.Load<Texture2D>("Map//Tiles//TestFiles//Wood_74x64"));
+
 
             //Monster
             textureDictionary.Add(TextureName.wolf, Content.Load<Texture2D>("Monster//Wolf"));
+            textureDictionary.Add(TextureName.skelett, Content.Load<Texture2D>("Monster//Skelett"));
+            textureDictionary.Add(TextureName.zombie, Content.Load<Texture2D>("Monster//Zombie"));
 
 
             //Spells
@@ -90,6 +103,7 @@ namespace LearnMonoGame.Manager
         static void LoadFont()
         {
             fontDictionary.Add(FontName.Arial, Content.Load<SpriteFont>("Font//Arial"));
+            fontDictionary.Add(FontName.DamagePopUp, Content.Load<SpriteFont>("Font//DamagePopUp"));
         }
 
 
@@ -120,11 +134,25 @@ namespace LearnMonoGame.Manager
             malePlayer,
             manaSource,
             manaSourceAnimation,
+            skelett,
+            zombie,
+            animationClick,
+            //TestArea
+            _flower1,
+            _flower2,
+            _grass1,
+            _grass2,
+            _grass3,
+            _cheast,
+            _water,
+            _wood,
+            _stone,
                 
         }
         public enum FontName
         {
             Arial,
+            DamagePopUp
 
         }
 

@@ -12,7 +12,7 @@ namespace LearnMonoGame.Spells.Fire
 {
     class SFireInferno : Spell
     {
-        public SFireInferno() : base(SpellManager.Instance.spellInformation[ESpell.SFireInferno])
+        public SFireInferno() : base(SpellManager.Instance.spellInformation["SFireInferno"])
         {
         }
 
@@ -30,8 +30,8 @@ namespace LearnMonoGame.Spells.Fire
             Vector2 dir = _target - bounds;
             float angle = SpellManager.Instance.rnd.Next(-10, 10);
             dir = rotate(dir, MathHelper.ToRadians(angle));
-            PlayerManager.Instance.MyPlayer.ApplyEffect(new IMove(EMoveType.Attack, EStatus.Normal, _mana: -manaCost));
-            _BulletManager.Instance.bullets.Add(new Bullets.SimpleBullet(new Rectangle(bounds.ToPoint(), Point.Zero), dir, _CM.GetTexture(_CM.TextureName.fireball), EBullet.FireBall));
+            PlayerManager.Instance.MyPlayer.ApplyEffect(new SAbility(EMoveType.Attack, EStatus.Normal, _mana: new[] { -manaCost, -manaCost }));
+            _BulletManager.Instance.bullets.Add(new Bullets.SimpleBullet(new Rectangle(bounds.ToPoint(), Point.Zero), dir, _CM.GetTexture(_CM.TextureName.fireball), "FireBall"));
         }
 
         Vector2 rotate(Vector2 vec, float angle)

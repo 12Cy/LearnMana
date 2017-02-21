@@ -1,0 +1,136 @@
+﻿[Vor Gebrauch BITTE LESEN!!!]
+[Alle Datentypen mit dem Zusatz {Array} beschreiben einen Bereich. Folgende Syntax wird verwendet]
+[DatenTyp : MinValue ; MaxValue]
+[Nach einem Zauber mit einem '-' in einer neuen Zeile trennen]
+[Hier können folgende Werte für die Spells angepasst werde]
+[Folgende Datentypen können dabei gesetzt werden]
+
+
+[moveType ... WERTEBEREICH{attack, heal, effect, status}]
+	[attack => SpontanZauber]
+	[heal => HeilungsZauber ... Kann auch mit Attack genutzt werden]
+	[effect => BuffZauber]
+	[status => StatusZauber ... Noch Experimentell bzw. Platzhalter und eventuell noch Buggy]
+
+[status ... WERTEBEREICH{normal, sleep, paralysis} ACHTUNG: Platzhalter und ist noch nicht implementiert.]
+	[normal => Der Angriff verändert nichts]
+	[sleep => Der Spieler wird eingeschläfert]
+	[paralysis => Der Spieler wird paralysiert]
+
+[element ... Gibt die Element-Eigenschaften des Angriffs an.]
+	[ACHTUNG SPEZIELLE SYNTAX!]
+	[element : dark,earth,light,fire,water,nature,ice ]
+	[WERTEBEREICH{0-100}]
+	[Beispiel:   element : 0;0;30;60;0;0;10]
+	[Der Zauber hätte die Element Eigenschaften: 30-Licht, 60-Feuer und 10-Ice.]
+	[Alle anderen haben 0]
+
+[name ... Name des Angriffs. ACHTUNG, bei bereits implementierten Angriffen nicht mehr ändern.]
+[Wenn doch geändert werden muss, bitte mit Johannes absprechen.]
+
+[duration(Ganzzahlig) ... Wie langer der Angriff als Buff wirken soll]
+
+[trigger(Gleitkommazahl) ... In welchen Abständen der Buff z.B. Schaden triggern soll]
+	[trigger : 0,1 bedeutet alle 0,1s wird Schaden/Leben... ausgeführt, solange der Buff steht]
+
+[damage(Ganzzahlig){Array} ... Der zugefügte Schaden, sowohl für Angriffs- als auch BuffAngriffe]
+
+[defense(Ganzzahlig){Array} ... Die Veränderung des VerteidigungWertes]
+
+[attackDamage(Ganzzahlig){Array} ... Der AngriffsSchaden wird verändert]
+
+[attackSpeed(Ganzzahlig){Array} ... Die AngriffsGeschwindigskeit wird verändert]
+
+[speed(Ganzzahlig){Array} ... Die Laufgeschwidngikeit wird verändert]
+
+[health(Ganzzahlig){Array} ... Das zugefügte Leben]
+
+[mana(Ganzzahlig){Array} ... Das zugefügte(+/-) Mana]
+
+[{crit(Gleitkommazahl){Array} ... Der Multiplikator bei einem kritischen Treffer.]
+	[crit : 2,2;3,5 ... Der ZauberSchaden wird bei einem kritischen Treffer mit einem Wert zwischen 2,2 und 3,5 Multipliziert]
+
+[critChance(Ganzzahlig) ... Die kritische TrefferChance.]
+	[WERTEBEREICH{0-100}]
+
+[effectArea ... Wenn der Effekt alle Charaktere in einem Bereich, beeinflussen soll]
+	[ACHTUNG SPEZIELLE SYNTAX!]
+	[effectArea : SIZEX, SIZEY]
+	[SIZEX ... Ausdehnung in X-Richtung]
+	[SIZEY ... Ausdehnung in Y-Richtung]
+
+[delay(Gleitkommazahl) ... Gibt die Verzögerung des Angriffs an.]
+
+
+
+
+[FEUER]
+name: Null
+-
+name: FireBall
+moveType: attack
+status: normal
+element: 0;0;0;50;0;0;0
+damage: 6;10
+crit: 2;3
+critChance: 15
+spellChance: 30
+spell: FireBurn
+-
+name: FireWall
+moveType: effect
+status: normal
+element: 0;0;0;50;0;0;0
+damage: 2;3
+duration: 5
+-
+name: FireBurn
+moveType: effect
+status: normal
+element: 0;0;0;50;0;0;0
+damage: 2;3
+duration: 2
+delay: 1
+trigger: 0,1
+crit: 2;3
+critChance: 10
+-
+
+[ICE]
+
+name: IceFreeze
+moveType: effect
+status: normal
+element: 0;0;0;0;0;0;80
+duration: 4
+speed: -40;-60
+attackSpeed: 6; 10
+-
+name: IceLance
+moveType: effect
+status: normal
+duration: 1
+speed: -100;-200
+trigger: 0,5
+element: 0;0;0;0;0;0;50
+damage: 6;10
+-
+name: IceTornado
+moveType: effect
+status: normal
+element: 0;0;0;0;0;0;70
+damage: 1;1
+speed: -50;-70
+duration: 1
+trigger: 0,2
+effectArea: 32;32
+-
+
+[Light]
+name: HolyLight
+moveType: heal
+status: normal
+element: 0;0;100;0;0;0;0
+health: 10;50
+delay: 2
+-

@@ -45,42 +45,66 @@ namespace LearnMonoGame.Map
             {
                 for (int x = 0; x < _tileMap.GetLength(0); x++)
                 {
-                    if (colores[y * _tileMap.GetLength(0) + x] == Color.White) //Weiß = Gras auf der TileMap
-                    {
-                        _tileMap[x, y, 0] = new Tile(textures[0], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
-                    }
-                    else if (colores[y * _tileMap.GetLength(0) + x] == new Color(0, 162, 232, 255))
-                    {
-                        _tileMap[x, y, 0] = new Tile(textures[2], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
-                    }
-                    else if (colores[y * _tileMap.GetLength(0) + x] == Color.Red)
+                    if (colores[y * _tileMap.GetLength(0) + x] == Color.White) //Weiß = Gras auf der TileMap  //Grass1
                     {
                         _tileMap[x, y, 0] = new Tile(textures[3], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
                     }
-                    else if (colores[y * _tileMap.GetLength(0) + x] == new Color(40, 255, 0))
+
+                    else if (colores[y * _tileMap.GetLength(0) + x] == new Color(0, 162, 232)) //STONE BLAU
+                    {
+                        _tileMap[x, y, 0] = new Tile(textures[10], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
+                    }
+
+                    else if (colores[y * _tileMap.GetLength(0) + x] == new Color(255, 121, 0)) //Grass2 ORANGE
                     {
                         _tileMap[x, y, 0] = new Tile(textures[4], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
                     }
-                    else if (colores[y * _tileMap.GetLength(0) + x] == new Color(255, 0, 182))
+
+                    else if (colores[y * _tileMap.GetLength(0) + x] == new Color(255, 0, 182)) //Grass3 PINK
                     {
                         _tileMap[x, y, 0] = new Tile(textures[5], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
+                    }
+
+                    else if (colores[y * _tileMap.GetLength(0) + x] == Color.Red) //flower1
+                    {
+                        _tileMap[x, y, 0] = new Tile(textures[1], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
+                    }
+
+                    else if (colores[y * _tileMap.GetLength(0) + x] == new Color(40, 255, 0)) //Flower2
+                    {
+                        _tileMap[x, y, 0] = new Tile(textures[2], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
+                    }
+
+                    else if (colores[y * _tileMap.GetLength(0) + x] == new Color(0, 251, 154)) //Water
+                    {
+                        _tileMap[x, y, 0] = new Tile(textures[7], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
+                    }
+
+                    else if (colores[y * _tileMap.GetLength(0) + x] == new Color(128, 249, 0)) //WoodFloor
+                    {
+                        _tileMap[x, y, 0] = new Tile(textures[8], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
+                    }
+
+                    else if (colores[y * _tileMap.GetLength(0) + x] == new Color(0, 20, 255)) //Chest
+                    {
+                        _tileMap[x, y, 0] = new Tile(textures[6], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.Terrain);
                     }
 
                     //ManaSource
                     else if (colores[y * _tileMap.GetLength(0) + x] == new Color(222,255,0))//FARBE EINGEBEN)
                     {
-                        _tileMap[x, y, 0] = new Tile(textures[6], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.manaSource);
+                        _tileMap[x, y, 0] = new Tile(textures[9], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.manaSource);
                         _MapStuff.Instance.manaSourceList.Add(new ManaSource(new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y)));
                     }
 
 
                     else //sonst Stein
                     {
-                        _tileMap[x, y,0] = new Tile(textures[1], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.stone);
-                        _tileMap[x, y, 1] = new Tile(textures[1], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y - 2*_tileSize.Y), ETile.stone);
-                        _tileMap[x, y, 2] = new Tile(textures[1], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y - 4 * _tileSize.Y), ETile.stone);
-                        _tileMap[x, y, 3] = new Tile(textures[1], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y - 6 * _tileSize.Y), ETile.stone);
-                        _tileMap[x, y, 4] = new Tile(textures[1], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y - 8 * _tileSize.Y), ETile.stone);
+                        _tileMap[x, y,0] = new Tile(textures[0], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y), ETile.stone);
+                        _tileMap[x, y, 1] = new Tile(textures[0], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y - 2*_tileSize.Y), ETile.stone);
+                        _tileMap[x, y, 2] = new Tile(textures[0], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y - 4 * _tileSize.Y), ETile.stone);
+                        _tileMap[x, y, 3] = new Tile(textures[0], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y - 6 * _tileSize.Y), ETile.stone);
+                        _tileMap[x, y, 4] = new Tile(textures[0], new Vector2(x * _tileSize.X + (_tileSize.X / 2 * (y % 2)), y * _tileSize.Y - 8 * _tileSize.Y), ETile.stone);
 
                     }
                 }

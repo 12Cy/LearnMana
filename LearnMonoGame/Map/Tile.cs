@@ -36,8 +36,6 @@ namespace LearnMonoGame.Map
         public void Draw(SpriteBatch spritebatch)
         {
             spritebatch.Draw(_texture, _position, Color.White);
-
-
         }
         public bool Walkable()
         {

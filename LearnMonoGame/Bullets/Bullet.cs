@@ -39,9 +39,9 @@ namespace LearnMonoGame.Spells
 
         protected Vector2 direction;
 
-        protected IMove effect;
+        protected SAbility effect;
 
-        public Bullet(BulletInformation bulletInfo, Rectangle _startPosition, Vector2 _direction, Texture2D _texture, IMove _effect)
+        public Bullet(BulletInformation bulletInfo, Rectangle _startPosition, Vector2 _direction, Texture2D _texture, SAbility _effect)
         {
             effect = _effect;
             livetimeTimer = 0;

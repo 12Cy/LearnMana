@@ -14,7 +14,6 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
 {
     class Wolf : Character
     {
-        private object xin;
         private int smell_distance = 320;
         private bool chaseMode = false;
 

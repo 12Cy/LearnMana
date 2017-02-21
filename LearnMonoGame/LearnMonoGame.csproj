@@ -43,11 +43,10 @@
   <ItemGroup>
     <Compile Include="Bullets\AreaBullet.cs" />
     <Compile Include="Bullets\FireWall.cs" />
+    <Compile Include="Character\MonsterComponents\Enemies\Zombie.cs" />
     <Compile Include="Character\MonsterComponents\Enemies\Wolf.cs" />
-    <Compile Include="Editor\EditorState.cs" />
-    <Compile Include="GraphicClasses\Line.cs" />
-    <Compile Include="GraphicClasses\MathHelper.cs" />
-    <Compile Include="GraphicClasses\Sprite.cs" />
+    <Compile Include="Geometry\MyRectangle.cs" />
+    <Compile Include="Geometry\Triangle.cs" />
     <Compile Include="Manager\_BulletManager.cs" />
     <Compile Include="Components\Camera.cs" />
     <Compile Include="Components\xIn.cs" />
@@ -66,6 +65,7 @@
     <Compile Include="Character\PlayerComponents\Player.cs" />
     <Compile Include="Character\PlayerComponents\PlayerManager.cs" />
     <Compile Include="Bullets\Bullet.cs" />
+    <Compile Include="Particle\PopUpText.cs" />
     <Compile Include="Particle\SimpleParticle.cs" />
     <Compile Include="Spells\Fire\SFireBurn.cs" />
     <Compile Include="Spells\Fire\SFireInferno.cs" />
@@ -84,13 +84,15 @@
     <Compile Include="Character\Character.cs" />
     <Compile Include="Character\MonsterComponents\Summoned\Dummy.cs" />
     <Compile Include="Character\MonsterComponents\Enemies\Skelett.cs" />
-    <Compile Include="Character\MonsterComponents\Enemies\IMove.cs" />
+    <Compile Include="Character\MonsterComponents\Enemies\SAbility.cs" />
     <Compile Include="Manager\_MonsterManager.cs" />
     <Compile Include="Information\SummonedsInformation.cs" />
     <Compile Include="Tools\AnimatedSprite.cs" />
     <Compile Include="Tools\Animation.cs" />
+    <Compile Include="Tools\_DebugShit.cs" />
     <Compile Include="Tools\SelectBar.cs" />
     <Compile Include="Bullets\SimpleBullet.cs" />
+    <Compile Include="Weapons\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -101,6 +103,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Attack_Information.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Bullet_Information.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Spell_Information.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

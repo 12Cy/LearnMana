@@ -12,7 +12,7 @@ namespace LearnMonoGame.Bullets
 {
     class FireWall : Bullet
     {
-        public FireWall(Rectangle _startPosition, Vector2 _direction, Texture2D texture, EBullet type) :
+        public FireWall(Rectangle _startPosition, Vector2 _direction, Texture2D texture, string type) :
             base(SpellManager.Instance.bulletInformation[type], _startPosition, _direction, texture, SpellManager.Instance.attackInformation[type])
         {
         }
@@ -29,7 +29,7 @@ namespace LearnMonoGame.Bullets
 
         public override void OnTrigger()
         {
-            _BulletManager.Instance.bullets.Add(new SimpleBullet(new Rectangle(positon.ToPoint(), Point.Zero), direction, _CM.GetTexture(_CM.TextureName.fireball), EBullet.FireBurn));
+            _BulletManager.Instance.bullets.Add(new SimpleBullet(new Rectangle(positon.ToPoint(), Point.Zero), direction, _CM.GetTexture(_CM.TextureName.fireball), "FireBurn"));
             base.OnTrigger();
         }
 

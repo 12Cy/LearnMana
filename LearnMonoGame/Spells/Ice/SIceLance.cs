@@ -13,7 +13,7 @@ namespace LearnMonoGame.Spells.Ice
     class SIceLance : Spell
     {
         
-        public SIceLance() : base(SpellManager.Instance.spellInformation[ESpell.SIceLance])
+        public SIceLance() : base(SpellManager.Instance.spellInformation["SIceLance"])
         {
 
         }
@@ -21,10 +21,10 @@ namespace LearnMonoGame.Spells.Ice
         {
             if (CastAble())
             {
-                _BulletManager.Instance.bullets.Add(new Bullets.SimpleBullet(new Rectangle(bounds.ToPoint(), Point.Zero), _target - bounds, _CM.GetTexture(_CM.TextureName.iceLance), EBullet.IceLance));
+                _BulletManager.Instance.bullets.Add(new Bullets.SimpleBullet(new Rectangle(bounds.ToPoint(), Point.Zero), _target - bounds, _CM.GetTexture(_CM.TextureName.iceLance), "IceLance"));
                 timer = 0;
                 channelTimer = 0;
-                PlayerManager.Instance.MyPlayer.ApplyEffect(new IMove(EMoveType.Attack, EStatus.Normal, _mana: -manaCost));
+                PlayerManager.Instance.MyPlayer.ApplyEffect(new SAbility(EMoveType.Attack, EStatus.Normal, _mana: new[] { -manaCost, -manaCost }));
             }
 
 

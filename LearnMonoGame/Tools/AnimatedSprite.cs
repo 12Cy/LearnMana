@@ -28,6 +28,7 @@ namespace LearnMonoGame.Tools
 
         //EffectsWorld
         manaSource,
+        moveClick,
         //Spells
         heal,
         burn,

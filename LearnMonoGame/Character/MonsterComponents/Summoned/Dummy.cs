@@ -21,7 +21,7 @@ namespace LearnMonoGame.Summoneds
 
             pos = _position;
 
-            creatureTexture = _CM.GetTexture(_CM.TextureName.malePlayer);
+            creatureTexture = _CM.GetTexture(_CM.TextureName.skelett);
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             selectedTexture = _CM.GetTexture(_CM.TextureName.selected);
 
@@ -46,12 +46,17 @@ namespace LearnMonoGame.Summoneds
 
         public override void Update(GameTime gameTime)
         {
+            
             MouseState aMouse = Mouse.GetState();
 
             if (IsSelect && aMouse.RightButton == ButtonState.Pressed)
             {
+                
+                moveDestination = new Vector2((int)posDestination.X - width/2, (int)posDestination.Y - height);
+                isRunning = true;
+                moveDestinationAnimation.IsAnimating = true;
+                moveDestinationAnimation.Position = new Vector2(moveDestination.X + 16, moveDestination.Y + 48);
 
-                moveDestination = new Vector2((int)xIn.MousePosition.X, (int)xIn.MousePosition.Y);
             }
 
             Vector2 dif = moveDestination - pos; //VerbindungsVektor
