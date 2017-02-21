@@ -97,7 +97,7 @@ namespace LearnMonoGame.Summoneds
                 case "enemy":
                     printList = enemyList;
                     break;
-                case "mySummoned":
+                case "mysummoned":
                     printList = mySummoned;
                     break;
                 case "selected":
@@ -167,14 +167,14 @@ namespace LearnMonoGame.Summoneds
         {
             if (alignment == EAlignment.Enemy)
             {
-                if (bounds.Intersects(PlayerManager.Instance.MyPlayer.Bounds))
+                if (bounds.Intersects(PlayerManager.Instance.MyPlayer.HitBox))
                 {
                     return PlayerManager.Instance.MyPlayer;
                 }
 
                 foreach (Character c in mySummoned)
                 {
-                    if (c.Bounds.Intersects(bounds))
+                    if (c.HitBox.Intersects(bounds))
                     {
                         return c;
                     }
@@ -184,20 +184,20 @@ namespace LearnMonoGame.Summoneds
             {
                 foreach (Character c in enemyList)
                 {
-                    if (c.Bounds.Intersects(bounds))
+                    if (c.HitBox.Intersects(bounds))
                         return c;
                 }
             }
             else
             {
-                if (bounds.Intersects(PlayerManager.Instance.MyPlayer.Bounds))
+                if (bounds.Intersects(PlayerManager.Instance.MyPlayer.HitBox))
                 {
                     return PlayerManager.Instance.MyPlayer;
                 }
 
                 foreach (Character c in Instance.mySummoned)
                 {
-                    if (c.Bounds.Intersects(bounds))
+                    if (c.HitBox.Intersects(bounds))
                     {
                         return c;
                     }
@@ -205,7 +205,7 @@ namespace LearnMonoGame.Summoneds
 
                 foreach (Character c in enemyList)
                 {
-                    if (c.Bounds.Intersects(bounds))
+                    if (c.HitBox.Intersects(bounds))
                         return c;
                 }
             }
@@ -224,14 +224,14 @@ namespace LearnMonoGame.Summoneds
 
             if (alignment == EAlignment.Enemy)
             {
-                if (bounds.Intersects(PlayerManager.Instance.MyPlayer.Bounds))
+                if (bounds.Intersects(PlayerManager.Instance.MyPlayer.HitBox))
                 {
                     cList.Add(PlayerManager.Instance.MyPlayer);
                 }
 
                 foreach (Character c in mySummoned)
                 {
-                    if (c.Bounds.Intersects(bounds))
+                    if (c.HitBox.Intersects(bounds))
                     {
                         cList.Add(c);
                     }
@@ -241,20 +241,20 @@ namespace LearnMonoGame.Summoneds
             {
                 foreach (Character c in enemyList)
                 {
-                    if (c.Bounds.Intersects(bounds))
+                    if (c.HitBox.Intersects(bounds))
                         cList.Add(c);
                 }
             }
             else
             {
-                if (bounds.Intersects(PlayerManager.Instance.MyPlayer.Bounds))
+                if (bounds.Intersects(PlayerManager.Instance.MyPlayer.HitBox))
                 {
                     cList.Add(PlayerManager.Instance.MyPlayer);
                 }
 
                 foreach (Character c in Instance.mySummoned)
                 {
-                    if (c.Bounds.Intersects(bounds))
+                    if (c.HitBox.Intersects(bounds))
                     {
                         cList.Add(c);
                     }
@@ -262,7 +262,7 @@ namespace LearnMonoGame.Summoneds
 
                 foreach (Character c in enemyList)
                 {
-                    if (c.Bounds.Intersects(bounds))
+                    if (c.HitBox.Intersects(bounds))
                         cList.Add(c);
                 }
             }
@@ -277,18 +277,18 @@ namespace LearnMonoGame.Summoneds
             Vector2 origin = bounds.Location.ToVector2() + bounds.Size.ToVector2() / 2;
             if (alignment == EAlignment.Enemy)
             {
-                if ((PlayerManager.Instance.MyPlayer.Bounds.Location.ToVector2() - origin).Length() < range)
+                if ((PlayerManager.Instance.MyPlayer.HitBox.Location.ToVector2() - origin).Length() < range)
                 {
                     helpChar = PlayerManager.Instance.MyPlayer;
-                    range = (PlayerManager.Instance.MyPlayer.Bounds.Location.ToVector2() - origin).Length();
+                    range = (PlayerManager.Instance.MyPlayer.HitBox.Location.ToVector2() - origin).Length();
                 }
 
                 foreach (Character c in mySummoned)
                 {
-                    if ((c.Bounds.Location.ToVector2() - origin).Length() < range)
+                    if ((c.HitBox.Location.ToVector2() - origin).Length() < range)
                     {
                         helpChar = c;
-                        range = (c.Bounds.Location.ToVector2() - origin).Length();
+                        range = (c.HitBox.Location.ToVector2() - origin).Length();
                     }
                 }
             }
@@ -296,36 +296,36 @@ namespace LearnMonoGame.Summoneds
             {
                 foreach (Character c in enemyList)
                 {
-                    if ((c.Bounds.Location.ToVector2() - origin).Length() < range)
+                    if ((c.HitBox.Location.ToVector2() - origin).Length() < range)
                     {
                         helpChar = c;
-                        range = (c.Bounds.Location.ToVector2() - origin).Length();
+                        range = (c.HitBox.Location.ToVector2() - origin).Length();
                     }
                 }
             }
             else
             {
-                if ((PlayerManager.Instance.MyPlayer.Bounds.Location.ToVector2() - origin).Length() < range)
+                if ((PlayerManager.Instance.MyPlayer.HitBox.Location.ToVector2() - origin).Length() < range)
                 {
                     helpChar = PlayerManager.Instance.MyPlayer;
-                    range = (PlayerManager.Instance.MyPlayer.Bounds.Location.ToVector2() - origin).Length();
+                    range = (PlayerManager.Instance.MyPlayer.HitBox.Location.ToVector2() - origin).Length();
                 }
 
                 foreach (Character c in mySummoned)
                 {
-                    if ((c.Bounds.Location.ToVector2() - origin).Length() < range)
+                    if ((c.HitBox.Location.ToVector2() - origin).Length() < range)
                     {
                         helpChar = c;
-                        range = (c.Bounds.Location.ToVector2() - origin).Length();
+                        range = (c.HitBox.Location.ToVector2() - origin).Length();
                     }
                 }
 
                 foreach (Character c in enemyList)
                 {
-                    if ((c.Bounds.Location.ToVector2() - origin).Length() < range)
+                    if ((c.HitBox.Location.ToVector2() - origin).Length() < range)
                     {
                         helpChar = c;
-                        range = (c.Bounds.Location.ToVector2() - origin).Length();
+                        range = (c.HitBox.Location.ToVector2() - origin).Length();
                     }
                 }
             }

@@ -1,7 +1,7 @@
 ﻿name: FireBall
 speed: 350
 size: 12;12
-range: 700
+range: 500
 -
 
 name: FireWall

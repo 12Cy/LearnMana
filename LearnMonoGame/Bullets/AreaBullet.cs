@@ -50,17 +50,17 @@ namespace LearnMonoGame.Bullets
 
             foreach (Character c in MonsterManager.Instance.enemyList)
             {
-                if(me.Intersects(c.Bounds))
+                if(me.Intersects(c.HitBox))
                     c.ApplyEffect(effect);
            }
 
             foreach (Character c in MonsterManager.Instance.mySummoned)
             {
-                if (me.Intersects(c.Bounds))
+                if (me.Intersects(c.HitBox))
                     c.ApplyEffect(effect);
             }
             Character k = PlayerManager.Instance.MyPlayer;
-                if (me.Intersects(k.Bounds))
+                if (me.Intersects(k.HitBox))
                     k.ApplyEffect(effect);
         }
 

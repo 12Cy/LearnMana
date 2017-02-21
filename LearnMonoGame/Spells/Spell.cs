@@ -55,7 +55,7 @@ namespace LearnMonoGame.Spells
 
             int _range = 0;
             if(range != 0)
-                _range = (int)(me.Bounds.Location.ToVector2() - MonsterManager.Instance.CheckNearestCharacter(alignment, new Rectangle((int)_direction.X, (int)_direction.Y, 1, 1)).Bounds.Location.ToVector2()).Length();
+                _range = (int)(me.HitBox.Location.ToVector2() - MonsterManager.Instance.CheckNearestCharacter(alignment, new Rectangle((int)_direction.X, (int)_direction.Y, 1, 1)).HitBox.Location.ToVector2()).Length();
             if (timer >= maxTimer && channelTimer >= channelMax && me.CurrMana >= manaCost && (range == 0 || _range < range))
             {
                 return true;

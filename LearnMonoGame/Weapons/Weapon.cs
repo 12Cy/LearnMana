@@ -38,7 +38,7 @@ namespace LearnMonoGame.Weapons
         //Überprüft ob der Character überhaupt in Reichweite ist
         public bool CheckAttack(Character c, EAlignment alignment)
         {
-            if ((c.Bounds.Location.ToVector2() - PlayerManager.Instance.MyPlayer.Bounds.Location.ToVector2()).Length() < range)
+            if ((c.HitBox.Location.ToVector2() - PlayerManager.Instance.MyPlayer.HitBox.Location.ToVector2()).Length() < range)
                 return true;
             return false;
         }
@@ -72,7 +72,7 @@ namespace LearnMonoGame.Weapons
         /// <param name="c"></param>
         public void Attack(Character c, EAlignment alignment)
         {
-            if ((c.Bounds.Location.ToVector2() - PlayerManager.Instance.MyPlayer.Bounds.Location.ToVector2()).Length() < range)
+            if ((c.HitBox.Location.ToVector2() - PlayerManager.Instance.MyPlayer.HitBox.Location.ToVector2()).Length() < range)
                 PlayerManager.Instance.MyPlayer.ApplyEffect(attackEffect);
         }
 

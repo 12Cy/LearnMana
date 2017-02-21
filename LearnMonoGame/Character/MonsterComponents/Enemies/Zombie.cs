@@ -107,7 +107,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
                 else
                     animatedSprite.CurrentAnimation = AnimationKey.WalkLeft;
 
-                if (Math.Abs(motion.X / motion.Y) < offset)
+                if (Math.Abs(motion.X / motion.Y) < healthBarOffset)
                 {
                     if (motion.Y > 0)
                         animatedSprite.CurrentAnimation = AnimationKey.WalkDown;

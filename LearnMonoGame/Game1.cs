@@ -75,7 +75,7 @@ namespace LearnMonoGame
             Components.Add(new xIn(this));
             _CM myContentManager = new _CM(Content);
 
-            MediaPlayer.IsRepeating = true;
+            //MediaPlayer.IsRepeating = true;
 
             SAbility s = new SAbility();
             s.name = "HAllo";
@@ -93,10 +93,10 @@ namespace LearnMonoGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            mainSong = Content.Load<Song>("Music\\DanceAroundMana");
+            //mainSong = Content.Load<Song>("Music\\DanceAroundMana");
 
-            MediaPlayer.Play(mainSong);
-            MediaPlayer.Volume = 0f;
+            //MediaPlayer.Play(mainSong);
+            //MediaPlayer.Volume = 0f;
 
             // TODO: use this.Content to load your game content here
         }

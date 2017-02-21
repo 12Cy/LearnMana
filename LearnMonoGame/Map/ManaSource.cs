@@ -66,7 +66,7 @@ namespace LearnMonoGame.Map
             if (c.CharacterTyp == ECharacterTyp.enemy)
                 return;
 
-            Rectangle a = new Rectangle(c.Bounds.X + c.Bounds.Width/2, c.Bounds.Y + c.Bounds.Height, c.Bounds.Width/4 , c.Bounds.Height/4);
+            Rectangle a = new Rectangle(c.HitBox.X + c.HitBox.Width/2, c.HitBox.Y + c.HitBox.Height, c.HitBox.Width/4 , c.HitBox.Height/4);
             help = a;
 
 
