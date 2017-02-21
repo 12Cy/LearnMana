@@ -31,6 +31,9 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
             creatureTexture = _CM.GetTexture(_CM.TextureName.skelett);
             selectedTexture = _CM.GetTexture(_CM.TextureName.damageselect);
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
+
+            spellBook.AddSpell(new SFireball(Weapons.EAlignment.Enemy));
+
             Initialize();
         }
 
@@ -49,8 +52,10 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
 
         public override void Update(GameTime gameTime)
         {
-
-            MoveRandom(gameTime);
+            if (spellBook.Status == ESpellStatus.FoundTarget)
+                spellBook.Cast(gameTime, pos, PlayerManager.Instance.MyPlayer.Pos, this);
+            if(spellBook.Status != ESpellStatus.Channel)
+                MoveRandom(gameTime);
             base.Update(gameTime);
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -101,7 +106,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
                 else
                     animatedSprite.CurrentAnimation = AnimationKey.WalkLeft;
 
-                if (Math.Abs(motion.X / motion.Y) < offset)
+                if (Math.Abs(motion.X / motion.Y) < healthBarOffset)
                 {
                     if (motion.Y > 0)
                         animatedSprite.CurrentAnimation = AnimationKey.WalkDown;

@@ -180,7 +180,7 @@ namespace LearnMonoGame.PlayerComponents
             else
                 animatedSprite.CurrentAnimation = AnimationKey.WalkLeft;
 
-            if (Math.Abs(rangeDestination.X / rangeDestination.Y) < offset)
+            if (Math.Abs(rangeDestination.X / rangeDestination.Y) < healthBarOffset)
             {
                 if (rangeDestination.Y > 0)
                     animatedSprite.CurrentAnimation = AnimationKey.WalkDown;

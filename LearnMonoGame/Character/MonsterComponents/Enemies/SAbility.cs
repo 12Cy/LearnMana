@@ -123,16 +123,5 @@ namespace LearnMonoGame.Summoneds.Enemies
                 mana = _mana;
 
         }
-        public void Update(GameTime gameTime)
-        {
-        }
-        public void SetDelay(GameTime gameTime)
-        {
-            delay -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (delay < 0)
-                delay = 0;
-
-        }
     }
 }

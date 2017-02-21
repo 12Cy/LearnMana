@@ -140,7 +140,7 @@ namespace LearnMonoGame.Spells
 
             CheckTimeEvents(gameTime);
 
-            //ToDo: Feuerball zerstoeren
+            
             if (Vector2.Distance(startPosition, positon) > MAX_DISTANCE)
             {//Ist der Fireball außerhalb der Distance?
                 alive = false;
