@@ -11,12 +11,12 @@ Spawnt ein Skelett an der Position 200,200
 
 -----------------------------------------------
 
-destroy : id
-destroy : list
+kill : id
+kill : list
 
 Der Character mit der jeweiligen ID, oder Liste, wird zerstört
 
-destroy : SK1
+kill : SK1
 Das Skelett mit der ID SK1 wird zerstört.
 
 Hinweis:
