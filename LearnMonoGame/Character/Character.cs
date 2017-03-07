@@ -230,7 +230,7 @@ namespace LearnMonoGame.Summoneds
 
                 if (effects[i].Update(gameTime))
                 {
-                    ReRollEffect(effects[i].effect);
+                    ReRollEffect(effects[i]);
                     effects.RemoveAt(i--);
                 }
             }
@@ -261,6 +261,8 @@ namespace LearnMonoGame.Summoneds
 
         protected void Move(GameTime gameTime, Vector2 dif)
         {
+            if (statusClass.sleep)
+                return;
 
             if (dif.Length() < 3f)
             {//Ziel angekommen?
@@ -463,19 +465,6 @@ namespace LearnMonoGame.Summoneds
 
         void ApplyEffectWithoutDelay(SAbility iMove)
         {
-            if (SpellManager.Instance.rnd.Next(101) < iMove.spellChance)
-                ApplyEffect(SpellManager.Instance.attackInformation[iMove.spell]);
-
-            if (iMove.moveType == EMoveType.Attack)
-            {
-                CalculateHealth(-CalculateRandomValue(iMove.damage) * CalculateCritValue(iMove));
-                CalculateMana(CalculateRandomValue(iMove.mana));
-            }
-
-            if (iMove.moveType == EMoveType.Heal)
-                CalculateHealth(CalculateRandomValue(iMove.health) * CalculateCritValue(iMove));
-            if (iMove.moveType == EMoveType.Effect)
-                effects.Add(new TimerMove(iMove, iMove.duration));
 
 
 
@@ -505,14 +494,55 @@ namespace LearnMonoGame.Summoneds
             attributes.Defense += iMove.defense[0];
             attributes.Speed += iMove.speed[0];
             attributes.AttackSpeed += iMove.attackSpeed[0];
+
+            if(iMove.status == EStatus.Sleep)
+            {
+                TimerMove m = effects.Find((p) => p.effect.status == EStatus.Sleep && p.applyStatus);
+                if (m != null)
+                {
+                    m.applyStatus = false;
+                }
+                else
+                    statusClass.sleep = true;
+            }
+
+            if(iMove.status == EStatus.Paralysis)
+            {
+                TimerMove m = effects.Find((p) => p.effect.status == EStatus.Paralysis && p.applyStatus);
+                if (m != null)
+                {
+                    m.applyStatus = false;
+                }
+                else
+                    statusClass.paralyse = true;
+            }
+
+            if (SpellManager.Instance.rnd.Next(101) < iMove.spellChance)
+                ApplyEffect(SpellManager.Instance.attackInformation[iMove.spell]);
+
+            if (iMove.moveType == EMoveType.Attack)
+            {
+                CalculateHealth(-CalculateRandomValue(iMove.damage) * CalculateCritValue(iMove));
+                CalculateMana(CalculateRandomValue(iMove.mana));
+            }
+
+            if (iMove.moveType == EMoveType.Heal)
+                CalculateHealth(CalculateRandomValue(iMove.health) * CalculateCritValue(iMove));
+            if (iMove.moveType == EMoveType.Effect)
+                effects.Add(new TimerMove(iMove, iMove.duration));
+
         }
 
-        void ReRollEffect(SAbility iMove)
+        void ReRollEffect(TimerMove iMove)
         {
-            attributes.AttackDamage -= iMove.attackDamage[0];
-            attributes.Defense -= iMove.defense[0];
-            attributes.Speed -= iMove.speed[0];
-            attributes.AttackSpeed -= iMove.attackSpeed[0];
+            attributes.AttackDamage -= iMove.effect.attackDamage[0];
+            attributes.Defense -= iMove.effect.defense[0];
+            attributes.Speed -= iMove.effect.speed[0];
+            attributes.AttackSpeed -= iMove.effect.attackSpeed[0];
+            if (iMove.effect.status == EStatus.Sleep && iMove.applyStatus)
+                statusClass.sleep = false;
+            if (iMove.effect.status == EStatus.Paralysis && iMove.applyStatus)
+                statusClass.paralyse = false;
         }
 
         public void ApplyEffect(SAbility iMove)

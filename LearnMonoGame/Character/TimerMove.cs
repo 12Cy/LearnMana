@@ -14,9 +14,11 @@ namespace LearnMonoGame
         public SAbility effect;
         double timerDuration;
         double timerTrigger;
+        public bool applyStatus;
 
         public TimerMove(SAbility _effect, float duration)
         {
+            applyStatus = true;
             timerTrigger = 0;
             effect = _effect;
             timerDuration = duration;

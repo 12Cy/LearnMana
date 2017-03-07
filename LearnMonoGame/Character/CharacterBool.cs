@@ -14,8 +14,12 @@ namespace LearnMonoGame.Summoneds
             isAlive = true;
             hit = false;
             isSelected = false;
+            sleep = false;
+            paralyse = false;
         }
 
+        public bool paralyse;
+        public bool sleep;
         public bool isRunning;
         public bool isAlive;
         public bool hit;

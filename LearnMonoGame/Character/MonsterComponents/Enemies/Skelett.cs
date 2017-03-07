@@ -55,7 +55,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         {
             if (spellBook.Status == ESpellStatus.FoundTarget)
                 spellBook.Cast(gameTime, pos, PlayerManager.Instance.MyPlayer.Pos, this);
-            if(spellBook.Status != ESpellStatus.Channel)
+            if(spellBook.Status != ESpellStatus.Channel && !statusClass.sleep)
                 MoveRandom(gameTime);
             base.Update(gameTime);
         }

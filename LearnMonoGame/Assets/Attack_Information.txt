@@ -125,6 +125,12 @@ duration: 1
 trigger: 0,2
 effectArea: 32;32
 -
+name: IceSleep
+moveType: effect
+status: sleep
+element: 0;0;0;0;0;0;80
+duration: 10
+-
 
 [Light]
 name: HolyLight

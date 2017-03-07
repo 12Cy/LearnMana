@@ -70,6 +70,7 @@ namespace LearnMonoGame.PlayerComponents
             spellBook.AddSpell(new SIceTornado(EAlignment.All));
             Spellbook.AddSpell(new SFireInferno(EAlignment.Player));
             spellBook.AddSpell(new SIceFreeze(EAlignment.Player));
+            spellBook.AddSpell(new SIceSleep(EAlignment.Player));
             attributes.Alignment = EAlignment.Player;
             Initialize();
         }
