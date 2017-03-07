@@ -3,6 +3,7 @@ using LearnMonoGame.Components;
 using LearnMonoGame.GameStates;
 using LearnMonoGame.Manager;
 using LearnMonoGame.Summoneds.Enemies;
+using LearnMonoGame.Tools;
 using LearnMonoGame.Tools.Logger;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -75,7 +76,6 @@ namespace LearnMonoGame
             state = new TitleIntroState();
 
             // TODO: Add your initialization logic here
-            Components.Add(new xIn(this));
             _CM myContentManager = new _CM(Content);
 
             //MediaPlayer.IsRepeating = true;
@@ -83,6 +83,8 @@ namespace LearnMonoGame
             SAbility s = new SAbility();
             s.name = "HAllo";
             System.Console.WriteLine(s.name);
+
+            BoolClass.Init();
 
 
             base.Initialize();
@@ -125,13 +127,7 @@ namespace LearnMonoGame
                 Exit();
             }
 
-            HandleGameStates();
-            currState = state.Update(gameTime);
-
-
-            // TODO: Add your update logic here
-
-            Events.DoDebug();
+            GlobalUpdate(gameTime);
 
             base.Update(gameTime);
         }
@@ -164,9 +160,11 @@ namespace LearnMonoGame
 
                     case EGameState.MainmenuState:
                         state = new MainMenuState();
+                        BoolClass.InGameLevel = false;
                         break;
                     case EGameState.PlayState:
                         state = new PlayState(this);
+                        BoolClass.InGameLevel = true;
                         break;
 
                 }
@@ -175,6 +173,18 @@ namespace LearnMonoGame
             }
 
             prevState = currState;
+        }
+
+        void GlobalUpdate(GameTime gTime)
+        {
+
+            HandleGameStates();
+            currState = state.Update(gTime);
+
+            xIn.Update(gTime);
+
+            Events.DoDebug();
+
         }
     }
 }

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using LearnMonoGame.Manager;
+using LearnMonoGame.Tools;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace LearnMonoGame.Components
 {
@@ -16,13 +18,15 @@ namespace LearnMonoGame.Components
         Center
     }
 
-    public class xIn : GameComponent // add it to the list of components without creating a member variable in a class and forget about it
+    public class xIn // add it to the list of components without creating a member variable in a class and forget about it
     {
         private static KeyboardState currentKeyboardState = Keyboard.GetState();
         private static KeyboardState previousKeyboardState = Keyboard.GetState();
         private static MouseState currentMouseState = Mouse.GetState();
         private static MouseState previousMouseState = Mouse.GetState();
         private static Vector2 mouseposition = Vector2.Zero;
+
+        public static string StrMousePosition() => mouseposition.ToString();
 
         public static MouseState MouseState => currentMouseState;
 
@@ -40,11 +44,10 @@ namespace LearnMonoGame.Components
         public static Vector2 MousePosition => mouseposition;
 
         public xIn(Game game)
-        : base(game)
         {
         }
 
-        public override void Update(GameTime gameTime)
+        public static void Update(GameTime gameTime)
         {
             xIn.previousKeyboardState = xIn.currentKeyboardState;
             xIn.currentKeyboardState = Keyboard.GetState();
@@ -55,8 +58,6 @@ namespace LearnMonoGame.Components
                 mouseposition = currentMouseState.Position.ToVector2() * 1f/_MapStuff.Instance.camera.Zoom + _MapStuff.Instance.camera.Position;
             else
                 mouseposition = currentMouseState.Position.ToVector2();
-
-            base.Update(gameTime);
         }
         
 

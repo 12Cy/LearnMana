@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Map
 {
-    class ManaSource
+    public class ManaSource
     {
         Vector2 pos;
         int width;

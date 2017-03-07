@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Manager
 {
-    class _MapStuff
+    public class _MapStuff
     {
         public GraphicsDevice graphics;
         public Game1 game;
