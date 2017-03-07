@@ -24,18 +24,12 @@ namespace LearnMonoGame.Components
         private static MouseState previousMouseState = Mouse.GetState();
         private static Vector2 mouseposition = Vector2.Zero;
 
-        public static MouseState MouseState
-        {
-            get { return currentMouseState; }
-        }
-        public static KeyboardState KeyboardState
-        {
-            get { return currentKeyboardState; }
-        }
-        public static KeyboardState PreviousKeyboardState
-        {
-            get { return previousKeyboardState; }
-        }
+        public static MouseState MouseState => currentMouseState;
+
+        public static KeyboardState KeyboardState => currentKeyboardState;
+
+        public static KeyboardState PreviousKeyboardState => previousKeyboardState;
+
         public static MouseState PreviousMouseState
         {
             get { return previousMouseState; }
@@ -43,11 +37,8 @@ namespace LearnMonoGame.Components
         /// <MousePosition>
         /// MousePosition wird aktualisiert in der Update(Map mit eingerechnet)
         /// </MousePosition>
-        public static Vector2 MousePosition
-        {
-            get { return mouseposition; }
-        }
-        
+        public static Vector2 MousePosition => mouseposition;
+
         public xIn(Game game)
         : base(game)
         {
