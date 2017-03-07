@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using LearnMonoGame.Manager;
+using LearnMonoGame.Tools;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace LearnMonoGame.Components
 {
@@ -16,7 +18,7 @@ namespace LearnMonoGame.Components
         Center
     }
 
-    public class xIn : GameComponent // add it to the list of components without creating a member variable in a class and forget about it
+    public class xIn // add it to the list of components without creating a member variable in a class and forget about it
     {
         private static KeyboardState currentKeyboardState = Keyboard.GetState();
         private static KeyboardState previousKeyboardState = Keyboard.GetState();
@@ -24,18 +26,14 @@ namespace LearnMonoGame.Components
         private static MouseState previousMouseState = Mouse.GetState();
         private static Vector2 mouseposition = Vector2.Zero;
 
-        public static MouseState MouseState
-        {
-            get { return currentMouseState; }
-        }
-        public static KeyboardState KeyboardState
-        {
-            get { return currentKeyboardState; }
-        }
-        public static KeyboardState PreviousKeyboardState
-        {
-            get { return previousKeyboardState; }
-        }
+        public static string StrMousePosition() => mouseposition.ToString();
+
+        public static MouseState MouseState => currentMouseState;
+
+        public static KeyboardState KeyboardState => currentKeyboardState;
+
+        public static KeyboardState PreviousKeyboardState => previousKeyboardState;
+
         public static MouseState PreviousMouseState
         {
             get { return previousMouseState; }
@@ -43,17 +41,13 @@ namespace LearnMonoGame.Components
         /// <MousePosition>
         /// MousePosition wird aktualisiert in der Update(Map mit eingerechnet)
         /// </MousePosition>
-        public static Vector2 MousePosition
-        {
-            get { return mouseposition; }
-        }
-        
+        public static Vector2 MousePosition => mouseposition;
+
         public xIn(Game game)
-        : base(game)
         {
         }
 
-        public override void Update(GameTime gameTime)
+        public static void Update(GameTime gameTime)
         {
             xIn.previousKeyboardState = xIn.currentKeyboardState;
             xIn.currentKeyboardState = Keyboard.GetState();
@@ -64,8 +58,6 @@ namespace LearnMonoGame.Components
                 mouseposition = currentMouseState.Position.ToVector2() * 1f/_MapStuff.Instance.camera.Zoom + _MapStuff.Instance.camera.Position;
             else
                 mouseposition = currentMouseState.Position.ToVector2();
-
-            base.Update(gameTime);
         }
         
 

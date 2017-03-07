@@ -43,8 +43,10 @@
   <ItemGroup>
     <Compile Include="Bullets\AreaBullet.cs" />
     <Compile Include="Bullets\FireWall.cs" />
+    <Compile Include="Character\CharacterBool.cs" />
     <Compile Include="Character\MonsterComponents\Enemies\Zombie.cs" />
     <Compile Include="Character\MonsterComponents\Enemies\Wolf.cs" />
+    <Compile Include="Character\TimerMove.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Geometry\MyRectangle.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="Spells\Fire\SFireball.cs" />
     <Compile Include="Spells\Ice\SIceFreeze.cs" />
     <Compile Include="Spells\Ice\SIceLance.cs" />
+    <Compile Include="Spells\Ice\SIceSleep.cs" />
     <Compile Include="Spells\Ice\SIceTornado.cs" />
     <Compile Include="Spells\Light\SHolyLight.cs" />
     <Compile Include="Spells\Spell.cs" />
@@ -83,19 +86,21 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Manager\SpellManager.cs" />
-    <Compile Include="Information\Attributes.cs" />
+    <Compile Include="Character\Attributes.cs" />
     <Compile Include="Character\Character.cs" />
     <Compile Include="Character\MonsterComponents\Summoned\Dummy.cs" />
     <Compile Include="Character\MonsterComponents\Enemies\Skelett.cs" />
-    <Compile Include="Character\MonsterComponents\Enemies\SAbility.cs" />
+    <Compile Include="Character\SAbility.cs" />
     <Compile Include="Manager\_MonsterManager.cs" />
     <Compile Include="Information\SummonedsInformation.cs" />
     <Compile Include="Tools\AnimatedSprite.cs" />
     <Compile Include="Tools\Animation.cs" />
+    <Compile Include="Tools\BoolClass.cs" />
     <Compile Include="Tools\CheatConsole.cs" />
     <Compile Include="Tools\Collider\SAT.cs" />
     <Compile Include="Tools\Logger\LogBase.cs" />
     <Compile Include="Tools\Logger\LogHelper.cs" />
+    <Compile Include="Tools\MyMath.cs" />
     <Compile Include="Tools\_DebugShit.cs" />
     <Compile Include="Tools\SelectBar.cs" />
     <Compile Include="Bullets\SimpleBullet.cs" />

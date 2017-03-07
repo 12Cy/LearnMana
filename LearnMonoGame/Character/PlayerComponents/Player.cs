@@ -70,7 +70,8 @@ namespace LearnMonoGame.PlayerComponents
             spellBook.AddSpell(new SIceTornado(EAlignment.All));
             Spellbook.AddSpell(new SFireInferno(EAlignment.Player));
             spellBook.AddSpell(new SIceFreeze(EAlignment.Player));
-            characterTyp = ECharacterTyp.player;
+            spellBook.AddSpell(new SIceSleep(EAlignment.Player));
+            attributes.Alignment = EAlignment.Player;
             Initialize();
         }
 
@@ -82,8 +83,7 @@ namespace LearnMonoGame.PlayerComponents
         {
             moveDestination = pos;
 
-            characterTyp = ECharacterTyp.player;
-            element = EElement.none;
+            attributes.Alignment = EAlignment.Player;
 
             attackMode = false;
 
@@ -91,11 +91,6 @@ namespace LearnMonoGame.PlayerComponents
             animatedSprite = new AnimatedSprite(creatureTexture, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.player));
             animatedSprite.CurrentAnimation = AnimationKey.WalkRight;
             animatedSprite.Position = pos;
-
-
-
-            //Life & Mana
-            currentMana = maxMana;
 
             //life
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
@@ -161,14 +156,14 @@ namespace LearnMonoGame.PlayerComponents
             if (newState.IsKeyDown(Keys.K))
             {
                 CalculateHealth(-1);
-                hit = true;
+                statusClass.hit = true;
             }
             if (newState.IsKeyDown(Keys.I))
                 CalculateMana(-1);
             if (newState.IsKeyDown(Keys.O))
                 CalculateMana(1);
             if (newState.IsKeyDown(Keys.T))
-                hit = true;
+                statusClass.hit = true;
         }
 
         private void CastSpell(GameTime gTime)
@@ -204,9 +199,9 @@ namespace LearnMonoGame.PlayerComponents
 
                 //Setzt den ORIGIN! (!!!)
 
-                moveDestination = new Vector2((int)PosDestination.X - width / 2, (int)posDestination.Y - height);
+                moveDestination = new Vector2((int)PosDestination.X - attributes.Width / 2, (int)posDestination.Y - attributes.Height);
                 //moveDestinationAnimation.ResetAnimation();
-                isRunning = true;
+                statusClass.isRunning = true;
                 moveDestinationAnimation.IsAnimating = true;
                 moveDestinationAnimation.Position = new Vector2(moveDestination.X + 16, moveDestination.Y + 48);
             }
@@ -224,7 +219,7 @@ namespace LearnMonoGame.PlayerComponents
 
             //LB
 
-            if (isSelected || hit)
+            if (statusClass.isSelected || statusClass.hit)
             {
                 MouseState amouse = Mouse.GetState();
 
@@ -235,9 +230,9 @@ namespace LearnMonoGame.PlayerComponents
                 /// (SourceRectangle) :  Geht vom äußeren Rectangle aus(DesitinationRectangle)
                 ///  (2.Schicht) :  nehme die diff und verkleinere so die größe der Schicht.
                 /// </Lebensbalken>
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 3 + 9, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 3 + 9, (int)(width * ((float)currentMana / maxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
-                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 3 + 9, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - attributes.Height / 3 + 9, attributes.Width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - attributes.Height / 3 + 9, (int)(attributes.Width * ((float)attributes.CurrentMana / attributes.MaxMana)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Gainsboro);
+                spritebatch.Draw(manaTexture, new Rectangle((int)pos.X, (int)pos.Y - attributes.Height / 3 + 9, attributes.Width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
 
                 //spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
                 //spritebatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);

@@ -4,6 +4,7 @@ using LearnMonoGame.PlayerComponents;
 using LearnMonoGame.Spells;
 using LearnMonoGame.Spells.Fire;
 using LearnMonoGame.Tools;
+using LearnMonoGame.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -40,7 +41,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
 
         protected override void Initialize()
         {
-            characterTyp = ECharacterTyp.enemy;
+            attributes.Alignment = EAlignment.Enemy;
             moveDestination = pos;
             //currentHealth = 200000;
             // --- Animation ---
@@ -54,7 +55,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         {
             if (spellBook.Status == ESpellStatus.FoundTarget)
                 spellBook.Cast(gameTime, pos, PlayerManager.Instance.MyPlayer.Pos, this);
-            if(spellBook.Status != ESpellStatus.Channel)
+            if(spellBook.Status != ESpellStatus.Channel && !statusClass.sleep)
                 MoveRandom(gameTime);
             base.Update(gameTime);
         }
@@ -79,78 +80,13 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
                 moveDestination = new Vector2((int)(pos.X + random.NextDouble() * 80 - 40), (int)(pos.Y + random.NextDouble() * 80 - 40));                
 
             }
+
+
             Vector2 dif = moveDestination - pos; //VerbindungsVektor
 
-            if (dif.Length() < 3f)
-            {//Ziel angekommen?
-                if (StepsToWalk > StepsWalked)
-                {
-                    moveDestination = new Vector2((int)(pos.X + random.NextDouble() * 80 - 40), (int)(pos.Y + random.NextDouble() * 80 - 40));
-                    StepsWalked++;
-                }
-                else
-                {
-                    moveDestination = pos;
-                    dif = Vector2.Zero;
-
-                    return;
-                }
-            }
-            Vector2 motion = Vector2.Normalize(dif);
-
-            if (motion != Vector2.Zero)
-            {//Soll ich mich bewegen?
-                if (motion.X > 0)
-                    animatedSprite.CurrentAnimation = AnimationKey.WalkRight;
-
-                else
-                    animatedSprite.CurrentAnimation = AnimationKey.WalkLeft;
-
-                if (Math.Abs(motion.X / motion.Y) < healthBarOffset)
-                {
-                    if (motion.Y > 0)
-                        animatedSprite.CurrentAnimation = AnimationKey.WalkDown;
-                    else
-                        animatedSprite.CurrentAnimation = AnimationKey.WalkUp;
-                }
-            }
-            //Movement calculated
-            if (motion != Vector2.Zero)
-            {
-                //motion.Normalize();
-                motion *= (speed* (float)gameTime.ElapsedGameTime.TotalSeconds);
-
-                Vector2 newPosition = animatedSprite.Position + motion; // the position we are moving to is valid?
-
-                if (_MapStuff.Instance.map.Walkable(newPosition)
-                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, 0))
-                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(0, height))
-                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, height)))
-                {//Ist dort keine Collision?
-
-                    animatedSprite.Position = newPosition;
-                    pos = newPosition;
-                    animatedSprite.IsAnimating = true;
-                }
-                else
-                {//Collision vorhanden
-
-                    animatedSprite.ResetAnimation();
-                    animatedSprite.IsAnimating = false;
-                    moveDestination = new Vector2((int)(pos.X + random.NextDouble() * 60 - 30), (int)(pos.Y + random.NextDouble() * 60 - 30));
-                }
-
-                //ToDo: PATHFINDER
-
-            }
-            else
-            {
-                animatedSprite.ResetAnimation();
-                animatedSprite.IsAnimating = false;
-            }
-
-            animatedSprite.Update(gameTime);
+            Move(gameTime, dif);
         }
+        
 
 
 

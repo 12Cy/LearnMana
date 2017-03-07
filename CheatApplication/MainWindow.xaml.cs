@@ -1,6 +1,8 @@
 ﻿using LearnMonoGame;
 using LearnMonoGame.Components;
+using LearnMonoGame.Manager;
 using LearnMonoGame.Summoneds;
+using LearnMonoGame.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,7 +30,8 @@ namespace Debug
         enum EElement
         {
             Spawn,
-            Kill
+            Kill,
+            Debug
         }
 
 
@@ -53,6 +56,8 @@ namespace Debug
 
         private void UpdateDebugConsole()
         {
+            if (!BoolClass.InGameLevel)
+                return;
             HandleElement();
 
             switch (curr)
@@ -63,11 +68,17 @@ namespace Debug
                 case EElement.Kill:
                     UpdateKill();
                     break;
+                case EElement.Debug:
+                    UpdateDebug();
+                    break;
                 default:
                     break;
             }
 
         }
+
+        #region Update
+
 
         private void UpdateList()
         {
@@ -104,18 +115,43 @@ namespace Debug
             UpdateList();
         }
 
+        private void UpdateDebug()
+        {
+            Action act = () =>
+            {
+                txbMouse.Text = "Mouse: \t\t\t\t" +  xIn.StrMousePosition();
+                txbCamera.Text = "Camera: \t\t\t\t" + _MapStuff.Instance.camera.StrBounds();
+                txbBool.Text = BoolClass.StrBool();
+            };
+
+            txbMouse.Dispatcher.Invoke(act);
+        }
+
+        #endregion
+
         private void HandleElement()
         {
+            Action act;
             if (curr != prev)
             {
                 CollapsedAll();
                 switch (curr)
                 {
                     case EElement.Spawn:
-                        Action act = () =>
+                        act = () =>
                         {
                             stpList.Visibility = Visibility.Visible;
                             stpSpawn.Visibility = Visibility.Visible;
+                            
+                        };
+
+                        stpList.Dispatcher.Invoke(act);
+                        break;
+                    case EElement.Debug:
+                        act = () =>
+                        {
+                            stpDebug.Visibility = Visibility.Visible;
+
                         };
 
                         stpList.Dispatcher.Invoke(act);
@@ -148,21 +184,21 @@ namespace Debug
                 btnActivate.Background = new SolidColorBrush(Colors.Red);
         }
 
+        private void btnDebug_Click(object sender, RoutedEventArgs e)
+        {
+            curr = EElement.Debug;
+        }
+
         private void CollapsedAll()
         {
             Action act = () =>
             {
                 stpList.Visibility = Visibility.Collapsed;
                 stpSpawn.Visibility = Visibility.Collapsed;
+                stpDebug.Visibility = Visibility.Collapsed;
             };
 
-            stpList.Dispatcher.Invoke(act);
-
-            Action act2 = () =>
-            {
-                stpSpawn.Visibility = Visibility.Collapsed;
-            };
-            
+            stpList.Dispatcher.Invoke(act);            
         }
     }
 }

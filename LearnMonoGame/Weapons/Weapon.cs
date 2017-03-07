@@ -14,7 +14,18 @@ namespace LearnMonoGame.Weapons
     {
         Enemy,
         Player,
+        Summoned,
         All
+    }
+
+
+    //TODO: Ab In die Waffen-Klasse
+    public enum EWeaponStatus
+    {
+        NoTarget,
+        TargetFound,
+        Channel,
+        Attack
     }
     /// <summary>
     /// Eine Vorlage für NAHKAMPFWaffen.

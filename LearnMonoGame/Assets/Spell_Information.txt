@@ -46,6 +46,10 @@ name: SIceFreeze
 mana: 10
 cooldown: 1
 -
+name: SIceSleep
+mana: 5
+cooldown: 2
+-
 [Holy]
 name:SHolyLight
 mana: 10

@@ -104,8 +104,8 @@ namespace LearnMonoGame.Tools
                         #endregion
 
                         #region destroy
-                            //destroy : ID
-                            //destroy : SK1
+                            //kill : ID
+                            //kill : SK1
                         case "kill":
                             if (aryLine.Length != 2)
                                 throw new Exception("Wrong Format (" + line + ")");

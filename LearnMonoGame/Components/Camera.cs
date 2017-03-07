@@ -1,4 +1,5 @@
 ﻿using LearnMonoGame.Manager;
+using LearnMonoGame.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -9,14 +10,15 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Components
 {
-    class Camera
+    public class Camera
     {
-        int offsetPercent = 5;
+        int offsetPercent = 20;
         public Vector2 position;
         float zoom;
-        Rectangle bounds;
 
         public Rectangle Bounds { get { return new Rectangle((int)position.X, (int)position.Y, _MapStuff.Instance.x, _MapStuff.Instance.y); } }
+
+        public string StrBounds() => Bounds.ToString() + " Zoom: " + zoom;
 
         public float Zoom
         {
@@ -46,16 +48,21 @@ namespace LearnMonoGame.Components
             float difX = (float)offsetPercent / 100 * _MapStuff.Instance.x;
             float difY = (float)offsetPercent / 100 * _MapStuff.Instance.y;
 
-            MouseState aMouse = Mouse.GetState();
-            if (aMouse.X < difX)
-                position.X -= 5;
-            if (aMouse.X > _MapStuff.Instance.x - difX)
-                position.X += 5;
-            if (aMouse.Y < difY)
-                position.Y -= 5;
-            if (aMouse.Y > _MapStuff.Instance.y - difY)
-                position.Y += 5;
+            Vector2 aMouse = xIn.MousePosition;
 
+            BoolClass.MouseInsideWindow = Bounds.Contains(aMouse);
+
+            if (BoolClass.MouseInsideWindow)
+            {
+                if (aMouse.X < Bounds.X + difX)
+                    position.X -= 5;
+                if (aMouse.X > Bounds.Width + Bounds.X - difX)
+                    position.X += 5;
+                if (aMouse.Y < Bounds.Y + difY)
+                    position.Y -= 5;
+                if (aMouse.Y > Bounds.Height + Bounds.Y - difY)
+                    position.Y += 5;
+            }
             return
                 Matrix.CreateTranslation(new Vector3(-(int)position.X, -(int)position.Y, 1)) * Matrix.CreateScale(new Vector3(Zoom, Zoom, 1)) *  Matrix.CreateScale(new Vector3(new Vector2(1,1), 1));
 

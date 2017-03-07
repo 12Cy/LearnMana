@@ -11,6 +11,7 @@
             <TextBlock Text="Ein Element auswählen:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
             <Button Padding="5"  Content="Spawn" x:Name="btnSpawn" BorderThickness="1" Margin="5" Click="btnSpawn_Click"/>
             <Button Padding="5" Margin="5" Content="Kill" x:Name="btnKill" Click="btnKill_Click"/>
+            <Button x:Name="btnDebug"  Padding="5" Margin="5" Content="Debug" Click="btnDebug_Click" />
             <Button x:Name="btnActivate" Content="Activate" Padding="5" Margin="5" Click="btnActivate_Click" BorderBrush="#FFBB2626" Background="#FFF70F0F" IsHitTestVisible="True"/>
         </StackPanel>
         <StackPanel x:Name="stpSpawn" HorizontalAlignment="Left" Orientation="Horizontal">
@@ -30,6 +31,11 @@
                 <TextBlock x:Name="txbMySummoned" Text="mySummoned"/>
             </ComboBox>
             <TextBlock ScrollViewer.CanContentScroll="True" x:Name="txbList" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        </StackPanel>
+        <StackPanel x:Name="stpDebug">
+            <TextBlock x:Name="txbMouse"/>
+            <TextBlock x:Name="txbCamera" />
+            <TextBlock x:Name="txbBool"/>
         </StackPanel>
 
     </StackPanel>
