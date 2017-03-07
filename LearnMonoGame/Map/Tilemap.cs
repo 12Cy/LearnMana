@@ -112,7 +112,16 @@ namespace LearnMonoGame.Map
 
         public bool Walkable(Vector2 currentPosition)
         {
-            return _tileMap[(int)currentPosition.X / _tileSize.X, (int)currentPosition.Y / _tileSize.Y, 0].Walkable();
+            try
+            {
+                return _tileMap[(int)currentPosition.X / _tileSize.X, (int)currentPosition.Y / _tileSize.Y, 0].Walkable();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+
         }
 
         public bool ManaSource(Vector2 currentPosition)

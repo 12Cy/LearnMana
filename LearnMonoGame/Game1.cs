@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System;
 using System.Collections.Generic;
 
 namespace LearnMonoGame
@@ -24,7 +25,7 @@ namespace LearnMonoGame
         EGameState currState, prevState;
         Song mainSong;
 
-        
+        event EventHandler updateGui;
 
 
 
@@ -38,11 +39,13 @@ namespace LearnMonoGame
         {
             get { return screenRectangle; }
         }
+
+
         public Game1()
         {
             LogHelper.Instance.ResetAll();
             graphics = new GraphicsDeviceManager(this);
-            
+
 
             this.IsMouseVisible = true;
 
@@ -53,8 +56,8 @@ namespace LearnMonoGame
 
 
             Content.RootDirectory = "Content";
-           
-           
+
+
         }
 
         /// <summary>
@@ -118,7 +121,9 @@ namespace LearnMonoGame
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
                 Exit();
+            }
 
             HandleGameStates();
             currState = state.Update(gameTime);
@@ -126,9 +131,11 @@ namespace LearnMonoGame
 
             // TODO: Add your update logic here
 
+            Events.DoDebug();
+
             base.Update(gameTime);
         }
-      
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -143,7 +150,7 @@ namespace LearnMonoGame
             state.Draw(spriteBatch);
             state.DrawGUI(spriteBatch);
             base.Draw(gameTime);
-            
+
         }
 
         void HandleGameStates()

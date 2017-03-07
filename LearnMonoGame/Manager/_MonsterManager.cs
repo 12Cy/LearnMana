@@ -14,17 +14,41 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Summoneds
 {
-    class MonsterManager
+    public class MonsterManager
     {
-        
+
         public List<Character> enemyList = new List<Character>();
         public List<Character> mySummoned = new List<Character>();
         public List<Character> selectedList = new List<Character>();
 
         static MonsterManager instance;
 
+        public void SpawnCharacterAtMousePosition(string name)
+        {
+            if (!xIn.CheckMouseReleased(MouseButtons.Left))
+                return;
+            name = name.ToLower();
+            Vector2 position = xIn.MousePosition;
+            switch (name)
+            {
+                case "skelett":
+                    enemyList.Add(new Skelett(position));
+                    break;
+                case "wolf":
+                    enemyList.Add(new Wolf(position));
+                    break;
+                case "zombie":
+                    enemyList.Add(new Zombie(position));
+                    break;
+                default:
+                    Console.WriteLine("Didnt Found Character (" + name + ")");
+                    break;
+            }
+        }
+
         public void SpawnCharacter(string name, Vector2 position)
         {
+            name = name.ToLower();
             switch (name)
             {
                 case "skelett":
@@ -45,9 +69,9 @@ namespace LearnMonoGame.Summoneds
         public bool DestroyCharacter(string id)
         {
             id = id.ToUpper();
-            for(int i = 0; i < enemyList.Count; ++i)
+            for (int i = 0; i < enemyList.Count; ++i)
             {
-                if(string.Compare(enemyList[i].GetID,id) == 0)
+                if (string.Compare(enemyList[i].GetID, id) == 0)
                 {
                     enemyList.RemoveAt(i);
                     Console.WriteLine("Destroyed Character " + id);
@@ -69,6 +93,7 @@ namespace LearnMonoGame.Summoneds
 
         public void DestroyCharacterList(string type)
         {
+            type = type.ToLower();
             switch (type)
             {
                 case "enemy":
@@ -91,8 +116,9 @@ namespace LearnMonoGame.Summoneds
 
         public void PrintList(string type)
         {
+            type = type.ToLower();
             List<Character> printList = null;
-            switch(type)
+            switch (type)
             {
                 case "enemy":
                     printList = enemyList;
@@ -108,11 +134,43 @@ namespace LearnMonoGame.Summoneds
                     return;
             }
 
-            foreach(Character c in printList)
+            foreach (Character c in printList)
             {
                 Console.WriteLine(c.GetID + "  " + c.Pos);
             }
 
+        }
+
+
+        public string GetList(string type)
+        {
+            type = type.ToLower();
+            List<Character> printList = null;
+            string str = "";
+            switch (type)
+            {
+                case "enemy":
+                    printList = enemyList;
+                    break;
+                case "mysummoned":
+                    printList = mySummoned;
+                    break;
+                case "selected":
+                    printList = selectedList;
+                    break;
+                default:
+                    str = "Found no List of type (" + type + ")";
+                    break;
+            }
+
+            if (printList == null)
+                return "";
+            foreach (Character c in printList)
+            {
+                str += c.GetID + "  " + c.Pos + "\n";
+            }
+
+            return str;
         }
 
         public void GetDestination()
