@@ -150,26 +150,7 @@ namespace LearnMonoGame.Summoneds
 
         public virtual void UnloadContent() { }
 
-        //TODO: In Math-Klasse
-        float CalculateRandomValue(int[] ary)
-        {
-            int diff = ary[1] - ary[0];
 
-            return SpellManager.Instance.rnd.Next(diff + 1) + ary[0];
-        }
-
-        float CalculateCritValue(SAbility effect)
-        {
-            int diff = (int)effect.crit[1] * 100 - (int)effect.crit[0] * 100;
-
-            float value = SpellManager.Instance.rnd.Next(diff + 1) + effect.crit[0] * 100;
-
-            if (SpellManager.Instance.rnd.Next(101) < effect.critChance)
-                return value / 100f;
-            else
-                return 1;
-
-        }
 
         public virtual void Update(GameTime gameTime)
         {
@@ -222,9 +203,9 @@ namespace LearnMonoGame.Summoneds
             {
                 if (effects[i].Trigger(gameTime))
                 {
-                    CalculateHealth(CalculateRandomValue(effects[i].effect.health) * CalculateCritValue(effects[i].effect));
-                    CalculateHealth(-CalculateRandomValue(effects[i].effect.damage) * CalculateCritValue(effects[i].effect));
-                    CalculateMana(CalculateRandomValue(effects[i].effect.mana) * CalculateCritValue(effects[i].effect));
+                    CalculateHealth(MyMath.CalculateRandomValue(effects[i].effect.health) * MyMath.CalculateCritValue(effects[i].effect));
+                    CalculateHealth(-MyMath.CalculateRandomValue(effects[i].effect.damage) * MyMath.CalculateCritValue(effects[i].effect));
+                    CalculateMana(MyMath.CalculateRandomValue(effects[i].effect.mana) * MyMath.CalculateCritValue(effects[i].effect));
                 }
 
 
@@ -381,7 +362,6 @@ namespace LearnMonoGame.Summoneds
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            Console.WriteLine(collider.Width + "-" + collider.Height);
             Texture2D rectangle = new Texture2D(_MapStuff.Instance.graphics, collider.Width, collider.Height);
             Color[] data = new Color[collider.Width * collider.Height];
             for (int i = 0; i < data.Length; i++) data[i] = Color.Chocolate;
@@ -466,35 +446,6 @@ namespace LearnMonoGame.Summoneds
         void ApplyEffectWithoutDelay(SAbility iMove)
         {
 
-
-
-            if (iMove.attackDamage[0] > 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.attackDamage[0].ToString(), Color.OrangeRed));
-            else if (iMove.attackDamage[0] < 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.attackDamage[0].ToString(), Color.Orchid));
-
-            if (iMove.defense[0] > 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.defense[0].ToString(), Color.Gray));
-            else if (iMove.defense[0] < 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.defense[0].ToString(), Color.DarkSeaGreen));
-
-            if (iMove.speed[0] > 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.speed[0].ToString(), Color.Yellow));
-            else if (iMove.speed[0] < 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.speed[0].ToString(), Color.BlueViolet));
-
-            if (iMove.attackSpeed[0] > 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.attackSpeed[0].ToString(), Color.BlanchedAlmond));
-            else if (iMove.attackSpeed[0] < 0)
-                _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, iMove.attackSpeed[0].ToString(), Color.AliceBlue));
-
-
-            //TODO: Random-Values hinzufügen
-            attributes.AttackDamage += iMove.attackDamage[0];
-            attributes.Defense += iMove.defense[0];
-            attributes.Speed += iMove.speed[0];
-            attributes.AttackSpeed += iMove.attackSpeed[0];
-
             if(iMove.status == EStatus.Sleep)
             {
                 TimerMove m = effects.Find((p) => p.effect.status == EStatus.Sleep && p.applyStatus);
@@ -522,23 +473,24 @@ namespace LearnMonoGame.Summoneds
 
             if (iMove.moveType == EMoveType.Attack)
             {
-                CalculateHealth(-CalculateRandomValue(iMove.damage) * CalculateCritValue(iMove));
-                CalculateMana(CalculateRandomValue(iMove.mana));
+                CalculateHealth(-MyMath.CalculateRandomValue(iMove.damage) * MyMath.CalculateCritValue(iMove));
+                CalculateMana(MyMath.CalculateRandomValue(iMove.mana));
             }
 
             if (iMove.moveType == EMoveType.Heal)
-                CalculateHealth(CalculateRandomValue(iMove.health) * CalculateCritValue(iMove));
+                CalculateHealth(MyMath.CalculateRandomValue(iMove.health) * MyMath.CalculateCritValue(iMove));
             if (iMove.moveType == EMoveType.Effect)
-                effects.Add(new TimerMove(iMove, iMove.duration));
+            {
+                TimerMove m = new TimerMove(iMove, iMove.duration);
+                m.ApplyRandAttributes(attributes, this);
+                effects.Add(m);
+            }
 
         }
 
         void ReRollEffect(TimerMove iMove)
         {
-            attributes.AttackDamage -= iMove.effect.attackDamage[0];
-            attributes.Defense -= iMove.effect.defense[0];
-            attributes.Speed -= iMove.effect.speed[0];
-            attributes.AttackSpeed -= iMove.effect.attackSpeed[0];
+            iMove.ReRollAttributes(attributes, this);
             if (iMove.effect.status == EStatus.Sleep && iMove.applyStatus)
                 statusClass.sleep = false;
             if (iMove.effect.status == EStatus.Paralysis && iMove.applyStatus)

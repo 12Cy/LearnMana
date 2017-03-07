@@ -103,14 +103,14 @@ moveType: effect
 status: normal
 element: 0;0;0;0;0;0;80
 duration: 4
-speed: -40;-60
+speed: -60;-40
 attackSpeed: 6; 10
 -
 name: IceLance
 moveType: effect
 status: normal
-duration: 1
-speed: -100;-200
+duration: 4
+speed: -200;-100
 trigger: 0,5
 element: 0;0;0;0;0;0;50
 damage: 6;10
@@ -120,7 +120,7 @@ moveType: effect
 status: normal
 element: 0;0;0;0;0;0;70
 damage: 1;1
-speed: -50;-70
+speed: -70;-50
 duration: 1
 trigger: 0,2
 effectArea: 32;32

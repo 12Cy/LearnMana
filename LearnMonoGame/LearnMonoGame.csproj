@@ -100,6 +100,7 @@
     <Compile Include="Tools\Collider\SAT.cs" />
     <Compile Include="Tools\Logger\LogBase.cs" />
     <Compile Include="Tools\Logger\LogHelper.cs" />
+    <Compile Include="Tools\MyMath.cs" />
     <Compile Include="Tools\_DebugShit.cs" />
     <Compile Include="Tools\SelectBar.cs" />
     <Compile Include="Bullets\SimpleBullet.cs" />
