@@ -20,8 +20,15 @@ namespace LearnMonoGame
 
         public static void DoDebug()
         {
+            List<int> myFactory = new List<int>();
+            for(int i = 0; i <= myFactory.Count; i++)
+                Console.Error.WriteLine((myFactory[i]));
             debugUpdate();
+
         }
+
+       
+
 
     }
 }
