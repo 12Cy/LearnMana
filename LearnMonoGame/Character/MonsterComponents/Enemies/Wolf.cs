@@ -39,7 +39,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         }
         protected override void Initialize()
         {
-            characterTyp = ECharacterTyp.enemy;
+            attributes.Alignment = EAlignment.Enemy;
             moveDestination = pos;
             // --- Animation ---
             animatedSprite = new AnimatedSprite(creatureTexture, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.dummy));

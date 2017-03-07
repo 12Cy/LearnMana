@@ -9,51 +9,6 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Summoneds
 {
-    class PlayerInformation : Attributes
-    {
-        public PlayerInformation()
-        {
-            speed = 120;
-            maxHealth = 100;
-            attackSpeed = 0.3f;
-            maxMana = 100;
-            width = 64;
-            height = 64;
-
-        }
-    }
-    class SkelettInformation : Attributes
-    {
-        public SkelettInformation()
-        {
-            speed = 90;
-            maxHealth = 100;
-            width = 64;
-            height = 64;
-
-        }
-    }
-
-    class WolfInformation : Attributes
-    {
-        public WolfInformation()
-        {
-            speed = 90;
-
-        }
-    }
-    class DummyInformation : Attributes
-    {
-        #region properties
-        public DummyInformation()
-        {
-            speed = 120;
-            width = 64;
-            height = 64;
-        }
-
-        #endregion
-    }
     class SummonedsInformation
     {
 

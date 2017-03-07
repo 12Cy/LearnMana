@@ -4,6 +4,7 @@ using LearnMonoGame.PlayerComponents;
 using LearnMonoGame.Spells;
 using LearnMonoGame.Spells.Fire;
 using LearnMonoGame.Tools;
+using LearnMonoGame.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -40,7 +41,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
 
         protected override void Initialize()
         {
-            characterTyp = ECharacterTyp.enemy;
+            attributes.Alignment = EAlignment.Enemy;
             moveDestination = pos;
             //currentHealth = 200000;
             // --- Animation ---
@@ -118,14 +119,14 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
             if (motion != Vector2.Zero)
             {
                 //motion.Normalize();
-                motion *= (speed* (float)gameTime.ElapsedGameTime.TotalSeconds);
+                motion *= (attributes.Speed* (float)gameTime.ElapsedGameTime.TotalSeconds);
 
                 Vector2 newPosition = animatedSprite.Position + motion; // the position we are moving to is valid?
 
                 if (_MapStuff.Instance.map.Walkable(newPosition)
-                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, 0))
-                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(0, height))
-                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, height)))
+                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(attributes.Width, 0))
+                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(0, attributes.Height))
+                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(attributes.Width, attributes.Height)))
                 {//Ist dort keine Collision?
 
                     animatedSprite.Position = newPosition;

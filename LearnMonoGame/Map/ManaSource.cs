@@ -2,6 +2,7 @@
 using LearnMonoGame.PlayerComponents;
 using LearnMonoGame.Summoneds;
 using LearnMonoGame.Tools;
+using LearnMonoGame.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -63,7 +64,7 @@ namespace LearnMonoGame.Map
         }
         public void CheckCollisionWithManaSource(Character c)
         {
-            if (c.CharacterTyp == ECharacterTyp.enemy)
+            if (c.CharacterTyp == EAlignment.Enemy)
                 return;
 
             Rectangle a = new Rectangle(c.HitBox.X + c.HitBox.Width/2, c.HitBox.Y + c.HitBox.Height, c.HitBox.Width/4 , c.HitBox.Height/4);

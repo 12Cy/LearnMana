@@ -10,6 +10,7 @@ using LearnMonoGame.Manager;
 using LearnMonoGame.Tools;
 using Microsoft.Xna.Framework.Input;
 using LearnMonoGame.Components;
+using LearnMonoGame.Weapons;
 
 namespace LearnMonoGame.Summoneds
 {
@@ -25,8 +26,7 @@ namespace LearnMonoGame.Summoneds
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             selectedTexture = _CM.GetTexture(_CM.TextureName.selected);
 
-            characterTyp = ECharacterTyp.summoned;
-            element = EElement.none;
+            attributes.Alignment = EAlignment.Summoned;
 
             Initialize();
             Console.WriteLine("Dummy has beend created");
@@ -46,14 +46,14 @@ namespace LearnMonoGame.Summoneds
 
         public override void Update(GameTime gameTime)
         {
-            
+
             MouseState aMouse = Mouse.GetState();
 
             if (IsSelect && aMouse.RightButton == ButtonState.Pressed)
             {
-                
-                moveDestination = new Vector2((int)posDestination.X - width/2, (int)posDestination.Y - height);
-                isRunning = true;
+
+                moveDestination = new Vector2((int)posDestination.X - attributes.Width / 2, (int)posDestination.Y - attributes.Height);
+                statusClass.isRunning = true;
                 moveDestinationAnimation.IsAnimating = true;
                 moveDestinationAnimation.Position = new Vector2(moveDestination.X + 16, moveDestination.Y + 48);
 
@@ -64,7 +64,7 @@ namespace LearnMonoGame.Summoneds
             base.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch spriteBatch) 
+        public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
         }

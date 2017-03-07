@@ -19,63 +19,17 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Summoneds
 {
-    //TODO: In eine extra Klassen-Datei
-    public class TimerMove
-    {
-        public SAbility effect;
-        double timerDuration;
-        double timerTrigger;
-
-        public TimerMove(SAbility _effect, float duration)
-        {
-            timerTrigger = 0;
-            effect = _effect;
-            timerDuration = duration;
-        }
-
-        public bool Trigger(GameTime gTime)
-        {
-            timerTrigger += gTime.ElapsedGameTime.TotalSeconds;
-            if (timerTrigger >= effect.trigger)
-            {
-                timerTrigger = 0;
-                return true;
-            }
-            return false;
-        }
-
-        public bool Update(GameTime gTime)
-        {
-            timerDuration -= gTime.ElapsedGameTime.TotalSeconds;
-            if (timerDuration > 0) return false;
-            return true;
-        }
-    }
-
-    //TODO: Ab In die Waffen-Klasse
-    public enum EWeaponStatus
-    {
-        NoTarget,
-        TargetFound,
-        Channel,
-        Attack
-    }
+    
     public enum ECharacterTyp
     {
         player,
         enemy,
         summoned
     }
-    //TODO: Wie in SABility, Element in ein Array
-    public enum EElement
-    {
-        Dark, Earth, Fire, Light, Water, Wind, none
-    }
     public abstract class Character
     {
 
         #region Variable
-        //TODO: Bitte Löschen ... Direkt .GetTexture nutzen
         protected Texture2D creatureTexture;
         protected AnimatedSprite animatedSprite;
 
@@ -88,40 +42,22 @@ namespace LearnMonoGame.Summoneds
 
         //selected
         protected Texture2D selectedTexture;
-        protected bool isSelected;
         protected TimeSpan hitInformationTImer;
         //TODO: Nochmal über den Sinn nachdenken!
         protected Texture2D damageselectedTexture;
 
         //TODO: Status-Klasse für alle Booooooleans
+        public CharacterBool statusClass;
 
         //Movement
         protected Vector2 pos;
         protected Vector2 moveDestination; //Move richtung
         protected Vector2 posDestination; // position des Ziels!
-        protected bool isRunning; 
+
 
         //Life
         //TODO: Current-Attribute Klassen
         protected Texture2D lifeTexture;
-        protected bool isAlive;
-        protected bool hit;
-        protected float currentHealth;
-        protected float currentMana;
-        protected float maxMana;
-
-        //Attributes
-        protected int maxHealth;
-        protected float speed;
-        protected float attackSpeed;
-        //TODO: Auf späteres Meeting verschoben
-        protected int width;
-        protected int height;
-        protected int attackDamage;
-        protected float defense;
-
-        protected EElement element;
-        protected ECharacterTyp characterTyp;
 
         //Offset
         //TODO: Nochmal drüber Nachdenken (float,int) Offset
@@ -136,16 +72,11 @@ namespace LearnMonoGame.Summoneds
         //Modifier
 
         //TODO: In Attributes auslagern
-        protected float realSpeed;
-        protected float realAttackSpeed;
-        protected int realAttackDamage;
-        protected float realDefensiv;
+        protected Attributes attributes;
 
         //Weapon,Spell
         protected Spellbook spellBook;
         protected Weapon weapon;
-        //TODO: Eventuell mit ECharacterType mergen
-        protected EAlignment alignment; //Beeiflusst die Waffe, welche Ziele sie angreift.
         //TODO: Eventuell in Weapon auslagern
         protected EWeaponStatus weaponStatus;
 
@@ -156,24 +87,24 @@ namespace LearnMonoGame.Summoneds
 
         #region properties
 
-        public ECharacterTyp CharacterTyp { get { return characterTyp; } }
+        public EAlignment CharacterTyp { get { return attributes.Alignment; } }
         public List<TimerMove> Effects { get { return effects; } }
         public Vector2 Pos { get { return pos; } }
-        public bool IsSelect { get { return isSelected; } set { isSelected = value; } }
-        public int Width { get { return width; } }
-        public int Height { get { return height; } }
-        public bool IsAlive { get { return isAlive; } set { isAlive = value; } }
+        public bool IsSelect { get { return statusClass.isSelected; } set { statusClass.isSelected = value; } }
+        public int Width { get { return attributes.Width; } }
+        public int Height { get { return attributes.Height; } }
+        public bool IsAlive { get { return statusClass.isAlive; } set { statusClass.isAlive = value; } }
         public Rectangle HitBox { get { return hitBox; } }
-        public float RealSpeed { get { return realSpeed; } }
-        public float RealDefensiv { get { return realDefensiv; } }
-        public int RealAttackDamage { get { return realAttackDamage; } }
-        public float RealAttackSpeed { get { return realAttackSpeed; } }
+        public float RealSpeed { get { return attributes.RealSpeed; } }
+        public float RealDefensiv { get { return attributes.RealDefensiv; } }
+        public int RealAttackDamage { get { return attributes.RealAttackDamage; } }
+        public float RealAttackSpeed { get { return attributes.RealAttackSpeed; } }
         public Rectangle Collider { get { return collider; } set { collider = value; } }
         public Vector2 PosDestination { get { return posDestination; } set { posDestination = value; } }
 
         public string GetID { get { return id; } }
 
-        public float CurrMana { get { return currentMana; } }
+        public float CurrMana { get { return attributes.CurrentMana; } }
 
 
 
@@ -185,27 +116,23 @@ namespace LearnMonoGame.Summoneds
         {
             // --- Attributes --- (Hole mir alle Informationen von SummonedsInformation für das jeweilige Monster)
 
-         
-            speed = info.Speed;
-            width = info.Width;
-            height = info.Height;
-            maxHealth = info.MaxHealth;
-            defense = info.Defense;
-            maxMana = info.MaxMana;
+            attributes = new Attributes(info);
 
-            hitBox = new Rectangle((int)pos.X, (int)pos.Y, width, height);
-            collider = new Rectangle((int)pos.X, (int)pos.Y + height/3 * 2, width, height/3);
+            statusClass = new CharacterBool();
+
+            hitBox = new Rectangle((int)pos.X, (int)pos.Y, attributes.Width, attributes.Height);
+            collider = new Rectangle((int)pos.X, (int)pos.Y + attributes.Height /3 * 2, attributes.Width, attributes.Height /3);
             effects = new List<TimerMove>();
             delayEffects = new List<TimerMove>();
 
             // --- Life ---
-            currentHealth = maxHealth;
-            hit = false;
-            isAlive = true;
-            isSelected = false;
+            attributes.CurrentHealth = attributes.MaxHealth;
+            statusClass.hit = false;
+            statusClass.isAlive = true;
+            statusClass.isSelected = false;
             hitInformationTImer = TimeSpan.Zero;
 
-            isRunning = false;
+            statusClass.isRunning = false;
             moveAnimation = _CM.GetTexture(_CM.TextureName.animationClick);
 
             moveDestinationAnimation = new AnimatedSprite(moveAnimation, _AnimationManager.GetAnimation(_AnimationManager.AnimationName.move));
@@ -248,14 +175,14 @@ namespace LearnMonoGame.Summoneds
         {
             spellBook.Update(gameTime);
             moveDestinationAnimation.Update(gameTime);
-            collider = new Rectangle((int)pos.X + 10, (int)pos.Y + height / 3 * 2, width -20, height / 3);
+            collider = new Rectangle((int)pos.X + 10, (int)pos.Y + attributes.Height / 3 * 2, attributes.Width -20, attributes.Height / 3);
             UpdateEffects(gameTime);
 
             if (weapon != null)
-                WeaponUpdate(gameTime, alignment);
+                WeaponUpdate(gameTime, attributes.Alignment);
 
             //TODO: Hit Implementieren
-            if (hit)
+            if (statusClass.hit)
             {//Wenn der Spieler getroffen wurde, wird der LB angezeigt (für 1 Sekunde)
                 hitInformationTImer += gameTime.ElapsedGameTime;
 
@@ -263,21 +190,17 @@ namespace LearnMonoGame.Summoneds
                 {//1 Sekunde ist um, LB verschwindet
 
                     hitInformationTImer = TimeSpan.Zero;
-                    hit = false;
+                    statusClass.hit = false;
                 }
 
 
             }
 
-            
 
-            realAttackDamage = attackDamage;
-            realDefensiv = defense;
-            realSpeed = speed;
-            realAttackSpeed = attackSpeed;
+
 
             //TODO: Collider überarbeiten (CHRIS!)
-            hitBox = new Rectangle(pos.ToPoint(), new Point(width, height));
+            hitBox = new Rectangle(pos.ToPoint(), new Point(attributes.Width, attributes.Height));
 
 
         }
@@ -344,7 +267,7 @@ namespace LearnMonoGame.Summoneds
 
                 moveDestination = pos;
                 dif = Vector2.Zero;
-                isRunning = false;
+                statusClass.isRunning = false;
                 return;
             }
 
@@ -367,7 +290,7 @@ namespace LearnMonoGame.Summoneds
                         animatedSprite.CurrentAnimation = AnimationKey.WalkUp;
                 }
                 //motion.Normalize();
-                motion *= (speed * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                motion *= (attributes.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds);
 
                 Vector2 newPosition = animatedSprite.Position + motion; // the position we are moving to is valid?
          
@@ -376,12 +299,12 @@ namespace LearnMonoGame.Summoneds
 
                 //TODO: Map-Collider (Matthis)
                 if (_MapStuff.Instance.map.Walkable(newPosition)
-                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, 0))
-                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(0, height))
-                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(width, height)))
+                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(attributes.Width, 0))
+                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(0, attributes.Height))
+                  && _MapStuff.Instance.map.Walkable(newPosition + new Vector2(attributes.Width, attributes.Height)))
                 {//Ist dort keine Collision?
                     //TODO: Matthis! Überarbeiten, Auslagern Collision-Check Interface auslagern!
-                    if(characterTyp == ECharacterTyp.player)
+                    if(attributes.Alignment == EAlignment.Player)
                     {
                         foreach(Character b in MonsterManager.Instance.enemyList)
                         {
@@ -394,7 +317,7 @@ namespace LearnMonoGame.Summoneds
                                 return;
                         }
                     }
-                    if(characterTyp == ECharacterTyp.enemy)
+                    if(attributes.Alignment == EAlignment.Enemy)
                     {
                         foreach (Character b in MonsterManager.Instance.enemyList)
                         {
@@ -409,7 +332,7 @@ namespace LearnMonoGame.Summoneds
                                 return;
                         }
                     }
-                    if(characterTyp == ECharacterTyp.summoned)
+                    if(attributes.Alignment == EAlignment.Summoned)
                     {
                         foreach(Character c in MonsterManager.Instance.mySummoned)
                         {
@@ -456,6 +379,7 @@ namespace LearnMonoGame.Summoneds
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            Console.WriteLine(collider.Width + "-" + collider.Height);
             Texture2D rectangle = new Texture2D(_MapStuff.Instance.graphics, collider.Width, collider.Height);
             Color[] data = new Color[collider.Width * collider.Height];
             for (int i = 0; i < data.Length; i++) data[i] = Color.Chocolate;
@@ -463,11 +387,11 @@ namespace LearnMonoGame.Summoneds
             spriteBatch.Draw(rectangle, new Vector2((int)collider.X, (int)collider.Y), Color.Red);
 
             animatedSprite.Draw(spriteBatch);
-            if(isRunning && isSelected)
+            if(statusClass.isRunning && statusClass.isSelected)
                 moveDestinationAnimation.Draw(spriteBatch);
 
             //LB
-            if (isSelected)
+            if (statusClass.isSelected)
             {
                 /// <Lebensbalken>
                 /// Wir zeichnen zuerst  eine Background Farbe(1.Schicht), die Füllfarbe(2.Schicht), texture mit der Umrandung(3.Schicht).
@@ -476,22 +400,22 @@ namespace LearnMonoGame.Summoneds
                 /// (SourceRectangle) :  Geht vom äußeren Rectangle aus(DesitinationRectangle)
                 ///  (2.Schicht) :  nehme die diff und verkleinere so die größe der Schicht.
                 /// </Lebensbalken>
-                spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - attributes.Height / 4 - 5, attributes.Width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
 
-                if (characterTyp == ECharacterTyp.summoned || characterTyp == ECharacterTyp.player)
-                    spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
+                if (attributes.Alignment == EAlignment.Summoned || attributes.Alignment == EAlignment.Player)
+                    spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - attributes.Height / 4 - 5, (int)(attributes.Width * ((float)attributes.CurrentHealth / attributes.MaxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
                 else
-                    spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, (int)(width * ((float)currentHealth / maxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Red);
+                    spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - attributes.Height / 4 - 5, (int)(attributes.Width * ((float)attributes.CurrentHealth / attributes.MaxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Red);
 
-                spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - height / 4 - 5, width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+                spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - attributes.Height / 4 - 5, attributes.Width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
 
 
                 //if(isSelected)
                 //    spriteBatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
-                if (hit)
-                    spriteBatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
+                if (statusClass.hit)
+                    spriteBatch.Draw(damageselectedTexture, new Rectangle((int)pos.X, (int)pos.Y, attributes.Width, attributes.Height), Color.White);
                 else
-                    spriteBatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, width, height), Color.White);
+                    spriteBatch.Draw(selectedTexture, new Rectangle((int)pos.X, (int)pos.Y, attributes.Width, attributes.Height), Color.White);
 
             }
 
@@ -505,14 +429,14 @@ namespace LearnMonoGame.Summoneds
                 _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, value.ToString(), Color.GreenYellow));
             else if (value < 0)
                 _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, value.ToString(), Color.Red));
-            currentHealth += value;
-            if (currentHealth > maxHealth)
-                currentHealth = maxHealth;
+            attributes.CurrentHealth += value;
+            if (attributes.CurrentHealth > attributes.MaxHealth)
+                attributes.CurrentHealth = attributes.MaxHealth;
 
-            if (currentHealth < 0)
+            if (attributes.CurrentHealth < 0)
             {
-                currentHealth = 0;
-                isAlive = false;
+                attributes.CurrentHealth = 0;
+                statusClass.isAlive = false;
             }
 
 
@@ -525,13 +449,13 @@ namespace LearnMonoGame.Summoneds
                 _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, value.ToString(), Color.DarkBlue));
             else if (value < 0)
                 _ParticleManager.Instance.particles.Add(new PopUpText(pos + new Vector2(animatedSprite.Width / 2, animatedSprite.Height / 2) - new Vector2(10, 20), 2f, value.ToString(), Color.LightBlue));
-            currentMana += value;
-            if (currentMana > maxMana)
-                currentMana = maxMana;
+            attributes.CurrentMana += value;
+            if (attributes.CurrentMana > attributes.MaxMana)
+                attributes.CurrentMana = attributes.MaxMana;
 
-            if (currentMana < 0)
+            if (attributes.CurrentMana < 0)
             {
-                currentMana = 0;
+                attributes.CurrentMana = 0;
             }
 
 
@@ -577,18 +501,18 @@ namespace LearnMonoGame.Summoneds
 
 
             //TODO: Random-Values hinzufügen
-            attackDamage += iMove.attackDamage[0];
-            defense += iMove.defense[0];
-            speed += iMove.speed[0];
-            attackSpeed += iMove.attackSpeed[0];
+            attributes.AttackDamage += iMove.attackDamage[0];
+            attributes.Defense += iMove.defense[0];
+            attributes.Speed += iMove.speed[0];
+            attributes.AttackSpeed += iMove.attackSpeed[0];
         }
 
         void ReRollEffect(SAbility iMove)
         {
-            attackDamage -= iMove.attackDamage[0];
-            defense -= iMove.defense[0];
-            speed -= iMove.speed[0];
-            attackSpeed -= iMove.attackSpeed[0];
+            attributes.AttackDamage -= iMove.attackDamage[0];
+            attributes.Defense -= iMove.defense[0];
+            attributes.Speed -= iMove.speed[0];
+            attributes.AttackSpeed -= iMove.attackSpeed[0];
         }
 
         public void ApplyEffect(SAbility iMove)
