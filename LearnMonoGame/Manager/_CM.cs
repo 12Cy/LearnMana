@@ -87,6 +87,7 @@ namespace LearnMonoGame.Manager
             textureDictionary.Add(TextureName.wolf, Content.Load<Texture2D>("Monster//Wolf"));
             textureDictionary.Add(TextureName.skelett, Content.Load<Texture2D>("Monster//Skelett"));
             textureDictionary.Add(TextureName.zombie, Content.Load<Texture2D>("Monster//Zombie"));
+            textureDictionary.Add(TextureName.skeletonMage, Content.Load<Texture2D>("Monster//SkeletonMage"));
 
 
             //Spells
@@ -129,6 +130,7 @@ namespace LearnMonoGame.Manager
             manaSourceAnimation,
             skelett,
             zombie,
+            skeletonMage,
             animationClick,
             //TestArea
             _flower1,

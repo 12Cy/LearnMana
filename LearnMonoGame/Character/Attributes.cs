@@ -60,7 +60,7 @@ namespace LearnMonoGame.Summoneds
             speed = _speed;
             maxHealth = _maxHealth;
             defense = _defense;
-            maxMana = _maxHealth;
+            maxMana = _maxMana;
 
 
             currentMana = maxMana;
@@ -70,6 +70,7 @@ namespace LearnMonoGame.Summoneds
         public Attributes(Attributes attr)
             : this(attr.speed, attr.maxHealth,attr.attackSpeed, attr.defense, attr.maxMana, new Point(attr.width,attr.height))
         {
+
         }
 
         public void ResetRealValues()

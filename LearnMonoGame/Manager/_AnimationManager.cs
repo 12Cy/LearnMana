@@ -107,6 +107,24 @@ namespace LearnMonoGame.Manager
 
             AnimationDictionary.Add(AnimationName.zombie, zombieDic);
 
+            //MageDic
+            Dictionary<AnimationKey, Animation> mageDic = new Dictionary<AnimationKey, Animation>();
+
+
+            animation = new Animation(12, 64, 64, 0, 0);
+            mageDic.Add(AnimationKey.WalkDown, animation);
+
+            animation = new Animation(12, 64, 64, 0, 0);
+            mageDic.Add(AnimationKey.WalkLeft, animation);
+
+            animation = new Animation(12, 64, 64, 0, 0);
+            mageDic.Add(AnimationKey.WalkRight, animation);
+
+            animation = new Animation(12, 64, 64, 0, 0);
+            mageDic.Add(AnimationKey.WalkUp, animation);
+
+            AnimationDictionary.Add(AnimationName.skeletonMage, mageDic);
+
             #endregion
 
             #region effects
@@ -173,6 +191,7 @@ namespace LearnMonoGame.Manager
             effects,
             skelett,
             zombie,
+            skeletonMage,
             move
 
         }

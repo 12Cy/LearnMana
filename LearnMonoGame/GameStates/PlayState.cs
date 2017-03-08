@@ -100,6 +100,8 @@ namespace LearnMonoGame.GameStates
             MonsterManager.Instance.enemyList.Add(new Wolf(new Vector2(1630, 550)));
             MonsterManager.Instance.enemyList.Add(new Wolf(new Vector2(1690, 150)));
 
+            MonsterManager.Instance.enemyList.Add(new SkeletonMage(new Vector2(500, 1000)));
+
 
         }
 
@@ -148,6 +150,8 @@ namespace LearnMonoGame.GameStates
             {
                 a.Update(gTime);
             }
+
+            MonsterManager.Instance.SpawnCharacterInQueue();
 
 
             return EGameState.PlayState;

@@ -19,7 +19,7 @@ namespace LearnMonoGame.Weapons
     }
 
 
-    //TODO: Ab In die Waffen-Klasse
+
     public enum EWeaponStatus
     {
         NoTarget,

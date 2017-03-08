@@ -44,6 +44,7 @@
     <Compile Include="Bullets\AreaBullet.cs" />
     <Compile Include="Bullets\FireWall.cs" />
     <Compile Include="Character\CharacterBool.cs" />
+    <Compile Include="Character\MonsterComponents\Enemies\SkeletonMage.cs" />
     <Compile Include="Character\MonsterComponents\Enemies\Zombie.cs" />
     <Compile Include="Character\MonsterComponents\Enemies\Wolf.cs" />
     <Compile Include="Character\TimerMove.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Bullets\Bullet.cs" />
     <Compile Include="Particle\PopUpText.cs" />
     <Compile Include="Particle\SimpleParticle.cs" />
+    <Compile Include="Spells\Darkness\SCallSkeleton.cs" />
     <Compile Include="Spells\Fire\SFireBurn.cs" />
     <Compile Include="Spells\Fire\SFireInferno.cs" />
     <Compile Include="Spells\Fire\SFireWall.cs" />

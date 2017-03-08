@@ -74,6 +74,8 @@ namespace LearnMonoGame.Summoneds
         //TODO: In Attributes auslagern
         protected Attributes attributes;
 
+        public Vector2 AimPoint { get; set; }
+
         //Weapon,Spell
         protected Spellbook spellBook;
         protected Weapon weapon;
@@ -157,6 +159,7 @@ namespace LearnMonoGame.Summoneds
             spellBook.Update(gameTime);
             moveDestinationAnimation.Update(gameTime);
             collider = new Rectangle((int)pos.X + 10, (int)pos.Y + attributes.Height / 3 * 2, attributes.Width -20, attributes.Height / 3);
+            AimPoint = collider.Center.ToVector2();
             UpdateEffects(gameTime);
 
             if (weapon != null)
@@ -242,7 +245,7 @@ namespace LearnMonoGame.Summoneds
 
         protected void Move(GameTime gameTime, Vector2 dif)
         {
-            if (statusClass.sleep)
+            if (statusClass.sleep || weaponStatus == EWeaponStatus.Channel || spellBook.Status == ESpellStatus.Channel)
                 return;
 
             if (dif.Length() < 3f)

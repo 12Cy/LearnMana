@@ -30,7 +30,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
             selectedTexture = _CM.GetTexture(_CM.TextureName.damageselect);
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             Initialize();
-            weapon = new Weapon(new SAbility(EMoveType.Attack, EStatus.Normal,_name:"SwordAttack", _damage: new[] { 1, 5 },_crit: new[] { 2f, 4f }, _critChance: 30),1,100);
+            weapon = new Weapon(new SAbility(EMoveType.Attack, EStatus.Normal, _name: "SwordAttack", _damage: new[] { 1, 5 }, _crit: new[] { 2f, 4f }, _critChance: 30), 1, 100);
         }
         protected override void Initialize()
         {
@@ -44,8 +44,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         }
         public override void Update(GameTime gameTime)
         {
-            if (weaponStatus != EWeaponStatus.Channel)
-                MoveRandom(gameTime);
+            MoveRandom(gameTime);
 
 
             base.Update(gameTime);
@@ -77,7 +76,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
             {
                 StepsWalked = 0;
                 StepsToWalk = (int)(random.NextDouble() * 7 + 1);
-                moveDestination = new Vector2((int)(pos.X + random.NextDouble() * 80 - 40), (int)(pos.Y + random.NextDouble() * 80 - 40));                
+                moveDestination = new Vector2((int)(pos.X + random.NextDouble() * 80 - 40), (int)(pos.Y + random.NextDouble() * 80 - 40));
 
             }
             Vector2 dif = moveDestination - pos; //VerbindungsVektor

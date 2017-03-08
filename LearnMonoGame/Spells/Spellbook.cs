@@ -63,12 +63,13 @@ namespace LearnMonoGame.Spells
         {
             spell.Add(sp);
         }
+        
+        public
 
         bool CastChannel(GameTime gTime, Vector2 pos, Vector2 _direction, Character me)
         {
             if (index >= 0 && index < spell.Count)
                 return spell[index].Channel(gTime, pos, _direction, me);
-
             return true;
         }
 

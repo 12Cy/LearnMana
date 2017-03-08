@@ -21,7 +21,17 @@ namespace LearnMonoGame.Summoneds
         public List<Character> mySummoned = new List<Character>();
         public List<Character> selectedList = new List<Character>();
 
+        Queue<Character> spawnChar = new Queue<Character>();
+
         static MonsterManager instance;
+
+        public void SpawnCharacterInQueue()
+        {
+            while(spawnChar.Count > 0)
+            {
+                enemyList.Add(spawnChar.Dequeue());
+            }
+        }
 
         public void SpawnCharacterAtMousePosition(string name)
         {
@@ -32,13 +42,13 @@ namespace LearnMonoGame.Summoneds
             switch (name)
             {
                 case "skelett":
-                    enemyList.Add(new Skelett(position));
+                    spawnChar.Enqueue(new Skelett(position));
                     break;
                 case "wolf":
-                    enemyList.Add(new Wolf(position));
+                    spawnChar.Enqueue(new Wolf(position));
                     break;
                 case "zombie":
-                    enemyList.Add(new Zombie(position));
+                    spawnChar.Enqueue(new Zombie(position));
                     break;
                 default:
                     Console.WriteLine("Didnt Found Character (" + name + ")");
@@ -52,13 +62,13 @@ namespace LearnMonoGame.Summoneds
             switch (name)
             {
                 case "skelett":
-                    enemyList.Add(new Skelett(position));
+                    spawnChar.Enqueue(new Skelett(position));
                     break;
                 case "wolf":
-                    enemyList.Add(new Wolf(position));
+                    spawnChar.Enqueue(new Wolf(position));
                     break;
                 case "zombie":
-                    enemyList.Add(new Zombie(position));
+                    spawnChar.Enqueue(new Zombie(position));
                     break;
                 default:
                     Console.WriteLine("Didnt Found Character (" + name + ")");

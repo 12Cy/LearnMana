@@ -20,7 +20,7 @@ cooldown: 1
 name: SFireWall
 mana   : 10
 cooldown  : 1
-channelTime: 1
+channelTime: 2
 -
 name : SFireBurn
 mana  : 10
@@ -28,7 +28,7 @@ cooldown: 1
 range: 400
 -
 name: SFireInferno
-mana: 10
+mana: 5
 cooldown: 1
 channelTime: 1
 triggerTime: 0,1
@@ -54,4 +54,10 @@ cooldown: 2
 name:SHolyLight
 mana: 10
 cooldown: 1
+-
+[Darkness]
+name : SCallSkeleton
+mana: 20
+cooldown: 3
+channelTime: 1
 -
