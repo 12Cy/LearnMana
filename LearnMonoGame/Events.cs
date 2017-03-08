@@ -21,7 +21,11 @@ namespace LearnMonoGame
         public static void DoDebug()
         {
             debugUpdate();
+
         }
+
+       
+
 
     }
 }
