@@ -13,7 +13,7 @@ namespace LearnMonoGame.Manager
     {
         private static Dictionary<TextureName, Texture2D> textureDictionary = new Dictionary<TextureName, Texture2D>();
         private static Dictionary<FontName, SpriteFont> fontDictionary = new Dictionary<FontName, SpriteFont>();
-        static ContentManager Content;
+        public static ContentManager Content;
 
         public _CM(ContentManager _content)
         {

@@ -70,6 +70,7 @@
     <Compile Include="Character\PlayerComponents\Player.cs" />
     <Compile Include="Character\PlayerComponents\PlayerManager.cs" />
     <Compile Include="Bullets\Bullet.cs" />
+    <Compile Include="Map\TileSet.cs" />
     <Compile Include="Particle\PopUpText.cs" />
     <Compile Include="Particle\SimpleParticle.cs" />
     <Compile Include="Spells\Darkness\SCallSkeleton.cs" />
@@ -147,7 +148,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Level0_01.json">
+    <None Include="Assets\Level01.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

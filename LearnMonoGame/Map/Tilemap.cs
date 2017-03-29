@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Json;
 using System.IO;
 using LearnMonoGame.Tools.Logger;
 
@@ -15,14 +14,16 @@ namespace LearnMonoGame.Map
     public class Tilemap
     {
         Tile[,,] _tileMap;
-        Point _tileSize;
-        Point mapSize;
+        public Point _tileSize;
+        public Point mapSize;
         int layerHeight;
         List<TileLayer> tilelayers;
+        List<TileSet> tileSets;
 
         public Tilemap()
         {
             tilelayers = new List<TileLayer>();
+            tileSets = new List<TileSet>();
         }
 
         public static Tilemap ParseJson(string path)
@@ -31,18 +32,18 @@ namespace LearnMonoGame.Map
 
             List<string> strList = File.ReadAllLines(path).ToList();
 
-            strList[0].TrimStart('{');
+            strList[0] = strList[0].TrimStart('{');
 
             parseMain(tileMap, strList);
 
-            LogHelper.Instance.Log(Logtarget.Contructor, tileMap.ToString());
+            foreach (TileLayer t in tileMap.tilelayers)
+                t.CreateTiles(tileMap.tileSets, tileMap);
 
             return tileMap;
         }
 
         static void parseMain(Tilemap t, List<string> strList)
         {
-            Console.WriteLine("Check!");
             if (strList.Count == 0)
                 return;
 
@@ -51,34 +52,52 @@ namespace LearnMonoGame.Map
 
             s = s.Trim(' ', '"');
 
+            LogHelper.Instance.Log(Logtarget.ParserLog, "Main: " + s);
+
             string[] split = s.Split(':');
 
-            split[0] = split[0].Trim(' ', '"');
-            split[1] = split[1].Trim(' ', '"');
-
-            switch (split[0])
+            if (split.Length > 1)
             {
-                case "height":
-                    split[1] = split[1].Replace(',', ' ');
-                    t.mapSize.Y = int.Parse(split[1]);
-                    break;
-                case "width":
-                    split[1] = split[1].Replace(',', ' ');
-                    t.mapSize.X = int.Parse(split[1]);
-                    break;
-                case "tileheight":
-                    split[1] = split[1].Replace(',', ' ');
-                    t._tileSize.Y = int.Parse(split[1]);
-                    break;
-                case "tilewidth":
-                    split[1] = split[1].Replace(',', ' ');
-                    t._tileSize.X = int.Parse(split[1]);
-                    break;
-                case "layers":
-                    TileLayer.parseTileLayer(t.tilelayers, strList);
-                    break;
 
+                split[0] = split[0].Trim(' ', '"');
+                split[1] = split[1].Trim(' ', '"');
+
+                switch (split[0])
+                {
+                    case "height":
+                        split[1] = split[1].Replace(',', ' ');
+                        t.mapSize.Y = int.Parse(split[1]);
+                        LogHelper.Instance.Log(Logtarget.ParserLog, "Main.MapSize.Y: " + split[1]);
+                        break;
+                    case "width":
+                        split[1] = split[1].Replace(',', ' ');
+                        t.mapSize.X = int.Parse(split[1]);
+                        LogHelper.Instance.Log(Logtarget.ParserLog, "Main.MapSize.X: " + split[1]);
+                        break;
+                    case "tileheight":
+                        split[1] = split[1].Replace(',', ' ');
+                        t._tileSize.Y = int.Parse(split[1]);
+                        LogHelper.Instance.Log(Logtarget.ParserLog, "Main.TileSize.Y: " + split[1]);
+                        break;
+                    case "tilewidth":
+                        split[1] = split[1].Replace(',', ' ');
+                        t._tileSize.X = int.Parse(split[1]);
+                        LogHelper.Instance.Log(Logtarget.ParserLog, "Main.TileSize.X: " + split[1]);
+                        break;
+                    case "layers":
+                        LogHelper.Instance.Log(Logtarget.ParserLog, "StartLayer!");
+                        TileLayer.parseTileLayer(t.tilelayers, strList);
+                        LogHelper.Instance.Log(Logtarget.ParserLog, "FinishLayer!");
+                        break;
+                    case "tilesets":
+                        LogHelper.Instance.Log(Logtarget.ParserLog, "StartTileSet!");
+                        TileSet.ParseTileSet(t.tileSets, strList);
+                        LogHelper.Instance.Log(Logtarget.ParserLog, "FinishTileSet!");
+                        break;
+
+                }
             }
+
 
             parseMain(t, strList);
         }
@@ -87,7 +106,7 @@ namespace LearnMonoGame.Map
 
         public Tilemap(Texture2D[] textures, Texture2D bitMap, Point _tileSize)
         {
-            ParseJson("Assets/Level0_01.json");
+            ParseJson("Assets/Level01.json");
 
             layerHeight = 5;
             this._tileSize = _tileSize;
@@ -179,6 +198,7 @@ namespace LearnMonoGame.Map
 
         public bool Walkable(Vector2 currentPosition)
         {
+            /*
             try
             {
                 return _tileMap[(int)currentPosition.X / _tileSize.X, (int)currentPosition.Y / _tileSize.Y, 0].Walkable();
@@ -188,12 +208,16 @@ namespace LearnMonoGame.Map
                 Console.WriteLine(e.Message);
                 return false;
             }
+            */
+
+            return true;
 
         }
 
         public bool ManaSource(Vector2 currentPosition)
         {
-            return _tileMap[(int)currentPosition.X / _tileSize.X, (int)currentPosition.Y / _tileSize.Y, 0].ManaSource();
+            //return _tileMap[(int)currentPosition.X / _tileSize.X, (int)currentPosition.Y / _tileSize.Y, 0].ManaSource();
+            return false;
         }
 
         public void Update(GameTime gameTime)
@@ -202,7 +226,7 @@ namespace LearnMonoGame.Map
         }
         public void Draw(SpriteBatch spritebatch)
         {
-
+            /*
             for (int y = 0; y < _tileMap.GetLength(1); y++) //nur die höhe möchte ich haben
             {
 
@@ -219,7 +243,11 @@ namespace LearnMonoGame.Map
                         _tileMap[x, y, z].Draw(spritebatch);
                 }
             }
+            */
 
+
+            foreach (TileLayer t in tilelayers)
+                t.Draw(spritebatch);
 
         }
 

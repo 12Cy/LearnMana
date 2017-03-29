@@ -64,6 +64,7 @@ namespace LearnMonoGame.GameStates
             SpellManager.Instance.LoadInformation();
             SummonedsInformation.Instance.LoadInformation();
             //Erstellt im Singleton die Instanz der Map
+            /*
             _MapStuff.Instance.map = new Tilemap(new Texture2D[] 
             {
                 _CM.GetTexture(_CM.TextureName.stoneTile), //0
@@ -79,8 +80,12 @@ namespace LearnMonoGame.GameStates
                 _CM.GetTexture(_CM.TextureName._stone)      //10
 
             }, 
+
              
              _CM.GetTexture(_CM.TextureName.map), new Point(64,74/4));
+                         */
+
+            _MapStuff.Instance.map = Tilemap.ParseJson("Assets/Level01.json");
             _MapStuff.Instance.camera = new Camera();
             _MapStuff.Instance.camera.Zoom = 1f;
  
