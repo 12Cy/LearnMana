@@ -17,32 +17,64 @@ namespace LearnMonoGame.Map
         int[] data;
         Tile[] tiles;
         Texture2D layerTexture;
+        bool visible;
 
         public TileLayer()
         {
 
         }
 
+        public bool Walkable(Vector2 currentPosition)
+        {
+            try
+            {
+                return tiles[((int)currentPosition.Y / _MapStuff.Instance.map._tileSize.Y) * _MapStuff.Instance.map.mapSize.X + ((int)currentPosition.X / _MapStuff.Instance.map._tileSize.X)].Walkable();
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool ManaSource(Vector2 currentPosition)
+        {
+            try
+            {
+                return tiles[((int)currentPosition.Y / _MapStuff.Instance.map._tileSize.Y) * _MapStuff.Instance.map.mapSize.X + ((int)currentPosition.X / _MapStuff.Instance.map._tileSize.X)].Walkable();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(layerTexture, location.ToVector2(), Color.White);
+            if (visible)
+                spriteBatch.Draw(layerTexture, location.ToVector2(), Color.White);
 
             /*
             foreach (Tile t in tiles)
                 t.Draw(spriteBatch);
                 */
         }
-            
+
 
         public void CreateTiles(List<TileSet> tileSets, Tilemap tileMap)
         {
             tiles = new Tile[data.Length];
             layerTexture = new Texture2D(_MapStuff.Instance.graphics, tileMap.mapSize.X * tileMap._tileSize.X, tileMap.mapSize.Y * tileMap._tileSize.Y);
+
+            tileSets[0].LoadTexture();
+
             for (int i = 0; i < data.Length; ++i)
             {
                 Texture2D tileTexture = tileSets[0].GetTileTexture(data[i]);
-                tiles[i] = new Tile(tileTexture, new Vector2((i % tileMap.mapSize.X) * tileMap._tileSize.X, (i / tileMap.mapSize.Y) * tileMap._tileSize.Y), ETile.Terrain);
+                tiles[i] = new Tile(tileTexture, new Vector2((i % tileMap.mapSize.X) * tileMap._tileSize.X, (i / tileMap.mapSize.Y) * tileMap._tileSize.Y), tileSets[0].GetTileTypeFromIndex(data[i]));
 
+                if (data[i] == 0)
+                    continue;
+                
                 Rectangle dest = new Rectangle((i % tileMap.mapSize.X) * tileMap._tileSize.X, (i / tileMap.mapSize.Y) * tileMap._tileSize.Y, tileMap._tileSize.X, tileMap._tileSize.Y);
 
                 Color[] clr = new Color[tileMap._tileSize.X * tileMap._tileSize.Y];
@@ -50,7 +82,7 @@ namespace LearnMonoGame.Map
                 tileTexture.GetData(clr);
 
                 layerTexture.SetData(0, dest, clr, 0, clr.Length);
-                
+
             }
         }
 
@@ -95,6 +127,12 @@ namespace LearnMonoGame.Map
 
                 switch (split[0])
                 {
+                    case "visible":
+                        split[1] = split[1].Replace(',', ' ');
+                        t.visible = bool.Parse(split[1]);
+
+                        LogHelper.Instance.Log(Logtarget.ParserLog, "LayerSize.Visible: " + t.visible);
+                        break;
                     case "height":
                         split[1] = split[1].Replace(',', ' ');
                         t.size.Y = int.Parse(split[1]);

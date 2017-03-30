@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LearnMonoGame.Summoneds;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -18,16 +19,20 @@ namespace LearnMonoGame.Map
     {
         Vector2 _position;
         Texture2D _texture;
-        public ETile type;
+        public TileAttributes type;
 
 
 
-        public Tile(Texture2D _texture, Vector2 _position, ETile _type)
+        public Tile(Texture2D _texture, Vector2 _position, TileAttributes _type)
         {
             this._position = _position;
             this._texture = _texture;
             this.type = _type;
+
+            MonsterManager.Instance.SpawnCharacter(type.spawnEntity, _position);
         }
+
+
         public void Update(GameTime gameTime)
         {
 
@@ -38,11 +43,11 @@ namespace LearnMonoGame.Map
         }
         public bool Walkable()
         {
-            return type == ETile.Terrain || type == ETile.manaSource;
+            return type.walkable;
         }
         public bool ManaSource()
         {
-            return type == ETile.manaSource;
+            return type.manaSource;
         }
     }
 }

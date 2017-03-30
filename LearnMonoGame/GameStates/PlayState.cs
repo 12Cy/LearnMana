@@ -92,6 +92,7 @@ namespace LearnMonoGame.GameStates
 
             selectBar = new SelectBar();
             PlayerManager.Instance.MyPlayer = new Player(new Vector2(750, 250),_CM.GetTexture(_CM.TextureName.malePlayer));
+            /*
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(200, 200)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(600, 400)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(350, 260)));
@@ -106,6 +107,7 @@ namespace LearnMonoGame.GameStates
             MonsterManager.Instance.enemyList.Add(new Wolf(new Vector2(1690, 150)));
 
             MonsterManager.Instance.enemyList.Add(new SkeletonMage(new Vector2(500, 1000)));
+            */
 
 
         }

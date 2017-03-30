@@ -365,11 +365,14 @@ namespace LearnMonoGame.Summoneds
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            //TODO: Performance-Leak
+            /*
             Texture2D rectangle = new Texture2D(_MapStuff.Instance.graphics, collider.Width, collider.Height);
             Color[] data = new Color[collider.Width * collider.Height];
             for (int i = 0; i < data.Length; i++) data[i] = Color.Chocolate;
             rectangle.SetData(data);
             spriteBatch.Draw(rectangle, new Vector2((int)collider.X, (int)collider.Y), Color.Red);
+            */
 
             animatedSprite.Draw(spriteBatch);
             if(statusClass.isRunning && statusClass.isSelected)

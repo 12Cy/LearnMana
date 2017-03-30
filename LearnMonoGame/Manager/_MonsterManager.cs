@@ -51,7 +51,7 @@ namespace LearnMonoGame.Summoneds
                     spawnChar.Enqueue(new Zombie(position));
                     break;
                 default:
-                    Console.WriteLine("Didnt Found Character (" + name + ")");
+                    //Console.WriteLine("Didnt Found Character (" + name + ")");
                     break;
             }
         }
@@ -71,7 +71,7 @@ namespace LearnMonoGame.Summoneds
                     spawnChar.Enqueue(new Zombie(position));
                     break;
                 default:
-                    Console.WriteLine("Didnt Found Character (" + name + ")");
+                    //Console.WriteLine("Didnt Found Character (" + name + ")");
                     break;
             }
         }

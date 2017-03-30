@@ -10,6 +10,66 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Map
 {
+    class TileAttributes
+    {
+        public bool walkable;
+        public string spawnEntity;
+        public bool manaSource;
+
+        public TileAttributes()
+        {
+            walkable = true;
+            spawnEntity = "";
+            manaSource = false;
+        }
+
+        public static void ParseTileAttriutes(TileAttributes t, List<string> strList)
+        {
+            string str = strList[0];
+            strList.RemoveAt(0);
+
+            str = str.Trim();
+
+            LogHelper.Instance.Log(Logtarget.ParserLog, "TileAttributes: " + str);
+
+            string[] split = str.Split(':');
+
+            if (split.Length > 1)
+            {
+
+                split[0] = split[0].Trim(' ', '"');
+                split[1] = split[1].Trim(' ', '"');
+
+                switch (split[0])
+                {
+                    case "Walkable":
+                        split[1] = split[1].Replace(',', ' ');
+                        t.walkable = bool.Parse(split[1]);
+                        LogHelper.Instance.Log(Logtarget.ParserLog, "TileAttributes.Walkable: " + t.walkable);
+                        break;
+                    case "Spawn":
+                        split[1] = split[1].Replace(',', ' ');
+                        t.spawnEntity = split[1];
+                        LogHelper.Instance.Log(Logtarget.ParserLog, "TileAttributes.Spawn: " + t.spawnEntity);
+                        break;
+                    case "ManaSource":
+                        split[1] = split[1].Replace(',', ' ');
+                        t.manaSource = bool.Parse(split[1]);
+                        LogHelper.Instance.Log(Logtarget.ParserLog, "TileAttributes.ManaSource: " + t.manaSource);
+                        break;
+
+                }
+            }
+            else
+            {
+                if (split[0].Contains('}'))
+                    return;
+            }
+
+            ParseTileAttriutes(t, strList);
+
+        }
+    }
     class TileSet
     {
         int colum;
@@ -19,21 +79,30 @@ namespace LearnMonoGame.Map
         Texture2D textureTileSet;
         string name;
 
+        Dictionary<int, TileAttributes> dictTiles;
+
         public TileSet()
         {
-
+            dictTiles = new Dictionary<int, TileAttributes>();
         }
 
-        void LoadTexture()
+        public void LoadTexture()
         {
             string[] split = this.name.Split('/');
-            string name = split[split.Length-1];
+            string name = split[split.Length - 1];
             textureTileSet = _CM.Content.Load<Texture2D>("Map/TileSet/" + name.Split('.')[0]);
+        }
+
+        public TileAttributes GetTileTypeFromIndex(int index)
+        {
+            if (dictTiles.ContainsKey(index - 1))
+                return dictTiles[index - 1];
+            else
+                return new TileAttributes();
         }
 
         public Texture2D GetTileTexture(int index)
         {
-            LoadTexture();
 
             index--;
 
@@ -75,6 +144,40 @@ namespace LearnMonoGame.Map
                     return;
             }
             ParseTileSet(tileList, strList);
+        }
+
+        static void ParseTileProperties(TileSet t, List<string> strList)
+        {
+            string str = strList[0];
+            strList.RemoveAt(0);
+
+            str = str.Trim();
+
+            LogHelper.Instance.Log(Logtarget.ParserLog, "TileProperties: " + str);
+
+            string[] split = str.Split(':');
+
+            split[0] = split[0].Replace(',', ' ');
+
+            split[0] = split[0].Trim(' ', '"');
+
+            if (split[0].Contains('}'))
+                return;
+            else if (!split[0].Contains('{'))
+            {
+                int key = int.Parse(split[0]);
+                TileAttributes tAtt = new TileAttributes();
+                strList.RemoveAt(0);
+                TileAttributes.ParseTileAttriutes(tAtt, strList);
+
+                LogHelper.Instance.Log(Logtarget.ParserLog, "Key: " + key + " Walkable: " + tAtt.walkable + "|" + tAtt.spawnEntity);
+
+                t.dictTiles.Add(key, tAtt);
+
+
+            }
+
+            ParseTileProperties(t, strList);
         }
 
         static void ParseTileSet(TileSet t, List<string> strList)
@@ -125,6 +228,10 @@ namespace LearnMonoGame.Map
                         split[1] = split[1].Replace(',', ' ');
                         t.name = split[1];
                         LogHelper.Instance.Log(Logtarget.ParserLog, "TileSet.Name: " + t.name);
+                        break;
+                    case "tileproperties":
+                        strList.RemoveAt(0);
+                        ParseTileProperties(t, strList);
                         break;
 
                 }

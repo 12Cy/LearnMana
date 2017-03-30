@@ -16,6 +16,7 @@ namespace LearnMonoGame.Map
         Tile[,,] _tileMap;
         public Point _tileSize;
         public Point mapSize;
+        public Point realMapSize;
         int layerHeight;
         List<TileLayer> tilelayers;
         List<TileSet> tileSets;
@@ -36,8 +37,11 @@ namespace LearnMonoGame.Map
 
             parseMain(tileMap, strList);
 
+
             foreach (TileLayer t in tileMap.tilelayers)
                 t.CreateTiles(tileMap.tileSets, tileMap);
+
+            tileMap.realMapSize = new Point(tileMap.mapSize.X * tileMap._tileSize.X, tileMap.mapSize.Y * tileMap._tileSize.Y);
 
             return tileMap;
         }
@@ -116,15 +120,16 @@ namespace LearnMonoGame.Map
         }
         void BuildMap(Texture2D[] textures, Texture2D bitMap)
         {
+            /*
             Color[] colores = new Color[bitMap.Width * bitMap.Height];
 
             bitMap.GetData(colores);
 
-            /*
+            
                    TileMap: Die Tiles habene eine gewissen Größe (tileSize).
                    Wir berechnen für jedes Tail den Vector * TailSize um die genaue Position zu bestimmten!
                    Danach prüfen wir die Farben und ordnen dementsprechend Tiles zu
-            */
+            
 
             for (int y = 0; y < _tileMap.GetLength(1); y++) //nur die höhe möchte ich haben
             {
@@ -193,30 +198,31 @@ namespace LearnMonoGame.Map
 
                     }
                 }
+                
             }
+            */
         }
 
         public bool Walkable(Vector2 currentPosition)
         {
-            /*
-            try
+            foreach(TileLayer t in tilelayers)
             {
-                return _tileMap[(int)currentPosition.X / _tileSize.X, (int)currentPosition.Y / _tileSize.Y, 0].Walkable();
+                if (!t.Walkable(currentPosition))
+                    return false;
             }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }
-            */
 
             return true;
-
         }
 
         public bool ManaSource(Vector2 currentPosition)
         {
-            //return _tileMap[(int)currentPosition.X / _tileSize.X, (int)currentPosition.Y / _tileSize.Y, 0].ManaSource();
+            //TODO: Wird nicht verwendet :o
+            foreach (TileLayer t in tilelayers)
+            {
+                if (t.ManaSource(currentPosition))
+                    return true;
+            }
+
             return false;
         }
 
