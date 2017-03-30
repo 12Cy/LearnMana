@@ -87,10 +87,12 @@ namespace LearnMonoGame.Map
         string name;
 
         Dictionary<int, TileAttributes> dictTiles;
+        Dictionary<int, Texture2D> dictTextures;
 
         public TileSet()
         {
             dictTiles = new Dictionary<int, TileAttributes>();
+            dictTextures = new Dictionary<int, Texture2D>();
         }
 
         public void LoadTexture()
@@ -117,17 +119,29 @@ namespace LearnMonoGame.Map
 
             if (index >= 0)
             {
+                if (dictTextures.ContainsKey(index))
+                    tile = dictTextures[index];
+                else
+                {
+                    Rectangle source = new Rectangle((index % colum) * tileSize.X, (index / colum) * tileSize.Y, tileSize.X, tileSize.Y);
 
-                Rectangle source = new Rectangle((index % colum) * tileSize.X, (index / colum) * tileSize.Y, tileSize.X, tileSize.Y);
+                    tile = new Texture2D(_MapStuff.Instance.graphics, source.Width, source.Height);
+                    Color[] color = new Color[source.Width * source.Height];
+                    textureTileSet.GetData(0, source, color, 0, color.Length);
+                    tile.SetData(color);
 
-                tile = new Texture2D(_MapStuff.Instance.graphics, source.Width, source.Height);
-                Color[] color = new Color[source.Width * source.Height];
-                textureTileSet.GetData(0, source, color, 0, color.Length);
-                tile.SetData(color);
+                    dictTextures.Add(index, tile);
+                }
             }
             else
             {
-                tile = new Texture2D(_MapStuff.Instance.graphics, tileSize.X, tileSize.Y);
+                if (dictTextures.ContainsKey(-1))
+                    tile = dictTextures[index];
+                else
+                {
+                    dictTextures.Add(-1, new Texture2D(_MapStuff.Instance.graphics, tileSize.X, tileSize.Y));
+                    tile = dictTextures[-1];
+                }
             }
             return tile;
         }
