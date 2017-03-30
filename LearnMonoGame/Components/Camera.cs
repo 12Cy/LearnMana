@@ -64,7 +64,7 @@ namespace LearnMonoGame.Components
                     position.Y += 5;
             }
             return
-                Matrix.CreateTranslation(new Vector3(-(int)position.X, -(int)position.Y, 1)) * Matrix.CreateScale(new Vector3(Zoom, Zoom, 1)) *  Matrix.CreateScale(new Vector3(new Vector2(1,1), 1));
+                Matrix.CreateTranslation(new Vector3(-(int)position.X, -(int)position.Y, 0)) * Matrix.CreateScale(new Vector3(Zoom, Zoom, 1)) *  Matrix.CreateScale(new Vector3(new Vector2(1,1), 1));
 
             //Matrix.CreateTranslation(new Vector3(-_pos.X, -_pos.Y, 0)) *
             //                             Matrix.CreateRotationZ(Rotation) *

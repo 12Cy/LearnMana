@@ -251,10 +251,22 @@ namespace LearnMonoGame.Map
             }
             */
 
+            tilelayers[0].DrawTileTexture(spritebatch);
+            tilelayers[1].DrawTileTexture(spritebatch);
 
-            foreach (TileLayer t in tilelayers)
-                t.Draw(spritebatch);
+            for (int i = 2; i < tilelayers.Count; ++i)
+                tilelayers[i].DrawTiles(spritebatch);
 
+        }
+
+        public float GetLayerDepth(Vector2 position)
+        {
+            return (position.Y / _tileSize.Y) / mapSize.Y;
+        }
+
+        public float GetLayerDepth(Point position)
+        {
+            return (position.Y / (float)_tileSize.Y) / mapSize.Y;
         }
 
         public override string ToString()

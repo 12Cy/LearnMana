@@ -208,7 +208,7 @@ namespace LearnMonoGame.GameStates
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            spriteBatch.Begin(transformMatrix: _MapStuff.Instance.camera.GetViewMatrix(),blendState: BlendState.NonPremultiplied);
+            spriteBatch.Begin(transformMatrix: _MapStuff.Instance.camera.GetViewMatrix(), sortMode: SpriteSortMode.FrontToBack);
             _MapStuff.Instance.map.Draw(spriteBatch);
 
             PlayerManager.Instance.MyPlayer.Draw(spriteBatch);

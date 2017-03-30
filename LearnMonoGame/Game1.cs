@@ -138,7 +138,7 @@ namespace LearnMonoGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(ClearOptions.Target,Color.Black,0f,1);
 
             // TODO: Add your drawing code here
 

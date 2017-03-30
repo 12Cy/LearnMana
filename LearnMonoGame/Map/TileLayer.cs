@@ -30,7 +30,7 @@ namespace LearnMonoGame.Map
             {
                 return tiles[((int)currentPosition.Y / _MapStuff.Instance.map._tileSize.Y) * _MapStuff.Instance.map.mapSize.X + ((int)currentPosition.X / _MapStuff.Instance.map._tileSize.X)].Walkable();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -48,15 +48,19 @@ namespace LearnMonoGame.Map
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void DrawTileTexture(SpriteBatch spriteBatch)
         {
             if (visible)
-                spriteBatch.Draw(layerTexture, location.ToVector2(), Color.White);
+                spriteBatch.Draw(layerTexture, location.ToVector2(), layerDepth:0f);
+        }
 
-            /*
-            foreach (Tile t in tiles)
-                t.Draw(spriteBatch);
-                */
+        public void DrawTiles(SpriteBatch spriteBatch)
+        {
+
+            if (visible)
+                foreach (Tile t in tiles)
+                    t.Draw(spriteBatch);
+
         }
 
 
@@ -74,7 +78,7 @@ namespace LearnMonoGame.Map
 
                 if (data[i] == 0)
                     continue;
-                
+
                 Rectangle dest = new Rectangle((i % tileMap.mapSize.X) * tileMap._tileSize.X, (i / tileMap.mapSize.Y) * tileMap._tileSize.Y, tileMap._tileSize.X, tileMap._tileSize.Y);
 
                 Color[] clr = new Color[tileMap._tileSize.X * tileMap._tileSize.Y];

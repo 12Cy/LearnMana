@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using LearnMonoGame.Manager;
 
 namespace LearnMonoGame.Tools
 {
@@ -117,8 +118,7 @@ namespace LearnMonoGame.Tools
 
         public virtual void Draw( SpriteBatch spriteBatch) //vGameTime gameTime
         {
-
-            spriteBatch.Draw(texture, Position, animations[currentAnimation].CurrentFrameRect, Color.White);
+            spriteBatch.Draw(texture, Position, sourceRectangle: animations[currentAnimation].CurrentFrameRect, color: Color.White, layerDepth: _MapStuff.Instance.map.GetLayerDepth(Position + animations[currentAnimation].CurrentFrameRect.Size.ToVector2()));
         }
 
         public void LockToMap(Point mapSize)

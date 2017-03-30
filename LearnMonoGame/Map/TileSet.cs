@@ -15,9 +15,11 @@ namespace LearnMonoGame.Map
         public bool walkable;
         public string spawnEntity;
         public bool manaSource;
+        public Vector2 tileDepth;
 
         public TileAttributes()
         {
+            tileDepth = Vector2.Zero;
             walkable = true;
             spawnEntity = "";
             manaSource = false;
@@ -56,6 +58,11 @@ namespace LearnMonoGame.Map
                         split[1] = split[1].Replace(',', ' ');
                         t.manaSource = bool.Parse(split[1]);
                         LogHelper.Instance.Log(Logtarget.ParserLog, "TileAttributes.ManaSource: " + t.manaSource);
+                        break;
+                    case "DepthOffset":
+                        split[1] = split[1].Replace(',', ' ');
+                        t.tileDepth.Y = int.Parse(split[1]);                        
+                        LogHelper.Instance.Log(Logtarget.ParserLog, "TileAttributes.TileDepth.Y: " + t.tileDepth.Y);
                         break;
 
                 }

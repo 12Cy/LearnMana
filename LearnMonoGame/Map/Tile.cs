@@ -1,4 +1,5 @@
-﻿using LearnMonoGame.Summoneds;
+﻿using LearnMonoGame.Manager;
+using LearnMonoGame.Summoneds;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,12 +10,6 @@ using System.Threading.Tasks;
 
 namespace LearnMonoGame.Map
 {
-    enum ETile
-    {
-        stone,
-        Terrain,
-        manaSource
-    }
     class Tile
     {
         Vector2 _position;
@@ -39,7 +34,7 @@ namespace LearnMonoGame.Map
         }
         public void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(_texture, _position, Color.White);
+            spritebatch.Draw(_texture, position: _position, color: Color.White,layerDepth: _MapStuff.Instance.map.GetLayerDepth(_position + type.tileDepth));
         }
         public bool Walkable()
         {
