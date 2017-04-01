@@ -12,7 +12,7 @@ namespace LearnMonoGame.Map
 {
     class Tile
     {
-        Vector2 _position;
+        public Vector2 _position;
         Texture2D _texture;
         public TileAttributes type;
 

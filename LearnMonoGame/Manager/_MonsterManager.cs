@@ -25,6 +25,8 @@ namespace LearnMonoGame.Summoneds
 
         static MonsterManager instance;
 
+        #region SpawnDespawn
+
         public void SpawnCharacterInQueue()
         {
             while(spawnChar.Count > 0)
@@ -182,6 +184,8 @@ namespace LearnMonoGame.Summoneds
 
             return str;
         }
+
+        #endregion
 
         public void GetDestination()
         {
@@ -399,6 +403,11 @@ namespace LearnMonoGame.Summoneds
             }
 
             return helpChar;
+        }
+
+        public float DistanceBetweenTwoCharacters(Character c1, Character c2)
+        {
+            return (c2.HitBox.Location.ToVector2() - c1.HitBox.Location.ToVector2()).Length();
         }
 
         public static MonsterManager Instance

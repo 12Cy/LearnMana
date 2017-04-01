@@ -32,6 +32,7 @@ namespace LearnMonoGame.Summoneds
             Point size = new Point(64, 64);
             float defense = 1;
             float maxMana = 100;
+            int attackRange = 0;
 
             for (int line = 0; line < str.Length; ++line)
             {
@@ -44,7 +45,7 @@ namespace LearnMonoGame.Summoneds
                 {
 
                     LogHelper.Instance.Log(Logtarget.ParserLog, "Create CharacterInformations " + name);
-                    characterInformation.Add(name, new Attributes(speed,maxHealth,attackSpeed,defense,maxMana,size));
+                    characterInformation.Add(name, new Attributes(speed, maxHealth, attackSpeed, defense, maxMana, size, _attackRange: attackRange));
                     name = "null";
                     speed = 180;
                     maxHealth = 100;
@@ -52,6 +53,7 @@ namespace LearnMonoGame.Summoneds
                     size = new Point(64, 64);
                     defense = 1;
                     maxMana = 100;
+                    attackRange = 0;
                     continue;
                 }
 
@@ -91,6 +93,9 @@ namespace LearnMonoGame.Summoneds
                             break;
                         case "size":
                             size = new Point(int.Parse(aryValues[0]), int.Parse(aryValues[1]));
+                            break;
+                        case "attackRange":
+                            attackRange = int.Parse(aryValues[0]);
                             break;
                     }
                 }

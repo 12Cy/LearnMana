@@ -41,6 +41,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AI\AIScript.cs" />
+    <Compile Include="AI\FollowAttackScript.cs" />
+    <Compile Include="AI\MoveBackToHomeLocation.cs" />
     <Compile Include="Bullets\AreaBullet.cs" />
     <Compile Include="Bullets\FireWall.cs" />
     <Compile Include="Character\CharacterBool.cs" />
@@ -149,7 +152,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Level01.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\Level02.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

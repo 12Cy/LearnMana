@@ -21,6 +21,8 @@ namespace LearnMonoGame.Map
         List<TileLayer> tilelayers;
         List<TileSet> tileSets;
 
+        public static Vector2 startPlayerPosition;
+
         public Tilemap()
         {
             tilelayers = new List<TileLayer>();
@@ -110,7 +112,7 @@ namespace LearnMonoGame.Map
 
         public Tilemap(Texture2D[] textures, Texture2D bitMap, Point _tileSize)
         {
-            ParseJson("Assets/Level01.json");
+            ParseJson("Assets/Level02.json");
 
             layerHeight = 5;
             this._tileSize = _tileSize;

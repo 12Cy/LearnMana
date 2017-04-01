@@ -1,4 +1,5 @@
-﻿using LearnMonoGame.Components;
+﻿using LearnMonoGame.AI;
+using LearnMonoGame.Components;
 using LearnMonoGame.Manager;
 using LearnMonoGame.Map;
 using LearnMonoGame.Particle;
@@ -70,9 +71,7 @@ namespace LearnMonoGame.Summoneds
         protected List<TimerMove> delayEffects;
 
         //Modifier
-
-        //TODO: In Attributes auslagern
-        protected Attributes attributes;
+        public Attributes attributes;
 
         public Vector2 AimPoint { get; set; }
 
@@ -80,7 +79,9 @@ namespace LearnMonoGame.Summoneds
         protected Spellbook spellBook;
         protected Weapon weapon;
         //TODO: Eventuell in Weapon auslagern
-        protected EWeaponStatus weaponStatus;
+        public EWeaponStatus weaponStatus;
+
+        protected AIScript aiScript;
 
         Rectangle collider = new Rectangle();
         protected string id;
@@ -97,10 +98,6 @@ namespace LearnMonoGame.Summoneds
         public int Height { get { return attributes.Height; } }
         public bool IsAlive { get { return statusClass.isAlive; } set { statusClass.isAlive = value; } }
         public Rectangle HitBox { get { return hitBox; } }
-        public float RealSpeed { get { return attributes.RealSpeed; } }
-        public float RealDefensiv { get { return attributes.RealDefensiv; } }
-        public int RealAttackDamage { get { return attributes.RealAttackDamage; } }
-        public float RealAttackSpeed { get { return attributes.RealAttackSpeed; } }
         public Rectangle Collider { get { return collider; } set { collider = value; } }
         public Vector2 PosDestination { get { return posDestination; } set { posDestination = value; } }
 
@@ -180,13 +177,19 @@ namespace LearnMonoGame.Summoneds
 
             }
 
+            UpdateMovement(gameTime);
 
-
+       
 
             //TODO: Collider überarbeiten (CHRIS!)
             hitBox = new Rectangle(pos.ToPoint(), new Point(attributes.Width, attributes.Height));
 
 
+        }
+
+        void UpdateMovement(GameTime gTime)
+        {
+            Move(gTime, PosDestination - pos);
         }
 
         void UpdateEffects(GameTime gameTime)

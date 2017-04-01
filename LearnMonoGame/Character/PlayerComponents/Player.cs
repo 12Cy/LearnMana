@@ -96,6 +96,8 @@ namespace LearnMonoGame.PlayerComponents
             lifeTexture = _CM.GetTexture(_CM.TextureName.backLife);
             manaTexture = _CM.GetTexture(_CM.TextureName.backLife);
 
+            posDestination = pos;
+
             //Select
             selectedTexture = _CM.GetTexture(_CM.TextureName.selected);
             damageselectedTexture = _CM.GetTexture(_CM.TextureName.damageselect);
@@ -207,7 +209,7 @@ namespace LearnMonoGame.PlayerComponents
             }
 
             Vector2 dif = moveDestination - pos; //VerbindungsVektor
-            Move(gameTime, dif);
+            //Move(gameTime, dif);
 
         }
 

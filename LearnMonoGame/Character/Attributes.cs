@@ -17,6 +17,7 @@ namespace LearnMonoGame.Summoneds
         float maxMana = 100;
         float attackSpeed = 0;
         int attackDamage = 0;
+        int attackRange = 0;
 
         float currentHealth;
         float currentMana;
@@ -43,6 +44,7 @@ namespace LearnMonoGame.Summoneds
         public float CurrentMana { get { return currentMana; } set { currentMana = value; } }
         public int AttackDamage { get { return attackDamage; } set { attackDamage = value; } }
         public float AttackSpeed { get { return attackSpeed; } set { attackSpeed = value; } }
+        public int AttackRange { get { return attackRange; } set { attackRange = value; } }
 
         public float RealSpeed { get { return realSpeed; } set { realSpeed = value; } }
         public float RealAttackSpeed { get { return realAttackSpeed; } set { realAttackSpeed = value; } }
@@ -50,9 +52,8 @@ namespace LearnMonoGame.Summoneds
         public float RealDefensiv { get { return realDefensiv; } set { realDefensiv = value; } }
 
         public EAlignment Alignment { get { return alignment; } set { alignment = value; } }
-    
 
-        public Attributes(float _speed = 180, int _maxHealth = 100,float _attackSpeed = 0, float _defense = 1, float _maxMana = 100, Point _size = new Point(), EAlignment _alignment = EAlignment.All)
+        public Attributes(float _speed = 180, int _maxHealth = 100, float _attackSpeed = 0, float _defense = 1, float _maxMana = 100, Point _size = new Point(), EAlignment _alignment = EAlignment.All, int _attackRange = 0)
         {
             alignment = _alignment;
             width = _size.X;
@@ -61,14 +62,14 @@ namespace LearnMonoGame.Summoneds
             maxHealth = _maxHealth;
             defense = _defense;
             maxMana = _maxMana;
-
+            attackRange = _attackRange;
 
             currentMana = maxMana;
             currentHealth = maxHealth;
         }
 
         public Attributes(Attributes attr)
-            : this(attr.speed, attr.maxHealth,attr.attackSpeed, attr.defense, attr.maxMana, new Point(attr.width,attr.height))
+            : this(attr.speed, attr.maxHealth, attr.attackSpeed, attr.defense, attr.maxMana, new Point(attr.width, attr.height),attr.alignment, attr.attackRange)
         {
 
         }

@@ -83,8 +83,8 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
 
 
             Vector2 dif = moveDestination - pos; //VerbindungsVektor
-
-            Move(gameTime, dif);
+            PosDestination = dif;
+            //Move(gameTime, dif);
         }
         
 

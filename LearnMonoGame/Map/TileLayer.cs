@@ -69,12 +69,27 @@ namespace LearnMonoGame.Map
             tiles = new Tile[data.Length];
             layerTexture = new Texture2D(_MapStuff.Instance.graphics, tileMap.mapSize.X * tileMap._tileSize.X, tileMap.mapSize.Y * tileMap._tileSize.Y);
 
-            tileSets[0].LoadTexture();
-
+            foreach (TileSet t in tileSets)
+                t.LoadTexture();
+            
             for (int i = 0; i < data.Length; ++i)
             {
-                Texture2D tileTexture = tileSets[0].GetTileTexture(data[i]);
-                tiles[i] = new Tile(tileTexture, new Vector2((i % tileMap.mapSize.X) * tileMap._tileSize.X, (i / tileMap.mapSize.Y) * tileMap._tileSize.Y), tileSets[0].GetTileTypeFromIndex(data[i]));
+                Texture2D tileTexture = null;
+
+                int j;
+
+                for(j = 0; j < tileSets.Count && tileTexture == null; ++j)
+                {
+                    tileTexture = tileSets[j].GetTileTexture(data[i]);
+                }
+
+                --j;
+
+
+                tiles[i] = new Tile(tileTexture, new Vector2((i % tileMap.mapSize.X) * tileMap._tileSize.X, (i / tileMap.mapSize.Y) * tileMap._tileSize.Y), tileSets[j].GetTileTypeFromIndex(data[i]));
+
+                if (tiles[i].type.playerStartPosition)
+                    Tilemap.startPlayerPosition = tiles[i]._position;
 
                 if (data[i] == 0)
                     continue;

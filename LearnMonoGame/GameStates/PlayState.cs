@@ -85,13 +85,13 @@ namespace LearnMonoGame.GameStates
              _CM.GetTexture(_CM.TextureName.map), new Point(64,74/4));
                          */
 
-            _MapStuff.Instance.map = Tilemap.ParseJson("Assets/Level01.json");
+            _MapStuff.Instance.map = Tilemap.ParseJson("Assets/Level02.json");
             _MapStuff.Instance.camera = new Camera();
             _MapStuff.Instance.camera.Zoom = 1f;
  
 
             selectBar = new SelectBar();
-            PlayerManager.Instance.MyPlayer = new Player(new Vector2(750, 250),_CM.GetTexture(_CM.TextureName.malePlayer));
+            PlayerManager.Instance.MyPlayer = new Player(Tilemap.startPlayerPosition,_CM.GetTexture(_CM.TextureName.malePlayer));
             /*
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(200, 200)));
             MonsterManager.Instance.enemyList.Add(new Skelett(new Vector2(600, 400)));

@@ -10,6 +10,7 @@ maxHealth : 400
 maxMana : 100
 width : 64
 height : 64
+attackRange: 250
 -
 name: Wolf
 speed : 90
