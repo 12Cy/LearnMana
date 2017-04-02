@@ -237,6 +237,7 @@ namespace LearnMonoGame.Summoneds
         /// <returns>Gibt Null zurück, wenn keine gefunden wurde.</returns>
         public Character CheckCollisionOne(EAlignment alignment, Rectangle bounds)
         {
+            Console.WriteLine(alignment);
             if (alignment == EAlignment.Enemy)
             {
                 if (bounds.Intersects(PlayerManager.Instance.MyPlayer.HitBox))
@@ -256,6 +257,7 @@ namespace LearnMonoGame.Summoneds
             {
                 foreach (Character c in enemyList)
                 {
+                    Console.WriteLine(bounds + "|" + c.HitBox);
                     if (c.HitBox.Intersects(bounds))
                         return c;
                 }

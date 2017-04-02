@@ -9,26 +9,20 @@ using Microsoft.Xna.Framework;
 
 namespace LearnMonoGame.AI
 {
-    class MoveBackToHomeLocation : AIScript
+    class HealSelfScript : AIScript
     {
-        Vector2 homeLocation;
-
-
-        public MoveBackToHomeLocation(EAlignment alignment, Vector2 _home) : base(alignment)
+        public HealSelfScript(EAlignment alignment) : base(alignment)
         {
-            homeLocation = _home;
         }
 
         public override bool DoScript(GameTime gTime, Character c)
         {
-            if ((c.Pos - homeLocation).Length() < 2f)
+            if (c.attributes.CurrentHealth < c.attributes.MaxHealth)
             {
-                return true;
+                c.spellBook.Cast(gTime, c.HitBox.Location.ToVector2(), c.HitBox.Location.ToVector2(), c);
             }
 
-            c.PosDestination = homeLocation;
-            return false;
-            
+            return true;
         }
     }
 }

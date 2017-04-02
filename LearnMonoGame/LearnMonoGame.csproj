@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AI\AIScript.cs" />
     <Compile Include="AI\FollowAttackScript.cs" />
+    <Compile Include="AI\HealSelfScript.cs" />
     <Compile Include="AI\MoveBackToHomeLocation.cs" />
     <Compile Include="Bullets\AreaBullet.cs" />
     <Compile Include="Bullets\FireWall.cs" />

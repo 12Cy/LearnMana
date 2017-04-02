@@ -18,6 +18,7 @@ namespace LearnMonoGame.Spells.Light
     {
         public SHolyLight(EAlignment alignment) : base(SpellManager.Instance.spellInformation["SHolyLight"], alignment)
         {
+            Console.WriteLine(alignment);
         }
 
         public override void Cast(Vector2 bounds, Vector2 _direction, Character me)
@@ -26,6 +27,10 @@ namespace LearnMonoGame.Spells.Light
             {
                 Rectangle my = new Rectangle(_direction.ToPoint(), new Point(1, 1));
                 Character c = MonsterManager.Instance.CheckCollisionOne(alignment, my);
+
+
+
+
                 if (c == null)
                     return;
 

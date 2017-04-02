@@ -76,7 +76,7 @@ namespace LearnMonoGame.Summoneds
         public Vector2 AimPoint { get; set; }
 
         //Weapon,Spell
-        protected Spellbook spellBook;
+        public Spellbook spellBook;
         protected Weapon weapon;
         //TODO: Eventuell in Weapon auslagern
         public EWeaponStatus weaponStatus;
@@ -251,7 +251,7 @@ namespace LearnMonoGame.Summoneds
             if (statusClass.sleep || weaponStatus == EWeaponStatus.Channel || spellBook.Status == ESpellStatus.Channel)
                 return;
 
-            if (dif.Length() < 3f)
+            if (dif.Length() < 1f)
             {//Ziel angekommen?
 
                 moveDestination = pos;
@@ -391,14 +391,14 @@ namespace LearnMonoGame.Summoneds
                 /// (SourceRectangle) :  Geht vom äußeren Rectangle aus(DesitinationRectangle)
                 ///  (2.Schicht) :  nehme die diff und verkleinere so die größe der Schicht.
                 /// </Lebensbalken>
-                spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - attributes.Height / 4 - 5, attributes.Width, offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 45), Color.Gray);
+                spriteBatch.Draw(lifeTexture, destinationRectangle: new Rectangle((int)pos.X, (int)pos.Y - attributes.Height / 4 - 5, attributes.Width, offsetHeight), sourceRectangle: new Rectangle(0, 45, lifeTexture.Width, 45), color: Color.Gray, layerDepth: 0.9999f);
 
                 if (attributes.Alignment == EAlignment.Summoned || attributes.Alignment == EAlignment.Player)
-                    spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - attributes.Height / 4 - 5, (int)(attributes.Width * ((float)attributes.CurrentHealth / attributes.MaxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Aquamarine);
+                    spriteBatch.Draw(lifeTexture, destinationRectangle: new Rectangle((int)pos.X, (int)pos.Y - attributes.Height / 4 - 5, (int)(attributes.Width * ((float)attributes.CurrentHealth / attributes.MaxHealth)), offsetHeight), sourceRectangle: new Rectangle(0, 45, lifeTexture.Width, 44), color: Color.Aquamarine, layerDepth: 1f);
                 else
-                    spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - attributes.Height / 4 - 5, (int)(attributes.Width * ((float)attributes.CurrentHealth / attributes.MaxHealth)), offsetHeight), new Rectangle(0, 45, lifeTexture.Width, 44), Color.Red);
+                    spriteBatch.Draw(lifeTexture, destinationRectangle: new Rectangle((int)pos.X, (int)pos.Y - attributes.Height / 4 - 5, (int)(attributes.Width * ((float)attributes.CurrentHealth / attributes.MaxHealth)), offsetHeight), sourceRectangle: new Rectangle(0, 45, lifeTexture.Width, 44), color: Color.Red, layerDepth: 1f);
 
-                spriteBatch.Draw(lifeTexture, new Rectangle((int)pos.X, (int)pos.Y - attributes.Height / 4 - 5, attributes.Width, offsetHeight), new Rectangle(0, 0, lifeTexture.Width, 45), Color.White);
+                spriteBatch.Draw(lifeTexture, destinationRectangle: new Rectangle((int)pos.X, (int)pos.Y - attributes.Height / 4 - 5, attributes.Width, offsetHeight), sourceRectangle: new Rectangle(0, 0, lifeTexture.Width, 45), color: Color.White, layerDepth: 0.999f);
 
 
                 //if(isSelected)

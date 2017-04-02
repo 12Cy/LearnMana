@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LearnMonoGame.Weapons;
 using LearnMonoGame.AI;
+using LearnMonoGame.Spells.Light;
 
 namespace LearnMonoGame.Summoneds.Enemies.Monster
 {
@@ -20,6 +21,7 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
 
         AIScript homeScript;
         AIScript followerScript;
+        AIScript healScript;
 
         public Zombie(Vector2 _pos) : base(SummonedsInformation.Instance.characterInformation["Skelett"])
         {
@@ -33,6 +35,8 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
             followerScript = new FollowAttackScript(attributes.Alignment);
             homeScript = new MoveBackToHomeLocation(attributes.Alignment, pos);
             aiScript = followerScript;
+            spellBook.AddSpell(new SHolyLight(EAlignment.Player));
+            healScript = new HealSelfScript(EAlignment.Enemy);
         }
         protected override void Initialize()
         {
@@ -47,7 +51,8 @@ namespace LearnMonoGame.Summoneds.Enemies.Monster
         public override void Update(GameTime gameTime)
         {
             if (followerScript.DoScript(gameTime, this))
-                homeScript.DoScript(gameTime, this);
+                if (homeScript.DoScript(gameTime, this))
+                    healScript.DoScript(gameTime, this);
 
             base.Update(gameTime);
         }
